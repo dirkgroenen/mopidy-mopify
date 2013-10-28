@@ -1,18 +1,41 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Mopify</title>
+	
 		<link href="/webfonts/ss-standard.css" rel="stylesheet" />
-		 <link href="/style/style.css" rel="stylesheet" type="text/css">
+		<link href="/style/style.css" rel="stylesheet" type="text/css">
 	
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="http://heartcode-canvasloader.googlecode.com/files/heartcode-canvasloader-min-0.9.1.js"></script>
 		<script type="text/javascript" src="/mopidy/mopidy.js"></script>
+		<script type="text/javascript" src="/js/transit.js"></script>
 		<script type="text/javascript" src="/js/core.js"></script>
 		<script type="text/javascript" src="/js/player.js"></script>
 		<script type="text/javascript" src="/js/playlists.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var cl = new CanvasLoader('pageloader');
+				cl.setShape('spiral'); // default is 'oval'
+				cl.setDensity(12); // default is 40
+				cl.setRange(0.8); // default is 1.3
+				cl.setSpeed(1); // default is 2
+				cl.setFPS(16); // default is 24
+				cl.show(); // Hidden by default
+				
+				// This bit is only for positioning - not necessary
+				  var loaderObj = document.getElementById("canvasLoader");
+				loaderObj.style.position = "absolute";
+				loaderObj.style["top"] = ($(document).height()/2)+cl.getDiameter() * -0.5 + "px";
+				loaderObj.style["left"] = ($(document).width()/2)+cl.getDiameter() * -0.5 + "px";
+			});
+		</script>
 	</head>
 	
 	<body>
+		<div id='pageloader'></div>
 		<div id="viewport">
 			<div id="sidebar">
 				<a href='/'>
@@ -37,6 +60,16 @@
 					<div data-page="playlists" class='singlepage'>
 						<div id="playlistswrap">
 							<ul id="playlists">	</ul>
+						</div>
+						<div id="playlisttracks">
+							<div id="information">
+								<div id="art"><img src='/images/no-album-art.jpg' class='image' /><img src='/images/playbutton_big.png' class='play'/></div>
+								<div class='title'></div>
+								<div class='clear'></div>
+							</div>
+							<table class='tracks'>
+								<tr class='first'><th></th><th>Title</th><th>Artist</th><th>Dur.</th><th>Album</th></tr>
+							</table>
 						</div>
 					</div>
 				</div>

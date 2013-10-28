@@ -49,14 +49,19 @@ var setupVars = function(){
 
 function getAlbumCover(spotifyUri){
 	// Check cache
-	if(localStorage.getItem(spotifyUri)){
-		return localStorage.getItem(spotifyUri);
+	if(spotifyUri.search("spotify") != -1){
+		if(localStorage.getItem(spotifyUri)){
+			return localStorage.getItem(spotifyUri);
+		}
+		else{
+			$.getJSON("https://embed.spotify.com/oembed/?url="+spotifyUri+"&callback=?", function(data){
+				localStorage.setItem(spotifyUri, data.thumbnail_url);
+				return data.thumbnail_url;
+			});
+		}
 	}
 	else{
-		$.getJSON("https://embed.spotify.com/oembed/?url="+spotifyUri+"&callback=?", function(data){
-			localStorage.setItem(spotifyUri, data.thumbnail_url);
-			return data.thumbnail_url;
-		});
+		return "/images/no-album-art.jpg";
 	}
 }
 
@@ -67,7 +72,8 @@ function core(){
 		currentTrack = coreArray['currentTrack'];
 		// Place title and artist
 		$("#currentsong #meta .title").html(currentTrack.name);
-		$("#currentsong #meta .artist").html(currentTrack.artists[0].name);
+		
+		if(currentTrack.artists != undefined) $("#currentsong #meta .artist").html(currentTrack.artists[0].name);
 		
 		// Fill timebar
 		var seekBarTimeout = null;		
@@ -122,9 +128,21 @@ function paging(){
 		page = page.replace('#','');
 		$("#pagecontent .singlepage").hide();
 		$("#pagecontent .singlepage[data-page='"+page+"']").show();
+		
+		$(".menu li a").removeClass('active');
+		$(".menu li a[href='#"+page+"']").addClass('active');
 	}
 	
-	showPage(window.location.hash);
+	showPage(window.location.hash.split('/')[0]);
+}
+
+function secondsToString(seconds){
+	var seconds = seconds/1000;
+	var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
+	var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;	
+	numseconds = (numseconds.toString().length < 2) ? '0'+numseconds : numseconds;
+	
+	return numminutes+':'+numseconds;
 }
 
 mopidy.on("state:online", function () {

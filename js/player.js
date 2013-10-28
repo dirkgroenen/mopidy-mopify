@@ -27,7 +27,7 @@ mopidy.on("state:online", function () {
 	}
 	
 	// Show options on player hover
-	$("#currentsong").hover(function(){
+	$("#currentsong #playerwrap").hover(function(){
 		$(this).find("#options").stop().animate({top: '0px'},500);
 	},function(){
 		$(this).find("#options").stop().animate({top: '-'+($(this).find("#options").height()*1.5)+'px'},500);
@@ -84,7 +84,7 @@ mopidy.on("state:online", function () {
 	});
 	
 	// fill the tracklist
-	fillTracklist();
+	//fillTracklist();
 });
 
 function fillTracklist(){
