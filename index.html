@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="/webfonts/ss-standard.css" rel="stylesheet" />
+		 <link href="/style/style.css" rel="stylesheet" type="text/css">
+	
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="/mopidy/mopidy.js"></script>
+		<script type="text/javascript" src="/js/core.js"></script>
+		<script type="text/javascript" src="/js/player.js"></script>
+		<script type="text/javascript" src="/js/playlists.js"></script>
+	</head>
+	
+	<body>
+		<div id="viewport">
+			<div id="sidebar">
+				<a href='/'>
+					<div id="logo">
+						Mopify
+					</div>
+				</a>
+				
+				<div id="tabs">
+					<ul class="menu">
+						<li><a href='#browse'>Browse</a></li>
+						<li><a href='#playlists'>Playlists</a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="pagewrap">
+				<div id="pagecontent">
+					<div data-page="browse" class='singlepage'>
+						browse
+					</div>
+					
+					<div data-page="playlists" class='singlepage'>
+						<div id="playlistswrap">
+							<ul id="playlists">	</ul>
+						</div>
+					</div>
+				</div>
+				
+				<div id="currentsong">
+					<div id="playerwrap">
+						<div id="options">
+							<i class="ss-icon" id='volume'>highvolume</i> <i class="ss-icon" id='repeat'>repeat</i> <i class="ss-icon" id='shuffle'>shuffle</i>
+							<div id="volumecontrolwrap"><div id="volumecontrol"></div></div>
+						</div>
+						<div id="albumart">
+							<img src='/images/no-album-art.jpg' class='art'/>
+						</div>
+						<div id='timebarwrap'><div id='timebarfill'></div></div>
+						<div id="controls">
+							<i class="ss-icon" id='skipback'>skipback</i> <i class="ss-icon" id='playpause'>play</i> <i class="ss-icon" id='skipnext'>skipforward</i>
+						</div>
+						<div id="meta">
+							<span class='title'>Loading</span>
+							<span class='artist'></span>
+						</div>
+					</div>
+					<div id="tracklist">
+						<ul class='tracks'>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
