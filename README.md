@@ -13,7 +13,7 @@ Features
 Quick install
 -------------
 
-Download the Mopify master repository, unzip it and drop it somewhere on your Mopify System.  Then change the [settings of Mopidy](http://docs.mopidy.com/en/latest/config/) to make it work. 
+Download the Mopify master repository, unzip it and drop it (you can remove the Screenshots folder) somewhere on your Mopify System.  Then change the [settings of Mopidy](http://docs.mopidy.com/en/latest/config/) to make it work. 
 
 Example (assuming the Mopify client is in /var/www/mopify):
 ```code
