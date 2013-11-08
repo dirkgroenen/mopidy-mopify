@@ -13,22 +13,22 @@ Features
 Quick install
 -------------
 
-Drop the Mopify folder in a folder on your Mopidy-system. Then change the [settings of Mopidy](http://docs.mopidy.com/en/latest/config/) to make it work. 
+Download the Mopify master repository, unzip it and drop it somewhere on your Mopify System.  Then change the [settings of Mopidy](http://docs.mopidy.com/en/latest/config/) to make it work. 
 
-Example (assuming the webclient is in /opt/webclient):
+Example (assuming the Mopify client is in /var/www/mopify):
 ```code
 [http]
 enabled = true
-hostname = ::
+hostname = [your server ip]
 port = 6680
-static_dir = /opt/webclient
+static_dir = /var/www/mopify
 ```
 
 
 Usage
 -----
 
-After you installed the Mopidy client you can use a modern browser (like Firefox or Chrome) to open it. The first time you start the client it will ask for a [two-letter language code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). We need this code to provide better search results, since we are using the Spotify API.
+After you installed the Mopidy client you can use a modern browser (like Firefox or Chrome) to open it (Using your server IP and Mopidy port. For example: [192.168.1.2:6680](192.168.1.2:6680). The first time you start the client it will ask for a [two-letter language code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). We need this code to provide better search results, since we are using the Spotify API.
 
 
 Screenshots
