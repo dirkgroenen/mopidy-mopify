@@ -1,5 +1,6 @@
 var mopidy = new Mopidy();  // Connect to server
 var consoleError = console.error.bind(console);
+var mopifyversion = '1.0';
 
 // Global vars
 var coreArray = new Array();
