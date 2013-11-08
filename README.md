@@ -31,6 +31,15 @@ Usage
 After you installed the Mopidy client you can use a modern browser (like Firefox or Chrome) to open it. The first time you start the client it will ask for a [two-letter language code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). We need this code to provide better search results, since we are using the Spotify API.
 
 
+Screenshots
+-----------
+
+![ScreenShot](https://raw.github.com/dirkgroenen/Mopify/master/Screenshots/albumlookup.png) 
+![ScreenShot](https://raw.github.com/dirkgroenen/Mopify/master/Screenshots/artistlookup.png)
+![ScreenShot](https://raw.github.com/dirkgroenen/Mopify/master/Screenshots/playlists.png) 
+![ScreenShot](https://raw.github.com/dirkgroenen/Mopify/master/Screenshots/search.png)
+
+
 Security
 --------
 
