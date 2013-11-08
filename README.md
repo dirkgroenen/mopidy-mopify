@@ -28,7 +28,7 @@ static_dir = /var/www/mopify
 Usage
 -----
 
-After you installed the Mopidy client you can use a modern browser (like Firefox or Chrome) to open it (Using your server IP and Mopidy port. For example: [192.168.1.2:6680](192.168.1.2:6680). The first time you start the client it will ask for a [two-letter language code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). We need this code to provide better search results, since we are using the Spotify API.
+After you installed the Mopidy client you can use a modern browser (like Firefox or Chrome) to open it (Using your server IP and Mopidy port. For example: [http://192.168.1.2:6680](http://192.168.1.2:6680). The first time you start the client it will ask for a [two-letter language code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). We need this code to provide better search results, since we are using the Spotify API.
 
 
 Screenshots
