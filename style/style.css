@@ -131,12 +131,13 @@ a:hover{
 	text-align: center;
 	border-bottom: 1px solid #000;
 	padding: 95px 0 10px 0;
-	background-image: url('https://bitlabs.nl/assets/img/logo_glass_100.png');
+	background-image: url('/images/mopify_logo.png');
 	background-position: center 20px;
-	background-size: 50px;
+	background-size: 60px;
 	background-repeat: no-repeat;
 	text-shadow: 0 0 1px black;
 	background-color: #353535;
+	font-size: 16px;
 }
 
 #sidebar a{
