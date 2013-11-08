@@ -6,14 +6,19 @@
 		<link href="/webfonts/ss-standard.css" rel="stylesheet" />
 		<link href="/style/style.css" rel="stylesheet" type="text/css">
 	
-		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script src="http://heartcode-canvasloader.googlecode.com/files/heartcode-canvasloader-min-0.9.1.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="/js/contextmenu.js"></script>
+		<script type="text/javascript" src="/js/resizableColumns.js"></script>
+		<script type="text/javascript" src="http://heartcode-canvasloader.googlecode.com/files/heartcode-canvasloader-min-0.9.1.js"></script>
 		<script type="text/javascript" src="/mopidy/mopidy.js"></script>
+		<script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script>
 		<script type="text/javascript" src="/js/transit.js"></script>
 		<script type="text/javascript" src="/js/core.js"></script>
 		<script type="text/javascript" src="/js/player.js"></script>
 		<script type="text/javascript" src="/js/playlists.js"></script>
+		<script type="text/javascript" src="/js/browse.js"></script>
+		<script type="text/javascript" src="/js/search.js"></script>
 		
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -37,6 +42,55 @@
 	<body>
 		<div id='pageloader'></div>
 		<div id="viewport">
+			<div id="pagewrapoverlay"></div>
+			<div id="metapage">
+				<div id="artistpage">
+					<div id="topcover">
+						<img id="bgimage" src="" />
+						<h1 class='name'></h1>
+					</div>
+
+					<div id="populartracks">
+						<h2 class='title'>Popular</h2>
+						<table class='tracks left'>
+						
+						</table>
+						<table class='tracks right'>
+						
+						</table>
+						<div class='clear'></div>
+					</div>
+					
+					<div id="albums">
+						<h2 class='title'>Albums</h2>
+						<ul class='albumscontainer'>
+							
+						</ul>
+					</div>
+				</div>
+				
+				<div id="albumpage">
+					<div id="details">
+						<table>
+							<tr>
+								<td>
+									<div class='art'><img src='/images/no-album-art.jpg'/></div>
+								</td>
+								<td>
+									<div id='albumtitle'></div><div id="albumyear"></div>
+									<div id="albumartist"><div id="artistart"><img src='/images/no-album-art.jpg'/></div> By <a href="" class='dynamic'></a></div>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div id="tracks">
+						<table>
+							
+						</table>
+					</div>
+				</div>
+			</div>
+		
 			<div id="sidebar">
 				<a href='/'>
 					<div id="logo">
@@ -46,29 +100,69 @@
 				
 				<div id="tabs">
 					<ul class="menu">
-						<li><a href='#browse'>Browse</a></li>
-						<li><a href='#playlists'>Playlists</a></li>
+						<li class='opensearch'><a href='#search'>Search</a></li>
+						<li class='openpage'><a href='#browse'>Browse</a></li>
+						<li class='openpage'><a href='#playlists'>Playlists</a></li>
 					</ul>
 				</div>
 			</div>
+
+			<div id="searchwindow">
+				<div id="bar">
+					<input type="text" name="query" id="query" placeholder="Search"><div id='loader'><img src='/images/ajax-loader.gif'/></div>
+				</div>
+				<div id="results">
+					<table></table>
+				</div>
+			</div>
+
 			<div id="pagewrap">
 				<div id="pagecontent">
+					<div data-page="search" class='singlepage'>
+						<div id="searchwrap">
+							<div id="searchbar">
+								
+							</div>
+							<div id="searchresults">
+							
+							</div>
+						</div>
+					</div>
+					
 					<div data-page="browse" class='singlepage'>
-						browse
+						<div id="artists">
+						
+						</div>
+						<div id="albums">
+						
+						</div>
+						<div id="tracks">
+						
+						</div>
 					</div>
 					
 					<div data-page="playlists" class='singlepage'>
-						<div id="playlistswrap">
+						<div id="playlistswrap" class="loading">
 							<ul id="playlists">	</ul>
 						</div>
-						<div id="playlisttracks">
+						<div id="playlisttracks" class="loading">
+							<div id="search">
+								<i class='ss-icon'>&#x1F50E;</i><div class='filtername'> Filter</div>
+								<input type="text" name="query" id='query' placeholder='Search'/>
+								<div class='clear'></div>
+							</div>
 							<div id="information">
 								<div id="art"><img src='/images/no-album-art.jpg' class='image' /><img src='/images/playbutton_big.png' class='play'/></div>
 								<div class='title'></div>
 								<div class='clear'></div>
 							</div>
-							<table class='tracks'>
-								<tr class='first'><th></th><th>Title</th><th>Artist</th><th>Dur.</th><th>Album</th></tr>
+							<table class='tracks' data-resizable-columns-id="tracks-table">
+								<thead>
+									<tr class='first'><th class='num' data-resizable-column-id="num"></th><th class='tracktitle' data-resizable-column-id="title">Title</th><th class='artist' data-resizable-column-id="artist">Artist</th><th class='length' data-resizable-column-id="dur">Dur.</th><th class='album'  data-resizable-column-id="album">Album</th></tr>
+								</thead>
+								<tbody>
+								
+								</tbody>
 							</table>
 						</div>
 					</div>

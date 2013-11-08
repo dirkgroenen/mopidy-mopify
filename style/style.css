@@ -24,18 +24,75 @@ body,html{
 }
  
 ::-webkit-scrollbar-track {
-	background: #ddd;
+	background-color: #ddd;
     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3); 
 }
  
 ::-webkit-scrollbar-thumb {
-	background: #f0f0f0;
+	background-color: #f0f0f0;
     -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5); 
+}
+
+.rc-handle-container {
+	position: relative; 
+}
+
+.rc-handle {
+	position: absolute;
+	width: 7px;
+	cursor: ew-resize;
+	margin-left: -3px;
+	z-index: 2; 
+}
+
+table.rc-table-resizing {
+	cursor: ew-resize; 
+}
+table.rc-table-resizing thead, table.rc-table-resizing thead > th, table.rc-table-resizing thead > th > a {
+	cursor: ew-resize; 
+}
+
+tr.track{
+	cursor: pointer;
+}
+
+tr.track.highlight{
+	background-color: #7ab800 !important;
+	color: #f0f8e0 !important;
+}
+
+tr.track.highlight .num,tr.track.highlight .length{
+	color: #e1e9d1 !important;
+}
+
+tr.track td .button{
+	display: none;
+	font-size: 10px;
 }
 
 .clear{
 	visibility: hidden;
 	clear: both;
+}
+
+a{
+	text-decoration: none;
+	color: #333;
+}
+
+.highlight.track td a{
+	text-decoration: none;
+	color: #f0f8e0;
+}
+
+a:hover{
+	text-decoration: underline !important;
+}
+
+.loading{
+	background-image: url('/images/ajax-loader.gif');
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 #pageloader{
@@ -46,6 +103,7 @@ body,html{
 	height: 100%;
 	background: rgba(0,0,0,0.2);
 	z-index: 100;
+	display: none;
 }
 
 #viewport{
@@ -60,7 +118,7 @@ body,html{
 	top: 0;
 	height: 100%;
 	width: 100px;
-	background: #333;
+	background-color: #333;
 	z-index: 2;
 	box-shadow: 0 2px 3px rgba(0,0,0,0.5);
 	border-right: 1px solid #ccc;
@@ -92,6 +150,114 @@ body,html{
 	text-align: center;
 }
 
+#searchwindow{
+	position: absolute;
+	top: 125px;
+	left: 99px;
+	background-color: #eee;
+	border: 1px solid #ddd;
+	box-shadow: 0 0 1px rgba(0,0,0,0.8);
+	z-index: 100;
+	width: 300px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	display: none;
+	opacity: 0;
+	transition: all .5s ease;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+}
+
+#searchwindow.open{
+	opacity: 1;
+	display: block;
+}
+
+#searchwindow #bar{
+	width: 100%;
+	background-color: #eeeeee;
+	background: -moz-linear-gradient(top, #eeeeee 0%, #e0e0e0 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#e0e0e0));
+	background: -webkit-linear-gradient(top, #eeeeee 0%,#e0e0e0 100%);
+	background: -o-linear-gradient(top, #eeeeee 0%,#e0e0e0 100%);
+	background: -ms-linear-gradient(top, #eeeeee 0%,#e0e0e0 100%);
+	background: linear-gradient(to bottom, #eeeeee 0%,#e0e0e0 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#e0e0e0',GradientType=0 );
+	border-bottom: 1px solid #ccc;
+	padding: 5px 10px;
+	position: relative;
+}
+
+#searchwindow #bar input{
+	width: 100%;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	padding: 4px 4px 4px 25px;
+	border: 1px solid #aaa;
+	box-shadow: inset 0 0 3px #7ab800;
+	color: #777;
+	outline: none; 
+	background-image: url('/images/searchicon.png');
+	background-repeat: no-repeat;
+	background-position: 8px center;
+	background-size: 12px;
+}
+
+#searchwindow #bar #loader{
+	position: absolute;
+	top: 12px;
+	right: 20px;
+	display: none;
+}
+
+#searchwindow #results table{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+#searchwindow #results table tr:nth-child(even){
+	background-color: #f0f0f0;
+}
+
+#searchwindow #results table tr:nth-child(odd){
+	background-color: #fefefe;
+}
+
+#searchwindow #results table tr.clickable:hover{
+	background-color: #dfdfdf;
+	cursor: pointer;
+}
+
+#searchwindow #results table td.type{
+	background-color: #e0e0e0;
+	border-right: 1px solid #aaa;
+	width: 25px;
+	vertical-align: middle;
+	color: #888;
+	font-size: 12px;
+}
+
+#searchwindow #results table td.result{
+	text-align: left;
+	padding: 5px 10px;
+	font-weight: normal;
+	font-size: 12px;
+	color: #444;
+}
+
+#searchwindow #results table td.result.typename{
+	color: #777;
+}
+
+#searchwindow #results table tr .art{
+	float: left;
+	height: 15px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
 #sidebar #tabs ul.menu{
 	list-style-type: none;
 	margin: 0;
@@ -106,24 +272,24 @@ body,html{
 	padding: 20px 0;
 	border-top: 1px solid #555;
 	border-bottom: 1px solid #000;
-	background: #353535;
+	background-color: #353535;
 	display: block;
 	cursor: pointer;
 }
 
 #sidebar #tabs ul.menu li a:hover{
-	background: #303030;
+	background-color: #303030;
 }	
 
 #sidebar #tabs ul.menu li a.active{
-	background: #2f2f2f;
+	background-color: #2f2f2f;
 	border-top: 1px solid #222;
 }
 
 /* Pagewrap */
 #pagewrap{
 	position: absolute;
-	background: #f0f0f0;
+	background-color: #f0f0f0;
 	left: 100px;
 	top: 0;
 	height: 100%;
@@ -141,12 +307,16 @@ body,html{
 	z-index: 2;
 }
 
+#pagewrap #pagecontent #search input{
+	border: none;
+}
+
 #pagewrap #currentsong{
 	position: absolute;
 	right: 0;
 	height: 100%;
 	width: 300px;
-	background: #e9e9e9;
+	background-color: #e9e9e9;
 	border-left: 1px solid white;
 }
 
@@ -159,7 +329,7 @@ body,html{
 	color: #999;
 	padding: 5px 0 2px 0;
 	font-size: 14px;
-	background: #222; /* Old browsers */
+	background-color: #222; /* Old browsers */
 	-webkit-border-bottom-right-radius: 5px;
 	-webkit-border-bottom-left-radius: 5px;
 	-moz-border-radius-bottomright: 5px;
@@ -184,7 +354,7 @@ body,html{
 
 #pagewrap #currentsong #options #volumecontrolwrap{
 	position: absolute;
-	background: #222;
+	background-color: #222;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
@@ -197,14 +367,14 @@ body,html{
 
 #pagewrap #currentsong #options #volumecontrol{
 	position: relative;
-	background: #444;
+	background-color: #444;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 }
 
 #pagewrap #currentsong #options #volumecontrol .ui-slider-range{
-	background: #bbb; /* Old browsers */
+	background-color: #bbb; /* Old browsers */
 	height: 6px;
 	position: relative;
 }
@@ -218,7 +388,7 @@ body,html{
 	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
 	border-radius: 30px;
-	background: #e0e0e0;
+	background-color: #e0e0e0;
 	box-shadow: 0 0 1px rgba(0,0,0,0.5);
 	cursor: pointer;
 	display: block;
@@ -238,13 +408,13 @@ body,html{
 	position: relative;
 	width: 100%;
 	height: 6px;
-	background: #222;
+	background-color: #222;
 	cursor: pointer;
 }
 
 #pagewrap #currentsong #timebarwrap .ui-slider-range{
 	width: 0%;
-	background: #9dd53a; /* Old browsers */
+	background-color: #9dd53a; /* Old browsers */
 	background: -moz-linear-gradient(top, #9dd53a 0%, #a1d54f 50%, #80c217 51%, #7cbc0a 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#9dd53a), color-stop(50%,#a1d54f), color-stop(51%,#80c217), color-stop(100%,#7cbc0a)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, #9dd53a 0%,#a1d54f 50%,#80c217 51%,#7cbc0a 100%); /* Chrome10+,Safari5.1+ */
@@ -256,7 +426,7 @@ body,html{
 }
 
 #pagewrap #currentsong #controls{
-	background: #444444; /* Old browsers */
+	background-color: #444444; /* Old browsers */
 	background: -moz-linear-gradient(top,  #444444 0%, #222222 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#444444), color-stop(100%,#222222)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  #444444 0%,#222222 100%); /* Chrome10+,Safari5.1+ */
@@ -287,7 +457,7 @@ body,html{
 	min-height: 53px;
 	text-align: center;
 	color: #eee;
-	background: #1f1f1f;
+	background-color: #1f1f1f;
 }
 
 #pagewrap #currentsong #meta .title{
@@ -316,18 +486,18 @@ body,html{
 
 #pagewrap #currentsong  #tracklist ul.tracks li.track{
 	padding: 5px 15px;
-	background: #dfdfdf;
+	background-color: #dfdfdf;
 	font-size: 11px;
 	color: #444;
 	cursor: pointer;
 }
 
-#pagewrap #currentsong  #tracklist ul.tracks li.track:nth-child(odd){
-	background: #f0f0f0;
+#pagewrap #currentsong  #tracklist ul.tracks li.track:nth-child(even){
+	background-color: #f0f0f0;
 }
 
 #pagewrap #currentsong  #tracklist ul.tracks li.track:hover{
-	background: #d0d0d0;
+	background-color: #d0d0d0;
 	color: #111;
 }
 
@@ -336,7 +506,7 @@ body,html{
 }
 
 #pagewrap #currentsong  #tracklist ul.tracks li.track.current{
-	background: #555;
+	background-color: #555;
 	color: #f0f0f0;
 }
 
@@ -349,9 +519,9 @@ body,html{
 
 #pagewrap #pagecontent .singlepage #playlistswrap{
 	width: 30%;
-	background: #f0f0f0;
+	background-color: #f0f0f0;
 	overflow-x: hidden;
-	overflow-y: auto;
+	overflow-y: scroll;
 	height: 100%;
 	float: left;
 }
@@ -362,7 +532,47 @@ body,html{
 	padding: 0;
 }
 
-#pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.playlist{
+#pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.groupname{
+	margin: 0;
+	cursor: pointer;
+	position: relative;
+}
+
+#pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.groupname > .title{
+	margin: 10px 20px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.groupname > .openclose{
+	float: right;
+	position: absolute;
+	top: 3px;
+	right: 20px;
+	color: #bbb;
+	transition: all .5s ease;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+}
+
+#pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.groupname.active > .openclose{
+	transform: rotate(180deg) translateY(3px);
+	-ms-transform:rotate(180deg) translateY(3px);
+	-webkit-transform:rotate(180deg) translateY(3px);
+}
+
+#pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.groupname ul{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: none;
+}
+
+#pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.groupname.active ul {
+	display: block;
+}
+
+#pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.groupname ul li.playlist{
 	margin: 0;
 	padding: 10px 20px;
 	border-top: 1px solid #fff;
@@ -370,8 +580,8 @@ body,html{
 	cursor: pointer;
 }
 
-#pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.playlist:hover{
-	background: #e6e6e6;
+#pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.playlist:hover#pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.groupname:hover{
+	background-color: #e6e6e6;
 }
 
 #pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.playlist .image{
@@ -410,7 +620,7 @@ body,html{
 }
 
 #pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.playlist.highlight{
-	background: #7ab800 !important;
+	background-color: #7ab800 !important;
 }
 
 #pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.playlist.highlight .title{
@@ -426,8 +636,54 @@ body,html{
 	float: left;
 }	
 
+#pagewrap #pagecontent .singlepage #playlisttracks #search{
+	width: 100%;
+	padding: 5px 10px;
+	background-color: #eeeeee;
+	background: -moz-linear-gradient(top, #eeeeee 0%, #e0e0e0 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#e0e0e0));
+	background: -webkit-linear-gradient(top, #eeeeee 0%,#e0e0e0 100%);
+	background: -o-linear-gradient(top, #eeeeee 0%,#e0e0e0 100%);
+	background: -ms-linear-gradient(top, #eeeeee 0%,#e0e0e0 100%);
+	background: linear-gradient(to bottom, #eeeeee 0%,#e0e0e0 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#e0e0e0',GradientType=0 );
+	border-bottom: 1px solid #ccc;
+	height: 37px;
+	overflow: hidden;
+}
+
+#pagewrap #pagecontent .singlepage #playlisttracks #search .filtername{
+	font-size: 13px;
+	color: #777;
+	float: left;
+	line-height: 30px;
+	margin-left: 3px;
+	font-weight: bold;
+}
+
+#pagewrap #pagecontent .singlepage #playlisttracks #search .ss-icon{
+	font-size: 17px;
+	color: #777;
+	float: left;
+	line-height: 28px;
+	margin: 3px 5px;
+}
+
+#pagewrap #pagecontent .singlepage #playlisttracks #search input{
+	float: right;
+	line-height: 22px;
+	border: 1px solid #ddd;
+	padding: 0 10px;
+	color: #777;
+	font-size: 12px;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	width: 200px;
+}
+
 #pagewrap #pagecontent .singlepage #playlisttracks #information{
-	background: #f5f5f5;
+	background-color: #f5f5f5;
 	border-bottom: 1px solid #ccc;
 	padding: 25px;
 }
@@ -466,6 +722,7 @@ body,html{
 #pagewrap #pagecontent .singlepage #playlisttracks table.tracks{
 	width: 100%;
 	border-collapse: collapse;
+	table-layout: fixed;
 }
 
 #pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.first{
@@ -478,7 +735,7 @@ body,html{
 
 #pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.first th{
 	padding: 4px 5px;
-	background: #eeeeee; /* Old browsers */
+	background-color: #eeeeee; /* Old browsers */
 	background: -moz-linear-gradient(top,  #eeeeee 0%, #e0e0e0 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#e0e0e0)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top,  #eeeeee 0%,#e0e0e0 100%); /* Chrome10+,Safari5.1+ */
@@ -491,22 +748,17 @@ body,html{
 	border-bottom: 1px solid #ccc;
 }
 
+#pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr th{
+	width: auto;
+}
+
 #pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.track{
-	background: #fefefe;
+	background-color: #fefefe;
 	cursor: pointer;
 }
 
 #pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.track:nth-child(odd){
-	background: #f0f0f0;
-}
-
-#pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.track.highlight{
-	background: #7ab800;
-	color: #f0f8e0;
-}
-
-#pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.track.highlight .num,#pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.track.highlight .length{
-	color: #e1e9d1;
+	background-color: #f0f0f0;
 }
 
 #pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.track td{
@@ -517,15 +769,15 @@ body,html{
 	height: 25px;
 }
 
+
 #pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.track td:first-child{
 	width: 35px;
 	text-align: right;
 	color: #999;
 }
 
-#pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.track td .button{
-	display: none;
-	font-size: 10px;
+#pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr .num,#pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr .length{
+	width: 50px;
 }
 
 #pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.track td.length{
@@ -538,4 +790,366 @@ body,html{
 
 #pagewrap #pagecontent .singlepage #playlisttracks table.tracks tr.track td.artist{
 	width: 200px;
+}
+
+/* Artist page */
+#pagewrapoverlay{
+	background: rgba(0,0,0,0.4);
+	position: fixed;
+	left: 99px;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 40; /* Just beneath the artist overlay */
+	display: none;
+	opacity: 0;
+	transition: all .5s ease;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+}
+
+#pagewrapoverlay.open{
+	opacity: 1;
+	display: block;
+	cursor: pointer;
+}
+
+#metapage{
+	height:100%;
+	width: 70%;
+	position: fixed;
+	right: 0;
+	top: 0;
+	background-color: #ecebe8;
+	box-shadow: 0 0 2px rgba(0,0,0,0.6);
+	z-index: 50;
+	transform: translateX(100%);
+	-ms-transform: translateX(100%); /* IE 9 */
+	-webkit-transform: translateX(100%); /* Safari and Chrome */
+	transition: all .5s ease;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+	overflow-y: auto;
+}
+
+#metapage.open{
+	transform: translateX(0);
+	-ms-transform: translateX(0); /* IE 9 */
+	-webkit-transform: translateX(0); /* Safari and Chrome */
+}
+
+#metapage #albumpage{
+	display: none;
+	height: 100%;
+}
+
+#metapage #albumpage #details{
+	position: relative;
+	padding: 20px;
+	border-bottom: 1px solid #bbb;
+	background-color: #fbfbfb;
+}	
+
+#metapage #albumpage #details table tr td{
+	vertical-align: top;
+}
+
+#metapage #albumpage #details .art{
+	width: 120px;
+	height: 120px;
+	overflow: hidden;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	margin-right: 20px;
+}
+
+#metapage #albumpage #details .art img{
+	width: 120px;
+	min-height: 120px;
+}
+
+#metapage #albumpage #details #albumtitle{
+	font-size: 20px;
+	font-weight: bold;
+	color: #333;
+	display: inline-block;
+}
+
+#metapage #albumpage #details #albumyear{
+	font-size: 11px;
+	color: #888;
+	display: inline-block;
+	padding-left: 5px;
+}
+
+#metapage #albumpage #details #albumartist{
+	position: absolute;
+	bottom: 20px;
+	font-size: 14px;
+	color: #aaa;
+}
+
+#metapage #albumpage #details #albumartist .dynamic{
+	color: #333;
+	text-decoration: none;
+}
+
+#metapage #albumpage #details #albumartist .dynamic:hover{
+	text-decoration: underline;
+}
+
+#metapage #albumpage #details #artistart{
+	height: 25px;
+	width: 25px;
+	overflow: hidden;
+	display: inline-block;
+	margin-right: 4px;
+}
+
+#metapage #albumpage #details #artistart img{
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+}
+
+#metapage #albumpage #tracks{
+	padding: 20px;
+	border-top: 1px solid #fff;
+	height: calc(100% - 167px);
+	overflow-y: auto;
+}
+
+#metapage #albumpage #tracks table{
+	box-shadow: 0 0 1px #666;
+	overflow: hidden;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	color: #555;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#metapage #albumpage #tracks table tr:nth-child(even){
+	background-color: #f0f0f0;
+}
+
+#metapage #albumpage #tracks table tr:nth-child(odd){
+	background-color: #fefefe;
+}
+
+#metapage #albumpage #tracks table tr.track.highlight{
+	background-color: #7ab800;
+	color: #f0f8e0;
+}
+
+#metapage #albumpage #tracks table tr td{
+	padding: 5px 10px;
+	font-size: 13px;
+}
+
+#metapage #albumpage #tracks table tr td.num{
+	width: 30px;
+	color: #888;
+	text-align: right;
+}
+
+#metapage #albumpage #tracks table tr td.num .button{
+	display: none;
+	font-size: 10px;
+}
+
+#metapage #albumpage #tracks table tr td.length{
+	width: 20px;
+	color: #888;
+}
+
+#metapage #albumpage #tracks table tr.highlight td.num,#metapage #albumpage #tracks table tr.highlight td.length{
+	color: #f0f8e0;
+}
+	
+	
+#metapage #artistpage #topcover{
+	width: 100%;
+	height: 250px;
+	position: relative;
+	overflow: hidden;
+}
+
+#metapage #artistpage #topcover img#bgimage{
+	z-index: 0;
+	top: 0;
+	left: 0;
+	min-width: 100%;
+	min-height: 100%;
+	margin-top: -25%;
+}
+
+#metapage #artistpage #topcover h1.name{
+	position: absolute;
+	bottom: 20px;
+	left: 60px;
+	color: white;
+	text-shadow: 0 0 3px rgba(0,0,0,0.7);
+}
+
+#metapage #artistpage #populartracks,#metapage #artistpage #albums{
+	margin: 20px 60px;
+}
+
+#metapage #artistpage #populartracks h2.title,#metapage #artistpage #albums h2.title{
+	font-size: 13px;
+	padding: 5px 0;
+	border-bottom: 1px solid #aaa;
+	width: 100%;	
+	display: block;
+	color: #444;
+}
+
+#metapage #artistpage #populartracks table.tracks{
+	width: 50%;
+	float: left;
+	border-collapse: collapse;
+	box-shadow: 0 0 1px #666;
+	overflow: hidden;
+	color: #555;
+}
+
+#metapage #artistpage #populartracks table.tracks.left{
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+#metapage #artistpage #populartracks table.tracks.right{
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-bottomright: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+#metapage #artistpage #populartracks table.tracks tr:nth-child(odd){
+	background-color: #fefefe;
+}
+
+#metapage #artistpage #populartracks table.tracks tr:nth-child(even){
+	background-color: #f0f0f0;
+}
+
+#metapage #artistpage #populartracks table.tracks tr td{
+	padding: 10px 15px;
+	font-size: 14px;
+}
+
+#metapage #artistpage #populartracks table.tracks tr td.num{
+	width: 10%;
+	text-align: center;
+	font-weight: bold;
+	color: #777 !important;
+}
+
+#metapage #artistpage #populartracks table.tracks tr td.title{
+	width: 90%;
+}
+
+#metapage #artistpage #populartracks table.tracks tr:nth-child(odd) td.num{
+	background-color: #f0f0f0;
+}
+
+#metapage #artistpage #populartracks table.tracks tr:nth-child(even) td.num{
+	background-color: #e0e0e0;
+}
+
+#metapage #artistpage #albums ul.albumscontainer{
+	margin: 0;
+	padding: 10px 0 0 0;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap{
+	margin: 10px 0 50px 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #artwrap{
+	height: 200px;
+	width: 200px;
+	overflow: hidden;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	float: left;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #artwrap img{
+	width: 200px;
+	height: 200px;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #trackwrap{
+	float: left;
+	margin-left: 30px;
+	width: calc(100% - 230px);
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #trackwrap .albumname{
+	font-size: 18px;
+	color: #555;
+	margin: 0 0 15px 0;
+	padding: 0;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #trackwrap .albumname .year{
+	display: inline-block;
+	color: #888;
+	font-size: 10px;
+	margin-left: 5px;
+	font-weight: normal;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #trackwrap table.tracks{
+	border-collapse: collapse;
+	box-shadow: 0 0 1px #666;
+	overflow: hidden;
+	color: #555;
+	width: 100%;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #trackwrap table.tracks tr:nth-child(even){
+	background-color: #f0f0f0;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #trackwrap table.tracks tr:nth-child(odd){
+	background-color: #fefefe;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #trackwrap table.tracks tr.track td{
+	padding: 5px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #trackwrap table.tracks tr.track td.num{
+	width: 30px;
+	color: #888;
+	text-align: right;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #trackwrap table.tracks tr.track td.length{
+	width: 40px;
+	color: #888;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #trackwrap table.tracks tr.track td.title{
+	padding-left: 10px;
 }

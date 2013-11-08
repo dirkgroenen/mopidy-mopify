@@ -77,17 +77,19 @@ mopidy.on("state:online", function () {
 	});
 	
 	$("#options #repeat").click(function(){
-		$("#options #shuffle").toggleClass('active');	
+		$("#options #repeat").toggleClass('active');	
 		var toggleVal = (coreArray['repeat']) ? false: true;
 		coreArray['repeat'] = toggleVal;
 		mopidy.playback.setRepeat(toggleVal);
 	});
 	
 	// fill the tracklist
-	//fillTracklist();
+	fillTracklist();
 });
 
-function fillTracklist(){
+var tlItemsPosition = [];
+
+function fillTracklist(){	
 	// Fill tracklist
 	mopidy.tracklist.getTlTracks().then(function(tracks){
 		coreArray["tracklist"] = tracks;
@@ -100,16 +102,32 @@ function fillTracklist(){
 		// Clear tracklist
 		$tracklist.find('li').remove();
 		
+		// place te track in the list and get the position relative to zero.
 		for(var x = 0; x < tracks.length;x++){
 			var track = tracks[x].track;
 		
-			$tracklist.append("<li class='track' data-trackid='"+x+"'>"+track.name+"<span class='title'></span> - <span class='artist'>"+track.artists[0].name+"</span></li>");
+			$tracklist.append("<li class='track' data-tracklistpos='"+x+"' data-trackid='"+tracks[x].tlid+"'>"+track.name+"<span class='title'></span> - <span class='artist'>"+track.artists[0].name+"</span></li>");
+			
+			tlItemsPosition[tracks[x].tlid] = $tracklist.find('li.track[data-tracklistpos="'+x+'"]').offset().top;
 		}	
 		
 		$("#tracklist .track").click(function(){
-			console.log(coreArray["tracklist"][$(this).data('trackid')]);
-			mopidy.playback.play(coreArray["tracklist"][$(this).data('trackid')]);
+			console.log(coreArray["tracklist"][$(this).data('tracklistpos')]);
+			mopidy.playback.play(coreArray["tracklist"][$(this).data('tracklistpos')]);
 		});
+		
+		// check for current playing track
+		var prevTlID = 0, currentTlID = 0;
+		setInterval(function(){
+			if(coreArray['currentTLTrack'] != undefined){
+				currentTlID = coreArray['currentTLTrack'].tlid;
+			
+				if(prevTlID != currentTlID){
+					prevTlID = currentTlID;
+					selectTracklistTrack(currentTlID);
+				}
+			}
+		},1000)
 		
 		/* Not for now, but at some moment this will make the playlist sortable
 		$( "#tracklist .tracks" ).sortable({
@@ -133,3 +151,18 @@ function fillTracklist(){
 	
 	},consoleError);
 }
+
+function selectTracklistTrack(id){
+	var $tracklist = $("#tracklist .tracks");
+	// Clear all current class'
+	$tracklist.find('li.track').removeClass('current');
+	
+	var $currentTrack = $tracklist.find('li.track[data-trackid="'+id+'"]');
+	$currentTrack.addClass('current');
+	
+	var newScrollTop = tlItemsPosition[id] - $("#currentsong #playerwrap").height();
+	
+	$("#tracklist").stop().animate({
+        scrollTop: newScrollTop
+    }, 2000);
+}	
