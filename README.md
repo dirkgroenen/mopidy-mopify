@@ -55,3 +55,4 @@ Known bugs/TODO
 - Not all music returned by the Spotify API is playable. This has something the do with countries and shit like that.
 - Code cleanup (The code became a bit messy during developing)
 - Something like a Chrome extension that replaces Spotify links on websites (like Facebook) so you can directly open them in Mopidy.
+- Artist page needs some speed improvement
