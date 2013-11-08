@@ -53,3 +53,4 @@ Known bugs/TODO
 - Create/Modify playlists
 - Add keyboard support
 - Not all music returned by the Spotify API is playable. This has something the do with countries and shit like that.
+- Code cleanup (The code became a bit messy during developing)
