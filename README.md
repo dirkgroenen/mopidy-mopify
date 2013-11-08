@@ -1,7 +1,7 @@
 Mopify
 ======
 
-A mopidy webclient based on the Spotify webbased interface which is still in development
+A mopidy webclient based on the Spotify webbased interface. If you use Mopidy in combination with local music this client probably won't work.
 
 Quick install
 =============
@@ -17,9 +17,22 @@ port = 6680
 static_dir = /opt/webclient
 ```
 
-Then point your browser (modern, with websockets: recent versions of Firefox, Chrome, Safari and IE10) to the ip-address and port of your device. e.g. http://192.168.1.5:6680
+
+Usage
+=====
+
+After you installed to Mopidy client you can use a modern browser (like Firefox or Chrome) to open it. The first time you start the client it will ask for a two-letter language code. We need this code to provide better search results, since we are using the Spotify API.
+
 
 Security
 ========
 
 (Note from Mopidy:) Note that the HTTP frontend does not feature any form of user authentication or authorization. Anyone able to access the web server can use the full core API of Mopidy. Thus, you probably only want to make the web server available from your local network or place it behind a web proxy which takes care or user authentication. You have been warned.
+
+Known bugs/TODO
+===============
+
+- Better Cache system to improve load time on the Artist and Album pages.
+- Right click to add tracks to the current tracklist
+- Create/Modify playlists
+- Add keyboard support
