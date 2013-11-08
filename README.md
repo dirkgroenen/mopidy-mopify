@@ -6,9 +6,9 @@ This client uses the Spotify API to speed up searching and artist/ablum lookup.
 
 Features
 --------
-- Search and album/artist lookup using the Spotify API
+- Search and album/artist lookup using the Spotify API (Results in faster searching)
 - Album cover caching
-- Logic user interface based on the [Spotfiy web player](http://play.spotify.com)
+- Logic and fast user interface based on the [Spotfiy web player](http://play.spotify.com)
 
 Quick install
 -------------
