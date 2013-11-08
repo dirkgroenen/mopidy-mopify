@@ -95,6 +95,27 @@ a:hover{
 	background-position: center;
 }
 
+#notification{
+	position: fixed;
+	top: -100px;
+	right: 20px;
+	z-index: 9999;
+	padding: 15px 20px;
+	font-size: 16px;
+	background: #333;
+	color: white;
+	font-weight: bold;
+	box-shadow: 0 0 2px black;
+	border: 1px solid #555;
+	transition: all .5s ease;
+	-webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+}
+
+#notification.active{
+	top: 20px;
+}
+
 #pageloader{
 	position: fixed;
 	top: 0;
