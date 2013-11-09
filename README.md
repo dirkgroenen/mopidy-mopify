@@ -4,6 +4,8 @@ Mopify
 A mopidy webclient based on the Spotify webbased interface. If you use Mopidy in combination with local music this client probably won't work.
 This client uses the Spotify API to speed up searching and artist/ablum lookup.
 
+Note that this client is still in development. Especially the Artist and Album lookup don't work 100% as the should.
+
 Features
 --------
 - Search and album/artist lookup using the Spotify API (Results in faster searching)
