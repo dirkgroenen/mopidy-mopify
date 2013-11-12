@@ -20,17 +20,18 @@ mopidy.on("state:online", function () {
 	var playlists = null;
 	var $page = $(".singlepage[data-page='playlists']");
 	
+	// Get the users playlists and place them in the client
 	mopidy.playlists.getPlaylists().then(function(lists){
-		
 		playlists = lists;
 		
 		var groupedLists = {},splitList = [];
 		
+		// All the playlists are build on the following way: [...Playlist name... / ...Playlist folder (if sorted)...]
+		// We split this structure so we can place the playlists in the right folder in the client. 
 		for(var x = 0;x < playlists.length;x++){
 			var list = playlists[x];
 			var splitName = list.name.split('/');
 			var groups = [];
-			
 			
 			
 			if(splitName.length == 2){
@@ -44,6 +45,7 @@ mopidy.on("state:online", function () {
 			}
 		}
 		
+		// We now know which playlist has which parent folder. We now need to place these in the right subarray.
 		var groupname;
 		for(var x = 0;x < splitList.length;x++){
 			var groupname = splitList[x][0];
@@ -53,8 +55,8 @@ mopidy.on("state:online", function () {
 			groupedLists[groupname].push([splitList[x][1],x,playlists[x].uri]);
 		}
 		
-		console.log(groupedLists);
 		
+		// List through the playlists which we ordered in the above functions and place them in the client
 		var domlist = "";
 		for(var group in groupedLists){
 			var lists = groupedLists[group];
@@ -70,9 +72,6 @@ mopidy.on("state:online", function () {
 			}
 			
 			domlist += "</ul></li>";
-			
-			//list = playlists[x];
-			//$page.find("#playlistswrap ul#playlists").append("<li class='playlist' data-id='"+x+"'><div class='image'><div class='playbutton big'></div><img src='"+getAlbumCover(list.uri)+"'/></div><div class='title'>"+list.name+"</div></li>");
 		}
 		$page.find("#playlistswrap ul#playlists").append(domlist);
 		
@@ -81,10 +80,12 @@ mopidy.on("state:online", function () {
 			getAlbumCoverByDom($("li.playlist[data-id='"+$(this).data('id')+"'] img"), $(this).data('uri'));
 		});
 		
+		// Create the open/close toggle on each folder
 		$page.find("#playlistswrap ul#playlists li.groupname > .title,#playlistswrap ul#playlists li.groupname > .openclose").click(function(){
 			$(this).closest("li.groupname").toggleClass('active');
 		});
 		
+		// Bind the click function that will change the current Tracklist to the new playlist.
 		$page.find("#playlistswrap ul#playlists li.playlist .playbutton").click(function(){
 			mopidy.tracklist.clear();
 			mopidy.tracklist.add(playlists[$(this).closest('li').data('id')].tracks).then(function(){
@@ -93,6 +94,7 @@ mopidy.on("state:online", function () {
 			},consoleError);
 		});
 		
+		// Show the playlist's tracks on click
 		$page.find("#playlistswrap ul#playlists li.playlist").click(function(){
 			$("#playlistswrap ul#playlists li.playlist").removeClass('highlight');
 			$(this).addClass('highlight');
@@ -100,41 +102,49 @@ mopidy.on("state:online", function () {
 			showPlaylist(playlists[$(this).data('id')]);
 		});
 		
+		// Show the playbutton in the art on a playlist hover
 		$page.find("#playlistswrap ul#playlists li.playlist").hover(function(){
 			$(this).find('.playbutton').stop().fadeTo(10,0.8);
 		},function(){
 			$(this).find('.playbutton').stop().fadeTo(10,0.0);
 		});
 		
+		// Fade the showed play button to full Opacity on hover
 		$page.find("#playlistswrap ul#playlists li.playlist .playbutton").hover(function(){
 			$(this).stop().fadeTo(50,1);
 		},function(){
 			$(this).stop().fadeTo(50,0.8);
 		});
 		
-		// Hide loader
+		// Hide loader after all of the above is done
 		$("#playlistswrap,#playlisttracks").removeClass('loading');
 		
-		// Open playlist by url
+		// Open playlist by url if set
 		var url = window.location.hash.split('/');
 		if(url.length > 1){
 			showPlayListByURL(url[1]);
 		}
 	});
 	
+	// Show the playlist's tracks.
 	function showPlaylist(playlist){
+		// Slide the tracklist from the right to the left on a firstload
 		if(firstLoad){
 			$page.find("#playlisttracks").transition({x:'0%'});
 			firstLoad = false;
 		}
 		
+		// Change the current URL to the opened playlist
 		window.location.hash = "#playlists/"+playlist.uri;
 		
+		// Remove the old tracks from the previously showed playlist
 		$page.find("#playlisttracks table.tracks tr.track").remove();
 		
+		// Change the title and album art
 		$page.find("#playlisttracks .title").html(playlist.name);
 		$page.find("#playlisttracks #art img.image").attr('src',getAlbumCover(playlist.uri));
 		
+		// Add a hover listener to the playlist art
 		$page.find("#playlisttracks #art").hover(function(){
 			$(this).find('.play').stop().fadeTo(50,0.8);
 		},function(){
@@ -147,6 +157,7 @@ mopidy.on("state:online", function () {
 			$(this).fadeTo(50,0.8);
 		});
 		
+		// Add playlist to the mopidy tracklist on albumart click
 		$page.find("#playlisttracks #art .play").click(function(){
 			mopidy.tracklist.clear();
 			mopidy.tracklist.add(playlist.tracks).then(function(){
@@ -155,6 +166,7 @@ mopidy.on("state:online", function () {
 			fillTracklist();
 		});
 		
+		// Add the tracks to the playlist
 		for(var x = 0;x < playlist.tracks.length;x++){
 			var track = playlist.tracks[x];
 			if(track.name != '[loading...]'){
@@ -162,49 +174,64 @@ mopidy.on("state:online", function () {
 			}
 		}
 		
+		// Make the playlist resizable
 		$page.find("#playlisttracks table.tracks").resizableColumns({
 			store: store
 		});
 		
+		// Make the playlist sortable
 		$page.find("#playlisttracks table.tracks").tablesorter({
 			headers: {
 			  0: { sorter: "digit" }
 			}
 		}); 
 		
-		var trackcache;
+		// Show the tracknumber on a hover
 		$page.find("#playlisttracks table.tracks tr.track").hover(function(){
 			$(this).find('td:first-child .button,td:first-child .number').toggle();
 		});
 		
+		// Change the highlight status on a track click
 		$page.find("#playlisttracks table.tracks tr.track").click(function(){
 			$("#playlisttracks table.tracks tr.track").removeClass('highlight');
 			$(this).addClass('highlight');
 		});
 		
+		// Open an album/artist meta page when clicked on the track's artist or album
 		$page.find("#playlisttracks table.tracks tr.track td a.openmeta").click(function(e){
 			openMetapage($(this).data('type'),$(this).attr('href'));
 			e.preventDefault();
 		});
 		
+		// Place the playlist in the Mopidy tracklist and play the clicked song (Fires on a double click)
 		$page.find("#playlisttracks table.tracks tr.track").dblclick(function(){
 			var id = $(this).data('id');
 			var track = playlist.tracks[id];
-			
-			mopidy.tracklist.clear();
 		
-			mopidy.tracklist.add(playlist.tracks).then(function(){
-				mopidy.playback.play();
-			},consoleError);
+			// Check if the tracks playlist is already in the Mopidy tracklist. 
+			//If not; change the tracklist with the new playlist and play the track. If it is; just change the track;
+			if(coreArray['playingPlaylistURI'] == playlist.uri){
+				mopidy.playback.changeTrack(coreArray['tracklist'][id]).then(function(){
+					mopidy.playback.play();
+				});
+			}	
+			else{
+				mopidy.tracklist.clear();
+				mopidy.tracklist.add(playlist.tracks).then(function(){
+					// Play the clicked track
+					mopidy.tracklist.getTlTracks().then(function(tracks){
+						mopidy.playback.changeTrack(tracks[id]);
+					});
+				},consoleError);
+				fillTracklist();				
+			}
 			
-			mopidy.tracklist.getTlTracks().then(function(tracks){
-				mopidy.playback.changeTrack(tracks[id]);
-			});
-			
-			fillTracklist();
+			// Save the playlist in the corearray
+			coreArray['playingPlaylistURI'] = playlist.uri;
 		});
 	}
 	
+	// Check which playlists belongs to the given url and open it
 	function showPlayListByURL(url){
 		for(var x = 0;x < playlists.length;x++){
 			var uri = playlists[x].uri;
@@ -241,10 +268,8 @@ mopidy.on("state:online", function () {
 	});
 
 	// jQuery expression for case-insensitive filter
-	$.extend($.expr[":"], 
-	{
-		"contains-ci": function(elem, i, match, array) 
-		{
+	$.extend($.expr[":"],{
+		"contains-ci": function(elem, i, match, array){
 			return (elem.textContent || elem.innerText || $(elem).text() || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
 		}
 	});
