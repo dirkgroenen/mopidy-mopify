@@ -15,9 +15,5 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-mopidy.on("state:online", function () {
-	// This will get the total library
-	/*mopidy.library.lookup('spotify:artist:2cCUtGK9sDU2EoElnk0GNB').then(function(results){
-		console.log(results);
-	},consoleError);*/
-});
+
+// Not a function at the moment

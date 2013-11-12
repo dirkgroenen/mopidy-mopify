@@ -142,7 +142,7 @@ mopidy.on("state:online", function () {
 		
 		// Change the title and album art
 		$page.find("#playlisttracks .title").html(playlist.name);
-		$page.find("#playlisttracks #art img.image").attr('src',getAlbumCover(playlist.uri));
+		getAlbumCoverByDom($page.find("#playlisttracks #art img.image"),playlist.uri);
 		
 		// Add a hover listener to the playlist art
 		$page.find("#playlisttracks #art").hover(function(){

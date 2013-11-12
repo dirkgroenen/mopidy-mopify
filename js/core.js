@@ -23,6 +23,7 @@ var mopifyversion = '1.0';
 var coreArray = new Array();
 var browserLang;
 
+// Setup the listeners and coreArray vars. This function runs at the start so we also include some functions here that need to run at the start
 var setupVars = function(){
 	// Get the users playlists
 	mopidy.playlists.getPlaylists().then(function(lists){
@@ -43,16 +44,21 @@ var setupVars = function(){
 		}, consoleError);
 	},1000);
 
-	// On track change (gets the TL track)
+	// On track resumed (gets the TL track)
 	mopidy.on("event:trackPlaybackResumed" ,function(track){
 		coreArray['currentTLTrack'] = track.tl_track;
-		console.log(track.tl_track);
+		changePageTitle();
+		placeCurrentSongInfo();
+		getAlbumCoverByDom($("#currentsong img.art"),track.tl_track.track.uri);
 	});
 	
 	// On start of a new track (gets the TL track)
 	mopidy.on("event:trackPlaybackStarted" ,function(track){
 		coreArray['currentTLTrack'] = track.tl_track;
-		console.log(track.tl_track);
+		
+		changePageTitle();
+		placeCurrentSongInfo();
+		getAlbumCoverByDom($("#currentsong img.art"),track.tl_track.track.uri);
 	});
 	
 	// The above function only gets the track on a change. We also want the track at the start so let's call that function here
@@ -63,6 +69,7 @@ var setupVars = function(){
 	// Volume changed
 	mopidy.on("event:volumeChanged" ,function(vol){
 		coreArray['volume'] = vol;
+		checkPlayerVolume();
 	});
 	
 	// Store the state on a playback state change
@@ -73,7 +80,7 @@ var setupVars = function(){
 			
 		// Do a direct check on the player        
 		if(state != "playing"){
-				$("#playerwrap #controls #playpause").html('play');
+			$("#playerwrap #controls #playpause").html('play');
 		} 
 		else{
 			$("#playerwrap #controls #playpause").html('pause');
@@ -81,8 +88,8 @@ var setupVars = function(){
 			// If its playing and a meta page is open, make sure that page is aligned to the left so the player is visible
 			var pageurl = window.location.hash.split('/');
 			if(pageurl[0] == "#meta"){
-					$("#metapage").css({right: $("#currentsong").width()});
-					$("#pagewrapoverlay").css({width: 'calc(100% - '+($("#currentsong").width()+$("#sidebar").width())+'px)'});
+				$("#metapage").css({right: $("#currentsong").width()});
+				$("#pagewrapoverlay").css({width: 'calc(100% - '+($("#currentsong").width()+$("#sidebar").width())+'px)'});
 			}
 		}
 	});
@@ -115,27 +122,27 @@ var setupVars = function(){
 		mopidy.playback.getRandom().then(function(val){
 			coreArray['random'] = val;
 		}, consoleError);
+		
+		checkRepeatShuffle();
 	});
 }
 
-function getAlbumCover(spotifyUri){
-	// Check cache
-	if(spotifyUri.search("spotify") != -1){
-		if(localStorage.getItem(spotifyUri)){
-			return localStorage.getItem(spotifyUri);
-		}
-		else{
-			$.getJSON("https://embed.spotify.com/oembed/?url="+spotifyUri+"&callback=?", function(data){
-				localStorage.setItem(spotifyUri, data.thumbnail_url);
-				return data.thumbnail_url;
-			});
-		}
+// Below we add the functions that need to run on the start of the client, these functions need information from the coreArray[currentTrack].
+function startupData(){
+	if(coreArray['currentTrack'] != undefined){
+		changePageTitle();
+		placeCurrentSongInfo();
+		checkRepeatShuffle();
+		
+		// Get artwork for the current playing or selected track
+		getAlbumCoverByDom($("#currentsong img.art"),coreArray['currentTrack'].uri);
 	}
 	else{
-		return "/images/no-album-art.jpg";
+		setTimeout(startupData,500);
 	}
 }
 
+// Get the cover of an album or song async. Functions requires two elements: spotify URI and the dom of the IMG element.
 function getAlbumCoverByDom(dom,spotifyUri){
 	// Check cache
 	var img = null;
@@ -155,6 +162,7 @@ function getAlbumCoverByDom(dom,spotifyUri){
 	}
 }
 
+// Get a picture of the artist from LastFM. Like AlbumCoverByDom this functions also requires the dom element so it can place the image async
 function getLastFMImage(dom,artistname){
 	var url = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="+artistname.replace(' ','+')+"&api_key=c57585a2e7b83892aad0cdca5296c46c&format=json";
 	if(localStorage.getItem(artistname)){
@@ -171,22 +179,31 @@ function getLastFMImage(dom,artistname){
 	}
 }
 
+// Join the array of artists with a ', '
 function joinArtists(artists){
 	return artists.map(function(elem){return elem.name;}).join(', ');
 }
 
-var seeked = false;
+// Change the value of the page title into the current playing song
+function changePageTitle(){
+	var currentTrack = coreArray['currentTrack'];
+	var playSymbol = (coreArray['state'] == "playing") ? '\u25B6 ' : '';
+	
+	document.title = (currentTrack.artists != undefined) ? playSymbol+currentTrack.name+' - '+currentTrack.artists[0].name : "Mopify";
+}
 
+// Place the artist name in the currentrack within the player
+function placeCurrentSongInfo(){
+	var currentTrack = coreArray['currentTrack'];
+	$("#currentsong #meta .title").html(currentTrack.name);
+	if(currentTrack.artists != undefined) $("#currentsong #meta .artist").html(currentTrack.artists[0].name);
+}
+
+// Core function, will run on the start of the client
+var seeked = false;
 function core(){	
 	if(coreArray['currentTrack'] != null && coreArray['currentTLTrack'] != null){
 		currentTrack = coreArray['currentTrack'];
-		// Place title and artist in player and page title
-		$("#currentsong #meta .title").html(currentTrack.name);
-		var playSymbol = (coreArray['state'] == "playing") ? '\u25B6 ' : '';
-		
-		document.title = (currentTrack.artists != undefined) ? playSymbol+currentTrack.name+' - '+currentTrack.artists[0].name : "Mopify";
-		
-		if(currentTrack.artists != undefined) $("#currentsong #meta .artist").html(currentTrack.artists[0].name);
 		
 		// Fill timebar
 		var seekBarTimeout = null;		
@@ -194,6 +211,7 @@ function core(){
 		var curLength = coreArray['currentTrackPos'];
 		var songTimePerc = (seeked) ? songTimePerc : Number(Number((curLength/songLength)*100).toFixed(2));
 		
+		// Bind the slider and seek function
 		$( "#timebarwrap").slider({
 			value: songTimePerc,
 			orientation: "horizontal",
@@ -209,35 +227,40 @@ function core(){
 					currentTrack.trackPosition = songLength*(ui.value/100);
 				},1000);
 			}
-		});
-		
-		// Get artwork
-		$("#currentsong img.art").attr('src',getAlbumCover(currentTrack.uri));
-		
-		// Set options in player
-		(coreArray['random'] == true) ? $("#options #shuffle").addClass('active') : $("#options #shuffle").removeClass('active');
-		(coreArray['repeat'] == true) ? $("#options #repeat").addClass('active') : $("#options #repeat").removeClass('active');
-		// Volume icon
-		if(coreArray['volume'] == 0){
-			$("#currentsong #options #volume").html("volume");
-		}
-		else if(coreArray['volume'] < 50){
-			$("#currentsong #options #volume").html("lowvolume");
-		}
-		else{
-			$("#currentsong #options #volume").html("highvolume");
-		}
+		});	
 	}
 	
-	setTimeout(core,500);
-};
+	// Repeat this core function every second to update values
+	setTimeout(core,1000);
+}
+
+// Set options (shuffle and repeat) in player
+function checkRepeatShuffle(){
+	(coreArray['random'] == true) ? $("#options #shuffle").addClass('active') : $("#options #shuffle").removeClass('active');
+	(coreArray['repeat'] == true) ? $("#options #repeat").addClass('active') : $("#options #repeat").removeClass('active');
+}
+
+function checkPlayerVolume(){
+	// Set the volume icon on the correct value
+	if(coreArray['volume'] == 0){
+		$("#currentsong #options #volume").html("volume");
+	}
+	else if(coreArray['volume'] < 50){
+		$("#currentsong #options #volume").html("lowvolume");
+	}
+	else{
+		$("#currentsong #options #volume").html("highvolume");
+	}
+}
 
 // Take care of the paging system
-function paging(){
+function paging(){	
+	// Open the correct page when a menu item is clicked
 	$(".menu li.openpage").click(function(){
 		showPage($(this).find('a').attr('href'));
 	});
 	
+	// Open the search window on Search click
 	$(".menu li.opensearch a").click(function(e){
 		$("#searchwindow").toggleClass('open');
 		$(this).toggleClass('active');
@@ -245,8 +268,8 @@ function paging(){
 		e.preventDefault();
 	});
 	
+	// Check the page URL
 	var pageurl = window.location.hash.split('/');
-	console.log(pageurl);
 	if(pageurl[0] == "#meta"){
 		if(pageurl[1] == 'track'){
 			openMetapage(pageurl[1],pageurl[2],pageurl[3]);
@@ -260,6 +283,7 @@ function paging(){
 	}
 }
 
+// Show the correct page
 function showPage(page){
 	page = page.replace('#','');
 	$("#pagecontent .singlepage").hide();
@@ -269,6 +293,7 @@ function showPage(page){
 	$(".menu li a[href='#"+page+"']").addClass('active');
 }
 
+// Open the metapage (artists and albums). The functions are placed in the metapagebuilder.js file
 function openMetapage(type,uri,trackuri){
 	$("#searchwindow").removeClass('open');
 	$(".menu .opensearch a").removeClass('active');
@@ -305,6 +330,7 @@ function openMetapage(type,uri,trackuri){
 	});
 }
 
+// Convert MS to Seconds
 function secondsToString(seconds){
 	var seconds = seconds/1000;
 	var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
@@ -314,6 +340,7 @@ function secondsToString(seconds){
 	return numminutes+':'+numseconds;
 }
 
+// Ask the user for his country in a prompt
 function askBrowserLanguage(){
 	browserLang = localStorage.getItem('browserLanguage');
 	if(browserLang == undefined || browserLang == 'null'){
@@ -324,9 +351,11 @@ function askBrowserLanguage(){
 		
 		localStorage.setItem('browserLanguage', promptQuestion.toUpperCase().trim());
 		browserLang = promptQuestion.toUpperCase().trim();
+		showNotification("Language set on: "+browserLang);
 	}
 }
 
+// Show a notification 
 function showNotification(msg){
 	$("#notification").addClass('active');
 	$("#notification").html(msg);
@@ -335,10 +364,12 @@ function showNotification(msg){
 	},5000);
 }
 
+// This is the most important part. Here we start all the functions
 mopidy.on("state:online", function () {
 	setupVars();
 	core();
 	paging();
+	startupData();
 	
 	// Ask/check browser language
 	askBrowserLanguage();
@@ -359,4 +390,3 @@ mopidy.on("reconnecting", function(){
 mopidy.on("state:offline", function(){
 	showNotification("Hmm, it looks like we have no connection to the sever");
 });
-
