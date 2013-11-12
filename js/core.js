@@ -24,67 +24,98 @@ var coreArray = new Array();
 var browserLang;
 
 var setupVars = function(){
-	//Setup playlists
+	// Get the users playlists
 	mopidy.playlists.getPlaylists().then(function(lists){
 		coreArray['playlists'] = lists;
 	}, consoleError);
 	
+	// Check current track (not TL track!) every second
 	setInterval(function(){
 		mopidy.playback.getCurrentTrack().then(function (track) {
 			coreArray['currentTrack'] = track;
 		}, consoleError);
 	},1000);
 	
-	setInterval(function(){
-		mopidy.playback.getCurrentTlTrack().then(function (track) {
-			coreArray['currentTLTrack'] = track;
-		}, consoleError);
-	},1000);
-	
+	// Check the current time position of a track every second
 	setInterval(function(){
 		mopidy.playback.getTimePosition().then(function (pos) {
 			coreArray['currentTrackPos'] = pos;
 		}, consoleError);
 	},1000);
+
+	// On track change (gets the TL track)
+	mopidy.on("event:trackPlaybackResumed" ,function(track){
+		coreArray['currentTLTrack'] = track.tl_track;
+		console.log(track.tl_track);
+	});
 	
-	setInterval(function(){
-		mopidy.playback.getState().then(function (state) {
-			coreArray['state'] = state;
+	// On start of a new track (gets the TL track)
+	mopidy.on("event:trackPlaybackStarted" ,function(track){
+		coreArray['currentTLTrack'] = track.tl_track;
+		console.log(track.tl_track);
+	});
+	
+	// The above function only gets the track on a change. We also want the track at the start so let's call that function here
+	mopidy.playback.getCurrentTlTrack().then(function (track) {
+		coreArray['currentTLTrack'] = track;
+	}, consoleError);
+	
+	// Volume changed
+	mopidy.on("event:volumeChanged" ,function(vol){
+		coreArray['volume'] = vol;
+	});
+	
+	// Store the state on a playback state change
+	mopidy.on("event:playbackStateChanged" ,function(obj){
+		var state = obj.new_state;
+		
+		coreArray['state'] = state;
 			
-			// Do a direct check on the player	
-			if(state != "playing"){
+		// Do a direct check on the player        
+		if(state != "playing"){
 				$("#playerwrap #controls #playpause").html('play');
-			}
-			else{
-				$("#playerwrap #controls #playpause").html('pause');
-				
-				// If its playing and a meta page is open, make sure that page is aligned to the left so the player is visible
-				var pageurl = window.location.hash.split('/');
-				if(pageurl[0] == "#meta"){
+		} 
+		else{
+			$("#playerwrap #controls #playpause").html('pause');
+			
+			// If its playing and a meta page is open, make sure that page is aligned to the left so the player is visible
+			var pageurl = window.location.hash.split('/');
+			if(pageurl[0] == "#meta"){
 					$("#metapage").css({right: $("#currentsong").width()});
 					$("#pagewrapoverlay").css({width: 'calc(100% - '+($("#currentsong").width()+$("#sidebar").width())+'px)'});
-				}
 			}
-		}, consoleError);
-	},1000);
+		}
+	});
 	
-	setInterval(function(){
-		mopidy.playback.getVolume().then(function (vol) {
-			coreArray['volume'] = vol;
-		}, consoleError);
-	},1000);
+	// Manually ask the playback state, since we only get the new state on a change with the above listener.
+	mopidy.playback.getState().then(function (state) {
+		coreArray['state'] = state;
+		
+		// Do a direct check on the player        
+		if(state != "playing"){
+			$("#playerwrap #controls #playpause").html('play');
+		}
+		else{
+			$("#playerwrap #controls #playpause").html('pause');
+			
+			// If its playing and a meta page is open, make sure that page is aligned to the left so the player is visible
+			var pageurl = window.location.hash.split('/');
+			if(pageurl[0] == "#meta"){
+				$("#metapage").css({right: $("#currentsong").width()});
+				$("#pagewrapoverlay").css({width: 'calc(100% - '+($("#currentsong").width()+$("#sidebar").width())+'px)'});
+			}
+		}
+	}, consoleError);
 	
-	setInterval(function(){
-		mopidy.playback.getRandom().then(function(val){
-			coreArray['random'] = val;
-		}, consoleError);
-	},1000);
-	
-	setInterval(function(){
+	// On change of options like shuffle and random
+	mopidy.on("event:optionsChanged", function(){
 		mopidy.playback.getRepeat().then(function(val){
 			coreArray['repeat'] = val;
 		}, consoleError);
-	},1000);
+		mopidy.playback.getRandom().then(function(val){
+			coreArray['random'] = val;
+		}, consoleError);
+	});
 }
 
 function getAlbumCover(spotifyUri){
