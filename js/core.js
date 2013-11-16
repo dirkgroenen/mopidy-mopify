@@ -30,7 +30,7 @@ var setupVars = function(){
 		coreArray['playlists'] = lists;
 	}, consoleError);
 	
-	// Check current track (not TL track!) every second
+	// Check current track and TlTrack every second
 	setInterval(function(){
 		mopidy.playback.getCurrentTrack().then(function (track) {
 			coreArray['currentTrack'] = track;
@@ -46,25 +46,13 @@ var setupVars = function(){
 
 	// On track resumed (gets the TL track)
 	mopidy.on("event:trackPlaybackResumed" ,function(track){
-		coreArray['currentTLTrack'] = track.tl_track;
-		changePageTitle();
-		placeCurrentSongInfo();
-		getAlbumCoverByDom($("#currentsong img.art"),track.tl_track.track.uri);
+		initNewTlTrack(track.tl_track);
 	});
 	
 	// On start of a new track (gets the TL track)
 	mopidy.on("event:trackPlaybackStarted" ,function(track){
-		coreArray['currentTLTrack'] = track.tl_track;
-		
-		changePageTitle();
-		placeCurrentSongInfo();
-		getAlbumCoverByDom($("#currentsong img.art"),track.tl_track.track.uri);
+		initNewTlTrack(track.tl_track);
 	});
-	
-	// The above function only gets the track on a change. We also want the track at the start so let's call that function here
-	mopidy.playback.getCurrentTlTrack().then(function (track) {
-		coreArray['currentTLTrack'] = track;
-	}, consoleError);
 	
 	// Volume changed
 	mopidy.on("event:volumeChanged" ,function(vol){
@@ -129,6 +117,17 @@ var setupVars = function(){
 
 // Below we add the functions that need to run on the start of the client, these functions need information from the coreArray[currentTrack].
 function startupData(){
+	// The above function only gets the track on a change. We also want the track at the start so let's call that function here
+	mopidy.playback.getCurrentTlTrack().then(function (track) {
+		coreArray['currentTLTrack'] = track;
+	}, consoleError);
+
+	// Get volume
+	mopidy.playback.getVolume().then(function(vol){
+		coreArray['volume'] = vol;
+		checkPlayerVolume();
+	},consoleError);
+
 	if(coreArray['currentTrack'] != undefined){
 		changePageTitle();
 		placeCurrentSongInfo();
@@ -186,7 +185,7 @@ function joinArtists(artists){
 
 // Change the value of the page title into the current playing song
 function changePageTitle(){
-	var currentTrack = coreArray['currentTrack'];
+	var currentTrack = coreArray['currentTLTrack'].track;
 	var playSymbol = (coreArray['state'] == "playing") ? '\u25B6 ' : '';
 	
 	document.title = (currentTrack.artists != undefined) ? playSymbol+currentTrack.name+' - '+currentTrack.artists[0].name : "Mopify";
@@ -194,7 +193,7 @@ function changePageTitle(){
 
 // Place the artist name in the currentrack within the player
 function placeCurrentSongInfo(){
-	var currentTrack = coreArray['currentTrack'];
+	var currentTrack = coreArray['currentTLTrack'].track;
 	$("#currentsong #meta .title").html(currentTrack.name);
 	if(currentTrack.artists != undefined) $("#currentsong #meta .artist").html(currentTrack.artists[0].name);
 }
@@ -203,7 +202,7 @@ function placeCurrentSongInfo(){
 var seeked = false;
 function core(){	
 	if(coreArray['currentTrack'] != null && coreArray['currentTLTrack'] != null){
-		currentTrack = coreArray['currentTrack'];
+		currentTrack = coreArray['currentTLTrack'].track;
 		
 		// Fill timebar
 		var seekBarTimeout = null;		

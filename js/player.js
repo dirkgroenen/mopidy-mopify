@@ -68,7 +68,7 @@ mopidy.on("state:online", function () {
 	
 	// Set volume control
 	setTimeout(initVolumeControl, 250);
-	function initVolumeControl(){	
+	function initVolumeControl(){
 		if(coreArray['volume'] != null){
 			$( "#volumecontrol").slider({
 				value: coreArray['volume'],
@@ -111,8 +111,6 @@ function fillTracklist(){
 	mopidy.tracklist.getTlTracks().then(function(tracks){
 		coreArray["tracklist"] = tracks;
 		
-		console.log(coreArray); //debug
-		
 		$("#tracklist").css('height',$(document).height()-$("#playerwrap").height()+'px');
 		var $tracklist = $("#tracklist .tracks");
 		
@@ -129,7 +127,6 @@ function fillTracklist(){
 		}	
 		
 		$("#tracklist .track").click(function(){
-			console.log(coreArray["tracklist"][$(this).data('tracklistpos')]);
 			mopidy.playback.play(coreArray["tracklist"][$(this).data('tracklistpos')]);
 		});
 		
@@ -183,3 +180,11 @@ function selectTracklistTrack(id){
         scrollTop: newScrollTop
     }, 2000);
 }	
+
+function initNewTlTrack(srctrack){	
+	coreArray['currentTLTrack'] = srctrack;
+	
+	changePageTitle();
+	placeCurrentSongInfo();
+	getAlbumCoverByDom($("#currentsong img.art"),srctrack.track.uri);
+}
