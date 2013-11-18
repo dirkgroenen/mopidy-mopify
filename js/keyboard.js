@@ -20,7 +20,6 @@ $(document).ready(function(){
 	$(document).keydown(function(e){
 		var $highlighted = $("body").find('tr.track.highlight');
 		
-		
 		// Arrow up: 38
 		if(e.keyCode == 38){
 			if($highlighted.prev().length > 0){
@@ -37,15 +36,6 @@ $(document).ready(function(){
 			}
 		}
 		
-		// Arrow left: 37
-		if(e.keyCode == 37){
-		}
-		
-		// Arrow right: 39
-		if(e.keyCode == 39){
-		
-		}
-		
 		// Enter key: 13
 		if(e.keyCode == 13){
 			// Get the page url and check on which page we are
@@ -56,24 +46,23 @@ $(document).ready(function(){
 					if($highlighted.data('type') == 'populair'){
 						// Replace curent tracklist
 						var id = $highlighted.data('id');
-						mopidy.tracklist.clear().then(function(){
-							mopidy.tracklist.add(artistObject['mopidytracks']).then(function(){
-								mopidy.tracklist.getTlTracks().then(function(tracks){
-									mopidy.playback.changeTrack(tracks[id]).then(function(){
-										mopidy.playback.play();
-									});
-									fillTracklist();
-								});
-							},consoleError);
-						});
 						
+						replaceAndPlay(artistObject['mopidytracks'],id);
+
 						// Move the left according by the width of the player
 						$("#metapage").css({right: $("#currentsong").width()});
 						$("#pagewrapoverlay").css({width: 'calc(100% - '+($("#currentsong").width()+$("#sidebar").width())+'px)'});
 					}
 				}
 				if(pageurl[1] == 'album'){
-					console.log('album');
+					var id = $highlighted.data('id');
+					var track = metaalbumtracks[id];
+					
+					replaceAndPlay(metaalbumtracks,id);
+					
+					// Move the left according by the width of the player
+					$("#metapage").css({right: $("#currentsong").width()});
+					$("#pagewrapoverlay").css({width: 'calc(100% - '+($("#currentsong").width()+$("#sidebar").width())+'px)'});
 				}
 			}
 			else if(pageurl[0] == "#playlists"){
@@ -91,16 +80,7 @@ $(document).ready(function(){
 					});
 				}	
 				else{
-					mopidy.tracklist.clear();
-					mopidy.tracklist.add(playlist.tracks).then(function(){
-						// Play the clicked track
-						mopidy.tracklist.getTlTracks().then(function(tracks){
-							mopidy.playback.changeTrack(tracks[id]).then(function(){
-								mopidy.playback.play();
-							});
-							fillTracklist();
-						});
-					},consoleError);
+					replaceAndPlay(playlist.tracks,id);
 				}
 				
 				// Save the playlist in the corearray

@@ -26,8 +26,10 @@ function hideMetapage(){
 	window.location.hash = "";
 }
 
+var metaalbumtracks = null;
 function getMetaAlbums(type,uri,trackuri){
 	mopidy.library.lookup(uri).then(function(result){
+		metaalbumtracks = result;
 		// Remove the loader
 		$("#metapage").removeClass('loading');
 		
@@ -68,16 +70,7 @@ function getMetaAlbums(type,uri,trackuri){
 			var id = $(this).data('id');
 			var track = result[id];
 			
-			mopidy.tracklist.clear();
-			mopidy.tracklist.add(result).then(function(){
-				mopidy.playback.play();
-			},consoleError);
-			
-			mopidy.tracklist.getTlTracks().then(function(tracks){
-				mopidy.playback.changeTrack(tracks[id]);
-			});
-			
-			fillTracklist();
+			replaceAndPlay(result,id);
 			
 			// Move the left according by the width of the player
 			$("#metapage").css({right: $("#currentsong").width()});
@@ -138,19 +131,7 @@ function getMetaArtists(uri){
 				$("#metapage #artistpage #populartracks tr.track").dblclick(function(){
 					var id = $(this).data('id');
 					
-					mopidy.tracklist.clear();
-					
-					console.log(artistObject['mopidytracks']);
-					
-					mopidy.tracklist.add(artistObject['mopidytracks']).then(function(){
-						mopidy.tracklist.getTlTracks().then(function(tracks){
-							console.log(tracks);
-							mopidy.playback.changeTrack(tracks[id]);
-							mopidy.playback.play();
-						});
-					},consoleError);
-					
-					fillTracklist();
+					replaceAndPlay(artistObject['mopidytracks'],id);
 					
 					// Move the left according by the width of the player
 					$("#metapage").css({right: $("#currentsong").width()});
@@ -212,19 +193,7 @@ function getMetaArtists(uri){
 						var albumid = $(this).data('albumid');
 						var track = artistObject['albumtracks'][albumid][id];
 						
-						mopidy.tracklist.clear().then(function(){
-							
-							mopidy.tracklist.add(artistObject['albumtracks'][albumid]).then(function(){
-								mopidy.tracklist.getTlTracks().then(function(tracks){
-									mopidy.playback.changeTrack(tracks[id]).then(function(){
-										mopidy.playback.play();
-									},consoleError);
-									
-									fillTracklist();
-								});
-							},consoleError);
-							
-						},consoleError);
+						replaceAndPlay(artistObject['albumtracks'][albumid],id);
 						
 						// Move the left according by the width of the player
 						$("#metapage").css({right: $("#currentsong").width()});
@@ -247,12 +216,7 @@ function getMetaArtists(uri){
 				// Play album on playbutton click
 				$dom.find("#artwrap .playbutton").click(function(){
 					var albumid = $(this).closest('li.albumwrap').data('id');
-					mopidy.tracklist.clear().then(function(){
-						mopidy.tracklist.add(artistObject['albumtracks'][albumid]).then(function(){
-							mopidy.playback.play();
-						},consoleError);
-						fillTracklist();
-					},consoleError);
+					replaceAndPlay(artistObject['albumtracks'][albumid],0);
 				});
 			});
 		}

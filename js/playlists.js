@@ -88,11 +88,7 @@ mopidy.on("state:online", function () {
 		
 		// Bind the click function that will change the current Tracklist to the new playlist.
 		$page.find("#playlistswrap ul#playlists li.playlist .playbutton").click(function(){
-			mopidy.tracklist.clear();
-			mopidy.tracklist.add(playlists[$(this).closest('li').data('id')].tracks).then(function(){
-				mopidy.playback.play();
-				fillTracklist();
-			},consoleError);
+			replaceAndPlay(playlists[$(this).closest('li').data('id')].tracks,0);
 		});
 		
 		// Show the playlist's tracks on click
@@ -160,11 +156,7 @@ mopidy.on("state:online", function () {
 		
 		// Add playlist to the mopidy tracklist on albumart click
 		$page.find("#playlisttracks #art .play").click(function(){
-			mopidy.tracklist.clear();
-			mopidy.tracklist.add(playlist.tracks).then(function(){
-				mopidy.playback.play();
-			},consoleError);
-			fillTracklist();
+			replaceAndPlay(playlist.tracks,0);
 		});
 		
 		// Add the tracks to the playlist
@@ -217,16 +209,7 @@ mopidy.on("state:online", function () {
 				});
 			}	
 			else{
-				mopidy.tracklist.clear();
-				mopidy.tracklist.add(playlist.tracks).then(function(){
-					// Play the clicked track
-					mopidy.tracklist.getTlTracks().then(function(tracks){
-						mopidy.playback.changeTrack(tracks[id]).then(function(){
-							mopidy.playback.play();
-						});
-					});
-				},consoleError);
-				fillTracklist();				
+				replaceAndPlay(playlist.tracks,id);
 			}
 			
 			// Save the playlist in the corearray

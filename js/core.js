@@ -363,6 +363,20 @@ function showNotification(msg){
 	},5000);
 }
 
+// Function that replaces the current tracklist with new ones
+function replaceAndPlay(newTracks,trackID){
+	mopidy.tracklist.clear().then(function(){
+		mopidy.tracklist.add(newTracks).then(function(){
+			mopidy.tracklist.getTlTracks().then(function(tracks){
+				mopidy.playback.play();
+				mopidy.playback.changeTrack(tracks[trackID]);
+			});
+			
+			fillTracklist();
+		},consoleError);
+	});
+}
+
 // This is the most important part. Here we start all the functions
 mopidy.on("state:online", function () {
 	setupVars();
