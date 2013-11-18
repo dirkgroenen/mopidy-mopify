@@ -53,6 +53,17 @@ $(document).ready(function(){
 						$("#metapage").css({right: $("#currentsong").width()});
 						$("#pagewrapoverlay").css({width: 'calc(100% - '+($("#currentsong").width()+$("#sidebar").width())+'px)'});
 					}
+					if($highlighted.data('type') == 'album'){
+						// Replace curent tracklist
+						var id = $highlighted.data('id');
+						var albumid = $highlighted.data('albumid');
+
+						replaceAndPlay(artistObject['albumtracks'][albumid],id);
+						
+						// Move the left according by the width of the player
+						$("#metapage").css({right: $("#currentsong").width()});
+						$("#pagewrapoverlay").css({width: 'calc(100% - '+($("#currentsong").width()+$("#sidebar").width())+'px)'});
+					}
 				}
 				if(pageurl[1] == 'album'){
 					var id = $highlighted.data('id');

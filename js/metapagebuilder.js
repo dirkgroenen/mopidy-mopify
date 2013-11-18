@@ -146,7 +146,7 @@ function getMetaArtists(uri){
 			for(var i = 0;i < artistObject['albums'].length;i++){
 				var album = artistObject['albums'][i];
 				
-				var dombuild = "<li class='albumwrap' data-id='"+i+"' data-uri='"+album.uri+"' data-type='album'>";
+				var dombuild = "<li class='albumwrap' data-id='"+i+"' data-uri='"+album.uri+"'>";
 				dombuild += "<div id='artwrap'><img src='/images/no-album-art.jpg' class='art'/><div class='playbutton'></div></div>";
 				dombuild += "<div id='trackwrap'>";
 				dombuild += "<h2 class='albumname'><div class='dynamic'>"+album.name+"</span><span class='year'>"+album.date+"</span></h2>";
@@ -172,7 +172,7 @@ function getMetaArtists(uri){
 					
 					for(var i = 0;i < result.length;i++){
 						var track = result[i];
-						$dom.find("table.tracks").append("<tr class='track' data-albumid='"+albumid+"' data-id='"+ i +"' data-uri='"+track.uri+"'><td class='num'><span class='number'>"+ (i+1) +"</span><span class='button'><i class='ss-icon'>play</i></span></td> <td class='title'>"+track.name+" - "+joinArtists(track.artists)+"</td> <td class='length'>"+secondsToString(track.length)+"</td></tr>");
+						$dom.find("table.tracks").append("<tr class='track' data-albumid='"+albumid+"' data-id='"+ i +"' data-uri='"+track.uri+"' data-type='album'><td class='num'><span class='number'>"+ (i+1) +"</span><span class='button'><i class='ss-icon'>play</i></span></td> <td class='title'>"+track.name+" - "+joinArtists(track.artists)+"</td> <td class='length'>"+secondsToString(track.length)+"</td></tr>");
 					}
 					
 					// all the click actions
