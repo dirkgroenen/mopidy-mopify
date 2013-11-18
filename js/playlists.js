@@ -15,11 +15,12 @@
 	You should have received a copy of the GNU General Public License
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+var playlists = null;
+
 mopidy.on("state:online", function () {		
 	var firstLoad = true;
-	var playlists = null;
 	var $page = $(".singlepage[data-page='playlists']");
-	
+
 	// Get the users playlists and place them in the client
 	mopidy.playlists.getPlaylists().then(function(lists){
 		playlists = lists;
@@ -220,7 +221,9 @@ mopidy.on("state:online", function () {
 				mopidy.tracklist.add(playlist.tracks).then(function(){
 					// Play the clicked track
 					mopidy.tracklist.getTlTracks().then(function(tracks){
-						mopidy.playback.changeTrack(tracks[id]);
+						mopidy.playback.changeTrack(tracks[id]).then(function(){
+							mopidy.playback.play();
+						});
 					});
 				},consoleError);
 				fillTracklist();				

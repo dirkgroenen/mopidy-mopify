@@ -92,9 +92,10 @@ function getMetaAlbums(type,uri,trackuri){
 	},consoleError);
 }
 
+
+var artistObject = {};
 function getMetaArtists(uri){
 	var artistName,artistUri;
-	var artistObject = {};
 	
 	// Clear previous tracks and albums
 	$("#metapage #artistpage #populartracks table tr,#metapage #artistpage .albumscontainer .albumwrap").remove();
@@ -111,7 +112,7 @@ function getMetaArtists(uri){
 		
 	},consoleError);
 	
-	
+	// add results to the metapage
 	function addArtistResult(type,result){
 		artistObject[type] = result;
 		artistObject['mopidytracks'] = [];
@@ -131,7 +132,7 @@ function getMetaArtists(uri){
 				artistObject['mopidytracks'].push(track);
 				
 				var tablePos = (i < 5) ? 'left' : 'right' ;
-				$("#metapage #artistpage #populartracks table."+tablePos).append("<tr class='track' data-id='"+i+"' data-uri='"+track.uri+"'><td class='num'>"+ (i+1) +"</td> <td class='title'>"+ track.name +"</td></tr>");					
+				$("#metapage #artistpage #populartracks table."+tablePos).append("<tr class='track' data-id='"+i+"' data-uri='"+track.uri+"' data-type='populair'><td class='num'>"+ (i+1) +"</td> <td class='title'>"+ track.name +"</td></tr>");					
 				
 				// Add dblclick events for populair tracks
 				$("#metapage #artistpage #populartracks tr.track").dblclick(function(){
@@ -161,7 +162,7 @@ function getMetaArtists(uri){
 			for(var i = 0;i < artistObject['albums'].length;i++){
 				var album = artistObject['albums'][i];
 				
-				var dombuild = "<li class='albumwrap' data-id='"+i+"' data-uri='"+album.uri+"'>";
+				var dombuild = "<li class='albumwrap' data-id='"+i+"' data-uri='"+album.uri+"' data-type='album'>";
 				dombuild += "<div id='artwrap'><img src='/images/no-album-art.jpg' class='art'/><div class='playbutton'></div></div>";
 				dombuild += "<div id='trackwrap'>";
 				dombuild += "<h2 class='albumname'><div class='dynamic'>"+album.name+"</span><span class='year'>"+album.date+"</span></h2>";
