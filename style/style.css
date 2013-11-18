@@ -1175,3 +1175,20 @@ a:hover{
 #metapage #artistpage #albums ul.albumscontainer li.albumwrap #trackwrap table.tracks tr.track td.title{
 	padding-left: 10px;
 }
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #artwrap {
+	position: relative;
+}
+
+#metapage #artistpage #albums ul.albumscontainer li.albumwrap #artwrap .playbutton{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-image: url('/images/playbutton.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+	display: none;
+	top: 0;
+	left: 0;
+	cursor: pointer;
+}

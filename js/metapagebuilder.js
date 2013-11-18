@@ -162,7 +162,7 @@ function getMetaArtists(uri){
 				var album = artistObject['albums'][i];
 				
 				var dombuild = "<li class='albumwrap' data-id='"+i+"' data-uri='"+album.uri+"'>";
-				dombuild += "<div id='artwrap'><img src='/images/no-album-art.jpg' class='art'/></div>";
+				dombuild += "<div id='artwrap'><img src='/images/no-album-art.jpg' class='art'/><div class='playbutton'></div></div>";
 				dombuild += "<div id='trackwrap'>";
 				dombuild += "<h2 class='albumname'><div class='dynamic'>"+album.name+"</span><span class='year'>"+album.date+"</span></h2>";
 				dombuild += "<table class='tracks'>";
@@ -234,6 +234,25 @@ function getMetaArtists(uri){
 					localStorage.setItem(artistName+'Object',JSON.stringify(artistObject));
 				},consoleError);
 				
+				
+				// Show the playbutton in the art on a album art hover
+				$dom.find("#artwrap").hover(function(){
+					$(this).find('.playbutton').stop().fadeTo(10,0.8);
+				},function(){
+					$(this).find('.playbutton').stop().fadeTo(10,0.0);
+				});
+				
+				
+				// Play album on playbutton click
+				$dom.find("#artwrap .playbutton").click(function(){
+					var albumid = $(this).closest('li.albumwrap').data('id');
+					mopidy.tracklist.clear().then(function(){
+						mopidy.tracklist.add(artistObject['albumtracks'][albumid]).then(function(){
+							mopidy.playback.play();
+						},consoleError);
+						fillTracklist();
+					},consoleError);
+				});
 			});
 		}
 	}
