@@ -204,6 +204,8 @@ function getMetaArtists(uri){
 						$(this).addClass('highlight');
 					});
 					
+					// Remove previous binded dblclick to prevent from executing 'x' times
+					$("#metapage #artistpage #albums li.albumwrap tr.track").unbind('dblclick');
 					$("#metapage #artistpage #albums li.albumwrap tr.track").dblclick(function(){
 						var id = $(this).data('id');
 						var albumid = $(this).data('albumid');
@@ -216,11 +218,11 @@ function getMetaArtists(uri){
 									mopidy.playback.changeTrack(tracks[id]).then(function(){
 										mopidy.playback.play();
 									},consoleError);
+									
+									fillTracklist();
 								});
 							},consoleError);
 							
-							fillTracklist();
-
 						},consoleError);
 						
 						// Move the left according by the width of the player
