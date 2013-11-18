@@ -28,6 +28,8 @@ function hideMetapage(){
 
 var metaalbumtracks = null;
 function getMetaAlbums(type,uri,trackuri){
+	var albumname = null;
+	
 	mopidy.library.lookup(uri).then(function(result){
 		metaalbumtracks = result;
 		// Remove the loader
@@ -46,6 +48,8 @@ function getMetaAlbums(type,uri,trackuri){
 				$("#metapage #albumpage #details #albumyear").html(album.date); // Set title
 				$("#metapage #albumpage #details #albumartist .dynamic").html(artist.name); // Set title
 				$("#metapage #albumpage #details #albumartist .dynamic").attr('href',artist.uri); // Set artist url
+				
+				albumname = album.name;
 			}
 			// Place tracks
 			$("#metapage #albumpage #tracks table").append("<tr class='track' data-id='"+ x +"' data-uri='"+track.uri+"'><td class='num'><span class='number'>"+ (x+1) +"</span><span class='button'><i class='ss-icon'>play</i></span></td> <td class='title'>"+track.name+" - "+joinArtists(track.artists)+"</td> <td class='length'>"+secondsToString(track.length)+"</td></tr>");
@@ -82,6 +86,11 @@ function getMetaAlbums(type,uri,trackuri){
 		if(trackuri != undefined){
 			$("#metapage #albumpage #tracks table tr.track[data-uri='"+trackuri+"']").addClass('highlight');
 		}
+		
+		// Add actions to the buttons
+		$("#metapage #albumpage #buttons .saveasplaylist").click(function(){
+			var newplaylist = createNewPlaylist(albumname);
+		});
 	},consoleError);
 }
 

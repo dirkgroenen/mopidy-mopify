@@ -935,6 +935,29 @@ a:hover{
 	display: inline-block;
 }
 
+#metapage #albumpage #buttons{
+	margin-top: 7px;
+}
+
+#metapage #albumpage #buttons .button{
+	display: inline-block;
+	white-space: nowrap;
+	position: absolute;
+	height: 23px;
+	border-radius: 3px;
+	background-image: url(../images/buttons.png);
+	background-position: 0 -27px;
+	box-shadow: inset 0 1px 0 0 #95c800;
+	border: 1px solid rgba(0,0,0,.3);
+	padding: 0 6px;
+	line-height: 22px;
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.27);
+	cursor: pointer;
+}
+
 #metapage #albumpage #tracks{
 	padding: 20px;
 	border-top: 1px solid #fff;

@@ -371,7 +371,6 @@ function replaceAndPlay(newTracks,trackID){
 				mopidy.playback.play();
 				mopidy.playback.changeTrack(tracks[trackID]);
 			});
-			
 			fillTracklist();
 		},consoleError);
 	});

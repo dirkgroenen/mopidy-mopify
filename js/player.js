@@ -143,25 +143,35 @@ function fillTracklist(){
 			}
 		},1000)
 		
-		/* Not for now, but at some moment this will make the playlist sortable
+		// Make the tracklist sortable
+		// STILL IN DEVELOPING
 		$( "#tracklist .tracks" ).sortable({
 			axis: "y",
-			update: function(event,ui){	
+			update: function(event,ui){		
 				$("#tracklist .tracks li").each(function(index){
-					var prevPos = $(this).data('trackid');
+					var prevPos = $(this).data('tracklistpos');
 					var newPos = index;
+					
+					console.log(prevPos+" => "+newPos);
 					
 					if(prevPos != newPos){
 						mopidy.tracklist.move(prevPos,prevPos,newPos).then(function(){
 							mopidy.tracklist.getTlTracks().then(function(tracks){
 								console.log(tracks);
+								
+								// Recount the tracks
+								$("#tracklist .tracks li").each(function(index){
+									$(this).attr('data-tracklistpos',index);
+								});
 							});
 						});
+						
+						return false;
 					}
 				});
 			}
-		});*/
-		
+		});
+	
 	
 	},consoleError);
 }
