@@ -119,6 +119,9 @@ function getMetaArtists(uri){
 			getLastFMImage($("#metapage #artistpage #topcover img#bgimage"),encodeURIComponent(artistName)); // Get cover
 			$("#metapage #artistpage #topcover h1.name").html(artistName); // Edit artist title
 			
+			// Remove previous data (if there)
+			$("#metapage #artistpage #populartracks table tr").remove();
+			
 			// Add populair tracks
 			for(var i = 0;i < 10;i++){
 				var track = artistObject['tracks'][i];
