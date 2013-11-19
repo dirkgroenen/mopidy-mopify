@@ -2,9 +2,8 @@ Mopify
 ======
 
 A mopidy webclient based on the Spotify webbased interface. If you use Mopidy in combination with local music this client probably won't work.
-This client uses the Spotify API to speed up searching and artist/ablum lookup.
+This client uses the Spotify and EchoNest API to speed up searching and artist/ablum lookup.
 
-Note that this client is still in development. Especially the Artist and Album lookup don't work 100% as the should.
 
 Features
 --------
@@ -50,10 +49,9 @@ Security
 Known bugs/TODO
 ---------------
 
-- Better Cache system to improve load time on the Artist and Album pages.
 - Right click to add tracks to the current tracklist
 - Create/Modify playlists
-- Add keyboard support
-- Not all music returned by the Spotify API is playable. This has something to do with countries and shit like that.
+- Finish keyboard support
 - Code cleanup (The code became a bit messy during developing)
 - Something like a Chrome extension that replaces Spotify links on websites (like Facebook) so you can directly open them in Mopidy.
+- Improve the tracklist drag 'n drop
