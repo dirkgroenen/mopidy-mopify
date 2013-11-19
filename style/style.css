@@ -633,10 +633,10 @@ a:hover{
 }
 
 #pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.playlist .title{
-	display: block;
+	display: table-cell;
 	vertical-align: middle;
-	line-height: 50px;
-	margin-left: 65px;
+	height: 50px;
+	padding-left: 20px;
 	color: #3f3f3f;
 	font-size: 12px;
 }
