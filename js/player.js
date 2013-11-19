@@ -121,13 +121,13 @@ function fillTracklist(){
 		for(var x = 0; x < tracks.length;x++){
 			var track = tracks[x].track;
 		
-			$tracklist.append("<li class='track' data-tracklistpos='"+x+"' data-trackid='"+tracks[x].tlid+"'>"+track.name+"<span class='title'></span> - <span class='artist'>"+track.artists[0].name+"</span></li>");
+			$tracklist.append("<li class='track' data-tracklistpos='"+x+"' data-orderid='"+x+"' data-trackid='"+tracks[x].tlid+"'>"+track.name+"<span class='title'></span> - <span class='artist'>"+track.artists[0].name+"</span></li>");
 			
-			tlItemsPosition[tracks[x].tlid] = $tracklist.find('li.track[data-tracklistpos="'+x+'"]').offset().top;
+			tlItemsPosition[x] = $tracklist.find('li.track[data-tracklistpos="'+x+'"]').offset().top;
 		}	
 		
 		$("#tracklist .track").click(function(){
-			mopidy.playback.play(coreArray["tracklist"][$(this).data('tracklistpos')]);
+			mopidy.playback.play(coreArray["tracklist"][$(this).data('orderid')]);
 		});
 		
 		// check for current playing track
@@ -138,7 +138,7 @@ function fillTracklist(){
 			
 				if(prevTlID != currentTlID){
 					prevTlID = currentTlID;
-					selectTracklistTrack(currentTlID);
+					selectTracklistTrack($tracklist.find('li.track[data-trackid="'+currentTlID+'"]').data('tracklistpos'),currentTlID);
 				}
 			}
 		},1000)
@@ -152,19 +152,22 @@ function fillTracklist(){
 					var prevPos = $(this).data('tracklistpos');
 					var newPos = index;
 					
-					console.log(prevPos+" => "+newPos);
+					console.log(prevPos +" => "+ newPos);
 					
 					if(prevPos != newPos){
-						mopidy.tracklist.move(prevPos,prevPos,newPos).then(function(){
+						console.log("!!" + prevPos +" => "+ newPos);
+						
+						mopidy.tracklist.move(prevPos,(prevPos+1),newPos).then(function(){
 							mopidy.tracklist.getTlTracks().then(function(tracks){
-								console.log(tracks);
 								
 								// Recount the tracks
 								$("#tracklist .tracks li").each(function(index){
 									$(this).attr('data-tracklistpos',index);
 								});
-							});
-						});
+								
+								console.log(tracks);
+							},consoleError);
+						},consoleError);
 						
 						return false;
 					}
@@ -176,12 +179,13 @@ function fillTracklist(){
 	},consoleError);
 }
 
-function selectTracklistTrack(id){
+// Select the 
+function selectTracklistTrack(id,tlid){
 	var $tracklist = $("#tracklist .tracks");
 	// Clear all current class'
 	$tracklist.find('li.track').removeClass('current');
 	
-	var $currentTrack = $tracklist.find('li.track[data-trackid="'+id+'"]');
+	var $currentTrack = $tracklist.find('li.track[data-trackid="'+tlid+'"]');
 	$currentTrack.addClass('current');
 	
 	var newScrollTop = tlItemsPosition[id] - $("#currentsong #playerwrap").height();
@@ -191,6 +195,7 @@ function selectTracklistTrack(id){
     }, 2000);
 }	
 
+// Init the new track
 function initNewTlTrack(srctrack){	
 	coreArray['currentTLTrack'] = srctrack;
 	
