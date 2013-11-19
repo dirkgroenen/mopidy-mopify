@@ -9,7 +9,8 @@ Features
 --------
 - Search and album/artist lookup using the Spotify API (Results in faster searching)
 - Album cover caching
-- Logic and fast user interface based on the [Spotfiy web player](http://play.spotify.com)
+- Simple and fast user interface based on the [Spotfiy web player](http://play.spotify.com)
+- Use of the EchoNest API to get related artists (currently working on a Radio function to discover new music)
 
 Quick install
 -------------
