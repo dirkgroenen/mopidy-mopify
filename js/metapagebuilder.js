@@ -165,7 +165,10 @@ function getMetaArtists(uri){
 				artistObject['mopidytracks'].push(track);
 				
 				var tablePos = (i < 5) ? 'left' : 'right' ;
-				$("#metapage #artistpage #populartracks table."+tablePos).append("<tr class='track' data-id='"+i+"' data-uri='"+track.uri+"' data-type='populair'><td class='num'>"+ (i+1) +"</td> <td class='title'>"+ track.name +"</td></tr>");					
+				$("#metapage #artistpage #populartracks table."+tablePos).append("<tr class='track' data-id='"+i+"' data-uri='"+track.uri+"' data-type='populair'><td class='num'>"+ (i+1) +"</td> <td class='image'><div class='imagewrap'><img src=''/></div></td><td class='title'>"+ track.name +"</td></tr>");					
+				
+				// Add album art to populair track
+				getAlbumCoverByDom($("#metapage #artistpage #populartracks table."+tablePos+" tr.track[data-id='"+i+"'] .imagewrap img"),track.uri);
 				
 				// Add dblclick events for populair tracks
 				$("#metapage #artistpage #populartracks tr.track").dblclick(function(){

@@ -1093,7 +1093,7 @@ a:hover{
 }
 
 #metapage #artistpage #populartracks table.tracks tr td{
-	padding: 10px 15px;
+	padding: 5px 15px;
 	font-size: 14px;
 }
 
@@ -1104,8 +1104,28 @@ a:hover{
 	color: #777 !important;
 }
 
+#metapage #artistpage #populartracks table.tracks tr td.image{
+	width: 8%;
+	text-align: center;
+}
+
+#metapage #artistpage #populartracks table.tracks tr td.image .imagewrap{
+	width: 30px;
+	height: 30px;
+	overflow: hidden;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#metapage #artistpage #populartracks table.tracks tr td.image .imagewrap img{
+	width: 30px;
+	height: 30px;
+}
+
 #metapage #artistpage #populartracks table.tracks tr td.title{
-	width: 90%;
+	width: 82%;
+	padding-left: 0;
 }
 
 #metapage #artistpage #populartracks table.tracks tr:nth-child(odd) td.num{
@@ -1148,7 +1168,7 @@ a:hover{
 }
 
 #metapage #artistpage #similar table.similarartists tr.artist td{
-	padding: 2px;
+	padding: 4px 0;
 }
 
 #metapage #artistpage #albums ul.albumscontainer{
