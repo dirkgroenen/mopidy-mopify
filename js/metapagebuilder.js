@@ -35,6 +35,8 @@ function getMetaAlbums(type,uri,trackuri){
 		// Remove the loader
 		$("#metapage").removeClass('loading');
 		
+		// Clear table tracks
+		$("#metapage #albumpage #tracks table tr.track").remove();
 		for(var x = 0;x < result.length;x++){
 			var track = result[x];
 			// Set album information _ only once
@@ -102,21 +104,22 @@ function getMetaArtists(uri){
 	// Clear previous tracks and albums
 	$("#metapage #artistpage #populartracks table tr,#metapage #artistpage .albumscontainer .albumwrap").remove();
 	
+	
 	mopidy.library.lookup(uri).then(function(result){
 		artistName = result[0].artists[0].name;
 		artistUri = result[0].artists[0].uri;
 		
 		// Search tracks and albums
 		mopidy.library.findExact({'artist': [artistName]}).then(function(result){
-			addArtistResult('albums',result[0].albums);
-			addArtistResult('tracks',result[0].tracks);
+			addArtistResult(result[0].tracks,result[0].albums);
 		},consoleError);
 		
 	},consoleError);
 	
 	// add results to the metapage
-	function addArtistResult(type,result){
-		artistObject[type] = result;
+	function addArtistResult(tracks,albums){
+		artistObject["tracks"] = tracks;
+		artistObject["albums"] = albums;
 		artistObject['mopidytracks'] = [];
 		artistObject['albumtracks'] = [];
 		
@@ -151,6 +154,11 @@ function getMetaArtists(uri){
 				});
 			}
 			
+			// Remove previous albums
+			$("#metapage #artistpage .albumscontainer .albumwrap").remove();
+			
+			console.log(artistObject['albums']);
+			
 			// Add the albums 
 			for(var i = 0;i < artistObject['albums'].length;i++){
 				var album = artistObject['albums'][i];
@@ -158,7 +166,7 @@ function getMetaArtists(uri){
 				var dombuild = "<li class='albumwrap' data-id='"+i+"' data-uri='"+album.uri+"'>";
 				dombuild += "<div id='artwrap'><img src='/images/no-album-art.jpg' class='art'/><div class='playbutton'></div></div>";
 				dombuild += "<div id='trackwrap'>";
-				dombuild += "<h2 class='albumname'><div class='dynamic'>"+album.name+"</span><span class='year'>"+album.date+"</span></h2>";
+				dombuild += "<h2 class='albumname'><div class='dynamic'><a href='"+album.uri+"' class='openmeta'>"+album.name+"</a></span><span class='year'>"+album.date+"</span></h2>";
 				dombuild += "<table class='tracks'>";
 				dombuild += "</table>";
 				dombuild += "</div>";
@@ -168,6 +176,12 @@ function getMetaArtists(uri){
 				$("#metapage #artistpage .albumscontainer").append(dombuild);
 				getAlbumCoverByDom($("#metapage #artistpage #albums li.albumwrap[data-id='"+i+"'] #artwrap img"),album.uri); // Album cover
 			}
+			
+			// Open an album/artist meta page when clicked on the track's artist or album
+			$("#metapage #artistpage .albumscontainer .albumname a.openmeta").click(function(e){
+				openMetapage('album',$(this).attr('href'));
+				e.preventDefault();
+			});
 			
 			// Add the tracks to the albums
 			$("#metapage #artistpage #albums li.albumwrap").each(function(){
