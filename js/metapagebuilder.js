@@ -101,9 +101,8 @@ var artistObject = {};
 function getMetaArtists(uri){
 	var artistName,artistUri;
 	
-	// Clear previous tracks and albums
-	$("#metapage #artistpage #populartracks table tr,#metapage #artistpage .albumscontainer .albumwrap").remove();
-	
+	// Clear previous tracks, artists and albums
+	$("#metapage #artistpage #populartracks table tr,#metapage #artistpage .albumscontainer .albumwrap,#metapage #artistpage #similar table.similarartists tr.artist").remove();
 	
 	mopidy.library.lookup(uri).then(function(result){
 		artistName = result[0].artists[0].name;
@@ -114,6 +113,32 @@ function getMetaArtists(uri){
 			addArtistResult(result[0].tracks,result[0].albums);
 		},consoleError);
 		
+		// Get similar artists
+		echonest.artist(artistName).similar( function(similarCollection) {
+			artistObject['similarartists'] = similarCollection.data.artists;
+			
+			// Add similar artists
+			for(var x = 0; x < 5; x++){
+				var simArtist = artistObject['similarartists'][x];
+				$("#metapage #artistpage #similar table.similarartists").append("<tr class='artist' data-artist='"+simArtist.name+"' data-artistid='"+simArtist.id+"'><td><div class='image'><img src='/images/artist-placeholder.png'/></div></td><td>"+simArtist.name+"</td></tr>");				
+				// Set artist art
+				getLastFMImage($("#metapage #artistpage #similar table.similarartists tr.artist[data-artistid='"+simArtist.id+"'] img"),simArtist.name); 				
+			}
+			// Loop through the artists and get the Spotify URI
+			$("#metapage #artistpage #similar table.similarartists tr.artist").each(function(){
+				var $elem = $(this);
+				$.ajax({
+					url: "http://ws.spotify.com/search/1/artist.json?q="+ encodeURIComponent($elem.data('artist')),
+				}).done(function(result) {
+					$elem.attr('data-uri',result.artists[0].href);
+				});
+			});
+				
+			// Add click event to similar artists
+			$("#metapage #artistpage #similar table.similarartists tr.artist").click(function(){
+				openMetapage('artist',$(this).data('uri'));
+			});
+		});
 	},consoleError);
 	
 	// add results to the metapage
@@ -156,8 +181,6 @@ function getMetaArtists(uri){
 			
 			// Remove previous albums
 			$("#metapage #artistpage .albumscontainer .albumwrap").remove();
-			
-			console.log(artistObject['albums']);
 			
 			// Add the albums 
 			for(var i = 0;i < artistObject['albums'].length;i++){

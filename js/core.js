@@ -23,6 +23,9 @@ var mopifyversion = '1.0';
 var coreArray = new Array();
 var browserLang;
 
+// Echonest
+var echonest = new EchoNest("UVUDDM7M0S5MWNQFV");
+
 // Setup the listeners and coreArray vars. This function runs at the start so we also include some functions here that need to run at the start
 var setupVars = function(){
 	// Get the users playlists
@@ -163,7 +166,7 @@ function getAlbumCoverByDom(dom,spotifyUri){
 
 // Get a picture of the artist from LastFM. Like AlbumCoverByDom this functions also requires the dom element so it can place the image async
 function getLastFMImage(dom,artistname){
-	var url = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="+artistname.replace(' ','+')+"&api_key=c57585a2e7b83892aad0cdca5296c46c&format=json";
+	var url = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="+ artistname.replace(' ','+')+"&api_key=c57585a2e7b83892aad0cdca5296c46c&format=json";
 	if(localStorage.getItem(artistname)){
 		var object = JSON.parse(localStorage.getItem(artistname));
 		dom.attr('src',object.image[4]['#text']);

@@ -10,6 +10,7 @@
 		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="/js/ext/contextmenu.js"></script>
 		<script type="text/javascript" src="/js/ext/resizableColumns.js"></script>
+		<script type="text/javascript" src="/js/ext/jquery.echonest.js"></script>
 		<script type="text/javascript" src="http://heartcode-canvasloader.googlecode.com/files/heartcode-canvasloader-min-0.9.1.js"></script>
 		<script type="text/javascript" src="/mopidy/mopidy.js"></script>
 		<script type="text/javascript" src="/js/ext/jquery.tablesorter.min.js"></script>
@@ -21,27 +22,11 @@
 		<script type="text/javascript" src="/js/browse.js"></script>
 		<script type="text/javascript" src="/js/search.js"></script>
 		<script type="text/javascript" src="/js/keyboard.js"></script>
+		<script type="text/javascript" src="/js/echonest.js"></script>
 		
-		<script type="text/javascript">
-			$(document).ready(function(){
-				var cl = new CanvasLoader('pageloader');
-				cl.setShape('spiral'); // default is 'oval'
-				cl.setDensity(12); // default is 40
-				cl.setRange(0.8); // default is 1.3
-				cl.setSpeed(1); // default is 2
-				cl.setFPS(16); // default is 24
-				cl.show(); // Hidden by default
-				
-				// This bit is only for positioning - not necessary
-				  var loaderObj = document.getElementById("canvasLoader");
-				loaderObj.style.position = "absolute";
-				loaderObj.style["top"] = ($(document).height()/2)+cl.getDiameter() * -0.5 + "px";
-				loaderObj.style["left"] = ($(document).width()/2)+cl.getDiameter() * -0.5 + "px";
-			});
-		</script>
 	</head>
 	
-	<body>
+	<body>		
 		<div id="notification"><div class='message'></div></div>
 		<div id='pageloader'></div>
 		<div id="viewport">
@@ -52,18 +37,27 @@
 						<img id="bgimage" src="" />
 						<h1 class='name'></h1>
 					</div>
-
-					<div id="populartracks">
-						<h2 class='title'>Popular</h2>
-						<table class='tracks left'>
-						
-						</table>
-						<table class='tracks right'>
-						
-						</table>
+					
+					<div id="topwrapper">
+						<div id="populartracks">
+							<h2 class='title'>Popular</h2>
+							<table class='tracks left'>
+							
+							</table>
+							<table class='tracks right'>
+							
+							</table>
+							<div class='clear'></div>
+						</div>
+						<div id="similar">
+							<h2 class='title'>Similar artists</h2>
+							<table class='similarartists'>
+							
+							</table>
+							
+						</div>
 						<div class='clear'></div>
 					</div>
-					
 					<div id="albums">
 						<h2 class='title'>Albums</h2>
 						<ul class='albumscontainer'>
