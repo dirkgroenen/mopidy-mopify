@@ -170,7 +170,8 @@ function getMetaArtists(uri){
 				// Add album art to populair track
 				getAlbumCoverByDom($("#metapage #artistpage #populartracks table."+tablePos+" tr.track[data-id='"+i+"'] .imagewrap img"),track.uri);
 				
-				// Add dblclick events for populair tracks
+				// Remove previous binded dblclick to prevent from executing 'x' times
+				$("#metapage #artistpage #populartracks tr.track").unbind('dblclick');
 				$("#metapage #artistpage #populartracks tr.track").dblclick(function(){
 					var id = $(this).data('id');
 					
