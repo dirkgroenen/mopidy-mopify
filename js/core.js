@@ -132,9 +132,17 @@ function startupData(){
 	},consoleError);
 
 	if(coreArray['currentTrack'] != undefined){
+		mopidy.playback.getRepeat().then(function(val){
+			coreArray['repeat'] = val;
+			checkRepeatShuffle();
+		}, consoleError);
+		mopidy.playback.getRandom().then(function(val){
+			coreArray['random'] = val;
+			checkRepeatShuffle();
+		}, consoleError);
+	
 		changePageTitle();
 		placeCurrentSongInfo();
-		checkRepeatShuffle();
 		
 		// Get artwork for the current playing or selected track
 		getAlbumCoverByDom($("#currentsong img.art"),coreArray['currentTrack'].uri);
