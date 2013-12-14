@@ -21,54 +21,117 @@ function mopifyRadio(){
 	obj.apikey = echonest.apiKey;
 	obj.apiurl = "http://developer.echonest.com/api/v4/playlist/dynamic";
 	obj.sessionID = 0;
-	obj.nextSong = {};
+	obj.currentSong = {};
+	obj.nextSong = [];
+	obj.nextMopidySong = [];
+	obj.playlistName = "";
 
 	
 	this.createFromArtist = function(artist,callback){
+		obj.playlistName = artist;
 		$.ajax({
-			url: obj.apiurl+"/create?api_key="+obj.apikey+"&artist="+encodeURIComponent(artist)+"&type=artist-radio&format=jsonp&bucket=id:spotify-WW&bucket=tracks&limit=true",
+			url: obj.apiurl+"/create?api_key="+obj.apikey+"&artist="+encodeURIComponent(artist)+"&type=artist-radio&format=jsonp&bucket=id:spotify-WW&bucket=tracks&results=1&limit=true",
 			crossDomain: true,
 			dataType: 'jsonp',
 		}).done(function(result){
 			obj.sessionID = result.response.session_id;
-			callback(result);
+			sessionStorage.setItem('radioID',obj.sessionID);
+			
+			// Place the playlistname on the page
+			$("#radio #topbar #toparea #radioname .dynamic").html(artist);
+			
+			// Set the first song from the playlist
+			obj.currentSong = result.response.songs[0];
+			obj.initMetaData();
+			obj.mopidySetSong();
 		});
 	};
 	
 	this.nextTrack = function(callback){
-		if(obj.sessionID == 0){
+		$.ajax({
+			url: obj.apiurl+"/next?api_key="+obj.apikey+"&session_id="+obj.sessionID+"&format=jsonp&results=1&lookahead=1",
+			crossDomain: true,
+			dataType: 'jsonp',
+		}).done(function(result){
+			obj.currentSong = result.response.songs[0];
+			obj.nextSong = result.response.lookahead;
+			
+			// Set the first song from the playlist
+			obj.initMetaData();
+			obj.mopidySetSong();
+
+		});
+	};
+	
+	this.currentPlaylist = function(){
+		if(obj.sessionID == 0 && (sessionStorage.getItem('radioID') == null || sessionStorage.getItem('radioID') == 'undefined')){
 			return false;
 		}
 		else{
-			$.ajax({
-				url: obj.apiurl+"/next?api_key="+obj.apikey+"&session_id="+obj.sessionID+"&format=jsonp&results=1",
-				crossDomain: true,
-				dataType: 'jsonp',
-			}).done(function(result){
-				obj.nextSong = result.response.songs[0];
-				callback(result.response.songs[0]);
-			});
+			if(obj.sessionID == 0){
+				obj.sessionID = sessionStorage.getItem('radioID');
+			}			
+			return obj.sessionID;
 		}
-	};
+	}
 	
+	this.rateCurrentTrack = function(rate,callback){
+		var ratevalue = (rate == 'positive') ? 10 : 0;
+		$.ajax({
+			url: obj.apiurl+"/feedback?api_key="+obj.apikey+"&session_id="+obj.sessionID+"&format=jsonp&rate_song=last^"+ratevalue,
+			crossDomain: true,
+			dataType: 'jsonp',
+		}).done(function(result){
+			callback(result);
+		});
+	}
+	
+	this.mopidySetSong = function(){
+		mopidy.tracklist.clear().then(function(){
+			mopidy.tracklist.add(null,9999,obj.currentSong.tracks[0].foreign_id.replace('-WW','')).then(function(list){
+				fillTracklist();
+				mopidy.playback.play();
+			},consoleError);
+		},consoleError);
+	}
+	
+	this.initMetaData = function(){
+		// Replace the current playing meta data (title, artist, art) with new track meta
+		getAlbumCoverByDom($("#radio #topbar #controls .currenttrack img"), obj.currentSong.tracks[0].foreign_id.replace('-WW',''));
+		$("#radio #topbar #controls #metainfo .title").html(obj.currentSong.title);
+		$("#radio #topbar #controls #metainfo .artist").html(obj.currentSong.artist_name);
+	}
 }
 
 mopidy.on("state:online",function(){
 	// Build the radio object
 	var radio = new mopifyRadio();
 	
-	// Create a playlist from artist name
-	radio.createFromArtist('Weezer',function(radioResult){
+	//radio.createFromArtist('Coldplay');
 	
+	// Add listeners to buttons
+	$("#radio #topbar #controls #nexttrack").click(function(){
 		// Get the next track from the playlist
-		radio.nextTrack(function(track){
-			console.log(track);
-		
-			// Check mopidy for the track
-			mopidy.library.findExact({'any': [track.title], 'artist': [track.artist_name]}).then(function(result){
-				// Add the result to the tracklist and play
-				replaceAndPlay(result[0].tracks.splice(0,1),0);
-			},consoleError);
+		radio.nextTrack();
+	});
+	
+	$("#radio #topbar #controls #thumbwrap .thumb").click(function(){
+		// Rate the current track
+		radio.rateCurrentTrack($(this).data('rate'), function(){
+			radio.nextTrack();
 		});
 	});
+	
+	// Handle the end of a track
+	mopidy.on("event:trackPlaybackEnded",function(){
+		console.log('playbackended');
+		radio.nextTrack();
+	});
+	
+	// Show warning message on page close
+/*
+	window.onbeforeunload = function() {
+		return "Your current radio playlist will get lost.";
+	}
+*/
 });

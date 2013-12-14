@@ -235,11 +235,12 @@ mopidy.on("state:online", function () {
 	
 	/* Search tracks in playlist */
 	$("#search #query").keyup(function(e){
-		// When value of the input is not blank
+		// Remove filter input on ESC
 		if(e.keyCode == 27){
 			$(this).val("");
 		}
 		
+		// When value of the input is not blank
 		if( $(this).val() != "")
 		{
 			// Show only matching TR, hide rest of them

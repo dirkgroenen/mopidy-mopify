@@ -397,9 +397,6 @@ mopidy.on("state:online", function () {
 	// Ask/check browser language
 	askBrowserLanguage();
 	
-	// Set consume mode to false
-	mopidy.playback.setConsume(false);
-	
 	// Show that we are connected with the mopidy server
 	showNotification("Connected with Mopidy server");
 });

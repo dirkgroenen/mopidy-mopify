@@ -6,7 +6,7 @@ This client uses the Spotify and EchoNest API to speed up searching and artist/a
 
 Compatibility
 -------------
-The Mopify client is still in developing. Current developing is done on Mopidy version 0.15. I can't say how the client works on other Mopidy versions. 
+The Mopify client is still in developing. Current testing has been done on Mopidy version 0.15 and 0.17.
 
 Features
 --------

@@ -22,7 +22,7 @@
 		<script type="text/javascript" src="/js/browse.js"></script>
 		<script type="text/javascript" src="/js/search.js"></script>
 		<script type="text/javascript" src="/js/keyboard.js"></script>
-		<!--<script type="text/javascript" src="/js/radio.js"></script>  STILL IN DEVELOPING -->
+		<!--<script type="text/javascript" src="/js/radio.js"></script>-->
 		
 	</head>
 	
@@ -103,6 +103,7 @@
 						<li class='opensearch'><a href='#search'>Search</a></li>
 						<!--<li class='openpage'><a href='#browse'>Browse</a></li>-->
 						<li class='openpage'><a href='#playlists'>Playlists</a></li>
+						<li class='openpage'><a href='#radio'>Radio</a></li>
 					</ul>
 				</div>
 			</div>
@@ -166,7 +167,51 @@
 							</table>
 						</div>
 					</div>
+					
+					<div data-page="radio" class='singlepage'>
+						<div id="radio">
+							<div id="topbar">
+								<div id="toparea">
+									<div id='radioimage'>
+										<img src='/images/no-album-art.jpg'>
+									</div>
+									<div id='radioname'>Radio playlist for<br/><div class='dynamic'>2013-shortlist</div></div>
+									<div id='newradio'>
+										<div class='button'>Start new radio playlist</div>
+										<div id="searchwindow">
+											<div id="bar">
+												<input type="text" name="query" id="query" placeholder="Search"><div id='loader'><img src='/images/ajax-loader.gif'/></div>
+											</div>
+											<div id="results">
+												<table></table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div id="controls">
+									<div class='currenttrack'>
+										<!--<div class='playbutton'></div>-->
+										<img src='/images/no-album-art.jpg'>
+									</div>
+									<div id="nexttrack"></div>
+									<div id='metainfo'>
+										<div class='title'></div>
+										<div class='artist'></div>
+									</div>
+									<div id='thumbwrap'>
+										<div class='thumb' id='thumbdown' data-rate='positive'></div>
+										<div class='thumb' id='thumbup' data-rate='negative'></div>
+									</div>
+								</div>
+							</div>
+							
+							<div id="previousstations">
+							
+							</div>
+						</div>
+					</div>
 				</div>
+		
 				
 				<div id="currentsong">
 					<div id="playerwrap">

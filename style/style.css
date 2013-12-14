@@ -142,7 +142,6 @@ a:hover{
 	background-color: #333;
 	z-index: 2;
 	box-shadow: 0 2px 3px rgba(0,0,0,0.5);
-	border-right: 1px solid #ccc;
 	color: #a0a0a0;
 	font-weight: bold;
 }
@@ -1274,4 +1273,216 @@ a:hover{
 	top: 0;
 	left: 0;
 	cursor: pointer;
+}
+
+
+/* RADIO PAGE */
+#radio #topbar{
+	background: rgb(26,26,26); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(26,26,26,1) 0%, rgba(50,50,50,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(26,26,26,1)), color-stop(100%,rgba(50,50,50,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(26,26,26,1) 0%,rgba(50,50,50,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(26,26,26,1) 0%,rgba(50,50,50,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(26,26,26,1) 0%,rgba(50,50,50,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(26,26,26,1) 0%,rgba(50,50,50,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a1a1a', endColorstr='#323232',GradientType=0 ); /* IE6-9 */
+	height: 475px;
+}
+
+#radio #topbar #toparea{
+	width: 100%;
+	position: relative;
+}	
+
+#radio #topbar #toparea #radioimage{
+	overflow: hidden;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+#radio #topbar #toparea #radioimage img{
+	height: 50px;
+}
+
+#radio #topbar #toparea #radioname{
+	position: absolute;
+	top: 23px;
+	left: 83px;
+	display: table-cell;
+	height: 50px;
+	color: #a5a5a5;
+	font-weight: bold;
+	font-size: 16px;
+	text-shadow: 0 0 2px rgba(0,0,0,0.5);
+	vertical-align: middle;
+}
+
+#radio #topbar #toparea #radioname .dynamic{
+	font-size: 18px;
+	color: #ccc;
+	margin-top: 3px;
+	display: block;
+}
+
+#radio #topbar #toparea #newradio {
+	position: relative;
+	right: 20px;
+	top: 20px;
+	float: right;
+}
+
+#radio #topbar #toparea #newradio .button{
+	background: url('/images/buttons.png') 0 -1px;
+	border: 0;
+	border-radius: 3px;
+	padding: 0 8px 2px 8px;
+	line-height: 23px;
+	font-weight: bold;
+	color: #444;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.62);
+	height: 20px;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	display: inline-block;
+	cursor: pointer;
+}
+
+#radio #topbar #controls{
+	width: 450px;
+	margin-left: -170px;
+	position: absolute;
+	left: 50%;
+	margin-top: 90px;
+}
+
+#radio #topbar #controls .currenttrack{
+	overflow: hidden;
+	width: 300px;
+	height: 300px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	box-shadow: 0 0 4px rgba(0,0,0,0.5);
+	position: relative;
+}
+
+#radio #topbar #controls .currenttrack img{
+	width: 300px;
+}
+
+#radio #topbar #controls .currenttrack .playbutton{
+	background-image: url('/images/playbuttons-XL.png');
+	width: 79px;
+	height: 79px;
+	margin: auto;
+	margin-top: 110px;
+	margin-left: 110px;
+	z-index: 9;
+	position: absolute;
+	cursor: pointer;
+	opacity: 0.8;
+	-webkit-transition: opacity 0.2s linear;
+	-moz-transition: opacity 0.2s linear;
+	-ms-transition: opacity 0.2s linear;
+}
+
+#radio #topbar #controls .currenttrack .playbutton:hover{
+	opacity: 1;
+}
+
+#radio #topbar #controls .currenttrack .playbutton.pause{
+	background-position-x: -243px;
+}
+
+#radio #topbar #controls #nexttrack{
+	width: 59px;
+	height: 59px;
+	background-image: url('/images/skip.png');
+	background-position: 0px 0px;
+	-webkit-transition: opacity 0.2s linear;
+	-moz-transition: opacity 0.2s linear;
+	-ms-transition: opacity 0.2s linear;
+	opacity: 0.75;
+	cursor: pointer;
+	position: absolute;
+	top: 120px;
+	right: 0;
+}
+
+#radio #topbar #controls #nexttrack:hover{
+	opacity: 1;
+}
+
+#radio #topbar #controls #metainfo{
+	margin-top: 15px;
+	float: left;
+	color: #ddd;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px rgba(0,0,0,.5);
+}
+
+#radio #topbar #controls #metainfo .artist,#radio #topbar #controls #metainfo .title{
+	display: block;
+}
+
+#radio #topbar #controls #metainfo .title{
+	font-size: 14px;
+	width: 230px;
+	padding-bottom: 3px;
+}
+
+#radio #topbar #controls #metainfo .artist{
+	color: #ccc;
+}
+
+#radio #topbar #controls #thumbwrap {
+	position: absolute;
+	right: 150px;
+	margin-top: 15px;
+}
+
+#radio #topbar #controls #thumbwrap .thumb{
+	height: 37px;
+	width: 37px;
+	background-size: cover;
+	display: inline-block;
+	opacity: 0.8;
+	cursor: pointer;
+	-webkit-transition: opacity 0.2s linear;
+	-moz-transition: opacity 0.2s linear;
+	-ms-transition: opacity 0.2s linear;
+}
+
+#radio #topbar #controls #thumbwrap .thumb:hover{
+	opacity: 1;
+}
+
+#radio #topbar #controls #thumbwrap .thumb#thumbup{
+	background-image: url('/images/thumbup.png');
+}
+
+#radio #topbar #controls #thumbwrap .thumb#thumbdown{
+	background-image: url('/images/thumbdown.png');
+}
+
+#radio #previousstations{
+	background: rgb(25,25,25); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(25,25,25,1) 0%, rgba(43,43,43,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(25,25,25,1)), color-stop(100%,rgba(43,43,43,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(25,25,25,1) 0%,rgba(43,43,43,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(25,25,25,1) 0%,rgba(43,43,43,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(25,25,25,1) 0%,rgba(43,43,43,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(25,25,25,1) 0%,rgba(43,43,43,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#191919', endColorstr='#2b2b2b',GradientType=0 ); /* IE6-9 */
+	box-shadow: inset 5px 5px 5px rgba(0,0,0,0.5);
+	height: 230px;
 }
