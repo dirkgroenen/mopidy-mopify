@@ -132,11 +132,11 @@ function startupData(){
 	},consoleError);
 
 	if(coreArray['currentTrack'] != undefined){
-		mopidy.playback.getRepeat().then(function(val){
+		mopidy.tracklist.getRepeat().then(function(val){
 			coreArray['repeat'] = val;
 			checkRepeatShuffle();
 		}, consoleError);
-		mopidy.playback.getRandom().then(function(val){
+		mopidy.tracklist.getRandom().then(function(val){
 			coreArray['random'] = val;
 			checkRepeatShuffle();
 		}, consoleError);
