@@ -90,14 +90,15 @@ mopidy.on("state:online", function () {
 		$("#options #shuffle").toggleClass('active');
 		var toggleVal = (coreArray['random']) ? false: true;
 		coreArray['random'] = toggleVal;
-		mopidy.playback.setRandom(toggleVal);
+		mopidy.tracklist.setRandom(toggleVal);
+		console.log(coreArray);
 	});
 	
 	$("#options #repeat").click(function(){
 		$("#options #repeat").toggleClass('active');	
 		var toggleVal = (coreArray['repeat']) ? false: true;
 		coreArray['repeat'] = toggleVal;
-		mopidy.playback.setRepeat(toggleVal);
+		mopidy.tracklist.setRepeat(toggleVal);
 	});
 	
 	// fill the tracklist

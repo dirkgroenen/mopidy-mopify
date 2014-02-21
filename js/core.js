@@ -107,10 +107,10 @@ var setupVars = function(){
 	
 	// On change of options like shuffle and random
 	mopidy.on("event:optionsChanged", function(){
-		mopidy.playback.getRepeat().then(function(val){
+		mopidy.tracklist.getRepeat().then(function(val){
 			coreArray['repeat'] = val;
 		}, consoleError);
-		mopidy.playback.getRandom().then(function(val){
+		mopidy.tracklist.getRandom().then(function(val){
 			coreArray['random'] = val;
 		}, consoleError);
 		
