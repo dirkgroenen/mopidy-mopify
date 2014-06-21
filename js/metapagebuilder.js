@@ -254,7 +254,7 @@ function getMetaArtists(uri){
 					});
 					
 					// Save the artist object
-					localStorage.setItem(artistName+'Object',JSON.stringify(artistObject));
+					//localStorage.setItem(artistName+'Object',JSON.stringify(artistObject));
 				},consoleError);
 				
 				

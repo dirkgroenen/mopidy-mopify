@@ -162,7 +162,7 @@ function getAlbumCoverByDom(dom,spotifyUri){
 		}
 		else{
 			$.getJSON("https://embed.spotify.com/oembed/?url="+spotifyUri+"&callback=?", function(data){
-				localStorage.setItem(spotifyUri, data.thumbnail_url);
+				//localStorage.setItem(spotifyUri, data.thumbnail_url);
 				dom.attr('src',data.thumbnail_url);
 			});
 		}
