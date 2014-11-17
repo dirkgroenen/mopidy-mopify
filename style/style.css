@@ -101,12 +101,12 @@ a:hover{
 	right: 20px;
 	z-index: 9999;
 	padding: 15px 20px;
-	font-size: 16px;
+	font-size: 14px;
 	background: #333;
 	color: white;
 	font-weight: bold;
-	box-shadow: 0 0 2px black;
-	border: 1px solid #555;
+	box-shadow: 0 0 10px rgba(0,0,0,0.3);
+	border-radius: 10px;
 	transition: all .5s ease;
 	-webkit-transition: all .5s ease;
 	-moz-transition: all .5s ease;
