@@ -619,17 +619,20 @@ a:hover{
 
 #pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.playlist .image .playbutton{
 	position: absolute;
-	height: 100%;
-	width: 100%;
+	height: 70%;
+	width: 70%;
+	top: 15%;
+	left: 15%;
 	background-image: url('/images/playbutton.png');
 	background-position: center center;
 	background-repeat: no-repeat;
 	display: none;
+	border-radius: 25px;
 }
 
 #pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.playlist .image img{
-	width: 50px;
-	min-height: 50px;
+	width: 30px;
+	min-height: 30px;
 }
 
 #pagewrap #pagecontent .singlepage #playlistswrap ul#playlists li.playlist .title{
@@ -851,13 +854,18 @@ a:hover{
 	transition: all .5s ease;
 	-webkit-transition: all .5s ease;
 	-moz-transition: all .5s ease;
-	overflow-y: auto;
+	overflow-y: scroll;
 }
 
 #metapage.open{
 	transform: translateX(0);
 	-ms-transform: translateX(0); /* IE 9 */
 	-webkit-transform: translateX(0); /* Safari and Chrome */
+}
+
+#metapage #albumpage,
+#metapage #artistpage {
+	overflow-x: hidden;
 }
 
 #metapage #albumpage{
@@ -1094,7 +1102,6 @@ a:hover{
 
 #metapage #artistpage #populartracks table.tracks tr td{
 	padding: 5px 15px;
-	font-size: 14px;
 }
 
 #metapage #artistpage #populartracks table.tracks tr td.num{
@@ -1152,6 +1159,7 @@ a:hover{
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	margin-right: 10px;
 }
 
 #metapage #artistpage #similar table.similarartists .image img{
