@@ -490,6 +490,7 @@ a:hover{
 #pagewrap #currentsong #meta .artist{
 	display: block;
 	font-size: 12px;
+	color: #FFFFFF;
 }
 
 #pagewrap #currentsong  #tracklist{
