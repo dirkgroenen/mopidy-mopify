@@ -206,7 +206,13 @@ function changePageTitle(){
 function placeCurrentSongInfo(){
 	var currentTrack = coreArray['currentTLTrack'].track;
 	$("#currentsong #meta .title").html(currentTrack.name);
-	if(currentTrack.artists != undefined) $("#currentsong #meta .artist").html(currentTrack.artists[0].name);
+	if(currentTrack.artists != undefined) $("#currentsong #meta .artist").html(currentTrack.artists[0].name).attr('href',currentTrack.artists[0].uri);
+	
+	// Open an album/artist meta page when clicked on the track's artist or album
+	$(document).find("#currentsong a").click(function(e){
+		openMetapage($(this).data('type'),$(this).attr('href'));
+		e.preventDefault();
+	});
 }
 
 // Core function, will run on the start of the client
