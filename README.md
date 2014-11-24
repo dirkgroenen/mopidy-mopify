@@ -4,10 +4,6 @@ Mopify - Alpha
 A mopidy webclient based on the Spotify webbased interface. If you use Mopidy in combination with local music this client probably won't work.
 This client uses the Spotify and EchoNest API to speed up searching and artist/ablum lookup.
 
-Compatibility
--------------
-The Mopify client is still in developing. Current testing has been done on Mopidy version 0.15 and 0.17.
-
 Features
 --------
 - Search and album/artist lookup using the Spotify API (Results in faster searching)
