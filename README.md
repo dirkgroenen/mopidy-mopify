@@ -22,8 +22,8 @@ Install by running::
 
 Alternatively, clone the repository and run ``sudo python setup.py install`` from within the project directory. e.g. ::
 
-    $ git clone https://github.com/dirkgroenen/Mopify
-    $ cd Mopify
+    $ git clone https://github.com/dirkgroenen/mopidy-mopify
+    $ cd mopidy-mopify
     $ sudo python setup.py install
 
 
