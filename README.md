@@ -38,10 +38,10 @@ After you installed the Mopidy client you can use a modern browser (like Firefox
 Screenshots
 -----------
 
-![ScreenShot](https://raw.github.com/dirkgroenen/Mopify/master/Screenshots/albumlookup.png) 
-![ScreenShot](https://raw.github.com/dirkgroenen/Mopify/master/Screenshots/artistlookup.png)
-![ScreenShot](https://raw.github.com/dirkgroenen/Mopify/master/Screenshots/playlists.png) 
-![ScreenShot](https://raw.github.com/dirkgroenen/Mopify/master/Screenshots/search.png)
+![ScreenShot](https://raw.githubusercontent.com/dirkgroenen/mopidy-mopify/master/screenshots/albumlookup.png) 
+![ScreenShot](https://raw.githubusercontent.com/dirkgroenen/mopidy-mopify/master/screenshots/artistlookup.png)
+![ScreenShot](https://raw.githubusercontent.com/dirkgroenen/mopidy-mopify/master/screenshots/playlists.png) 
+![ScreenShot](https://raw.githubusercontent.com/dirkgroenen/mopidy-mopify/master/screenshots/search.png)
 
 
 Security
