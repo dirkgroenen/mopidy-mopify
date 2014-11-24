@@ -1,0 +1,6 @@
+include LICENSE.md
+include MANIFEST.in
+include README.md
+include mopidy_mopify/ext.conf
+
+recursive-include mopidy_mopify/static *
