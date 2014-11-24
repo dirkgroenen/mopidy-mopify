@@ -168,7 +168,7 @@ function getAlbumCoverByDom(dom,spotifyUri){
 		}
 	}
 	else{
-		dom.attr('src',"/images/no-album-art.jpg");
+		dom.attr('src',"/mopify/images/no-album-art.jpg");
 	}
 }
 

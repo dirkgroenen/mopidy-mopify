@@ -3,16 +3,16 @@
 	<head>
 		<title>Mopify</title>
 	
-		<link href="/webfonts/ss-standard.css" rel="stylesheet" />
-		<link href="/style/style.css" rel="stylesheet" type="text/css">
+		<link href="./webfonts/ss-standard.css" rel="stylesheet" />
+		<link href="./style/style.css" rel="stylesheet" type="text/css">
 	
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="/mopidy/mopidy.js"></script>
 		<script type="text/javascript" src="./js/ext/contextmenu.js"></script>
 		<script type="text/javascript" src="./js/ext/resizableColumns.js"></script>
 		<script type="text/javascript" src="./js/ext/jquery.echonest.js"></script>
 		<script type="text/javascript" src="http://heartcode-canvasloader.googlecode.com/files/heartcode-canvasloader-min-0.9.1.js"></script>
-		<script type="text/javascript" src="./mopidy/mopidy.js"></script>
 		<script type="text/javascript" src="./js/ext/jquery.tablesorter.min.js"></script>
 		<script type="text/javascript" src="./js/ext/transit.js"></script>
 		<script type="text/javascript" src="./js/core.js"></script>
@@ -71,14 +71,14 @@
 						<table>
 							<tr>
 								<td>
-									<div class='art'><img src='/images/no-album-art.jpg'/></div>
+									<div class='art'><img src='/mopify/images/no-album-art.jpg'/></div>
 								</td>
 								<td>
 									<div id='albumtitle'></div><div id="albumyear"></div>
 									<div id="buttons">
 										<!--<div class='saveasplaylist button'>+ Save as playlist</div>-->
 									</div>
-									<div id="albumartist"><div id="artistart"><img src='/images/no-album-art.jpg'/></div> By <a href="" class='dynamic'></a></div>
+									<div id="albumartist"><div id="artistart"><img src='/mopify/images/no-album-art.jpg'/></div> By <a href="" class='dynamic'></a></div>
 								</td>
 							</tr>
 						</table>
@@ -110,7 +110,7 @@
 
 			<div id="searchwindow">
 				<div id="bar">
-					<input type="text" name="query" id="query" placeholder="Search"><div id='loader'><img src='/images/ajax-loader.gif'/></div>
+					<input type="text" name="query" id="query" placeholder="Search"><div id='loader'><img src='/mopify/images/ajax-loader.gif'/></div>
 				</div>
 				<div id="results">
 					<table></table>
@@ -153,7 +153,7 @@
 								<div class='clear'></div>
 							</div>
 							<div id="information">
-								<div id="art"><img src='/images/no-album-art.jpg' class='image' /><img src='/images/playbutton_big.png' class='play'/></div>
+								<div id="art"><img src='/mopify/images/no-album-art.jpg' class='image' /><img src='/mopify/images/playbutton_big.png' class='play'/></div>
 								<div class='title'></div>
 								<div class='clear'></div>
 							</div>
@@ -173,14 +173,14 @@
 							<div id="topbar">
 								<div id="toparea">
 									<div id='radioimage'>
-										<img src='/images/no-album-art.jpg'>
+										<img src='/mopify/images/no-album-art.jpg'>
 									</div>
 									<div id='radioname'>Radio playlist for<br/><div class='dynamic'>2013-shortlist</div></div>
 									<div id='newradio'>
 										<div class='button'>Start new radio playlist</div>
 										<div id="searchwindow">
 											<div id="bar">
-												<input type="text" name="query" id="query" placeholder="Search"><div id='loader'><img src='/images/ajax-loader.gif'/></div>
+												<input type="text" name="query" id="query" placeholder="Search"><div id='loader'><img src='/mopify/images/ajax-loader.gif'/></div>
 											</div>
 											<div id="results">
 												<table></table>
@@ -191,7 +191,7 @@
 								<div id="controls">
 									<div class='currenttrack'>
 										<!--<div class='playbutton'></div>-->
-										<img src='/images/no-album-art.jpg'>
+										<img src='/mopify/images/no-album-art.jpg'>
 									</div>
 									<div id="nexttrack"></div>
 									<div id='metainfo'>
@@ -220,7 +220,7 @@
 							<div id="volumecontrolwrap"><div id="volumecontrol"></div></div>
 						</div>
 						<div id="albumart">
-							<img src='/images/no-album-art.jpg' class='art'/>
+							<img src='/mopify/images/no-album-art.jpg' class='art'/>
 						</div>
 						<div id='timebarwrap'><div id='timebarfill'></div></div>
 						<div id="controls">

@@ -90,7 +90,7 @@ a:hover{
 }
 
 .loading{
-	background-image: url('/images/ajax-loader.gif');
+	background-image: url('/mopify/images/ajax-loader.gif');
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -151,7 +151,7 @@ a:hover{
 	text-align: center;
 	border-bottom: 1px solid #000;
 	padding: 95px 0 10px 0;
-	background-image: url('/images/mopify_logo.png');
+	background-image: url('/mopify/images/mopify_logo.png');
 	background-position: center 20px;
 	background-size: 60px;
 	background-repeat: no-repeat;
@@ -220,7 +220,7 @@ a:hover{
 	box-shadow: inset 0 0 3px #7ab800;
 	color: #777;
 	outline: none; 
-	background-image: url('/images/searchicon.png');
+	background-image: url('/mopify/images/searchicon.png');
 	background-repeat: no-repeat;
 	background-position: 8px center;
 	background-size: 12px;
@@ -620,7 +620,7 @@ a:hover{
 	position: absolute;
 	height: 100%;
 	width: 100%;
-	background-image: url('/images/playbutton.png');
+	background-image: url('/mopify/images/playbutton.png');
 	background-position: center center;
 	background-repeat: no-repeat;
 	display: none;
@@ -944,7 +944,7 @@ a:hover{
 	position: absolute;
 	height: 23px;
 	border-radius: 3px;
-	background-image: url(../images/buttons.png);
+	background-image: url(../mopify/images/buttons.png);
 	background-position: 0 -27px;
 	box-shadow: inset 0 1px 0 0 #95c800;
 	border: 1px solid rgba(0,0,0,.3);
@@ -1266,7 +1266,7 @@ a:hover{
 	position: absolute;
 	height: 100%;
 	width: 100%;
-	background-image: url('/images/playbutton.png');
+	background-image: url('/mopify/images/playbutton.png');
 	background-position: center center;
 	background-repeat: no-repeat;
 	display: none;
@@ -1339,7 +1339,7 @@ a:hover{
 }
 
 #radio #topbar #toparea #newradio .button{
-	background: url('/images/buttons.png') 0 -1px;
+	background: url('/mopify/images/buttons.png') 0 -1px;
 	border: 0;
 	border-radius: 3px;
 	padding: 0 8px 2px 8px;
@@ -1380,7 +1380,7 @@ a:hover{
 }
 
 #radio #topbar #controls .currenttrack .playbutton{
-	background-image: url('/images/playbuttons-XL.png');
+	background-image: url('/mopify/images/playbuttons-XL.png');
 	width: 79px;
 	height: 79px;
 	margin: auto;
@@ -1406,7 +1406,7 @@ a:hover{
 #radio #topbar #controls #nexttrack{
 	width: 59px;
 	height: 59px;
-	background-image: url('/images/skip.png');
+	background-image: url('/mopify/images/skip.png');
 	background-position: 0px 0px;
 	-webkit-transition: opacity 0.2s linear;
 	-moz-transition: opacity 0.2s linear;
@@ -1467,11 +1467,11 @@ a:hover{
 }
 
 #radio #topbar #controls #thumbwrap .thumb#thumbup{
-	background-image: url('/images/thumbup.png');
+	background-image: url('/mopify/images/thumbup.png');
 }
 
 #radio #topbar #controls #thumbwrap .thumb#thumbdown{
-	background-image: url('/images/thumbdown.png');
+	background-image: url('/mopify/images/thumbdown.png');
 }
 
 #radio #previousstations{

@@ -120,7 +120,7 @@ function getMetaArtists(uri){
 			// Add similar artists
 			for(var x = 0; x < 5; x++){
 				var simArtist = artistObject['similarartists'][x];
-				$("#metapage #artistpage #similar table.similarartists").append("<tr class='artist' data-artist='"+simArtist.name+"' data-artistid='"+simArtist.id+"'><td><div class='image'><img src='/images/artist-placeholder.png'/></div></td><td>"+simArtist.name+"</td></tr>");				
+				$("#metapage #artistpage #similar table.similarartists").append("<tr class='artist' data-artist='"+simArtist.name+"' data-artistid='"+simArtist.id+"'><td><div class='image'><img src='/mopify/images/artist-placeholder.png'/></div></td><td>"+simArtist.name+"</td></tr>");				
 				// Set artist art
 				getLastFMImage($("#metapage #artistpage #similar table.similarartists tr.artist[data-artistid='"+simArtist.id+"'] img"),simArtist.name); 				
 			}
@@ -191,7 +191,7 @@ function getMetaArtists(uri){
 				var album = artistObject['albums'][i];
 				
 				var dombuild = "<li class='albumwrap' data-id='"+i+"' data-uri='"+album.uri+"'>";
-				dombuild += "<div id='artwrap'><img src='/images/no-album-art.jpg' class='art'/><div class='playbutton'></div></div>";
+				dombuild += "<div id='artwrap'><img src='/mopify/images/no-album-art.jpg' class='art'/><div class='playbutton'></div></div>";
 				dombuild += "<div id='trackwrap'>";
 				dombuild += "<h2 class='albumname'><div class='dynamic'><a href='"+album.uri+"' class='openmeta'>"+album.name+"</a></span><span class='year'>"+album.date+"</span></h2>";
 				dombuild += "<table class='tracks'>";
