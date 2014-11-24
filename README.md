@@ -1,7 +1,7 @@
 Mopify - Alpha
 ======
 
-** [2014-11-24] After a period of having almost no free time I can finnaly resume developing mopify. ** 
+**[2014-11-24] After a period of having almost no free time I can finnaly resume developing mopify.** 
 
 A mopidy webclient based on the Spotify webbased interface. If you use Mopidy in combination with local music this client probably won't work.
 This client uses the Spotify and EchoNest API to speed up searching and artist/ablum lookup.
