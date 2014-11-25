@@ -13,6 +13,10 @@ Features that should included be definitly in the new Mopify:
 Libraries
 --------
 
+### Styling
+
+* Bootstrap for columns
+
 ### Template rendering:
 
 * Mustache.js?
