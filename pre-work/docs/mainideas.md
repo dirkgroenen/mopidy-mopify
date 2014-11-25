@@ -14,6 +14,7 @@ Features that should included be definitly in the new Mopify:
 * Playlists 
 * Improved searching with Spotify
 * Consider if it still has to be spotify only. Will have impact on the 'improved searching with spotify' item.
+* Use the spotify api to edit playlists (if possible with redirect_uri)
 
 Libraries
 --------
