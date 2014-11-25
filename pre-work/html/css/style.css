@@ -31,24 +31,16 @@ body, html{
 }
 
 #application #headerwrap{
-    width: 98%;
-    height: 90px;
-    margin-left: 1%;
-    position: relative;
-}
-
-#application #headerwrap #filledseekbar{
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
     width: 100%;
-    background: black;
+    height: 90px;
+    position: relative;
+    background: rgba(124,105,112,.5);
 }
 
 #application #headerwrap #playerwrap{
     height: 70px;
     margin-top: 10px;
+    padding-left: 30px;
 }
 
 #application #headerwrap #playerwrap #albumart{
@@ -88,10 +80,57 @@ body, html{
     margin-top: 2px;
 }
 
+#application #headerwrap #controlswrap #controls{
+    margin: 16px 0 13px 0;
+    text-align: center;
+}
+
+#application #headerwrap #controlswrap #controls .iconwrap {
+    display: inline-block;
+    margin: 0 7px;
+    height: 35px;
+    width: 35px;
+    line-height: 37px;
+    font-size: 14px;
+    color: white;
+    -webkit-border-radius: 999px;
+    -moz-border-radius: 999px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.8);
+    text-align: center;
+    background: rgba(255,255,255,0);
+    -webkit-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    transition: all .25s ease;
+    cursor: pointer;
+}
+
+#application #headerwrap #controlswrap #controls .iconwrap.big{
+    width: 45px;
+    height: 45px;
+    line-height: 48px;
+    font-size: 18px;
+}
+
+#application #headerwrap #controlswrap #controls .iconwrap:hover{
+    background: rgba(255,255,255,.2);
+    border: 1px solid rgba(255,255,255,1);
+}
+
+#application #headerwrap #controlswrap #controls .iconwrap.big i{
+    margin-right: -3px;
+}
+
 #application #headerwrap #controlswrap #seekbar{
     width: 100%;
     height: 2px;
     background: white;
+}
+
+#application #headerwrap #controlswrap #seekbar #fill{
+    height: 100%;
+    width: 67%;
+    background: #2fb55f;
 }
 
 #application #backgroundimage{
@@ -101,7 +140,7 @@ body, html{
     right: -50px;
     bottom: 0;
     z-index: -1;
-    background-image: url('https://d3rt1990lpmkn.cloudfront.net/cover/9df60b567c0dd6ec08df38c7f05b29b6bdf1832c');
+    background-image: url('https://d3rt1990lpmkn.cloudfront.net/cover/e0a12a79504b62cbf9d384048dda7508925b27ce');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

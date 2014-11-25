@@ -3,6 +3,7 @@
     <head>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
         <link type="text/css" rel="stylesheet" href="./css/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="./webfonts/ss-standard.css" />
         <link type="text/css" rel="stylesheet" href="./css/style.css" />
 
     </head>
@@ -10,12 +11,11 @@
     <body>
         <div id="application" class="fullheight">
             <div class="container-fluid" id="headerwrap">
-                <div id="filledseekbar"></div>
                 <div class="row fullheight">
                     <div class="col-md-3">
                         <div id="playerwrap">
                             <div id="albumart">
-                                <img src="https://d3rt1990lpmkn.cloudfront.net/cover/9df60b567c0dd6ec08df38c7f05b29b6bdf1832c" />
+                                <img src="https://d3rt1990lpmkn.cloudfront.net/cover/e0a12a79504b62cbf9d384048dda7508925b27ce" />
                             </div>
                             <div id="songinfo">
                                 <span class="title">For my help</span>
@@ -27,7 +27,18 @@
                     <div class="col-md-6">
                         <div id="controlswrap">
                             <div id="controls">
-                                
+                                <div class="iconwrap" id="prev">
+                                    <i class="ss-icon ss-skipback"></i>
+                                </div>
+                                <div class="iconwrap big" id="playpause">
+                                    <i class="ss-icon ss-play"></i>
+                                </div>
+                                <div class="iconwrap" id="next">
+                                    <i class="ss-icon ss-skipforward"></i>
+                                </div>
+                            </div>
+                            <div id="seekbar">
+                                <div id="fill"></div>
                             </div>
                         </div>
                     </div>
