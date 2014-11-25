@@ -6,6 +6,7 @@ body, html{
     color: #444444;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 *{
@@ -19,118 +20,111 @@ body, html{
     padding: 0;
 }
 
+.fullheight{
+    height: 100%;
+}
+
 #application{
     height: 100%;
     width: 100%;
     overflow: hidden;
 }
 
-#application #header{
-    height: 200px;
-    width: 100%;
+#application #headerwrap{
+    width: 98%;
+    height: 90px;
+    margin-left: 1%;
     position: relative;
-    background: #4c404c; /* Old browsers */
 }
 
-#application #header #navigation{
-    position: absolute;
-    width: 100%;
-    height: 65px;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    background: #fff;
-}
-
-#application #header #navigation .row,
-#application #header #navigation .row > div{
-    height: 100%;
-}
-
-#application #header #navigation .col-title{
-    font-size: 16px;
-    height: 100%;
-}
-
-#application #header #navigation .row > div:first-child .col-title{
-    border-right: 1px solid #e0e0e0;
-}
-
-#application #header #navigation .row > div:last-child .col-title{
-    border-left: 1px solid #e0e0e0;
-}
-
-#application #header #navigation .col-title span{
-    line-height: 60px;
-    vertical-align: middle;
-    font-weight: lighter;
-}
-
-#application #header #navigation .col-title#productname{
-    padding-left: 15px;
-    font-size: 28px;
-}
-
-#application #header #navigation .col-title#pagetitle span{
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-#application #header #navigation .col-title#searchbox{
-    font-style: italic;
-}
-
-#application #header #playerwrap{
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-#application #header #playerwrap::before{
-    content: "";
+#application #headerwrap #filledseekbar{
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
+    height: 100%;
+    width: 100%;
+    background: black;
+}
+
+#application #headerwrap #playerwrap{
+    height: 70px;
+    margin-top: 10px;
+}
+
+#application #headerwrap #playerwrap #albumart{
+    height: 100%;
+    width: 70px;
+    float: left;
+    -webkit-box-shadow: 0 0 25px rgba(0,0,0,.7);
+    -moz-box-shadow: 0 0 25px rgba(0,0,0,.7);
+    box-shadow: 0 0 25px rgba(0,0,0,.7);
+    border: 1px solid rgba(255, 255, 255, .8);
+}
+
+#application #headerwrap #playerwrap #albumart img{
+    height: 100%;
+    width: 100%;
+}
+
+#application #headerwrap #playerwrap #songinfo{
+    margin-left: 100px;
+    padding-top: 8px;
+}
+
+#application #headerwrap #playerwrap #songinfo span.title,
+#application #headerwrap #playerwrap #songinfo span.artist{
+    display: block;
+    color: white;
+    text-shadow: 0 0 5px rgba(0,0,0,.2);
+}
+
+#application #headerwrap #playerwrap #songinfo span.title{
+    font-size: 22px;
+}
+
+#application #headerwrap #playerwrap #songinfo span.artist{
+    font-size: 12px;
+    opacity: .9;
+    margin-top: 2px;
+}
+
+#application #headerwrap #controlswrap #seekbar{
+    width: 100%;
+    height: 2px;
+    background: white;
+}
+
+#application #backgroundimage{
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    right: -50px;
     bottom: 0;
-    z-index: 0;
-    background-image: url('http://www.muumuse.com/wp-content/uploads/2010/09/dQCFX.jpg');
+    z-index: -1;
+    background-image: url('https://d3rt1990lpmkn.cloudfront.net/cover/9df60b567c0dd6ec08df38c7f05b29b6bdf1832c');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    filter: url('./svg/resources.svg#svgBlur');
+    filter: url('./svg/resources.svg#blur');
+    -webkit-filter: blur(10px) contrast(1);
 }
 
-#application #header #playerwrap #controls{
-    height: 70px;
-    width: 100%;
-    position: absolute;
-    z-index: 10;
-    bottom: 0;
-    left: 0;
-    background: rgba(255,255,255,.4);
-    border-top: 1px solid rgba(255,255,255,.2);
-}
 
 #application #mainwrap{
-    height: calc(100% - 200px);
-}
-
-#application #mainwrap > .row,
-#application #mainwrap > .row > div{
-    height: 100%;
+    height: calc(100% - 90px);
+    position: relative;
+    z-index: 10;
+    background: white;
+    width: 100%;
 }
 
 #application #mainwrap #leftside{
-    height: 100%;
     width: 100%;
     background-color: #f1f2f4;
     border-right: 1px solid #d9dce0;
 }
 
 #application #mainwrap #rightside{
-    height: 100%;
     width: 100%;
     background-color: #f1f2f4;
     border-left: 1px solid #d9dce0;
