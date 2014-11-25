@@ -2,7 +2,7 @@ Mopify - Alpha
 ======
 ![badge](https://img.shields.io/pypi/v/mopidy-mopify.svg?style=flat) ![badge](https://img.shields.io/pypi/dm/mopidy-mopify.svg)
 
-**[2014-11-24] After a period of having almost no free time I can finnaly resume developing mopify. First starting with a complete redesign.** 
+**[2014-11-24] After a period of having almost no free time I can finnaly resume developing mopify. First starting with a complete redesign. Please check the [v1.0 branch](https://github.com/dirkgroenen/mopidy-mopify/tree/v1.0) for the progress and a document with ideas. ** 
 
 A mopidy webclient based on the Spotify webbased interface. If you use Mopidy in combination with local music this client probably won't work.
 This client uses the Spotify and EchoNest API to speed up searching and artist/ablum lookup.
