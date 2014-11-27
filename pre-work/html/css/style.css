@@ -24,6 +24,24 @@ body, html{
     height: 100%;
 }
 
+.alignright{
+    text-align: right;
+}
+    
+.button{
+    padding: 10px 15px;
+    text-transform: none;
+    font-size: 15px;
+    -webkit-border: 1px solid white;
+    -moz-border: 1px solid white;
+    border-radius: 25px;
+    display: inline-block;
+    -webkit-transition: background-color .3s ease;
+    -moztransition: background-color .3s ease;
+    transition: background-color .3s ease;
+    cursor: pointer;
+}
+
 #application{
     height: 100%;   
     width: 100%;
@@ -67,6 +85,7 @@ body, html{
     font-weight: 300;
 }
 
+#application #leftside #menu .block .content a.active,
 #application #leftside #menu .block .content a:hover{
     color: #333;
     text-decoration: none;
@@ -89,8 +108,8 @@ body, html{
 
 #application #header{
     height: 350px;
-    background-size: 100% auto;
-    background-position: center 20%;
+    background-size: cover;
+    background-position: center;
 }
 
 #application #header.small{
@@ -130,6 +149,11 @@ body, html{
     text-shadow: 0 0 2px rgba(0,0,0,.3);
 }
 
+#application #header.small .lefttext i{
+    margin: 4px 9px 0 0;
+    float: left;    
+}
+
 #application #header.small .centertext{
     color: white;
     padding: 140px 0 0 0;
@@ -138,25 +162,22 @@ body, html{
     font-weight: bold;
 }
 
+#application #header.small .centertext .bigtitle{
+    font-size: 35px;
+    text-align: center;
+    margin-top: -50px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
 #application #header.small .righttext{
     padding: 125px 50px 0 0;
     text-align: right;
 }
 
 #application #header.small .righttext .button{
-    padding: 10px 15px;
-    text-transform: none;
-    font-size: 15px;
     color: white;
-    border-radius: 25px;
-    -webkit-border: 1px solid white;
-    -moz-border: 1px solid white;
     border: 1px solid white;
-    display: inline-block;
-    -webkit-transition: background-color .3s ease;
-    -moztransition: background-color .3s ease;
-    transition: background-color .3s ease;
-    cursor: pointer;
 }
 
 #application #header.small .righttext .button:hover{
@@ -176,9 +197,32 @@ body, html{
     margin-bottom: 20px;
 }
 
+#application #overview .pagetitle .sub{
+    padding-left: 5px;
+    color: #777;
+}
+
+#application #overview .pagetitle .button.createnew{
+    border: 1px solid #ccc;
+    padding: 6px 15px 3px 15px;
+    text-transform: uppercase;
+    font-size: 14px;
+    float: right;
+    margin-top: -12px;
+}
+
+#application #overview .pagetitle .button.createnew:hover{
+    background-color: #fafafa;
+}
+
+#application #overview .pagetitle .button.createnew .text{
+    float: left;
+    margin: -1px 7px 0 0;
+}
+
 #application #overview .pagecontent{
     padding-top: 20px;
-    padding-bottom: 80px;
+    padding-bottom: 20px;
 }
 
 #application #overview .pagecontent #albumview{
@@ -188,14 +232,35 @@ body, html{
 
 #application #overview .pagecontent #albumview .single-album{
     padding: 0 25px 50px 25px;
+    
 }
 
-#application #overview .pagecontent #albumview .single-album .albumart img{
+#application #overview .pagecontent #albumview .single-album .albumart{
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
     width: 100%;
+    text-align: center;
+}
+
+#application #overview .pagecontent #albumview .single-album .albumart::after{
+    content: '';
+    display: block;
+    margin-top: 100%;
+}
+    
+#application #overview .pagecontent #albumview .single-album .albumart img{
+    min-height: 100%;
+    min-width: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 #application #overview .pagecontent #albumview .single-album .albuminfo{
-    font-size: 15px;
     padding-top: 5px;
 }
 
