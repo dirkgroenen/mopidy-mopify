@@ -2,8 +2,8 @@ body, html{
     margin: 0;
     padding: 0;
     font-family: "Open Sans", Sans-serif;
-    font-size: 14px;
-    color: #444444;
+    font-size: 16px;
+    color: #404040;
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -25,146 +25,278 @@ body, html{
 }
 
 #application{
-    height: 100%;
+    height: 100%;   
     width: 100%;
     overflow: hidden;
 }
 
-#application #headerwrap{
-    width: 100%;
-    height: 90px;
-    position: relative;
-    background: rgba(124,105,112,.5);
+#application #leftside{
+    background-color: #f8f8f8;
+    border-right: 1px solid #e4e6e8;
 }
 
-#application #headerwrap #playerwrap{
-    height: 70px;
-    margin-top: 10px;
-    padding-left: 30px;
+#application #leftside #menu{
+    padding: 35px;
 }
 
-#application #headerwrap #playerwrap #albumart{
-    height: 100%;
-    width: 70px;
-    float: left;
-    -webkit-box-shadow: 0 0 25px rgba(0,0,0,.7);
-    -moz-box-shadow: 0 0 25px rgba(0,0,0,.7);
-    box-shadow: 0 0 25px rgba(0,0,0,.7);
-    border: 1px solid rgba(255, 255, 255, .8);
+#application #leftside #menu .block{
+    margin: 0 0 40px 0;
 }
 
-#application #headerwrap #playerwrap #albumart img{
-    height: 100%;
-    width: 100%;
-}
-
-#application #headerwrap #playerwrap #songinfo{
-    margin-left: 100px;
-    padding-top: 8px;
-}
-
-#application #headerwrap #playerwrap #songinfo span.title,
-#application #headerwrap #playerwrap #songinfo span.artist{
-    display: block;
-    color: white;
-    text-shadow: 0 0 5px rgba(0,0,0,.2);
-}
-
-#application #headerwrap #playerwrap #songinfo span.title{
-    font-size: 22px;
-}
-
-#application #headerwrap #playerwrap #songinfo span.artist{
-    font-size: 12px;
-    opacity: .9;
-    margin-top: 2px;
-}
-
-#application #headerwrap #controlswrap #controls{
-    margin: 16px 0 13px 0;
-    text-align: center;
-}
-
-#application #headerwrap #controlswrap #controls .iconwrap {
-    display: inline-block;
-    margin: 0 7px;
-    height: 35px;
-    width: 35px;
-    line-height: 37px;
+#application #leftside #menu .block .title{
+    text-transform: uppercase;
     font-size: 14px;
+    color: #b2b2b2;
+    padding-bottom: 2px;
+}
+
+#application #leftside #menu .block .content,
+#application #leftside #menu .block .content a{
+    font-size: 16px;
+    color: #777;
+    text-transform: uppercase;
+    -webkit-transition: color .2s ease;
+    -moz-transition: color .2s ease;
+    transition: color .2s ease;
+}
+
+#application #leftside #menu .block .content a:hover{
+    color: #333;
+    text-decoration: none;
+}
+
+#application #leftside #menu .block .content ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#application #leftside #menu .block .content ul li{
+    margin: 0;
+    padding: 3px 0 4px 0;
+}
+
+#application #leftside #menu .block .content#search span{
+    margin: 5px;
+}
+
+#application #header{
+    height: 350px;
+    background-size: 100% auto;
+    background-position: center 20%;
+}
+
+#application #header.small{
+    height: 200px;
+}
+
+#application #header a{
+    position: relative;
     color: white;
-    -webkit-border-radius: 999px;
-    -moz-border-radius: 999px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.8);
+    text-decoration: none;
+}
+
+#application #header a::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background-color: white;
+    -webkit-transition: all .3s ease;
+    -moztransition: all .3s ease;
+    transition: all .3s ease;
+}
+
+#application #header a.active::after,
+#application #header a:hover::after{
+    width: 100%;
+}
+
+#application #header.small .lefttext{
+    color: white;
+    font-size: 21px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    padding: 110px 0 0 50px;
+    text-shadow: 0 0 2px rgba(0,0,0,.3);
+}
+
+#application #header.small .centertext{
+    color: white;
+    font-size: 15px;
+    padding: 115px 0 0 0;
+    text-shadow: 0 0 2px rgba(0,0,0,.3);   
     text-align: center;
-    background: rgba(255,255,255,0);
-    -webkit-transition: all .25s ease;
-    -moz-transition: all .25s ease;
-    transition: all .25s ease;
+    font-weight: bold;
+}
+
+#application #header.small .righttext{
+    padding: 105px 50px 0 0;
+    text-align: right;
+}
+
+#application #header.small .righttext .button{
+    padding: 10px 15px;
+    text-transform: none;
+    font-size: 15px;
+    color: white;
+    border-radius: 25px;
+    -webkit-border: 1px solid white;
+    -moz-border: 1px solid white;
+    border: 1px solid white;
+    display: inline-block;
+    -webkit-transition: background-color .3s ease;
+    -moztransition: background-color .3s ease;
+    transition: background-color .3s ease;
     cursor: pointer;
 }
 
-#application #headerwrap #controlswrap #controls .iconwrap.big{
-    width: 45px;
-    height: 45px;
-    line-height: 48px;
-    font-size: 18px;
+#application #header.small .righttext .button:hover{
+    background-color: rgba(255,255,255,.15);
 }
 
-#application #headerwrap #controlswrap #controls .iconwrap:hover{
-    background: rgba(255,255,255,.2);
-    border: 1px solid rgba(255,255,255,1);
+#application #overview{
+    padding: 35px 50px;
 }
 
-#application #headerwrap #controlswrap #controls .iconwrap.big i{
-    margin-right: -3px;
+#application #overview .pagetitle{
+    color: #c0c0c0;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
 }
 
-#application #headerwrap #controlswrap #seekbar{
+#application #overview .pagecontent{
+    padding-top: 20px;
+}
+
+#application #overview .pagecontent #albumview{
+    margin-left: -25px;
+    margin-right: -25px;
+}
+
+#application #overview .pagecontent #albumview .single-album{
+    padding: 0 25px 50px 25px;
+}
+
+#application #overview .pagecontent #albumview .single-album .albumart img{
     width: 100%;
-    height: 2px;
-    background: white;
 }
 
-#application #headerwrap #controlswrap #seekbar #fill{
-    height: 100%;
-    width: 67%;
-    background: #2fb55f;
+#application #overview .pagecontent #albumview .single-album .albuminfo{
+    font-size: 15px;
+    padding-top: 5px;
 }
 
-#application #backgroundimage{
-    position: absolute;
-    top: -50px;
-    left: -50px;
-    right: -50px;
+#application #overview .pagecontent #albumview .single-album .albuminfo span.year{
+    font-size: 14px;
+    color: #bbb;
+    display: block;
+}
+
+#application #player{
+    position: fixed;
     bottom: 0;
-    z-index: -1;
-    background-image: url('https://d3rt1990lpmkn.cloudfront.net/cover/e0a12a79504b62cbf9d384048dda7508925b27ce');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    left: 0;
+    width: 100%;
+    z-index: 500;
+    background-color: rgba(0,0,0,.9);
+}
+
+#application #player .bgimage{
+    width: 100%;
+    height: 100%;
+    opacity: .3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+#application #player .bgimage img{
+    width: 100%;
+    min-height: 100%;
+    margin-top: -20%;
     filter: url('./svg/resources.svg#blur');
-    -webkit-filter: blur(10px) contrast(1);
+    -webkit-filter: blur(15px);
 }
 
+#application #player .controlwrap{
+    padding: 53px 53px 20px 50px;
+}
 
-#application #mainwrap{
-    height: calc(100% - 90px);
+#application #player .controlwrap .iconwrap{
+    width: 230px;
+}
+
+#application #player .controlwrap .iconwrap i{
+    color: #aaa;
+    cursor: pointer;
+    -webkit-transition: color .2s ease;
+    -moz-transition: color .2s ease;
+    transition: color .2s ease;
+}
+
+#application #player .controlwrap .iconwrap i:hover{
+    color: #eee;
+}
+
+#application #player #seekbar {
+    padding: 0 50px;
+}
+
+#application #player #seekbar .trackname{
+    text-align: center;
+    color: #fff;
+    margin-top: 25px;
+    padding-bottom: 5px;
+}
+
+#application #player #seekbar .trackname .title{
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2.5px;
+}
+
+#application #player #seekbar .trackname .artist{
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-size: 14px;
+}
+
+#application #player #seekbar .barwrap{
+    width: 100%;
     position: relative;
-    z-index: 10;
-    background: white;
-    width: 100%;
 }
 
-#application #mainwrap #leftside{
-    width: 100%;
-    background-color: #f1f2f4;
-    border-right: 1px solid #d9dce0;
+#application #player #seekbar .barwrap .time{
+    display: inline-block;
+    color: #fff;
+    width: 40px;
+    font-size: 14px;
 }
 
-#application #mainwrap #rightside{
-    width: 100%;
-    background-color: #f1f2f4;
-    border-left: 1px solid #d9dce0;
+#application #player #seekbar .barwrap .time#total{
+    text-align: right;
+    color: #aaa;
+    width: calc(100% - 55px);
+}
+
+#application #player #seekbar .barwrap .outerbar{
+    display: inline-block;
+    width: calc(100% - 100px);
+    height: 2px;
+    background-color: rgba(255,255,255,.5);
+    position: absolute;
+    top: 12px;
+}
+
+#application #player #seekbar .barwrap .outerbar .innerbar{
+    height: 100%;
+    width: 23%;
+    background-color: white;
 }
