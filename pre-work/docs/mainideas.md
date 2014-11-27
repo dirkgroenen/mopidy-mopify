@@ -28,6 +28,4 @@ Libraries
 * Underscore.js
 
 ### Core
-* Backbone.js
-* Marionette.js
-* Require.js
+* Angular.js (?)
