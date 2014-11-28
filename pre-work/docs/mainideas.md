@@ -8,10 +8,11 @@ Features
 ---------
 Features that should included be definitly in the new Mopify:
 
-* Radio mode - Create a queue based on the given artist, album, track or genre (echonest)
+* Radio mode - Create a queue based on the given artist, album, track, genre or mood (echonest)
 * Artist information 
 * Rich album/artist graphics
 * Playlists 
+* Discover new music - charts etc.
 * Improved searching with Spotify
 * Consider if it still has to be spotify only. Will have impact on the 'improved searching with spotify' item.
 * Use the spotify api to edit playlists (if possible with redirect_uri)
