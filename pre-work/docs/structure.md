@@ -14,7 +14,7 @@ src/
   |  |  |- charts/
   |  |  |  |- [...]
   |  |  |- featured/
-  |  |  |  |- [...]
+  |  |  |  |- [...]     
   |  |  |- newreleases/
   |  |  |  |- [...]
   |  |
@@ -64,3 +64,4 @@ src/
 Almost every directory contains three files by default:
  - {name}.tmpl.html
  - {name}.controller.js 
+ - {name}.test.js (for later implementation, maybe)
