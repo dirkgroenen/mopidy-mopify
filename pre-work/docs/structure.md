@@ -51,3 +51,7 @@ src/
   |  |- app.js
   |  |- [...]
 ```
+
+Almost every directory contains three files by default:
+ - {name}.tmpl.html
+ - {name}.controller.js 
