@@ -29,7 +29,7 @@ Libraries
 * Underscore.js
 
 ### Core
-* Angular.js (?)
+* Angular.js - First time using it so let's see what it is going to bring
 
 APIs
 ----
