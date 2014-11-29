@@ -293,8 +293,8 @@ body, html{
     width: 100%;
     min-height: 100%;
     margin-top: -20%;
-    filter: url('./svg/resources.svg#blur');
-    -webkit-filter: blur(15px);
+    /*filter: url('./svg/resources.svg#blur');
+    -webkit-filter: blur(15px);*/
 }
 
 #application #player .controlwrap{

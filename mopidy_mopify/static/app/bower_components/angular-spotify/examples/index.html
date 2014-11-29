@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+  <title>angular-spotify demo!</title>
+  <style>
+    ul {
+      list-style: none;
+    }
+    .media {
+      display: table;
+      width: 100%;
+    }
+    .media img {
+      display: table-cell;
+      max-width: 100%;
+    }
+    .media-details {
+      padding-left: 1em;
+      vertical-align: middle;
+      display: table-cell;
+      width: 90%;
+    }
+  </style>
+</head>
+<body ng-controller="MainController">
+
+  <button ng-click="login()">Login with Spotify</button>
+
+  <input type="text" ng-model="searchartist" ng-change="searchArtist()" placeholder="Search for an artist">
+  <ul>
+    <li ng-repeat="artist in artists">
+      <a class="media" ng-href="{{artist.external_urls.spotify}}" target="_blank">
+        <img ng-src="{{artist.images[0].url}}" alt="">
+        <div class="media-details">
+          {{artist.name}}
+        </div>
+      </a>
+    </li>
+  </ul>
+
+  <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="../src/angular-spotify.js"></script>
+  <script src="main.controller.js"></script>
+</body>
+</html>

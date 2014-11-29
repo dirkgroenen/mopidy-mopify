@@ -1,0 +1,39 @@
+{
+  "name": "angular-spotify",
+  "version": "0.8.1",
+  "authors": [
+    "Ed Moore <eddie.moore@gmail.com>"
+  ],
+  "description": "Angular Service to connect with Spotify Web API",
+  "keywords": [
+    "spotify",
+    "angular",
+    "angularjs"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/eddiemoore/angular-spotify",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "main": "./dist/angular-spotify.min.js",
+  "dependencies": {
+    "angular": "latest"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.24",
+    "angular-scenario": "1.2.24"
+  },
+  "_release": "0.8.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.8.1",
+    "commit": "77d8f96410c8a38f3d2af6c56ca7d7f53c31ce8d"
+  },
+  "_source": "git://github.com/eddiemoore/angular-spotify.git",
+  "_target": "0.8.x",
+  "_originalSource": "angular-spotify"
+}

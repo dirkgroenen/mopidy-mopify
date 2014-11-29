@@ -2,8 +2,21 @@
 
 // Declare app level module which depends on views, and components
 angular.module('mopify', [
-    'mopify.services.mopidy'
+    'LocalStorageModule',
+    'mopify.services.mopidy',
+    'mopify.dashboard',
+    'mopify.music.artist',
+    'mopify.music.playlists',
+    'mopify.music.stations',
+    'mopify.player',
+    'mopify.player.controls',
+    'mopify.player.seekbar',
+    'mopify.widgets'
 ])
+
+.config(['localStorageServiceProvider', function(localStorageServiceProvider){
+    localStorageServiceProvider.setPrefix("mopify");
+}])
 
 .controller("AppController", function AppController($scope, mopidyservice){
     var connectionStates = {

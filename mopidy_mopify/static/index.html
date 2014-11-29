@@ -36,11 +36,10 @@
                 </div>
             </div>
 
-            <div id="player" class="container-fluid">
+            <div id="player" class="container-fluid" ng-controller="PlayerController">
                 <ng-include src="'app/player/player.tmpl.html'"></ng-include>
             </div>
         </div>
-
 
         <!-- 
             Include all scripts for the app below.
@@ -50,6 +49,10 @@
 
         <script src="app/bower_components/angular/angular.js"></script>
         <script src="app/bower_components/angular-route/angular-route.js"></script>
+        <script src="app/bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+        <script src="app/bower_components/angular-spotify/dist/angular-spotify.min.js"></script>
+        <script src="app/bower_components/underscore/underscore-min.js"></script>
+
         <script src="app/app.js"></script>
         
         <script src="app/dashboard/dashboard.controller.js"></script>
@@ -72,13 +75,14 @@
         
         <script src="app/search/search.controller.js"></script>
 
-        <script src="app/services/echonest.service.js"></script>
         <script src="app/services/mopidy.service.js"></script>
-        <script src="app/services/spotify.service.js"></script>
+        <script src="app/services/util.service.js"></script>
 
         <script src="app/settings/settings.controller.js"></script>
 
+        <script src="app/widgets/module.js"></script>
         <script src="app/widgets/album.js"></script>
+        <script src="app/widgets/playlist.directive.js"></script>
 
     </body>
 </html>

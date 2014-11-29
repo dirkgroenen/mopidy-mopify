@@ -1,0 +1,23 @@
+<div id="header" class="small row" style="background-image: url('http://www.myfashionlife.com.br/wp-content/uploads/2013/07/Vinyl.jpg');">
+    <div class="col-md-4 lefttext">
+        <div class="inner"><i class="ss-icon ss-list"></i>  Playlists</div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Your Music <span class="sub">Playlists</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div id="albumview">
+            <div class="row">
+                <div ng-repeat="playlist in playlists"> 
+                    <mopify-playlist playlist="playlist" class="col-md-2 single-album"></mopify-playlist>
+                    <div ng-if="($index + 1) % 6 == 0" class="row"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

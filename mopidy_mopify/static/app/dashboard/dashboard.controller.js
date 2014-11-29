@@ -1,14 +1,22 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute'])
+angular.module('mopify.dashboard', [
+    'ngRoute'
+])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {
-    templateUrl: 'view1/view1.html',
-    controller: 'View1Ctrl'
-  });
-}])
+/**
+ * Every controller start with defining its own routes.
+ */
+.config(function($routeProvider) {
+    $routeProvider.when("/", {
+        templateUrl: "/app/dashboard/dashboard.tmpl.html",
+        controller: "DashboardController"
+    });
+})
 
-.controller('View1Ctrl', [function() {
+/**
+ * After defining the routes we create the controller for this module
+ */
+.controller("DashboardController", function DashboardController($scope){
 
-}]);
+});

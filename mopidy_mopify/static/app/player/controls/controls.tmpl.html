@@ -4,13 +4,13 @@
             <i class="ss-icon ss-list"></i>
         </div>
         <div class="col-md-3">
-            <i class="ss-icon ss-navigateleft"></i>
+            <i class="ss-icon ss-navigateleft" ng-click="prev();"></i>
         </div>
         <div class="col-md-3">
-            <i class="ss-icon ss-play"></i>
+            <i class="ss-icon {{ stateIcon }}" ng-click="playpause();"></i>
         </div>
         <div class="col-md-3">
-            <i class="ss-icon ss-navigateright"></i>
+            <i class="ss-icon ss-navigateright" ng-click="next();"></i>
         </div>
     </div>
 </div>
