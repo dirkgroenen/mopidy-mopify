@@ -1,5 +1,6 @@
 'use strict';
 
 var widgetModule = angular.module('mopify.widgets', [
-  'spotify'
+  'spotify',
+  'mopify.services.mopidy'
 ]);

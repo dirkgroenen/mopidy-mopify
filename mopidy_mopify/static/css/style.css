@@ -232,7 +232,7 @@ body, html{
 
 #application #overview .pagecontent #albumview .single-album{
     padding: 0 25px 50px 25px;
-    
+    position: relative;
 }
 
 #application #overview .pagecontent #albumview .single-album .albumart{
@@ -248,7 +248,33 @@ body, html{
     display: block;
     margin-top: 100%;
 }
-    
+ 
+#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    background-color: rgba(0,0,0,.5);
+    color: white;
+    font-size: 45px;
+    opacity: 0;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap:hover{
+    opacity: 1;
+}
+
+#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .playicon{
+    margin-top: 50%;
+    -webkit-transform: translateY(-50%);
+}
+
 #application #overview .pagecontent #albumview .single-album .albumart img{
     min-height: 100%;
     min-width: 100%;

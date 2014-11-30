@@ -14,7 +14,7 @@
         <div id="albumview">
             <div class="row">
                 <div ng-repeat="playlist in playlists"> 
-                    <mopify-playlist playlist="playlist" class="col-md-2 single-album"></mopify-playlist>
+                    <mopify-playlist playlist="playlist" play="play(playlist)" class="col-md-2 single-album"></mopify-playlist>
                     <div ng-if="($index + 1) % 6 == 0" class="row"></div>
                 </div>
             </div>

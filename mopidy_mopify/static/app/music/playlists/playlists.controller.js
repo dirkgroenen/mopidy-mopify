@@ -43,7 +43,11 @@ angular.module('mopify.music.playlists', [
         });
     }
 
-    $scope.addReplaceAndPlay = function(){
-
+    /**
+     * Replace the current tracklist with the given playlist
+     * @param  {Playlist} playlist
+     */
+    $scope.play = function(playlist){
+        mopidyservice.playTrack(playlist.tracks[0], playlist.tracks);
     };
 });
