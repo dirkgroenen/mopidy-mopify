@@ -4,6 +4,7 @@
 angular.module('mopify', [
     'LocalStorageModule',
     'angular-echonest',
+    'angular-loading-bar',
     'mopify.services.mopidy',
     'mopify.services.station',
     'mopify.dashboard',

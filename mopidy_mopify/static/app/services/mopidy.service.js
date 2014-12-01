@@ -89,6 +89,7 @@ angular.module('mopify.services.mopidy', [])
 			// Convert Mopidy events to Angular events
 			this.mopidy.on(function(ev, args) {
 				$rootScope.$broadcast('mopidy:' + ev, args);
+
 				if (ev === 'state:online') {
 					self.isConnected = true;
 				}
@@ -244,6 +245,21 @@ angular.module('mopify.services.mopidy', [])
                 } , consoleError);
         },
 
+        playTrackAtIndex: function(index){
+            var self = this;
+
+            self.mopidy.tracklist.getTlTracks().then(function(tlTracks) {
+                index = (index < tlTracks.length) ? index : tlTracks.length - 1;
+                var tlTrackToPlay = tlTracks[index];
+
+                self.mopidy.playback.changeTrack({ tl_track: tlTrackToPlay }).then(function() {
+                    self.mopidy.playback.play().then(function(){
+                        $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tlTrackToPlay);
+                    }); 
+                });
+            }, consoleError);
+        },
+
         clearTracklist: function(){
             return this.mopidy.tracklist.clear();
         },
@@ -271,6 +287,10 @@ angular.module('mopify.services.mopidy', [])
                         });
                     }, consoleError);
                 } , consoleError);
+        },
+
+        addToTracklist: function(tracks){
+           return wrapMopidyFunc("mopidy.tracklist.add", this)({ tracks: tracks });
         },
 
         play: function() {

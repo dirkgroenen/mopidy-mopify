@@ -32,7 +32,7 @@ angular.module('mopify.player.controls', [
             $scope.stateIcon = "ss-pause";
         });
 
-        // Get schuffle
+        // Get shuffle
         mopidyservice.getRandom().then(function(random){
             $scope.isRandom = (random === true);
         });
@@ -43,8 +43,7 @@ angular.module('mopify.player.controls', [
     };
 
     $scope.prev = function(){
-        if(!stationservice.isPlaying())
-            mopidyservice.previous();
+        mopidyservice.previous();
     };
 
     $scope.playpause = function(){

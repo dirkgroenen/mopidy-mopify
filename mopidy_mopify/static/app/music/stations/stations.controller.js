@@ -24,6 +24,10 @@ angular.module('mopify.music.stations', [
     // Bind the localstorage to the $scope so we always have the latest stations
     localStorageService.bind($scope, "stations");
 
+    // Check if $scope.stations ain't null
+    if($scope.stations == null)
+        $scope.stations = [];
+
     // Set some default scope vars
     $scope.creatingRadio = false;
     $scope.searchQuery = "";
@@ -84,7 +88,8 @@ angular.module('mopify.music.stations', [
             started_at: Date.now()
         };
 
-        //$scope.stations.push(station);
+        // Add to stations history and start
+        $scope.stations.push(station);
         $scope.startStation(station);
 
         // Remove the search view

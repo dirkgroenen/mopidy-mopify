@@ -10,32 +10,65 @@ angular.module('mopify.services.station', [
     'mopify.services.mopidy',
     "spotify"
 ])
-.factory("stationservice", function($rootScope, $q, Echonest, mopidyservice, Spotify){
+.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify){
     
     var stationPlaying = false;
-    var currentTracklist = [];
-
-    var nextTrackIndex = 0;
-
-    function lookupNextTrack(){
-        nextTrackIndex++;
-
-        var track = currentTracklist[nextTrackIndex];
+    var echonestTracksQueue = [];
+    
+    function processMopidyTracklist(){
+        var TRACKSPERBATCH = 10;
         var deferred = $q.defer();
 
-        mopidyservice.searchTrack(track.artist_name, track.title).then(function(data){
-            if(data[0].tracks){
-                var mopidytrack = data[0].tracks[0];
+        // The reponse from echonest only contains the artist name and track title. We need to look up the tracks in mopidy and add them
+        // This is done in batches to prevent mopidy from overloading
+        if(echonestTracksQueue.length > 0){
+            generateMopidyTracks(TRACKSPERBATCH).then(function(tracks){
+                addTracksToMopidy(tracks).then(function(response){
+                    console.log("added tracks", response);
 
-                deferred.resolve(mopidytrack);
-            }
-            else{
-                lookupNextTrack();
-            }
-        });
+                    $timeout(processMopidyTracklist, 5000);
+
+                    deferred.resolve(response);
+                });
+            });
+        }
 
         return deferred.promise;
     };
+
+    function generateMopidyTracks(number){
+        // Get tracks from array
+        var batch = echonestTracksQueue.splice(0, number);
+        var mopidytracks = [];
+        var done = 0;
+
+        var deferred = $q.defer();
+
+        for(var x = 0; x < batch.length; x++){
+            var track = batch[x];
+
+            mopidyservice.searchTrack(track.artist_name, track.title).then(function(data){
+                done++;
+
+                if(data[0].tracks){
+                    var mopidytrack = data[0].tracks[0];
+                    mopidytracks.push(mopidytrack);
+                }
+
+                if(done == number){
+                    deferred.resolve(mopidytracks);
+                }
+            });
+
+        }
+
+        return deferred.promise;
+        
+    };
+
+    function addTracksToMopidy(tracks){
+        return mopidyservice.addToTracklist(tracks);
+    }
 
     /**
      * Prepare the parameters that have to be send to Echonest
@@ -44,13 +77,15 @@ angular.module('mopify.services.station', [
      */
     function prepareParameters(station){
         var parameters = {
-            results: 100
+            results: 50,
+            bucket: 'id:spotify',
+            limit: true
         };
 
         var deferred = $q.defer();
 
         if(station.type == "artist"){
-            parameters.artist = value;
+            parameters.artist = station.name;
             parameters.type = "artist-radio";
 
             deferred.resolve(parameters);
@@ -89,40 +124,24 @@ angular.module('mopify.services.station', [
     function createStation(station){
         // Get the songs from Echonest
         prepareParameters(station).then(function(parameters){
-            console.log(parameters);
+
             Echonest.playlist.static(parameters).then(function(songs){
-                currentTracklist = songs;
-                stationPlaying = true;
+                echonestTracksQueue = songs;
 
-                play();
-            });
-
+                mopidyservice.clearTracklist().then(function(){
+                    processMopidyTracklist().then(function(){
+                        mopidyservice.playTrackAtIndex(0);
+                    });
+                });
+            }); 
         });
     };
 
-    // TODO: At the moment only the first track can play; change this to the complete list
-    function play(){
-        if(stationPlaying && nextTrackIndex < currentTracklist.length){
-            // Lookup the next track in the library and play it
-            lookupNextTrack().then(function(track){
-                mopidyservice.clearTracklist().then(function(){
-                    mopidyservice.playTrack(track);
-
-                    stationPlaying = true;
-                });
-            });
-        }
-    };
-   
     return {
         init: function(){},
         
         start: function(station){
             createStation(station);
-        },
-
-        isPlaying: function(){
-            return stationPlaying;
         }
     };
 });
