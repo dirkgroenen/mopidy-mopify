@@ -190,6 +190,10 @@ angular.module('mopify.services.mopidy', [])
             return wrapMopidyFunc("mopidy.playback.getState", this)();
         },
 
+        lookup: function(uri){
+            return wrapMopidyFunc("mopidy.library.lookup", this)({ uri: uri });
+        },
+
         playTrack: function(track, surroundingTracks) {
             var self = this;
 

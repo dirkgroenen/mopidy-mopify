@@ -1,0 +1,34 @@
+<div id="header" class="small row" style="background-image: url('{{ coverImage }}');">
+    <div class="col-md-10 lefttext">
+        <div class="inner"><i class="ss-icon ss-list"></i>  {{ name }}</div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            tracks <span class="sub">{{ type }}</span>
+        </div>
+    </div>
+
+    <div class="pagecontent row">
+        <div id="tracklist">
+            <div ng-repeat="track in tracks"> 
+                <div class="row">
+                    <div class="col-md-3 name">
+                        {{ track.name }} 
+                    </div>
+                    <div class="col-md-2 artists">
+                        {{ track.artistsString }}
+                    </div>
+                    <div class="col-md-3 album">
+                        <a href="/#/music/tracklist/{{ track.album.uri }}/{{ track.album.name }}">{{ track.album.name }}</a>
+                    </div>
+                    <div class="col-md-1 length">
+                        {{ track.lengthHuman }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

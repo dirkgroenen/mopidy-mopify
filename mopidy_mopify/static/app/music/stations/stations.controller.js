@@ -3,7 +3,8 @@
 angular.module('mopify.music.stations', [
     'ngRoute',
     'spotify',
-    'mopify.services.station'
+    'mopify.services.station',
+    'mopify.services.util'
 ])
 
 /**
@@ -19,7 +20,7 @@ angular.module('mopify.music.stations', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("StationsController", function StationsController($scope, localStorageService, Spotify, stationservice){
+.controller("StationsController", function StationsController($scope, localStorageService, Spotify, stationservice, util){
     
     // Bind the localstorage to the $scope so we always have the latest stations
     localStorageService.bind($scope, "stations");
@@ -34,6 +35,10 @@ angular.module('mopify.music.stations', [
     $scope.headerSize = "small";
     $scope.wrapclass = "";
     $scope.searchResults = {};
+
+    $scope.buildArtistString = function(artists){
+        return util.artistsToString(artists);
+    }
 
     // Some local private vars
     var typingTimeout = null;
@@ -55,8 +60,14 @@ angular.module('mopify.music.stations', [
         $scope.headerSize = "big";
     };
 
-    $scope.search = function(){
+    $scope.search = function(event){
         clearTimeout(typingTimeout);
+
+        // Check if user pressed esc
+        if(event.keyCode == 27){
+            resetRadioCreater();
+            return;
+        }
 
         if($scope.searchQuery.length > 1){
             typingTimeout = setTimeout(function(){
@@ -66,7 +77,6 @@ angular.module('mopify.music.stations', [
                     market: "NL",
                     limit: "3"
                 }).then(function(data){
-                    console.log(data);
                     $scope.searchResults = data;
                 });
             }, 300);
@@ -92,10 +102,17 @@ angular.module('mopify.music.stations', [
         $scope.stations.push(station);
         $scope.startStation(station);
 
+        resetRadioCreater();
+    };
+
+    /**
+     * Brings the radio creator back to it's original state
+     */
+    function resetRadioCreater(){
         // Remove the search view
         $scope.wrapclass = "";
         $scope.searchQuery = "";
         $scope.creatingRadio = false;
         $scope.headerSize = "small";
-    };
+    }
 });

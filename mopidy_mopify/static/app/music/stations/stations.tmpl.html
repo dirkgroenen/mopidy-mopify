@@ -1,4 +1,4 @@
-<div id="header" class="row" ng-class="headerSize" style="background-image: url('https://unsplash.imgix.net/45/ZLSw0SXxThSrkXRIiCdT_DSC_0345.jpg?q=75&fm=jpg&s=7a623ea0574c010d25ee095d0c0bcaa2');">
+<div id="header" class="row" ng-class="headerSize" style="background-image: url('/assets/images/stations-header.jpg');">
     <div class="col-md-4 lefttext" ng-hide="creatingRadio">
         <div class="inner"><i class="ss-icon ss-wifi"></i>  Stations</div>
     </div>
@@ -8,7 +8,7 @@
                 Sit back, relax and enjoy
             </div>
             <div class="inputwrap">
-                <input type="text" ng-model="searchQuery" ng-keyup="search()" placeholder="Search for an artist, album or song"/>
+                <input type="text" ng-model="searchQuery" ng-keyup="search($event)" placeholder="Search for an artist, album or song"/>
             </div>
             <div class="resultswrap">
                 <ul>
@@ -36,7 +36,7 @@
                             <img ng-src="{{ result.album.images[0].url }}" />
                         </div>
                         <div class="text">
-                            {{ result.name }}
+                            {{ result.name }} - {{ buildArtistString(result.artists) }}
                         </div>
                     </li>
                 </ul>

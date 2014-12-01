@@ -6,8 +6,8 @@
   "license": "apache",
   "private": true,
   "dependencies": {
-    "angular": "1.2.x",
-    "angular-route": "1.2.x",
+    "angular": "1.3.x",
+    "angular-route": "1.3.x",
     "angular-local-storage": "0.1.x",
     "html5-boilerplate": "latest",
     "angular-spotify": "0.8.x",

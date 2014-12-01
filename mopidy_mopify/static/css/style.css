@@ -20,6 +20,10 @@ body, html{
     padding: 0;
 }
 
+.clickable{
+    cursor: pointer;
+}
+
 .fullheight{
     height: 100%;
 }
@@ -341,7 +345,7 @@ body, html{
 }
 
 #application #header #radiosearch .resultswrap ul li{
-    background-color: rgba(0,0,0,.75);
+    background-color: rgba(0,0,0,.9);
     color: white;
     height: 40px;
     padding: 2px 30px;
@@ -509,10 +513,28 @@ body, html{
     padding-top: 5px;
 }
 
+#application #overview .pagecontent #albumview .single-album .albuminfo a{
+    color: #404040;
+}
+
+#application #overview .pagecontent #albumview .single-album .albuminfo a:hover{
+    text-decoration: none;
+}
+
+#application #overview .pagecontent #albumview .single-album .albuminfo span{
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;   
+}
+
 #application #overview .pagecontent #albumview .single-album .albuminfo span.year{
     font-size: 14px;
     color: #bbb;
     display: block;
+}
+
+#application #overview .pagecontent #albumview .single-album .albuminfo.clickable:hover span.name{
+    color: black;
 }
 
 #application #player{

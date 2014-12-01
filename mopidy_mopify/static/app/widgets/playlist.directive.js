@@ -1,6 +1,9 @@
 'use strict';
 
-angular.module('mopify.widgets')
+angular.module('mopify.widgets', [
+    
+])
+
 .directive('mopifyPlaylist', function(Spotify, mopidyservice) {
 
     var defaultAlbumImageUrl = '';
@@ -26,6 +29,9 @@ angular.module('mopify.widgets')
             scope.playList = function(){
                scope.play(scope.playlist);
             }
+            
+            var encodedname = encodeURIComponent(scope.playlist.name.replace("/", " "));
+            scope.tracklistUrl = "/#/music/tracklist/" + scope.playlist.uri + "/" + encodedname;
         }
     };
 

@@ -7,6 +7,9 @@
 
     <img ng-src="{{ coverImage }}" />
 </div>
-<div class="albuminfo">
-    <span class="name">{{ playlist.name}}</span><span class="year">{{ playlist.tracks.length}} tracks</span>
+<div class="albuminfo clickable">
+    <a href="{{ tracklistUrl }}">
+        <span class="name">{{ playlist.name}}</span>
+        <span class="year">{{ playlist.tracks.length}} tracks</span>
+    </a>
 </div>
