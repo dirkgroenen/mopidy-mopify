@@ -48,6 +48,28 @@ body, html{
     overflow: hidden;
 }
 
+#application #overlaymodal::before{
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.2);
+    z-index: 100;
+}
+
+#application #overlaymodal{
+    background: #fafafa;
+    width: 800px;
+    z-index: 500;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
 #application #leftside{
     background-color: #f8f8f8;
     border-right: 1px solid #e4e6e8;
@@ -107,13 +129,20 @@ body, html{
 }
 
 #application #header{
-    height: 350px;
+    height: 200px;
     background-size: cover;
     background-position: center;
+    -webkit-transition: all .5s ease;
+    -moztransition: all .5s ease;
+    transition: all .5s ease;
 }
 
 #application #header.small{
     height: 200px;
+}
+
+#application #header.big{
+    height: 350px;
 }
 
 #application #header a{
@@ -182,6 +211,189 @@ body, html{
 
 #application #header.small .righttext .button:hover{
     background-color: rgba(255,255,255,.15);
+}
+
+#application #header #radiosearch{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+#application #header #radiosearch::before{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    background-color: rgba(0,0,0,.4);
+    opacity: 1;
+    -webkit-transition: all .5s ease;
+}
+
+#application #header #radiosearch .title{
+    text-align: center;
+    margin-top: 80px;
+    font-size: 40px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+#application #header #radiosearch .inputwrap{
+    margin-top: 50px;
+    text-align: center;
+}
+
+#application #header #radiosearch .inputwrap input{
+    background: rgba(0,0,0,0);
+    border: 1px solid white;
+    width: 80%;
+    font-size: 19px;
+    padding: 10px 30px;
+    letter-spacing: 1px;
+    color: white;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    -webkit-transition: all .3s ease;
+    -moztransition: all .3s ease;
+    transition: all .3s ease;
+}
+
+#application #header #radiosearch.dropdownvisible .inputwrap input{
+    -webkit-border-radius: 25px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius: 25px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    border-radius: 25px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+#application #header #radiosearch .inputwrap input:focus{
+    background: rgba(0,0,0,.15);
+}
+
+#application #header #radiosearch .inputwrap input:focus{
+    outline: none;
+}
+
+#application #header #radiosearch .inputwrap input::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #fff;
+    font-style: italic;
+    opacity: .7;
+    font-family: inherit;
+}
+#application #header #radiosearch .inputwrap input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #fff;
+    font-style: italic;
+    opacity: .7;
+    font-family: inherit;
+}
+#application #header #radiosearch .inputwrap input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #fff;
+    font-style: italic;
+    opacity: .7;
+    font-family: inherit;
+}
+#application #header #radiosearch .inputwrap input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #fff;
+    font-style: italic;
+    opacity: .7;
+    font-family: inherit;
+}
+
+#application #header #radiosearch.ng-hide::before{
+    opacity: 0;
+}
+
+#application #header #radiosearch .resultswrap{
+    width: 80%;
+    margin-left: 10%;
+    position: absolute;
+    z-index: 100;
+    -webkit-border-bottom-right-radius: 25px;
+    -webkit-border-bottom-left-radius: 25px;
+    -moz-border-radius-bottomright: 25px;
+    -moz-border-radius-bottomleft: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+#application #header #radiosearch .resultswrap ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    border: 1px solid white;
+    border-top: 0px solid white;
+    overflow: hidden;
+    opacity: 0;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+}
+
+#application #header #radiosearch.dropdownvisible .resultswrap ul{
+    opacity: 1;
+}
+
+#application #header #radiosearch .resultswrap ul li{
+    background-color: rgba(0,0,0,.75);
+    color: white;
+    height: 40px;
+    padding: 2px 30px;
+    border-bottom: 1px solid rgba(255,255,255,.3);
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#application #header #radiosearch .resultswrap ul li .thumb{
+    position: absolute;
+    z-index: 0;
+    opacity: .2;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+}
+
+#application #header #radiosearch .resultswrap ul li .thumb img{
+   width: 100%;
+   margin-top: -50%;        
+    -webkit-transform: translateY(25%);
+}
+
+#application #header #radiosearch .resultswrap ul li:hover .thumb{
+    opacity: .4;
+}
+
+#application #header #radiosearch .resultswrap ul li .text{
+    line-height: 36px;
+}
+
+#application #header #radiosearch .resultswrap ul li.divider{
+    height: 32px;
+    padding: 0px 30px;
+    line-height: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: black;
+    border-top: 2px solid white;
+}
+
+#application #header #radiosearch .resultswrap ul li.divider:first-child{
+    border-top: 0px solid white;
+    height: 30px;
 }
 
 #application #overview{
@@ -258,12 +470,10 @@ body, html{
     z-index: 50;
     background-color: rgba(0,0,0,.5);
     color: white;
-    font-size: 45px;
     opacity: 0;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     transition: all .3s ease;
-    cursor: pointer;
 }
 
 #application #overview .pagecontent #albumview .single-album .albumart .hoverwrap:hover{
@@ -273,6 +483,15 @@ body, html{
 #application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .playicon{
     margin-top: 50%;
     -webkit-transform: translateY(-50%);
+    font-size: 40px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .playicon:hover{
+    font-size: 45px;
 }
 
 #application #overview .pagecontent #albumview .single-album .albumart img{

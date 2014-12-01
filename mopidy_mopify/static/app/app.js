@@ -3,7 +3,9 @@
 // Declare app level module which depends on views, and components
 angular.module('mopify', [
     'LocalStorageModule',
+    'angular-echonest',
     'mopify.services.mopidy',
+    'mopify.services.station',
     'mopify.dashboard',
     'mopify.music.artist',
     'mopify.music.playlists',
@@ -14,11 +16,12 @@ angular.module('mopify', [
     'mopify.widgets'
 ])
 
-.config(['localStorageServiceProvider', function(localStorageServiceProvider){
+.config(['localStorageServiceProvider', 'EchonestProvider', function(localStorageServiceProvider, EchonestProvider){
     localStorageServiceProvider.setPrefix("mopify");
+    EchonestProvider.setApiKey("UVUDDM7M0S5MWNQFV");
 }])
 
-.controller("AppController", function AppController($scope, mopidyservice){
+.controller("AppController", function AppController($scope, mopidyservice, stationservice){
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
@@ -44,4 +47,7 @@ angular.module('mopify', [
 
     // Start the mopidy service
     mopidyservice.start();
+
+    // Start station
+    stationservice.init();
 });

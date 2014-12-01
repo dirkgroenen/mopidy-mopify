@@ -19,7 +19,7 @@ angular.module('mopify.music.playlists', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlaylistsController", function PlaylistsController($scope, Spotify, mopidyservice){
+.controller("PlaylistsController", function PlaylistsController($scope, Spotify, mopidyservice, Echonest){
     var groupedLists = {},splitList = [];
 
     $scope.playlists = [];
@@ -50,4 +50,5 @@ angular.module('mopify.music.playlists', [
     $scope.play = function(playlist){
         mopidyservice.playTrack(playlist.tracks[0], playlist.tracks);
     };
+
 });

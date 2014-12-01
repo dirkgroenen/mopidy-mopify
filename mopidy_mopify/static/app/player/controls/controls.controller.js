@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('mopify.player.controls', [
-    'mopify.services.mopidy'
+    'mopify.services.mopidy',
+    'mopify.services.station'
 ])
 
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerControlsController", function PlayerControlsController($scope, mopidyservice){
+.controller("PlayerControlsController", function PlayerControlsController($scope, mopidyservice, stationservice){
     $scope.volume = 0;
     $scope.isRandom = false;
     $scope.isPlaying = false;
@@ -42,7 +43,8 @@ angular.module('mopify.player.controls', [
     };
 
     $scope.prev = function(){
-        mopidyservice.previous();
+        if(!stationservice.isPlaying())
+            mopidyservice.previous();
     };
 
     $scope.playpause = function(){

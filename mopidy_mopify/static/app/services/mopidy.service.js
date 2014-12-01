@@ -161,6 +161,10 @@ angular.module('mopify.services.mopidy', [])
             return wrapMopidyFunc("mopidy.library.search", this)({ any : [ query ] });
         },
 
+        searchTrack: function(artist, title){
+            return wrapMopidyFunc("mopidy.library.findExact", this)({ title: [ title ], artist: [ artist ]});
+        },
+
         getCurrentTrack: function() {
             return wrapMopidyFunc("mopidy.playback.getCurrentTrack", this)();
         },
@@ -188,6 +192,9 @@ angular.module('mopify.services.mopidy', [])
         playTrack: function(track, surroundingTracks) {
             var self = this;
 
+            if(surroundingTracks == undefined)
+                surroundingTracks = [track];
+
             // Check if a playlist change is required. If not cust change the track.
             if (self.currentTlTracks.length > 0) {
                 var trackUris = _.pluck(surroundingTracks, 'uri');
@@ -204,7 +211,9 @@ angular.module('mopify.services.mopidy', [])
                             });
                             self.mopidy.playback.changeTrack({ tl_track: tlTrackToPlay })
                         .then(function() {
-                            self.mopidy.playback.play();
+                            self.mopidy.playback.play().then(function(){
+                                $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tlTrackToPlay);
+                            });
                         });
                     });
                     return;
@@ -227,10 +236,16 @@ angular.module('mopify.services.mopidy', [])
                     });
                     self.mopidy.playback.changeTrack({ tl_track: tlTrackToPlay })
                         .then(function() {
-                            self.mopidy.playback.play();
+                            self.mopidy.playback.play().then(function(){
+                                $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tlTrackToPlay);
+                            }); 
                         });
                     }, consoleError);
                 } , consoleError);
+        },
+
+        clearTracklist: function(){
+            return this.mopidy.tracklist.clear();
         },
 
         addReplaceAndPlayPlaylist: function(playlist){

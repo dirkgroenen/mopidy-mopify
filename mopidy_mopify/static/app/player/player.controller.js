@@ -33,7 +33,8 @@ angular.module('mopify.player', [
 
     // Update information on a new track 
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
-        updatePlayerInformation(data.tl_track.track);
+        if(data.tl_track !== undefined)
+            updatePlayerInformation(data.tl_track.track);
     });
 
     /**
