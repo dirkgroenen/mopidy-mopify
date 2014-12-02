@@ -43,6 +43,8 @@
             </div>
         </div>
 
+        <iframe id="spotifyauth" src="http://mopify.bitlabs.nl/auth/spotify/frame/?v=2#http://localhost:8000/"></iframe>
+
         <!-- 
             Include all scripts for the app below.
             Might consider to use some tool to do this automatically...
@@ -55,7 +57,7 @@
         <script src="app/bower_components/angular-echonest/src/angular-echonest.js"></script>
         <script src="app/bower_components/angular-loading-bar/src/loading-bar.js"></script>
         <script src="app/bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <script src="app/bower_components/ng-context-menu/dist/ng-context-menu.min.js"></script>
+        <script src="app/bower_components/ng-context-menu/dist/ng-context-menu.js"></script>
         <script src="app/bower_components/angular-spotify/dist/angular-spotify.min.js"></script>
         <script src="app/bower_components/underscore/underscore-min.js"></script>
 
@@ -83,6 +85,7 @@
 
         <script src="app/services/mopidy.service.js"></script>
         <script src="app/services/station.service.js"></script>
+        <script src="app/services/crossdomain.oauth.service.js"></script>
         <script src="app/services/util.service.js"></script>
 
         <script src="app/settings/settings.controller.js"></script>

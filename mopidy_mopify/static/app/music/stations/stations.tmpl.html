@@ -39,6 +39,12 @@
                             {{ result.name }} - {{ buildArtistString(result.artists) }}
                         </div>
                     </li>
+                    <li class="divider">Playlists</li>
+                    <li class="result" ng-repeat="result in searchResults.playlists.items" ng-click="startFromNew('track', result)">
+                        <div class="text">
+                            {{ result.name }} - {{ result.owner.id }}
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

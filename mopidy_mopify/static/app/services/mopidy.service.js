@@ -87,8 +87,6 @@ angular.module('mopify.services.mopidy', [])
 			this.mopidy.on(function(ev, args) {
 				$rootScope.$broadcast('mopidy:' + ev, args);
 
-                console.log(ev);
-
 				if (ev === 'state:online') {
 					self.isConnected = true;
 				}

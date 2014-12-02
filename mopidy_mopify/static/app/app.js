@@ -16,15 +16,20 @@ angular.module('mopify', [
     'mopify.player.seekbar',
     'mopify.widgets',
     'mopify.music.tracklist',
-    'ng-context-menu'
+    'ng-context-menu',
+    'mopify.services.crossdomainoauth'
 ])
 
-.config(['localStorageServiceProvider', 'EchonestProvider', function(localStorageServiceProvider, EchonestProvider){
+.config(['localStorageServiceProvider', 'EchonestProvider', 'SpotifyProvider', function(localStorageServiceProvider, EchonestProvider, SpotifyProvider){
     localStorageServiceProvider.setPrefix("mopify");
     EchonestProvider.setApiKey("UVUDDM7M0S5MWNQFV");
+
+    SpotifyProvider.setClientId('b6b699a5595b406d9bfba11bee303aa4');
+    SpotifyProvider.setRedirectUri('http://mopify.bitlabs.nl/auth/spotify/callback/');
+    SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
 }])
 
-.controller("AppController", function AppController($scope, mopidyservice, stationservice){
+.controller("AppController", function AppController($scope, mopidyservice, stationservice, crossdomainoauth){
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
@@ -47,6 +52,7 @@ angular.module('mopify', [
         $scope.connectionState = connectionStates.offline;
         $scope.$apply();
     });
+
 
     // Start the mopidy service
     mopidyservice.start();

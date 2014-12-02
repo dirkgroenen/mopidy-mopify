@@ -72,8 +72,9 @@ angular.module('mopify.music.stations', [
         if($scope.searchQuery.length > 1){
             typingTimeout = setTimeout(function(){
                 $scope.wrapclass = "dropdownvisible";
+                var searchAbleItems = (localStorage.getItem("spotify-token") == null) ? "album,artist,track" : "album,artist,track,playlist";
 
-                Spotify.search($scope.searchQuery, "album,artist,track", {
+                Spotify.search($scope.searchQuery, searchAbleItems, {
                     market: "NL",
                     limit: "3"
                 }).then(function(data){

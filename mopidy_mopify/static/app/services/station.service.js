@@ -8,9 +8,10 @@
 angular.module('mopify.services.station', [
     'angular-echonest',
     'mopify.services.mopidy',
+    'mopify.services.crossdomainoauth',
     "spotify"
 ])
-.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService){
+.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, crossdomainoauth){
 
     var stationPlaying = false;
     var echonestTracksQueue = [];
@@ -96,7 +97,7 @@ angular.module('mopify.services.station', [
             deferred.resolve(parameters);
         }
 
-        if(station.type == "album"){
+        if(station.type == "album" || station.type == "user"){
             parameters.type = "song-radio";
 
             if(station.spotify.tracks == undefined){
@@ -109,7 +110,6 @@ angular.module('mopify.services.station', [
             else{
                 parameters.song_id = createTrackIdsList(station.spotify.tracks);
                 deferred.resolve(parameters);
-
             }
         }
 
@@ -121,7 +121,10 @@ angular.module('mopify.services.station', [
         var trackids = [];
 
         for(var x = 0; x < tracks.length;x++){
-            trackids.push(tracks[x].uri);
+            if(tracks[x].uri == undefined)
+                trackids.push(tracks[x].track.uri);
+            else
+                trackids.push(tracks[x].uri);
         }
 
         return trackids;
@@ -167,8 +170,23 @@ angular.module('mopify.services.station', [
                     deferred.resolve(data);
                 });
                 break;
-            case "playlist":
-                // TODO: IMPLEMENT WITH SPOTIFY AUTH API
+            case "user":
+                // If the case is user it means we have to check a user's playlist, which involes getting permission from the user
+                if(localStorage.getItem("spotify-token") == null)
+                    Spotify.login();
+
+                // Our nifty service makes sure that we can get an users key, dispite the fact that his url isn't in the callbackuri
+                crossdomainoauth.waitForKey().then(function(data){
+                    // Save and set token
+                    localStorage.setItem('spotify-token', data);
+                    Spotify.setAuthToken(data);
+
+                    Spotify.getPlaylist(urisplitted[2], urisplitted[4]).then(function (data) {
+                        data.images = data.tracks.items[0].track.album.images;
+
+                        deferred.resolve(data);
+                    });
+                });
                 break;
         }
 
