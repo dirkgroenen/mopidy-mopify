@@ -30,7 +30,7 @@ angular.module('mopify.widgets', [
                scope.play(scope.playlist);
             }
             
-            var encodedname = encodeURIComponent(scope.playlist.name.replace("/", " "));
+            var encodedname = encodeURIComponent( scope.playlist.name.replace(/\//g, "-") );
             scope.tracklistUrl = "/#/music/tracklist/" + scope.playlist.uri + "/" + encodedname;
         }
     };

@@ -6,8 +6,7 @@
 
 angular.module('mopify.services.mopidy', [])
 .factory("mopidyservice", function($q, $rootScope, $cacheFactory){
-	// Craete consolelog object for Mopidy to log it's logs on
-    var consoleLog = function () {};
+	// Create consolelog object for Mopidy to log it's logs on
     var consoleError = console.error.bind(console);
 
     /*
@@ -84,11 +83,11 @@ angular.module('mopify.services.mopidy', [])
 				callingConvention: 'by-position-or-by-name'
 			});
 			
-			this.mopidy.on(consoleLog);
-
 			// Convert Mopidy events to Angular events
 			this.mopidy.on(function(ev, args) {
 				$rootScope.$broadcast('mopidy:' + ev, args);
+
+                console.log(ev);
 
 				if (ev === 'state:online') {
 					self.isConnected = true;
@@ -293,12 +292,23 @@ angular.module('mopify.services.mopidy', [])
                 } , consoleError);
         },
 
-        addToTracklist: function(tracks){
-           return wrapMopidyFunc("mopidy.tracklist.add", this)({ tracks: tracks });
+        addToTracklist: function(obj){
+            return wrapMopidyFunc("mopidy.tracklist.add", this)(obj);
         },
 
-        play: function() {
-            return wrapMopidyFunc("mopidy.playback.play", this)();
+        getTracklist: function(){
+            return wrapMopidyFunc("mopidy.tracklist.getTracks", this)();
+        },
+
+        shuffleTracklist: function(){
+            return wrapMopidyFunc("mopidy.tracklist.shuffle", this)();
+        },
+
+        play: function(tltrack) {
+            if(tltrack == undefined)
+                return wrapMopidyFunc("mopidy.playback.play", this)();
+            else
+                return wrapMopidyFunc("mopidy.playback.play", this)({ tl_track: tltrack });
         },
 
         pause: function() {

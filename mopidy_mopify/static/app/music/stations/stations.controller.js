@@ -87,20 +87,10 @@ angular.module('mopify.music.stations', [
     };
 
     $scope.startFromNew = function(type, spotifyObject){
-        var name = spotifyObject.name;
-        var image = spotifyObject.images[0].url;
-        
-        var station = {
-            type: type,
-            spotify: spotifyObject,
-            name: name,
-            coverImage: image,
-            started_at: Date.now()
-        };
 
-        // Add to stations history and start
-        $scope.stations.push(station);
-        $scope.startStation(station);
+        stationservice.startFromSpotifyUri(spotifyObject.uri).then(function(){
+            $scope.stations = localStorageService.get("stations");
+        });
 
         resetRadioCreater();
     };
@@ -114,5 +104,22 @@ angular.module('mopify.music.stations', [
         $scope.searchQuery = "";
         $scope.creatingRadio = false;
         $scope.headerSize = "small";
+    }
+
+    $scope.getStationUrl = function(station){
+        switch(station.type.toLowerCase()){
+            case "album":
+                return "/#/music/tracklist/" + station.spotify.uri + "/" + station.name;
+                break;
+            case "playlist":
+                return "/#/music/tracklist/" + station.spotify.uri + "/" + station.name;
+                break;
+            case "artist":
+                return "/#/music/artist/" + station.spotify.uri;
+                break;
+            case "track":
+                return "/#/music/tracklist/" + station.spotify.album.uri + "/" + station.spotify.album.name;
+                break;
+        }
     }
 });

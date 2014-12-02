@@ -17,9 +17,10 @@ angular.module(['mopify.services.util'], [])
             return ((h > 0 ? h + ":" : "") + (m > 0 ? (h > 0 && m < 10 ? "0" : "") + m + ":" : "0:") + (s < 10 ? "0" : "") + s);
         },
 
-        artistsToString: function(artists){
+        artistsToString: function(artists, link){
             var artistNames = artists.map(function(artist){
-                return artist.name;
+
+                return (link) ? "<a href='/#/music/artist/" + artist.uri + "'>" + artist.name + "</a>" : artist.name;
             });
 
             return artistNames.join(", ");

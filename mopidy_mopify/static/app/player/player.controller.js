@@ -29,12 +29,17 @@ angular.module('mopify.player', [
         mopidyservice.getRandom().then(function(random){
             $scope.isRandom = (random === true);
         });
-    });
 
-    // Update information on a new track 
-    $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
-        if(data.tl_track !== undefined)
-            updatePlayerInformation(data.tl_track.track);
+        // Update information on a new track 
+        $scope.$on('mopidy:event:trackPlaybackEnded', function(event, data) {
+            if(data.tl_track !== undefined)
+                updatePlayerInformation(data.tl_track.track);
+        });
+        $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
+            if(data.tl_track !== undefined)
+                updatePlayerInformation(data.tl_track.track);
+        });
+
     });
 
     /**

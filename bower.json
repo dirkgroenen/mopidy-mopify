@@ -11,6 +11,7 @@
     "angular-local-storage": "0.1.x",
     "html5-boilerplate": "latest",
     "angular-spotify": "0.8.x",
-    "underscore": "latest"
+    "underscore": "latest",
+    "ng-context-menu": "~1.0.1"
   }
 }

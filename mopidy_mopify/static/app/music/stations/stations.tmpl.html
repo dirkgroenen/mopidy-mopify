@@ -50,7 +50,7 @@
             Stations <span class="sub">Recently played</span>
         </div>
         <div class="col-md-3 col-md-offset-6 alignright">
-            <div class="button createnew" ng-click="create()">
+            <div class="button white" ng-click="create()">
                 <span class="text">Create new</span>
                 <i class="ss-icon ss-wifi"></i> 
             </div>
@@ -62,15 +62,19 @@
                 <div class="col-md-2 single-album" ng-repeat="station in stations | reverse">
                     <div class="albumart">
                         <div class="hoverwrap">
-                            <div class="playicon">
-                                <i class="ss-icon ss-wifi" ng-click="startStation(station)"></i>
+                            <div class="iconwrap">
+                                <div class="icon">
+                                    <i class="ss-icon ss-wifi" ng-click="startStation(station)"></i>
+                                </div>
                             </div>
                         </div>
                         <img ng-src="{{ station.coverImage }}"/>
                     </div>
                     <div class="albuminfo">
-                        <span class="name">{{ station.name }}</span>
-                        <span class="year">Radio type: {{ station.type }}</span>
+                        <a href="{{ getStationUrl(station) }}">
+                            <span class="name">{{ station.name }}</span>
+                            <span class="year">Radio type: {{ station.type }}</span>
+                        </a>
                     </div>
                 </div>
             </div>

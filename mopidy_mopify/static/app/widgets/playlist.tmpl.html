@@ -1,7 +1,17 @@
-<div class="albumart">
+<div class="albumart" context-menu
+     data-target="menu-{{ playlist.uri }}"
+     ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
     <div class="hoverwrap">
-        <div class="playicon">
-            <i class="ss-icon ss-play" ng-click="playList()"></i>
+        <div class="iconwrap row">
+            <div class="icon small col-md-4">
+                <a href="{{ tracklistUrl }}"><i class="ss-icon ss-list"></i></a>
+            </div>
+            <div class="icon col-md-4">
+                <i class="ss-icon ss-play" ng-click="playList()"></i>
+            </div>
+            <div class="icon small col-md-4">
+                <i class="ss-icon ss-ellipsis"></i>
+            </div>
         </div>
     </div>
 
@@ -12,4 +22,19 @@
         <span class="name">{{ playlist.name}}</span>
         <span class="year">{{ playlist.tracks.length}} tracks</span>
     </a>
+</div>
+
+<div class="contextmenu position-fixed" id="menu-{{ playlist.uri }}">
+    <ul class="dropdown-menu" role="menu">
+        <li ng-click="playTrack(track)">
+            Play
+        </li>
+        <li ng-click="addTrackToQueue(track)">
+            Add to queue
+        </li>
+        <li class="divider"></li>
+        <li ng-click="startStationFromTrack(track)">
+            Start station
+        </li>
+    </ul>
 </div>

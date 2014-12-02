@@ -40,10 +40,55 @@ body, html{
     -moz-border: 1px solid white;
     border-radius: 25px;
     display: inline-block;
-    -webkit-transition: background-color .3s ease;
-    -moztransition: background-color .3s ease;
-    transition: background-color .3s ease;
+    -webkit-transition: all .3s ease;
+    -moztransition: all .3s ease;
+    transition: all .3s ease;
     cursor: pointer;
+}
+
+.contextmenu{
+    position: fixed;
+    display: none;
+    z-index: 500;
+    border: 1px solid #c0c0c0;
+    box-shadow: 0 0 5px rgba(0,0,0,.15);
+    background-color: white;
+}
+
+.contextmenu ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.contextmenu ul li{
+    min-width: 250px;
+    margin: 0;
+    padding: 8px 20px;
+    -webkit-transition: all .3s ease;
+    -moztransition: all .3s ease;
+    transition: all .3s ease;
+    cursor: pointer;
+    font-size: 14px;
+    color: #777;
+}
+
+.contextmenu ul li.divider{
+    background-color: #ddd;
+    height: 1px;
+    width: 96%;
+    min-width: 96%;
+    margin-left: 2%;
+    padding: 0;
+}
+
+.contextmenu ul li:hover{
+    background-color: #f5f5f5;
+    color: #404040;
+}
+
+.contextmenu.open{
+    display: block;
 }
 
 #application{
@@ -418,27 +463,33 @@ body, html{
     color: #777;
 }
 
-#application #overview .pagetitle .button.createnew{
-    border: 1px solid #ccc;
+#application #overview .pagetitle .button{
+    font-size: 14px;
+}
+
+#application #overview .pagetitle .button.white{
+    border: 1px solid #c0c0c0;
     padding: 6px 15px 3px 15px;
     text-transform: uppercase;
-    font-size: 14px;
     float: right;
     margin-top: -12px;
+    margin-left: 10px;
 }
 
-#application #overview .pagetitle .button.createnew:hover{
+#application #overview .pagetitle .button.white:hover{
     background-color: #fafafa;
+    color: #777;
 }
 
-#application #overview .pagetitle .button.createnew .text{
+#application #overview .pagetitle .button.white .text{
     float: left;
     margin: -1px 7px 0 0;
 }
 
 #application #overview .pagecontent{
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 100px;
+    font-size: 14px;
 }
 
 #application #overview .pagecontent #albumview{
@@ -484,18 +535,30 @@ body, html{
     opacity: 1;
 }
 
-#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .playicon{
+#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .icon{
     margin-top: 50%;
-    -webkit-transform: translateY(-50%);
+    -webkit-transform: translateY(-45%);
     font-size: 40px;
+    line-height: 40px;
     cursor: pointer;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     transition: all .3s ease;
+    color: #bfbfbf;
 }
 
-#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .playicon:hover{
-    font-size: 45px;
+#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .icon.small{
+    font-size: 20px;
+}
+
+#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .icon a{
+    color: #bfbfbf;
+    text-decoration: none !important;
+}
+
+#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .iconwrap a:hover,
+#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .iconwrap .icon:hover{
+    color: white;
 }
 
 #application #overview .pagecontent #albumview .single-album .albumart img{
@@ -535,6 +598,48 @@ body, html{
 
 #application #overview .pagecontent #albumview .single-album .albuminfo.clickable:hover span.name{
     color: black;
+}
+
+#application #overview .pagecontent #tracklist .track{
+    padding: 7px 0;
+    border-top: 1px solid #ccc;
+    cursor: pointer;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;   
+}
+
+#application #overview .pagecontent #tracklist .track:hover{
+    background-color: #fafafa;
+}
+
+#application #overview .pagecontent #tracklist .track .artist,
+#application #overview .pagecontent #tracklist .track .album{
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+    color: #777;
+}
+
+#application #overview .pagecontent #tracklist .track .length{
+    color: #777;
+}
+
+#application #overview .pagecontent #tracklist .track a{
+    color: #404040;
+    color: #777;
+}
+
+#application #overview .pagecontent #tracklistinfo{
+    padding-left: 80px;
+}
+
+#application #overview .pagecontent #tracklistinfo #coverwrap{
+    width: 100%;
+}
+
+#application #overview .pagecontent #tracklistinfo #coverwrap img{
+    width: 100%;
 }
 
 #application #player{

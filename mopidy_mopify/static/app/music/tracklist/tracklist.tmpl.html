@@ -9,26 +9,56 @@
         <div class="col-md-3">
             tracks <span class="sub">{{ type }}</span>
         </div>
+        <div class="col-md-6 col-md-offset-3 alignright">
+            <div class="button white" ng-click="startStation()">
+                <span class="text">Start station</span>
+                <i class="ss-icon ss-wifi"></i> 
+            </div>
+            <div class="button white" ng-click="shuffle()">
+                <span class="text">Shuffle {{ type }}</span>
+                <i class="ss-icon ss-shuffle"></i> 
+            </div>
+        </div>
     </div>
 
     <div class="pagecontent row">
         <div id="tracklist">
-            <div ng-repeat="track in tracks"> 
+
+            <div ng-repeat="track in tracks" class="track" context-menu
+                 data-target="menu-{{ $index }}"
+                 ng-class="{ 'highlight': highlight, 'expanded' : expanded }"> 
+
                 <div class="row">
-                    <div class="col-md-3 name">
+                    <div class="col-md-4 name">
                         {{ track.name }} 
                     </div>
-                    <div class="col-md-2 artists">
-                        {{ track.artistsString }}
+                    <div class="col-md-3 artists">
+                        <span ng-bind-html="track.artistsString"></span>
                     </div>
-                    <div class="col-md-3 album">
+                    <div class="col-md-4 album">
                         <a href="/#/music/tracklist/{{ track.album.uri }}/{{ track.album.name }}">{{ track.album.name }}</a>
                     </div>
                     <div class="col-md-1 length">
                         {{ track.lengthHuman }}
                     </div>
                 </div>
+
+                <div class="contextmenu position-fixed" id="menu-{{ $index }}">
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-click="playTrack(track)">
+                            Play
+                        </li>
+                        <li ng-click="addTrackToQueue(track)">
+                            Add to queue
+                        </li>
+                        <li class="divider"></li>
+                        <li ng-click="startStationFromTrack(track)">
+                            Start station
+                        </li>
+                    </ul>
+                </div>
             </div>
+
         </div>
     </div>
 </div>

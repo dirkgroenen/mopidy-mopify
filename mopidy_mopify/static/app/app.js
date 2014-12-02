@@ -15,7 +15,8 @@ angular.module('mopify', [
     'mopify.player.controls',
     'mopify.player.seekbar',
     'mopify.widgets',
-    'mopify.music.tracklist'
+    'mopify.music.tracklist',
+    'ng-context-menu'
 ])
 
 .config(['localStorageServiceProvider', 'EchonestProvider', function(localStorageServiceProvider, EchonestProvider){

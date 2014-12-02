@@ -10,8 +10,8 @@ angular.module('mopify.services.station', [
     'mopify.services.mopidy',
     "spotify"
 ])
-.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify){
-    
+.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService){
+
     var stationPlaying = false;
     var echonestTracksQueue = [];
     
@@ -24,8 +24,6 @@ angular.module('mopify.services.station', [
         if(echonestTracksQueue.length > 0){
             generateMopidyTracks(TRACKSPERBATCH).then(function(tracks){
                 addTracksToMopidy(tracks).then(function(response){
-                    console.log("added tracks", response);
-
                     $timeout(processMopidyTracklist, 5000);
 
                     deferred.resolve(response);
@@ -67,7 +65,7 @@ angular.module('mopify.services.station', [
     };
 
     function addTracksToMopidy(tracks){
-        return mopidyservice.addToTracklist(tracks);
+        return mopidyservice.addToTracklist({ tracks: tracks});
     }
 
     /**
@@ -99,23 +97,35 @@ angular.module('mopify.services.station', [
         }
 
         if(station.type == "album"){
-            Spotify.getAlbum(station.spotify.id).then(function (data) {
-                var tracks = data.tracks.items.splice(0, 4);
-                var trackids = [];
+            parameters.type = "song-radio";
 
-                for(var x = 0; x < tracks.length;x++){
-                    trackids.push(tracks[x].uri);
-                }
+            if(station.spotify.tracks == undefined){
+                Spotify.getAlbum(station.spotify.id).then(function (data) {
+                    parameters.song_id = createTrackIdsList(data.tracks);
 
-                parameters.song_id = trackids;
-                parameters.type = "song-radio";
-
+                    deferred.resolve(parameters);
+                });
+            }
+            else{
+                parameters.song_id = createTrackIdsList(station.spotify.tracks);
                 deferred.resolve(parameters);
-            });
+
+            }
         }
 
         return deferred.promise;
     };
+
+    function createTrackIdsList(tracks){
+        var tracks = tracks.items.splice(0, 4);
+        var trackids = [];
+
+        for(var x = 0; x < tracks.length;x++){
+            trackids.push(tracks[x].uri);
+        }
+
+        return trackids;
+    }
 
     /**
      * Create the new station using Echonest
@@ -137,11 +147,65 @@ angular.module('mopify.services.station', [
         });
     };
 
+    function getSpotifyObject(uri){
+        var urisplitted = uri.split(":");
+        var deferred = $q.defer();
+
+        switch(urisplitted[1]){
+            case "artist":
+                Spotify.getArtist(urisplitted[2]).then(function(data){
+                    deferred.resolve(data);
+                });
+                break;
+            case "track":
+                Spotify.getTrack(urisplitted[2]).then(function(data){
+                    deferred.resolve(data);
+                });
+                break;
+            case "album":
+                Spotify.getAlbum(urisplitted[2]).then(function(data){
+                    deferred.resolve(data);
+                });
+                break;
+            case "playlist":
+                // TODO: IMPLEMENT WITH SPOTIFY AUTH API
+                break;
+        }
+
+        return deferred.promise;
+    };
+
     return {
         init: function(){},
         
         start: function(station){
             createStation(station);
+        },
+
+        startFromSpotifyUri: function(uri){
+            var urisplitted = uri.split(":");
+            var deferred = $q.defer();
+
+            getSpotifyObject(uri).then(function(data){
+                var station = {
+                    type: urisplitted[1],
+                    spotify: data,
+                    name: data.name,
+                    coverImage: (data.images == undefined) ? data.album.images[1].url : data.images[1].url,
+                    started_at: Date.now()
+                };
+                
+                // Save the new station
+                var allstations = localStorageService.get("stations");
+                allstations.push(station);
+                localStorageService.set("stations", allstations);
+
+                createStation(station);                
+
+                return deferred.resolve(station);
+            });
+
+            return deferred.promise;
         }
     };
 });
