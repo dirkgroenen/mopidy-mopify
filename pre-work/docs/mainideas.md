@@ -40,4 +40,5 @@ The echonest and spotify apis will get a great part in Mopify's application. Som
 * Get charts from the user's country and show
 
 ###Possible problems
-The Spotify API only allows us to whitelist one url. This means that everybody has to use Mopidy on the same URL, something we defenitely don't want to and can't force. Maybe this can be solved by sending all API callback requests to an other central server that keeps track of users and their API tokens(?).
+~~The Spotify API only allows us to whitelist one url. This means that everybody has to use Mopidy on the same URL, something we defenitely don't want to and can't force. Maybe this can be solved by sending all API callback requests to an other central server that keeps track of users and their API tokens(?).~~
+Solved thanks to my lovely [crossdomainoauth service](https://github.com/dirkgroenen/mopidy-mopify/blob/v1.0/mopidy_mopify/static/app/services/crossdomain.oauth.service.js) ! :)
