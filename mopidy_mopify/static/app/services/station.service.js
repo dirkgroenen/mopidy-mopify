@@ -8,10 +8,10 @@
 angular.module('mopify.services.station', [
     'angular-echonest',
     'mopify.services.mopidy',
-    'mopify.services.crossdomainoauth',
+    'mopify.services.util',
     "spotify"
 ])
-.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, crossdomainoauth){
+.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, util){
 
     var stationPlaying = false;
     var echonestTracksQueue = [];
@@ -117,7 +117,11 @@ angular.module('mopify.services.station', [
     };
 
     function createTrackIdsList(tracks){
-        var tracks = tracks.items.splice(0, 4);
+        // Get items and shuffle
+        var items = tracks.items; 
+        items = util.shuffleArray(items);
+
+        var tracks = items.splice(0, 4);
         var trackids = [];
 
         for(var x = 0; x < tracks.length;x++){
@@ -171,21 +175,10 @@ angular.module('mopify.services.station', [
                 });
                 break;
             case "user":
-                // If the case is user it means we have to check a user's playlist, which involes getting permission from the user
-                if(localStorage.getItem("spotify-token") == null)
-                    Spotify.login();
+                Spotify.getPlaylist(urisplitted[2], urisplitted[4]).then(function(data) {
+                    data.images = data.tracks.items[0].track.album.images;
 
-                // Our nifty service makes sure that we can get an users key, dispite the fact that his url isn't in the callbackuri
-                crossdomainoauth.waitForKey().then(function(data){
-                    // Save and set token
-                    localStorage.setItem('spotify-token', data);
-                    Spotify.setAuthToken(data);
-
-                    Spotify.getPlaylist(urisplitted[2], urisplitted[4]).then(function (data) {
-                        data.images = data.tracks.items[0].track.album.images;
-
-                        deferred.resolve(data);
-                    });
+                    deferred.resolve(data);
                 });
                 break;
         }
@@ -224,6 +217,10 @@ angular.module('mopify.services.station', [
             });
 
             return deferred.promise;
+        },
+
+        startFromTracks: function(tracks){
+            
         }
     };
 });

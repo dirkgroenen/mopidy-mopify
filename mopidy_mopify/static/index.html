@@ -29,6 +29,11 @@
                                 <ng-include src="'app/discover/menu.tmpl.html'"></ng-include>
                                 <ng-include src="'app/music/menu.tmpl.html'"></ng-include>
                             </div>
+                            <div id="accounts">
+                                <div class="title">Connected services</div>
+                                <ng-include src="'app/account/spotify/menu.tmpl.html'"></ng-include>
+                                <ng-include src="'app/account/facebook/menu.tmpl.html'"></ng-include>
+                            </div>
                         </div>
                     </div>
 
@@ -85,8 +90,12 @@
 
         <script src="app/services/mopidy.service.js"></script>
         <script src="app/services/station.service.js"></script>
-        <script src="app/services/crossdomain.oauth.service.js"></script>
+        <script src="app/services/facebook.service.js"></script>
+        <script src="app/services/spotify.service.js"></script>
         <script src="app/services/util.service.js"></script>
+
+        <script src="app/account/spotify/spotify.controller.js"></script>
+        <script src="app/account/facebook/facebook.controller.js"></script>
 
         <script src="app/settings/settings.controller.js"></script>
 

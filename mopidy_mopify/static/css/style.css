@@ -137,6 +137,7 @@ body, html{
     margin: 0 0 40px 0;
 }
 
+#application #leftside #accounts .title,
 #application #leftside #menu .block .title{
     text-transform: uppercase;
     font-size: 15px;
@@ -145,6 +146,8 @@ body, html{
     font-weight: 300;
 }
 
+#application #leftside #accounts .account,
+#application #leftside #accounts .account a,
 #application #leftside #menu .block .content,
 #application #leftside #menu .block .content a{
     font-size: 18px;
@@ -156,6 +159,8 @@ body, html{
     font-weight: 300;
 }
 
+#application #leftside #accounts .account a:hover,
+#application #leftside #accounts .account a:active,
 #application #leftside #menu .block .content a.active,
 #application #leftside #menu .block .content a:hover{
     color: #333;
@@ -175,6 +180,61 @@ body, html{
 
 #application #leftside #menu .block .content#search span{
     margin: 5px;
+}
+
+#application #leftside #accounts{
+    padding: 35px;
+    position: absolute;
+    bottom: 65px;
+}
+
+#application #leftside #accounts .account{
+    margin: 5px 0 30px 0;
+    overflow: hidden;
+    height: 45px;
+}
+
+#application #leftside #accounts .account .profileimage{
+    overflow: hidden;
+    -webkit-border-radius: 9999px;
+    -moz-border-radius: 9999px;
+    border-radius: 9999px;
+    width: 45px;
+    height: 45px;
+    float: left;
+}
+
+#application #leftside #accounts .account .profileimage img{
+    width: 45px;
+}
+
+#application #leftside #accounts .account .content{
+    padding-left: 60px;
+}
+
+#application #leftside #accounts .account .content .status{
+    font-size: 13px;
+    color: #a2a2a2;
+    display: block;
+}
+
+#application #leftside #accounts .account .content .status .connection{
+    height: 4px;
+    width: 4px;
+    background: #a0a0a0;
+    -webkit-border-radius: 9999px;
+    -moz-border-radius: 9999px;
+    border-radius: 9999px;
+    display: inline-block;
+    margin: 0 4px 2.5px 0;
+}
+
+#application #leftside #accounts .account .content .status .connection.connected{
+    background: #27ae60;
+}
+
+#application #leftside #accounts .account .content .status .connection.disconnected{
+    background: #c0392b;
 }
 
 #application #header{
@@ -607,10 +667,19 @@ body, html{
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     transition: all .3s ease;   
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
 }
 
 #application #overview .pagecontent #tracklist .track:hover{
     background-color: #fafafa;
+}
+
+#application #overview .pagecontent #tracklist .track .nowplaying{
+    background-image: url("/assets/images/ani_equalizer_black.gif");
+    background-repeat: no-repeat;
+    background-position: right -7px;
 }
 
 #application #overview .pagecontent #tracklist .track .artist,

@@ -15,9 +15,12 @@ angular.module('mopify', [
     'mopify.player.controls',
     'mopify.player.seekbar',
     'mopify.widgets',
+    'mopify.account.spotify',
+    'mopify.account.facebook',
     'mopify.music.tracklist',
     'ng-context-menu',
-    'mopify.services.crossdomainoauth'
+    'mopify.services.facebook',
+    'mopify.services.spotifylogin'
 ])
 
 .config(['localStorageServiceProvider', 'EchonestProvider', 'SpotifyProvider', function(localStorageServiceProvider, EchonestProvider, SpotifyProvider){
@@ -29,7 +32,7 @@ angular.module('mopify', [
     SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
 }])
 
-.controller("AppController", function AppController($scope, mopidyservice, stationservice, crossdomainoauth){
+.controller("AppController", function AppController($scope, mopidyservice, stationservice, Facebook, SpotifyLogin){
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
@@ -52,7 +55,6 @@ angular.module('mopify', [
         $scope.connectionState = connectionStates.offline;
         $scope.$apply();
     });
-
 
     // Start the mopidy service
     mopidyservice.start();

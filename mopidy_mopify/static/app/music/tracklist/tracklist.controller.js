@@ -31,10 +31,13 @@ angular.module('mopify.music.tracklist', [
 
     // Check mopidy state and call loadtracks function
     $scope.$on("mopidy:state:online", loadTracks);
+    $scope.$on("mopidy:state:online", loadCurrentTrack);
     
     // Load tracks when connected
-    if(mopidyservice.isConnected)
+    if(mopidyservice.isConnected){
         loadTracks();
+        loadCurrentTrack();
+    }
 
     // Define the type from the uri parameter
     if(uri.indexOf(":playlist:") > -1)
@@ -43,24 +46,68 @@ angular.module('mopify.music.tracklist', [
     if(uri.indexOf(":album:") > -1)
         $scope.type = "Album";    
 
+    if(uri.indexOf("mopidy:current") > -1)
+        $scope.type = "tracklist";    
+
     // Check if a name has been defined
-    $scope.name = ($routeParams.name != undefined) ? $routeParams.name : "";
+    $scope.name = ($routeParams.name != undefined) ? $routeParams.name : ((uri.indexOf("mopidy:") > -1) ? "Current tracklist" : "");
     $scope.tracks = [];
+    var tlTracks = [];
+    var cTracks = [];
+    $scope.currentPlayingTrack = {};
 
     /**
      * Load the tracks from the mopidy library
      */
     function loadTracks(){    
+        // Get curren tracklist
+        if(uri.indexOf("mopidy:") > -1){
+            mopidyservice.getTracklist().then(function(tracks){
+                tlTracks = tracks;
+
+                var mappedTracks = tracks.map(function(tltrack){
+                    return tltrack.track;
+                });
+
+                $scope.tracks = prepareObject( angular.copy(mappedTracks) );
+            });
+
+            $scope.$on('mopidy:event:tracklistChanged', loadTracks);
+        }
+
         // Lookup the tracks for the given album or playlist
-        mopidyservice.lookup(uri).then(function(tracks){
-            $scope.tracks = prepareObject(tracks);
+        if(uri.indexOf("spotify:") > -1){
+            mopidyservice.lookup(uri).then(function(tracks){
+                cTracks = tracks;
 
-            var random = Math.floor((Math.random() * tracks.length) + 0);
+                $scope.tracks = prepareObject( angular.copy(tracks) );
 
-            if($scope.type == "Album")
-                getCoverImage(tracks[random]);
+                var random = Math.floor((Math.random() * tracks.length) + 0);
+
+                if($scope.type == "Album")
+                    getCoverImage(tracks[random]);
+            });
+
+        }
+    };
+
+    /**
+     * Load the current playing track
+     */
+    function loadCurrentTrack(){
+        mopidyservice.getCurrentTrack().then(function(track){
+            $scope.currentPlayingTrack = track;
         });
 
+        // Update information on a new track 
+        $scope.$on('mopidy:event:trackPlaybackEnded', function(event, data) {
+            if(data.tl_track !== undefined)
+                $scope.currentPlayingTrack = data.tl_track.track;
+        });
+        $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
+            if(data.tl_track !== undefined)
+                $scope.currentPlayingTrack = data.tl_track.track;
+        });
     };
 
     /**
@@ -146,7 +193,34 @@ angular.module('mopify.music.tracklist', [
      * Start a new station based on the tracks in the current view
      */
     $scope.startStation = function(){
-        stationservice.startFromSpotifyUri(uri);
+        if(uri.indexOf("spotify:") < -1)
+            stationservice.startFromSpotifyUri(uri);
+
+        if(uri.indexOf("mopidy:") < -1)
+            stationservice.startStationFromTracks($scope.tracks.splice(0, 4));
+    };
+
+    /*
+     * Play the given tack
+     */
+    $scope.playTrack = function(track){
+        // If we are viewing the mopidy tracklist we just have to find the corrosponding tlTrack and give it to mopidy
+        if(tlTracks.length > 0){
+            var tltrack = null;
+
+            for(var x = 0; x < $scope.tracks.length; x++){
+                if($scope.tracks[x].uri == track.uri){
+                    tltrack = tlTracks[x]; 
+                    break;
+                }
+            }    
+
+            // Change the track
+            mopidyservice.play(tltrack);
+        }
+        else{ // When we are viewing something else, like an album or whatever we have to clear the current tracklist and play the current tracks
+            mopidyservice.playTrack(track, cTracks);
+        }
     };
 
 });

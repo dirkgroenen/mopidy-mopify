@@ -76,7 +76,6 @@
           .error(function (data) {
             deferred.reject(data);
           });
-
           return deferred.promise;
         };
 

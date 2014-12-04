@@ -1,0 +1,13 @@
+<section id="spotifyuser" class="account" ng-controller="SpotifyMenuController">
+    <div class="profileimage">
+        <img ng-src="{{ userProfile.images[0].url }}" />
+    </div>
+    <div class="content">
+        <span class="username">
+            {{ userProfile.display_name }}
+        </span>
+        <span class="status">
+            <div class="connection" ng-class="authorized == true ? 'connected' : 'disconnected'"></div> {{ authorized == true ? 'connected' : 'disconnected' }} - Spotify
+        </span>
+    </div>
+</section>

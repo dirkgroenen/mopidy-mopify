@@ -26,9 +26,10 @@
 
             <div ng-repeat="track in tracks" class="track" context-menu
                  data-target="menu-{{ $index }}"
-                 ng-class="{ 'highlight': highlight, 'expanded' : expanded }"> 
+                 ng-class="{ 'highlight': highlight, 'expanded' : expanded }"
+                 ng-dblclick="playTrack(track)"> 
 
-                <div class="row">
+                <div class="row" ng-class="currentPlayingTrack.uri == track.uri ? 'nowplaying' : ''">
                     <div class="col-md-4 name">
                         {{ track.name }} 
                     </div>
@@ -48,8 +49,12 @@
                         <li ng-click="playTrack(track)">
                             Play
                         </li>
+                        <li class="divider"></li>
                         <li ng-click="addTrackToQueue(track)">
                             Add to queue
+                        </li>
+                        <li ng-show="type == 'tracklist'" ng-click="removeTrackFromQueue(track)">
+                            Remove from queue
                         </li>
                         <li class="divider"></li>
                         <li ng-click="startStationFromTrack(track)">

@@ -1,0 +1,13 @@
+<section id="spotifyuser" class="account" ng-controller="FacebookMenuController">
+    <div class="profileimage">
+        <img ng-src="{{ userProfile.profile_image }}" />
+    </div>
+    <div class="content">
+        <span class="username">
+            {{ userProfile.first_name }} {{ userProfile.last_name }}
+        </span>
+        <span class="status">
+            <div class="connection" ng-class="authorized == true ? 'connected' : 'disconnected'"></div> {{ authorized == true ? 'connected' : 'disconnected' }} - Facebook
+        </span>
+    </div>
+</section>

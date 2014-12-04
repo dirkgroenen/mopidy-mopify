@@ -295,7 +295,7 @@ angular.module('mopify.services.mopidy', [])
         },
 
         getTracklist: function(){
-            return wrapMopidyFunc("mopidy.tracklist.getTracks", this)();
+            return wrapMopidyFunc("mopidy.tracklist.getTlTracks", this)();
         },
 
         shuffleTracklist: function(){
@@ -303,10 +303,20 @@ angular.module('mopify.services.mopidy', [])
         },
 
         play: function(tltrack) {
-            if(tltrack == undefined)
-                return wrapMopidyFunc("mopidy.playback.play", this)();
-            else
+            if(tltrack != undefined){
+                delete tltrack.track["$$hashKey"];
+                delete tltrack.track["artistsString"];
+                delete tltrack.track["lengthHuman"];
+
                 return wrapMopidyFunc("mopidy.playback.play", this)({ tl_track: tltrack });
+            }
+            else{
+                return wrapMopidyFunc("mopidy.playback.play", this)();
+            }
+        },
+
+        filterTracklist: function(query){
+            return wrapMopidyFunc("mopidy.tracklist.filter", this)({ criteria: query });
         },
 
         pause: function() {
