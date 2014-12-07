@@ -4,7 +4,8 @@ angular.module('mopify.music.stations', [
     'ngRoute',
     'spotify',
     'mopify.services.station',
-    'mopify.services.util'
+    'mopify.services.util',
+    'mopify.services.spotifylogin'
 ])
 
 /**
@@ -20,10 +21,10 @@ angular.module('mopify.music.stations', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("StationsController", function StationsController($scope, localStorageService, Spotify, stationservice, util){
+.controller("StationsController", function StationsController($scope, localStorageService, Spotify, stationservice, util, SpotifyLogin){
     
     // Bind the localstorage to the $scope so we always have the latest stations
-    localStorageService.bind($scope, "stations");
+    $scope.stations = localStorageService.get("stations");
 
     // Check if $scope.stations ain't null
     if($scope.stations == null)
@@ -35,6 +36,7 @@ angular.module('mopify.music.stations', [
     $scope.headerSize = "small";
     $scope.wrapclass = "";
     $scope.searchResults = {};
+    $scope.spotifyConnected = SpotifyLogin.connected;
 
     $scope.buildArtistString = function(artists){
         return util.artistsToString(artists);
@@ -50,7 +52,6 @@ angular.module('mopify.music.stations', [
     $scope.startStation = function(station){
         stationservice.start(station);
     };
-
 
     /**
      * Create a new station
@@ -72,14 +73,15 @@ angular.module('mopify.music.stations', [
         if($scope.searchQuery.length > 1){
             typingTimeout = setTimeout(function(){
                 $scope.wrapclass = "dropdownvisible";
-                var searchAbleItems = (localStorage.getItem("spotify-token") == null) ? "album,artist,track" : "album,artist,track,playlist";
+                var searchableItems = (!SpotifyLogin.connected) ? "album,artist,track" : "album,artist,track,playlist";
 
-                Spotify.search($scope.searchQuery, searchAbleItems, {
+                Spotify.search($scope.searchQuery, searchableItems, {
                     market: "NL",
                     limit: "3"
                 }).then(function(data){
                     $scope.searchResults = data;
                 });
+
             }, 300);
         }
         else{

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('mopify.widgets', [
+angular.module('mopify.widgets.directive.playlist', [
     
 ])
 

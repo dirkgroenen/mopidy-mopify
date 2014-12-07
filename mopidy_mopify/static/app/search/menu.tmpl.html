@@ -1,6 +1,6 @@
-<div class="block row">
+<div class="block row" ng-controller="SearchMenuController">
     <div class="content" id="search">
         <i class="ss-icon ss-search"></i>
-        <span> Search</span>
+        <span class="inputwrap" ng-class="{ 'focus': focused }"><input type="text" name="query" ng-model="query" ng-focus="focused = true" ng-blur="focused = false" placeholder="Search" ng-keyup="typing($event)" /></span>
     </div>
 </div>

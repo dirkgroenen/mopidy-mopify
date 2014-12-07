@@ -86,7 +86,6 @@ angular.module('mopify.services.mopidy', [])
 			// Convert Mopidy events to Angular events
 			this.mopidy.on(function(ev, args) {
 				$rootScope.$broadcast('mopidy:' + ev, args);
-
 				if (ev === 'state:online') {
 					self.isConnected = true;
 				}
@@ -127,20 +126,8 @@ angular.module('mopify.services.mopidy', [])
             return wrapMopidyFunc("mopidy.playlists.lookup", this)({ uri: uri });
         },
 
-        getLibrary: function() {
-            return wrapMopidyFunc("mopidy.library.browse", this)({ uri: null });
-        },
-
-        getLibraryItems: function(uri) {
-            return wrapMopidyFunc("mopidy.library.browse", this)({ uri: uri });
-        },
-
         refresh: function(uri) {
             return wrapMopidyFunc("mopidy.library.refresh", this)({ uri: uri });
-        },
-
-        getDirectory: function(uri) {
-            return wrapMopidyFunc("mopidy.library.lookup", this)({ uri: uri });
         },
 
         getTrack: function(uri) {
@@ -304,10 +291,6 @@ angular.module('mopify.services.mopidy', [])
 
         play: function(tltrack) {
             if(tltrack != undefined){
-                delete tltrack.track["$$hashKey"];
-                delete tltrack.track["artistsString"];
-                delete tltrack.track["lengthHuman"];
-
                 return wrapMopidyFunc("mopidy.playback.play", this)({ tl_track: tltrack });
             }
             else{
@@ -341,6 +324,10 @@ angular.module('mopify.services.mopidy', [])
 
         setRandom: function (isRandom) {
             return wrapMopidyFunc("mopidy.tracklist.setRandom", this)([ isRandom ]);
+        },
+
+        removeFromTracklist: function(dict){
+            return wrapMopidyFunc("mopidy.tracklist.remove", this)({ criteria: dict });
         }
 
 	};

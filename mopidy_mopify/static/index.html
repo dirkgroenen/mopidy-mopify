@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="app/bower_components/html5-boilerplate/css/normalize.css">
         <link rel="stylesheet" href="app/bower_components/html5-boilerplate/css/main.css">
         <link rel="stylesheet" href="app/bower_components/angular-loading-bar/src/loading-bar.css">
+        <link rel="stylesheet" href="app/bower_components/angular-notifier/dist/angular-notifier.css">
         <link rel="stylesheet" href="assets/webfonts/ss-standard.css">
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/animations.css">
@@ -29,11 +30,8 @@
                                 <ng-include src="'app/discover/menu.tmpl.html'"></ng-include>
                                 <ng-include src="'app/music/menu.tmpl.html'"></ng-include>
                             </div>
-                            <div id="accounts">
-                                <div class="title">Connected services</div>
-                                <ng-include src="'app/account/spotify/menu.tmpl.html'"></ng-include>
-                                <ng-include src="'app/account/facebook/menu.tmpl.html'"></ng-include>
-                            </div>
+
+                            <ng-include src="'app/account/account.menu.tmpl.html'"></ng-include>
                         </div>
                     </div>
 
@@ -48,8 +46,6 @@
             </div>
         </div>
 
-        <iframe id="spotifyauth" src="http://mopify.bitlabs.nl/auth/spotify/frame/?v=2#http://localhost:8000/"></iframe>
-
         <!-- 
             Include all scripts for the app below.
             Might consider to use some tool to do this automatically...
@@ -63,6 +59,8 @@
         <script src="app/bower_components/angular-loading-bar/src/loading-bar.js"></script>
         <script src="app/bower_components/angular-sanitize/angular-sanitize.js"></script>
         <script src="app/bower_components/ng-context-menu/dist/ng-context-menu.js"></script>
+        <script src="app/bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="app/bower_components/angular-notifier/dist/angular-notifier.min.js"></script>
         <script src="app/bower_components/angular-spotify/dist/angular-spotify.min.js"></script>
         <script src="app/bower_components/underscore/underscore-min.js"></script>
 
@@ -94,13 +92,16 @@
         <script src="app/services/spotify.service.js"></script>
         <script src="app/services/util.service.js"></script>
 
+        <script src="app/account/account.menu.controller.js"></script>
+        <script src="app/account/services/services.controller.js"></script>
         <script src="app/account/spotify/spotify.controller.js"></script>
         <script src="app/account/facebook/facebook.controller.js"></script>
 
         <script src="app/settings/settings.controller.js"></script>
 
         <script src="app/widgets/module.js"></script>
-        <script src="app/widgets/album.js"></script>
+        <script src="app/widgets/album.directive.js"></script>
+        <script src="app/widgets/track.directive.js"></script>
         <script src="app/widgets/playlist.directive.js"></script>
 
     </body>

@@ -29,12 +29,6 @@ angular.module("mopify.account.spotify", [
         Spotify.getCurrentUser().then(function(data){
             $scope.authorized = true;
             $scope.userProfile = data;
-
-        }, function(errData){
-            // If status equals 401 we have to reauthorize the user
-            if(errData.error.status == 401){
-                authorize().then(getUserData); // recall this function after new authorize 
-            }
         });
     }
 });

@@ -1,0 +1,41 @@
+{
+  "name": "angular-notifier",
+  "version": "0.0.3",
+  "author": "l.lin",
+  "main": [
+    "dist/angular-notifier.js",
+    "dist/angular-notifier.min.js",
+    "dist/angular-notifier.css",
+    "dist/angular-notifier.min.css"
+  ],
+  "ignore": [
+    ".bowerrc",
+    ".editorconfig",
+    ".git*",
+    ".jshintrc",
+    "Gruntfile.js",
+    "test",
+    "demo",
+    "node_modules",
+    "src",
+    ".travis.yml"
+  ],
+  "dependencies": {
+    "angular": ">= 1.2.7",
+    "angular-animate": ">= 1.2.7"
+  },
+  "devDependencies": {
+    "angular-mocks": ">= 1.2.7"
+  },
+  "homepage": "https://github.com/l-lin/angular-notifier",
+  "_release": "0.0.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.3",
+    "commit": "f58acd05db84fbca350cebbe58bab4f6e00055d4"
+  },
+  "_source": "git://github.com/l-lin/angular-notifier.git",
+  "_target": "~0.0.3",
+  "_originalSource": "angular-notifier",
+  "_direct": true
+}

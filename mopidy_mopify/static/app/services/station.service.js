@@ -7,11 +7,13 @@
 
 angular.module('mopify.services.station', [
     'angular-echonest',
+    "llNotifier",
     'mopify.services.mopidy',
     'mopify.services.util',
+    'mopify.services.spotifylogin',
     "spotify"
 ])
-.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, util){
+.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, util, SpotifyLogin, notifier){
 
     var stationPlaying = false;
     var echonestTracksQueue = [];
@@ -113,12 +115,20 @@ angular.module('mopify.services.station', [
             }
         }
 
+        if(station.type == "tracks"){
+            parameters.type = "song-radio";
+
+            parameters.song_id = createTrackIdsList(station.tracks);
+            deferred.resolve(parameters);
+
+        }
+
         return deferred.promise;
     };
 
     function createTrackIdsList(tracks){
         // Get items and shuffle
-        var items = tracks.items; 
+        var items = tracks.items || tracks; 
         items = util.shuffleArray(items);
 
         var tracks = items.splice(0, 4);
@@ -175,11 +185,15 @@ angular.module('mopify.services.station', [
                 });
                 break;
             case "user":
-                Spotify.getPlaylist(urisplitted[2], urisplitted[4]).then(function(data) {
-                    data.images = data.tracks.items[0].track.album.images;
-
-                    deferred.resolve(data);
-                });
+                if(SpotifyLogin.connected){
+                    Spotify.getPlaylist(urisplitted[2], urisplitted[4]).then(function(data) {
+                        data.images = [data.images[0].uri, data.images[0].uri];
+                        deferred.resolve(data);
+                    });
+                }
+                else{
+                    notifier.notify({type: "custom", template: "Please connect your Spotify account to start a station from a Spotify user's playlist", delay: 7500});
+                }
                 break;
         }
 
@@ -213,14 +227,28 @@ angular.module('mopify.services.station', [
 
                 createStation(station);                
 
-                return deferred.resolve(station);
+                deferred.resolve(station);
             });
 
             return deferred.promise;
         },
 
         startFromTracks: function(tracks){
+            var station = {
+                type: "tracks",
+                spotify: null,
+                tracks: tracks,
+                name: "Tracklist",
+                coverImage: "/assets/images/tracklist-header.jpg",
+                started_at: Date.now()
+            };
             
+            // Save the new station
+            var allstations = localStorageService.get("stations");
+            allstations.push(station);
+            localStorageService.set("stations", allstations);
+
+            createStation(station);                
         }
     };
 });

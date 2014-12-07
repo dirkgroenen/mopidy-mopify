@@ -36,8 +36,9 @@ body, html{
     padding: 10px 15px;
     text-transform: none;
     font-size: 15px;
-    -webkit-border: 1px solid white;
-    -moz-border: 1px solid white;
+    border: 1px solid white;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
     border-radius: 25px;
     display: inline-block;
     -webkit-transition: all .3s ease;
@@ -91,6 +92,21 @@ body, html{
     display: block;
 }
 
+/* Override some notifier styles */
+.notifier-msg-content{
+    font-family: "Roboto Condensed";
+}
+
+.notifier-msg-content.custom{
+    background-color: rgba(0,0,0,.7);
+    color: white;
+    font-size: 15px;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 15px;
+}
+
+/* Start app styles */
 #application{
     height: 100%;   
     width: 100%;
@@ -146,6 +162,29 @@ body, html{
     font-weight: 300;
 }
 
+#application #leftside #accounts .title a,
+#application #leftside #menu .block .title a{
+    color: #b2b2b2;
+    text-decoration: none !important;
+}
+
+#application #leftside #accounts .notify{
+    margin: 10px 0 20px 0;
+}
+
+#application #leftside #accounts .notify a{
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+    color: #777;
+    font-weight: 300;
+}
+
+#application #leftside #accounts .notify a:hover{
+    color: #000;
+    text-decoration: none !important;
+}
+
 #application #leftside #accounts .account,
 #application #leftside #accounts .account a,
 #application #leftside #menu .block .content,
@@ -178,8 +217,41 @@ body, html{
     padding: 3px 0 4px 0;
 }
 
-#application #leftside #menu .block .content#search span{
+#application #leftside #menu .block .content#search .inputwrap{
     margin: 5px;
+    display: inline-block;
+    position: relative;
+}
+
+#application #leftside #menu .block .content#search .inputwrap::after{
+    position: absolute;
+    height: 1px;
+    width: 0%;
+    background-color: #b2b2b2;
+    bottom: 0;
+    left: 0;
+    content: "";
+    -webkit-transition: width .2s ease;
+    -moz-transition: width .2s ease;
+    transition: width .2s ease;
+}
+
+#application #leftside #menu .block .content#search .inputwrap.focus::after{
+    width: 100%;
+}
+
+#application #leftside #menu .block .content#search input{
+    border: none;
+    background: #f8f8f8;
+    font-size: 18px;
+    color: #777;
+    text-transform: uppercase;
+    font-weight: 300;
+    width: 100%;
+}
+
+#application #leftside #menu .block .content#search input:focus{
+    outline: none;
 }
 
 #application #leftside #accounts{
@@ -218,6 +290,7 @@ body, html{
     display: block;
 }
 
+#application #overview .pagecontent #albumview .service .status .connection,
 #application #leftside #accounts .account .content .status .connection{
     height: 4px;
     width: 4px;
@@ -229,10 +302,12 @@ body, html{
     margin: 0 4px 2.5px 0;
 }
 
+#application #overview .pagecontent #albumview .service .status .connection.connected,
 #application #leftside #accounts .account .content .status .connection.connected{
     background: #27ae60;
 }
 
+#application #overview .pagecontent #albumview .service .status .connection.disconnected,
 #application #leftside #accounts .account .content .status .connection.disconnected{
     background: #c0392b;
 }
@@ -241,9 +316,9 @@ body, html{
     height: 200px;
     background-size: cover;
     background-position: center;
-    -webkit-transition: all .5s ease;
-    -moztransition: all .5s ease;
-    transition: all .5s ease;
+    -webkit-transition: height .5s ease;
+    -moztransition: height .5s ease;
+    transition: height .5s ease;
 }
 
 #application #header.small{
@@ -660,6 +735,11 @@ body, html{
     color: black;
 }
 
+#application #overview .pagecontent #albumview .service .status{
+    display: inline-block;
+    padding-left: 5px;
+}
+
 #application #overview .pagecontent #tracklist .track{
     padding: 7px 0;
     border-top: 1px solid #ccc;
@@ -672,8 +752,14 @@ body, html{
     -ms-user-select: none;      /* IE 10+ */
 }
 
+#application #overview .pagecontent #tracklist .track.loading{
+    cursor: default;
+    color: #aaa;
+    background-color: white !important;
+}
+
 #application #overview .pagecontent #tracklist .track:hover{
-    background-color: #fafafa;
+    background-color: #f2f2f2;
 }
 
 #application #overview .pagecontent #tracklist .track .nowplaying{

@@ -1,0 +1,39 @@
+<div class="track" context-menu
+    data-target="{{ track.uri || track.tlid }}"
+    ng-class="{ 'highlight': highlight, 'expanded' : expanded, 'loading': track.loading }"
+    ng-dblclick="play()">
+
+    <div class="row" ng-class="{'nowplaying': ($parent.currentPlayingTrack.uri == track.uri)}">
+        <div class="col-md-4 name">
+            {{ track.name }} 
+        </div>
+        <div class="col-md-3 artists">
+            <span ng-bind-html="artistsString()"></span>
+        </div>
+        <div class="col-md-4 album">
+            <a href="/#/music/tracklist/{{ track.album.uri }}/{{ track.album.name }}">{{ track.album.name }}</a>
+        </div>
+        <div class="col-md-1 length">
+            {{ lengthHuman() }}
+        </div>
+    </div>
+</div>
+
+<div class="contextmenu position-fixed" id="{{ track.uri || track.tlid }}">
+    <ul class="dropdown-menu" role="menu">
+        <li ng-click="play()">
+            Play
+        </li>
+        <li class="divider"></li>
+        <li ng-click="addToQueue()">
+            Add to queue
+        </li>
+        <li ng-show="$parent.type == 'tracklist'" ng-click="removeFromQueue()">
+            Remove from queue
+        </li>
+        <li class="divider"></li>
+        <li ng-click="startStation()">
+            Start station
+        </li>
+    </ul>
+</div>

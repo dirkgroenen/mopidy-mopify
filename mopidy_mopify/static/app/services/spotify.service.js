@@ -2,7 +2,7 @@ angular.module("mopify.services.spotifylogin", [
     'spotify'
 ])
 
-.factory("SpotifyLogin", function SpotifyLogin($q, $timeout, $document, Spotify){
+.factory("SpotifyLogin", function SpotifyLogin($q, $timeout, $document, Spotify, $interval){
     // Get body
     var body = $document.find('body').eq(0);
 
@@ -28,28 +28,44 @@ angular.module("mopify.services.spotifylogin", [
         this.frame = frame;
         this.waitingline = [];
         this.connected = false;
+        this.lastPositiveLoginCheck = 0;
+
+        // Run the login check on create and set the interval to check every five minutes
+        this.getLoginStatus();
+        $interval(this.getLoginStatus, 300000);
     }
 
     SpotifyLogin.prototype.getLoginStatus = function(){
         var that = this;
         var deferred = $q.defer();
 
-        // Set the old token from the localstorage and check if that one still works
-        var oldToken = localStorage.getItem("spotify-token");
-        Spotify.setAuthToken(oldToken);
+        // Check with last login check
+        if(Date.now() - that.lastPositiveLoginCheck > 900000){
+            // Set the old token from the localstorage and check if that one still works
+            var oldToken = localStorage.getItem("spotify-token");
+            Spotify.setAuthToken(oldToken);
 
-        // Make the call to spotify to see if we are logged in
-        Spotify.getCurrentUser().then(function(data){
+            // Make the call to spotify to see if we are logged in
+            Spotify.getCurrentUser().then(function(data){
+                deferred.resolve({ status: "connected" });
+                that.connected = true;
+
+                // Set last login check
+                that.lastPositiveLoginCheck = Date.now();
+
+            }, function(errData){
+                // If status equals 401 we have to reauthorize the user
+                if(errData.error.status == 401){
+                    that.connected = false;
+                    deferred.resolve({ status: "not connected" });
+                }
+            });
+
+        }
+        else{
             deferred.resolve({ status: "connected" });
-            that.connected = true;
-
-        }, function(errData){
-            // If status equals 401 we have to reauthorize the user
-            if(errData.error.status == 401){
-                deferred.resolve({ status: "not connected" });
-            }
-        });
-
+        }
+        
         return deferred.promise;
     };
 

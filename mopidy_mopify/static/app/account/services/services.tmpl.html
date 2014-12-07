@@ -1,0 +1,38 @@
+<div id="header" class="small row" style="background-image: url('/assets/images/services-header.jpg');">
+    <div class="col-md-10 lefttext">
+        <div class="inner"><i class="ss-icon ss-merge"></i>  Services</div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            services </span>
+        </div>
+        <div class="col-md-6 col-md-offset-3 alignright">
+        </div>
+    </div>
+
+    <div class="pagecontent row">
+        <div id="albumview">
+            <div class="row">
+                <div class="col-md-2 single-album service" ng-repeat="service in availableServices">
+                    <div class="albumart">
+                        <div class="hoverwrap">
+                            <div class="iconwrap">
+                                <div class="icon">
+                                    <i class="ss-icon " ng-class="!service.connected ? 'ss-contract' : 'ss-expand'" ng-click="!service.connected ? connectService(service) : disconnectService(service)"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <img ng-src="{{ service.image }}"/>
+                    </div>
+                    <div class="albuminfo">
+                        <span class="name">{{ service.name }} <div class="status"><div class="connection" ng-class="service.connected ? 'connected' : 'disconnected'"></div></div></span>
+                        <span class="year">{{ service.description }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

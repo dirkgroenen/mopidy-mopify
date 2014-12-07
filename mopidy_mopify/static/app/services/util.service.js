@@ -19,7 +19,6 @@ angular.module(['mopify.services.util'], [])
 
         artistsToString: function(artists, link){
             var artistNames = artists.map(function(artist){
-
                 return (link) ? "<a href='/#/music/artist/" + artist.uri + "'>" + artist.name + "</a>" : artist.name;
             });
 

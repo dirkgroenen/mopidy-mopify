@@ -1,0 +1,53 @@
+<div id="header" class="small row" style="background-image: url('/assets/images/playlists-header.jpg');">
+    <div class="col-md-4 lefttext">
+        <div class="inner"><i class="ss-icon ss-list"></i>  SEARCH</div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Artists <span class="sub">{{ query }}</span>
+        </div>
+    </div>
+    <div class="pagecontent row" id="searchresults">
+        <div id="albumview" class="row">
+            <mopify-album album="album" ng-repeat="album in results.artists.items" class="col-md-2 single-album"></mopify-album>
+        </div>
+    </div>
+
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Albums <span class="sub">{{ query }}</span>
+        </div>
+    </div>
+    <div class="pagecontent row" id="searchresults">
+        <div id="albumview" class="row">
+            <mopify-album album="album" ng-repeat="album in results.albums.items" class="col-md-2 single-album"></mopify-album>
+        </div>
+    </div>
+
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Tracks <span class="sub">{{ query }}</span>
+        </div>
+    </div>
+    <div class="pagecontent row" id="searchresults">
+        <div id="tracklist" class="row">
+
+            <mopify-track ng-repeat="track in results.tracks" track="track" surrounding="results.tracks"> </mopify-track>
+
+        </div>
+    </div>
+
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Playlists <span class="sub">{{ query }}</span>
+        </div>
+    </div>
+    <div class="pagecontent row" id="searchresults">
+        <div id="playlists" class="row">
+
+        </div>
+    </div>
+</div>

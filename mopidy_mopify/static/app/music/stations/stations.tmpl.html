@@ -40,9 +40,14 @@
                         </div>
                     </li>
                     <li class="divider">Playlists</li>
-                    <li class="result" ng-repeat="result in searchResults.playlists.items" ng-click="startFromNew('track', result)">
+                    <li class="result" ng-if="spotifyConnected" ng-repeat="result in searchResults.playlists.items" ng-click="startFromNew('track', result)">
                         <div class="text">
                             {{ result.name }} - {{ result.owner.id }}
+                        </div>
+                    </li>
+                    <li class="result" ng-if="!spotifyConnected">
+                        <div class="text">
+                            If you want to search through Spotify playlists you first have to connect with Spotify
                         </div>
                     </li>
                 </ul>
