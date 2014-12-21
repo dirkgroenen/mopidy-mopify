@@ -3,8 +3,11 @@
         <img ng-src="{{ userProfile.profile_image }}" />
     </div>
     <div class="content">
-        <span class="username">
+        <span class="username" ng-show="authorized">
             {{ userProfile.first_name }} {{ userProfile.last_name }}
+        </span>
+        <span class="username" ng-hide="authorized">
+        Connecting...
         </span>
         <span class="status">
             <div class="connection" ng-class="authorized == true ? 'connected' : 'disconnected'"></div> {{ authorized == true ? 'connected' : 'disconnected' }} - Facebook
