@@ -5,7 +5,8 @@ angular.module("mopify.discover.featured", [
     "mopify.services.spotifylogin",
     "spotify",
     "mopify.services.util",
-    "mopify.services.station"
+    "mopify.services.station",
+    'mopify.widgets.directive.album'
 ])
 
 .config(function($routeProvider) {

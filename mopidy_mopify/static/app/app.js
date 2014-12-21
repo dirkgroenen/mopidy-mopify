@@ -6,8 +6,7 @@ angular.module('mopify', [
     'angular-echonest',
     'angular-loading-bar',
     'mopify.services.mopidy',
-    'mopify.services.station',
-    'mopify.dashboard',
+    'spotify',
     'mopify.search',
     'mopify.music.artist',
     'mopify.music.playlists',
@@ -15,20 +14,12 @@ angular.module('mopify', [
     'mopify.player',
     'mopify.player.controls',
     'mopify.player.seekbar',
-    'mopify.widgets.directive.playlist',
-    'mopify.widgets.directive.album',
-    'mopify.widgets.directive.artist',
-    'mopify.widgets.directive.track',
-    'mopify.widgets.directive.station',
-    'mopify.widgets.directive.service',
     'mopify.account',
     'mopify.account.services',
     'mopify.account.spotify',
     'mopify.account.facebook',
     'mopify.music.tracklist',
     'ng-context-menu',
-    'mopify.services.facebook',
-    'mopify.services.spotifylogin',
     'mopify.discover.featured',
     'mopify.discover.newreleases'
 ])
@@ -42,7 +33,7 @@ angular.module('mopify', [
     SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
 }])
 
-.controller("AppController", function AppController($scope, mopidyservice, stationservice, Facebook, SpotifyLogin){
+.controller("AppController", function AppController($scope, mopidyservice){
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
@@ -68,7 +59,4 @@ angular.module('mopify', [
 
     // Start the mopidy service
     mopidyservice.start();
-
-    // Start station
-    stationservice.init();
 });

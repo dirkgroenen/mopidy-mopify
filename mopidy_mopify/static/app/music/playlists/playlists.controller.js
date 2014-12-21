@@ -3,7 +3,9 @@
 angular.module('mopify.music.playlists', [
     'ngRoute',
     'spotify',
-    'mopify.services.mopidy'
+    'mopify.services.mopidy',
+    'angular-echonest',
+    'mopify.widgets.directive.playlist'
 ])
 
 /**

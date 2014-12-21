@@ -5,7 +5,8 @@ angular.module('mopify.music.artist', [
     'spotify',
     'angular-echonest',
     'mopify.services.mopidy',
-    'mopify.services.station'
+    'mopify.services.station',
+    'mopify.widgets.directive.artist'
 ])
 
 /**

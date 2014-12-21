@@ -187,7 +187,16 @@ angular.module('mopify.services.station', [
             case "user":
                 if(SpotifyLogin.connected){
                     Spotify.getPlaylist(urisplitted[2], urisplitted[4]).then(function(data) {
-                        data.images = [data.images[0].uri, data.images[0].uri];
+                        if(data.images == undefined)
+                            var image = data.album.images[1].url;
+                        else if(data.images[1] != undefined)
+                            var image = data.images[1].url;
+                        else if(data.images[0] != undefined)
+                            var image = data.images[0].url;
+                        else
+                            var image = "";
+                        
+                        data.images = [image, image];
                         deferred.resolve(data);
                     });
                 }

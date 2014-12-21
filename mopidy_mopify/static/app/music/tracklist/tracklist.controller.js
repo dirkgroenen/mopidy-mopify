@@ -7,7 +7,8 @@ angular.module('mopify.music.tracklist', [
     'mopify.services.station',
     'mopify.services.spotifylogin',
     'spotify',
-    'ngSanitize'
+    'ngSanitize',
+    "mopify.widgets.directive.track"
 ])
 
 /**

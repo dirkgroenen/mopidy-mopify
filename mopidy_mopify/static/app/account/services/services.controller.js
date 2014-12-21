@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module("mopify.account.services", [
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'mopify.widgets.directive.service',
 ])
 
 .config(function($routeProvider) {

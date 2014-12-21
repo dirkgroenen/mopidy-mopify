@@ -3,8 +3,13 @@
 // Declare app level module which depends on views, and components
 angular.module('mopify.search', [
     'spotify',
+    'ngRoute',
     'mopify.services.spotifylogin',
-    'mopify.services.mopidy'
+    'mopify.services.mopidy',
+    'mopify.widgets.directive.playlist',
+    'mopify.widgets.directive.album',
+    'mopify.widgets.directive.artist',
+    'mopify.widgets.directive.track'
 ])
 
 /**

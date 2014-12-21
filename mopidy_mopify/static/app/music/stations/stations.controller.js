@@ -5,7 +5,8 @@ angular.module('mopify.music.stations', [
     'spotify',
     'mopify.services.station',
     'mopify.services.util',
-    'mopify.services.spotifylogin'
+    'mopify.services.spotifylogin',
+    "mopify.widgets.directive.station"
 ])
 
 /**
