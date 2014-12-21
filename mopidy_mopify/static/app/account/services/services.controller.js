@@ -41,23 +41,4 @@ angular.module("mopify.account.services", [
             $scope.connectedServices[service.name.toLowerCase()] = false;
         }
     }
-
-    $scope.connectService = function(service){
-        var servicekey = service.name.toLowerCase();
-        service.connected = true;
-
-        $scope.connectedServices[servicekey] = true;
-
-        $rootScope.$broadcast("mopify:services:connected", service);
-    };
-
-    $scope.disconnectService = function(service){
-        var servicekey = service.name.toLowerCase();
-        service.connected = false;
-
-        $scope.connectedServices[servicekey] = false;
-
-        $rootScope.$broadcast("mopify:services:disconnected", service);
-    };
-
 });

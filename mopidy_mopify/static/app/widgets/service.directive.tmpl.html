@@ -1,0 +1,14 @@
+<div class="tileart">
+    <div class="hoverwrap">
+        <div class="iconwrap">
+            <div class="icon">
+                <i class="ss-icon " ng-class="!service.connected ? 'ss-contract' : 'ss-expand'" ng-click="!service.connected ? connectService() : disconnectService()"></i>
+            </div>
+        </div>
+    </div>
+    <img ng-src="{{ service.image }}"/>
+</div>
+<div class="tileinfo">
+    <span class="name">{{ service.name }} <div class="status"><div class="connection" ng-class="service.connected ? 'connected' : 'disconnected'"></div></div></span>
+    <span class="year">{{ service.description }}</span>
+</div>
