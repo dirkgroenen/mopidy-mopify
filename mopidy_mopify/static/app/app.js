@@ -17,6 +17,7 @@ angular.module('mopify', [
     'mopify.player.seekbar',
     'mopify.widgets.directive.playlist',
     'mopify.widgets.directive.album',
+    'mopify.widgets.directive.artist',
     'mopify.widgets.directive.track',
     'mopify.widgets.directive.station',
     'mopify.widgets.directive.service',

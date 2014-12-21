@@ -12,8 +12,8 @@
     </div>
     <div class="pagecontent row" id="searchresults">
         <div id="tileview" class="row">
-            <div ng-repeat="album in results.artists.items">
-                <mopify-album album="album" class="col-md-2 single-tile"></mopify-album>
+            <div ng-repeat="artist in results.artists.items">
+                <mopify-artist artist="artist" class="col-md-2 single-tile"></mopify-artist>
                 <div ng-if="($index + 1) % 6 == 0" class="row"></div>
             </div>
         </div>
