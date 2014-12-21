@@ -594,6 +594,146 @@ body, html{
     height: 30px;
 }
 
+/* Featured playlist header */
+#application #header #featured{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+#application #header #featured::before{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    background-color: rgba(0,0,0,.4);
+    opacity: 1;
+    -webkit-transition: all .5s ease;
+}
+
+#application #header #featured .title{
+    text-align: center;
+    margin-top: 30px;
+    font-size: 30px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+#application #header #featured .playlist{
+    margin-top: 10px;
+}
+
+#application #header #featured .playlist .cover{
+    float: left;
+    margin-top: 35px;
+}
+
+#application #header #featured .playlist .cover img{
+    height: 225px;
+    box-shadow: 0 0 40px rgba(0,0,0,.5);
+}
+
+#application #header #featured .playlist .details{
+    float: left;
+    width: calc(100% - 250px);
+    margin-top: 35px;
+    margin-left: 20px;
+    color: white;
+    font-size: 21px;
+    text-transform: uppercase;
+    text-shadow: 0 0 2px rgba(0,0,0,.3);
+}
+
+#application #header #featured .playlist .details .tracklist .track{
+    padding: 7px 0;
+    border-top: 1px solid #666;
+    font-size: 13px;
+    text-transform: none;
+    color: #ccc;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;   
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+}
+
+#application #header #featured .playlist .details .tracklist .track .name,
+#application #header #featured .playlist .details .tracklist .track .artist{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#application #header #featured .playlist .hoverwrap{
+    position: absolute;
+    top: 35px;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+    z-index: 50;
+    background-color: rgba(0,0,0,.5);
+    color: white;
+    text-align: center;
+    opacity: 0;
+    webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease; 
+    -webkit-transform: scale(.9);
+    -moz-transform: scale(.9);
+    transform: scale(.9);
+}
+
+#application #header #featured .playlist:hover .hoverwrap{
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    transform: scale(1);
+}
+
+#application #header #featured .playlist .hoverwrap .iconwrap{
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 100%;
+}
+
+#application #header #featured .playlist .hoverwrap .icon{
+    font-size: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+    color: #bfbfbf;
+}
+
+#application #header #featured .playlist .hoverwrap .icon a{
+    color: #bfbfbf;
+}
+
+#application #header #featured .playlist .hoverwrap .icon a:hover{
+    color: white;
+}
+
+#application #header #featured .playlist .hoverwrap .icon a:hover::after{
+    width: 0;
+}
+
+#application #header #featured .playlist .hoverwrap .icon.small{
+    font-size: 27px;
+}
+
+#application #header #featured .playlist .hoverwrap .icon:hover{
+    color: white;
+}
+
+/* START Application code */
 #application #overview{
     padding: 35px 50px;
 }
@@ -666,6 +806,7 @@ body, html{
     margin-top: 100%;
 }
  
+
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap{
     position: absolute;
     top: 0;
@@ -679,10 +820,16 @@ body, html{
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     transition: all .3s ease;
+    -webkit-transform: scale(.9);
+    -moz-transform: scale(.9);
+    transform: scale(.9);
 }
 
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap:hover{
     opacity: 1;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    transform: scale(1);
 }
 
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon{
@@ -835,8 +982,6 @@ body, html{
     width: 100%;
     min-height: 100%;
     margin-top: -20%;
-    /*filter: url('./svg/resources.svg#blur');
-    -webkit-filter: blur(15px);*/
 }
 
 #application #player .controlwrap{

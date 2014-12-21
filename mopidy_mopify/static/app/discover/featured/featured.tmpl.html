@@ -1,0 +1,64 @@
+<div id="header" class="big row" style="background-image: url('https://d2c87l0yth4zbw.global.ssl.fastly.net/i/home/lifestyle-hero-lg.jpg');">
+    <div id="featured">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="title">
+                    {{ titletext }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="playlist col-md-4 col-md-offset-4">
+                <div class="cover">
+                    <img ng-src="{{ headerplaylist.images[0].url }}" />
+                </div>
+                <div class="details">
+                    <div class="tracklist">
+                        <div class="row track" ng-repeat="track in headerplaylist.tracks" >
+                            <div class="col-md-7 name">
+                                {{ track.name }}    
+                            </div>
+                            <div class="col-md-5 artist">
+                                {{ track.artiststring }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hoverwrap">
+                    <div class="iconwrap row">
+                        <div class="icon small col-md-4">
+                            <a href="/#/music/tracklist/{{ headerplaylist.uri }}"><i class="ss-icon ss-list"></i></a>
+                        </div>
+                        <div class="icon col-md-4">
+                            <i class="ss-icon ss-play" ng-click="playHeaderPlaylist()"></i>
+                        </div>
+                        <div class="icon small col-md-4">
+                            <i class="ss-icon ss-wifi" ng-click="startHeaderPlaylistStation()"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Discover <span class="sub">Featured</span>
+        </div>
+        <div class="col-md-6 col-md-offset-3 alignright">
+        </div>
+    </div>
+
+    <div class="pagecontent row">
+        <div id="tileview">
+            <div class="row">
+                <div ng-repeat="playlist in featuredplaylists"> 
+                    <mopify-playlist playlist="playlist" class="col-md-2 single-tile"></mopify-playlist>
+                    <div ng-if="($index + 1) % 6 == 0" class="row"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

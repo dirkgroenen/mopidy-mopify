@@ -40,7 +40,7 @@ angular.module("mopify.services.spotifylogin", [
         var deferred = $q.defer();
 
         // Check with last login check
-        if(Date.now() - that.lastPositiveLoginCheck > 900000){
+        if(Date.now() - that.lastPositiveLoginCheck > 600000){
             // Set the old token from the localstorage and check if that one still works
             var oldToken = localStorage.getItem("spotify-token");
             Spotify.setAuthToken(oldToken);

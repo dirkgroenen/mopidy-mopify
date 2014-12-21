@@ -28,7 +28,9 @@ angular.module('mopify', [
     'mopify.music.tracklist',
     'ng-context-menu',
     'mopify.services.facebook',
-    'mopify.services.spotifylogin'
+    'mopify.services.spotifylogin',
+    'mopify.discover.featured',
+    'mopify.discover.newreleases'
 ])
 
 .config(['localStorageServiceProvider', 'EchonestProvider', 'SpotifyProvider', function(localStorageServiceProvider, EchonestProvider, SpotifyProvider){

@@ -27,7 +27,7 @@ angular.module("mopify.account.services", [
         },
         {
             name: "Facebook",
-            description: "Get more music based on your and your friends likes.",
+            description: "Get more music based on your Facebook likes.",
             image: "http://www.ednfoundation.org/wp-content/uploads/facebook-logo-square.png",
             connected: ($scope.connectedServices != undefined) ? $scope.connectedServices.facebook : false
         }

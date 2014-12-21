@@ -344,6 +344,21 @@
         };
 
         /**
+          ====================== Bowse =====================
+         */
+        NgSpotify.prototype.getFeaturedPlaylists = function (options) {
+          return this.api('/browse/featured-playlists', 'GET', options, null, {
+            'Authorization': 'Bearer ' + this.authToken
+          });
+        };
+
+        NgSpotify.prototype.getNewReleases = function (options) {
+          return this.api('/browse/new-releases', 'GET', options, null, {
+            'Authorization': 'Bearer ' + this.authToken
+          });
+        };
+
+        /**
           ====================== Login =====================
          */
         NgSpotify.prototype.setAuthToken = function (authToken) {
