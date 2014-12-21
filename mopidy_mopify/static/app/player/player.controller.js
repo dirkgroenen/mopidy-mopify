@@ -11,7 +11,7 @@ angular.module('mopify.player', [
 .controller("PlayerController", function PlayerController($scope, Spotify, mopidyservice){
     $scope.trackTitle = "";
     $scope.trackArtist= "";
-    $scope.playerBackground = "http://www.itsallthewaylive.net/wp-content/uploads/2013/12/bonobo.jpg";
+    $scope.playerBackground = "";
 
     // If Mopidy is online we collect the init data about playback, volume and shuffle mode
     $scope.$on('mopidy:state:online', function(){

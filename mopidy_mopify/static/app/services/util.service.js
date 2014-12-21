@@ -18,11 +18,16 @@ angular.module(['mopify.services.util'], [])
         },
 
         artistsToString: function(artists, link){
-            var artistNames = artists.map(function(artist){
-                return (link) ? "<a href='/#/music/artist/" + artist.uri + "'>" + artist.name + "</a>" : artist.name;
-            });
+            if(artists !== undefined){
+                var artistNames = artists.map(function(artist){
+                    return (link) ? "<a href='/#/music/artist/" + artist.uri + "'>" + artist.name + "</a>" : artist.name;
+                });
 
-            return artistNames.join(", ");
+                return artistNames.join(", ");
+            }
+            else{
+                return "";
+            }
         },
 
         //+ Jonas Raoni Soares Silva

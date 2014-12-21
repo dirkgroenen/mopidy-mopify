@@ -90,7 +90,12 @@ angular.module('mopify.music.tracklist', [
                 $scope.tracks = angular.copy(tracks);
 
                 // Check if the $scope.tracks contains loading tracks
-                var loadingTracks = _.where($scope.tracks, {loading: true});
+                var loadingTracks = [];
+
+                _.each($scope.tracks, function(track){
+                    if(track.name.indexOf("[loading]") > -1)
+                        loadingTracks.push(track);
+                });
 
                 if(loadingTracks.length > 0)
                     $timeout(loadTracks, 1000);

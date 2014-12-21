@@ -47,7 +47,9 @@ angular.module('mopify.search', [
 
 
         mopidyservice.search($scope.query).then(function(data){
-            $scope.results.tracks = data[0].tracks.splice(0,15)
+            if(data[0].tracks !== undefined){
+                $scope.results.tracks = data[0].tracks.splice(0,15);
+            }
         });
     };
 

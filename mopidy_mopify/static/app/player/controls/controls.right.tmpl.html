@@ -1,10 +1,10 @@
 <div class="row">
     <div class="iconwrap">
         <div class="col-md-3">
-            <i class="ss-icon ss-shuffle" ng-click="toggleShuffle();"></i>
+            <i class="ss-icon ss-shuffle" ng-class="{ 'active': isRandom }" ng-click="toggleShuffle();"></i>
         </div>
         <div class="col-md-3">
-            <i class="ss-icon ss-repeat" ng-click="toggleRepeat();"></i>
+            <i class="ss-icon ss-repeat" ng-class="{ 'active': isRepeat }" ng-click="toggleRepeat();"></i>
         </div>
         <div class="col-md-3">
             <i class="ss-icon {{ volumeIcon }}"></i>

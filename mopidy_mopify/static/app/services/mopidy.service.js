@@ -330,6 +330,13 @@ angular.module('mopify.services.mopidy', [])
             return wrapMopidyFunc("mopidy.tracklist.setRandom", this)([ isRandom ]);
         },
 
+        getRepeat: function () {
+            return wrapMopidyFunc("mopidy.tracklist.getRepeat", this)();
+        },
+
+        setRepeat: function (isRepeat) {
+            return wrapMopidyFunc("mopidy.tracklist.setRepeat", this)([ isRepeat ]);
+        },
         removeFromTracklist: function(dict){
             return wrapMopidyFunc("mopidy.tracklist.remove", this)({ criteria: dict });
         }

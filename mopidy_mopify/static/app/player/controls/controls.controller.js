@@ -44,6 +44,11 @@ angular.module('mopify.player.controls', [
         mopidyservice.getRandom().then(function(random){
             $scope.isRandom = (random === true);
         });
+
+        // Get repeat
+        mopidyservice.getRepeat().then(function(repeat){
+            $scope.isRepeat = (repeat === true);
+        });
     });
 
     $scope.next = function(){
@@ -102,5 +107,14 @@ angular.module('mopify.player.controls', [
         }
     };
 
+    $scope.toggleShuffle = function(){
+        $scope.isRandom = !$scope.isRandom;
+        mopidyservice.setRandom($scope.isRandom);
+    }
+
+    $scope.toggleRepeat = function(){
+        $scope.isRepeat = !$scope.isRepeat;
+        mopidyservice.setRepeat($scope.isRepeat);
+    }
 
 });

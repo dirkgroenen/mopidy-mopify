@@ -11,24 +11,38 @@ angular.module('mopify.widgets.directive.playlist', [
     return {
         restrict: 'E',
         scope: {
-            playlist: '=',
-            play: '&'
+            playlist: '='
         },
         templateUrl: 'app/widgets/playlist.directive.tmpl.html',
         link: function(scope, element, attrs) {
             scope.coverImage = defaultAlbumImageUrl;
 
-            // Album image
-            Spotify.getTrack(scope.playlist.tracks[0].uri).then(function(data) {
-                scope.coverImage = data.album.images[1].url;
-            });
+            // Get image for the playlist
+            if(scope.playlist.__model__ == "Playlist"){
+                Spotify.getTrack(scope.playlist.tracks[0].uri).then(function(data) {
+                    scope.coverImage = data.album.images[1].url;
+                });
+            }
+            if(scope.playlist.__model__ == undefined){
+                Spotify.getPlaylist(scope.playlist.owner.id, scope.playlist.id).then(function(data){
+                    scope.coverImage = (data.images[0] != undefined) ? data.images[0].url : data.tracks.items[0].track.album.images[0].url;
+                });
+            }
 
             /**
-             * Calls the parent's play method with the scope's playlist
+             * Replace the current tracklist with the given playlist
+             * @param  {Playlist} playlist
              */
-            scope.playList = function(){
-               scope.play(scope.playlist);
-            }
+            scope.play = function(){
+                if(scope.playlist.__model__ == "Playlist"){
+                    mopidyservice.playTrack(scope.playlist.tracks[0], scope.playlist.tracks);
+                }
+                else{
+                    mopidyservice.lookup(scope.playlist.uri).then(function(data){
+                        mopidyservice.playTrack(data[0], data);
+                    });
+                }
+            };
             
             var encodedname = encodeURIComponent( scope.playlist.name.replace(/\//g, "-") );
             scope.tracklistUrl = "/#/music/tracklist/" + scope.playlist.uri + "/" + encodedname;
