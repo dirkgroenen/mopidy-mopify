@@ -35,7 +35,30 @@ angular.module('mopify.widgets.directive.track', [
              * Play the album            
              */
             scope.play = function(){
-                mopidyservice.playTrack(track, surrounding);
+                if(track.__model__ == "Track"){
+                    mopidyservice.playTrack(track, surrounding);    
+                }
+                else{
+                    var clickedindex = 0;
+
+                    _.each(surrounding, function(iTrack, index){
+                        if(track.uri == iTrack.uri){
+                            clickedindex = index;
+                            return;
+                        }
+                    });
+
+                    // Convert spotify tracks to mopidy tracks
+                    var surroundinguris = _.map(surrounding, function(track){
+                        return track.uri
+                    });
+
+                    // Get a list of all the urls and play it
+                    mopidyservice.findExact({ uri: surroundinguris }).then(function(data){
+                        var tracks = data[0].tracks;
+                        mopidyservice.playTrack(tracks[clickedindex], tracks);
+                    });
+                }
             }
             
             scope.startStation = function(){

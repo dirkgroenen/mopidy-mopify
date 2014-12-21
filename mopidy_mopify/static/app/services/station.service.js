@@ -153,6 +153,8 @@ angular.module('mopify.services.station', [
         prepareParameters(station).then(function(parameters){
 
             Echonest.playlist.static(parameters).then(function(songs){
+                console.log(songs);
+                /*
                 echonestTracksQueue = songs;
 
                 mopidyservice.clearTracklist().then(function(){
@@ -160,6 +162,7 @@ angular.module('mopify.services.station', [
                         mopidyservice.playTrackAtIndex(0);
                     });
                 });
+                */
             }); 
         });
     };

@@ -11,11 +11,31 @@
     </div>
 </div>
 <div id="overview" class="row">
+    <div class="pagetitle row" ng-if="currentview.id == 'music'">
+        <div class="col-md-3">
+            {{ artist.name }} <span class="sub">Top tracks</span>
+        </div>
+        <div class="col-md-6 col-md-offset-3 alignright" >
+            <div class="button white" ng-click="startStation()">
+                <span class="text">Start station</span>
+                <i class="ss-icon ss-wifi"></i> 
+            </div>
+        </div>
+    </div>
+
+    <div class="pagecontent row" ng-if="currentview.id == 'music'">
+        <div id="tracklist">
+            <div class="row" ng-repeat="track in toptracks" >
+                <mopify-track track="track" surrounding="toptracks" currentplayingtrack="currentPlayingTrack" type="type"> </mopify-track>
+            </div>
+        </div>
+    </div>
+
     <div class="pagetitle row">
         <div class="col-md-3">
             {{ artist.name }} <span class="sub">{{ currentview.name }}</span>
         </div>
-        <div class="col-md-6 col-md-offset-3 alignright">
+        <div class="col-md-6 col-md-offset-3 alignright" ng-if="currentview.id != 'music'">
             <div class="button white" ng-click="startStation()">
                 <span class="text">Start station</span>
                 <i class="ss-icon ss-wifi"></i> 
@@ -23,11 +43,6 @@
         </div>
     </div>
     <div class="pagecontent row">
-
-        <div class="textcontent" ng-if="currentview.id == 'bio'">
-            {{ artist.bio.text }}
-        </div>
-
         <div id="tileview" ng-if="currentview.id == 'music'">
             <div ng-repeat="album in albums"> 
                 <mopify-album album="album" class="single-tile col-md-2"></mopify-album>
@@ -35,17 +50,13 @@
             </div>
         </div>
 
+        <div class="textcontent" ng-if="currentview.id == 'bio'">
+            {{ artist.bio.text }}
+        </div>
+
         <div id="tileview" ng-if="currentview.id == 'related'">
-            <div ng-repeat="relatedartist in related" class="single-tile col-md-2"> 
-                <div class="tileart">
-                    <img ng-src="{{ relatedartist.images[1].url }}" />
-                </div>
-                <div class="tileinfo clickable">
-                    <a href="/#/music/artist/{{ relatedartist.uri }}">
-                        <span class="name">{{ relatedartist.name}}</span>
-                        <span class="year">Genres: {{ relatedartist.genres.join(", ") }} </span>
-                    </a>
-                </div>
+            <div ng-repeat="relatedartist in related"> 
+                <mopify-artist artist="relatedartist" class="single-tile col-md-2"></mopify-artist>
                 <div ng-if="($index + 1) % 6 == 0" class="row"></div>
             </div>
         </div>

@@ -68,11 +68,13 @@ angular.module('mopify.music.artist', [
 
         // Get images from artist
         artist.getImages().then(function(data){
-            var fImage = _.find(data.images, function(image){
-                return image.width >= 1000;
+            // Search for an image that is bigger than 100
+            var sortedImages = _.sortBy(data.images, function(image){
+                return image.width;
             });
 
-            $scope.artist.coverimage = fImage.url || data.images[0].url;
+            $scope.artist.coverimage = sortedImages[0].url;
+
         });
 
         artist.getBiographies().then(function(data){
@@ -86,8 +88,18 @@ angular.module('mopify.music.artist', [
         });
     });
 
+    // Get related artists from spotify
     Spotify.getRelatedArtists($scope.artistId).then(function(data){
         $scope.related = data.artists;
+    });
+
+    
+    // Init an empty toptracks object
+    $scope.toptracks = {};
+
+    // Get the artist's top tracks
+    Spotify.getArtistTopTracks($scope.artistId, 'NL').then(function (data) {
+        $scope.toptracks = data.tracks;
     });
 
     // Get info from mopidy

@@ -150,6 +150,10 @@ angular.module('mopify.services.mopidy', [])
             return wrapMopidyFunc("mopidy.library.findExact", this)({ title: [ title ], artist: [ artist ]});
         },
 
+        findExact: function(query){
+            return wrapMopidyFunc("mopidy.library.findExact", this)(query);  
+        },
+
         getCurrentTrack: function() {
             return wrapMopidyFunc("mopidy.playback.getCurrentTrack", this)();
         },
