@@ -41,6 +41,12 @@ angular.module('mopify', [
 
     var defaultPageTitle = 'Mopify';
 
+    // Watch for track changes so we can update the title
+    $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
+        if(data.tl_track !== undefined)
+            updateTitle(data.tl_track.track);
+    });
+
     // Page title and connection state to $scope
     $scope.connectionState = connectionStates.offline;
     $scope.pageTitle = defaultPageTitle;
@@ -49,6 +55,11 @@ angular.module('mopify', [
     $scope.$on('mopidy:state:online', function() {
         $scope.connectionState = connectionStates.online;
         $scope.$apply();
+
+        // Get the track for the page title
+        mopidyservice.getCurrentTrack().then(function(track){
+            updateTitle(track);
+        });
     });
 
     // Listen for messages
@@ -59,4 +70,12 @@ angular.module('mopify', [
 
     // Start the mopidy service
     mopidyservice.start();
+
+    /**
+     * Update the page title with the current playing track
+     * @param object track
+     */
+    function updateTitle(track){
+        $scope.pageTitle = track.name + " - " + track.artists[0].name + " | " + defaultPageTitle;
+    };
 });
