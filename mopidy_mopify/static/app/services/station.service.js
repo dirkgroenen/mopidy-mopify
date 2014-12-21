@@ -212,11 +212,20 @@ angular.module('mopify.services.station', [
             var deferred = $q.defer();
 
             getSpotifyObject(uri).then(function(data){
+                if(data.images == undefined)
+                    var image = data.album.images[1].url;
+                else if(data.images[1] != undefined)
+                    var image = data.images[1].url;
+                else if(data.images[0] != undefined)
+                    var image = data.images[0].url;
+                else
+                    var image = "";
+
                 var station = {
                     type: urisplitted[1],
                     spotify: data,
                     name: data.name,
-                    coverImage: (data.images == undefined) ? data.album.images[1].url : data.images[1].url,
+                    coverImage: image,
                     started_at: Date.now()
                 };
                 
