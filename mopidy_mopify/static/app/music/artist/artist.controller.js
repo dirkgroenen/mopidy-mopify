@@ -68,7 +68,11 @@ angular.module('mopify.music.artist', [
 
         // Get images from artist
         artist.getImages().then(function(data){
-            $scope.artist.coverimage = data.images[0].url;
+            var fImage = _.find(data.images, function(image){
+                return image.width >= 1000;
+            });
+
+            $scope.artist.coverimage = fImage.url || data.images[0].url;
         });
 
         artist.getBiographies().then(function(data){

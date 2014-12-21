@@ -46,14 +46,6 @@ angular.module('mopify.music.stations', [
     var typingTimeout = null;
 
     /**
-     * Start the provided station
-     * @param {station} station - station object containing all the information to start the new station
-     */
-    $scope.startStation = function(station){
-        stationservice.start(station);
-    };
-
-    /**
      * Create a new station
      */
     $scope.create = function(){
@@ -107,22 +99,5 @@ angular.module('mopify.music.stations', [
         $scope.searchQuery = "";
         $scope.creatingRadio = false;
         $scope.headerSize = "small";
-    }
-
-    $scope.getStationUrl = function(station){
-        switch(station.type.toLowerCase()){
-            case "album":
-                return "/#/music/tracklist/" + station.spotify.uri + "/" + station.name;
-                break;
-            case "playlist":
-                return "/#/music/tracklist/" + station.spotify.uri + "/" + station.name;
-                break;
-            case "artist":
-                return "/#/music/artist/" + station.spotify.uri;
-                break;
-            case "track":
-                return "/#/music/tracklist/" + station.spotify.album.uri + "/" + station.spotify.album.name;
-                break;
-        }
     }
 });

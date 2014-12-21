@@ -14,7 +14,7 @@ angular.module('mopify.widgets.directive.playlist', [
             playlist: '=',
             play: '&'
         },
-        templateUrl: 'app/widgets/playlist.tmpl.html',
+        templateUrl: 'app/widgets/playlist.directive.tmpl.html',
         link: function(scope, element, attrs) {
             scope.coverImage = defaultAlbumImageUrl;
 

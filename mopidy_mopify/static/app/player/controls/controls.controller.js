@@ -13,6 +13,7 @@ angular.module('mopify.player.controls', [
     $scope.isRandom = false;
     $scope.isPlaying = false;
     $scope.stateIcon = "ss-play";
+    $scope.volumeIcon = "ss-volume";
 
     // Check for messages about the current playbackstate
     $scope.$on('mopidy:event:playbackStateChanged', function(event, data) {
@@ -24,6 +25,13 @@ angular.module('mopify.player.controls', [
         // Get volume
         mopidyservice.getVolume().then(function(volume){
             $scope.volume = volume;
+
+            if(volume > 50)
+                $scope.volumeIcon = "ss-highvolume";
+            else if(volume > 0)
+                $scope.volumeIcon = "ss-lowvolume";
+            else
+                $scope.volumeIcon = "ss-volume";    
         });
 
         // Get playback state
@@ -58,4 +66,41 @@ angular.module('mopify.player.controls', [
             }
         });
     };
+
+    $scope.volumebarMouseClick = function(event){
+        var layerX = event.layerX;
+        var volumebarWidth = event.srcElement.clientWidth;
+
+        var volume = (layerX / volumebarWidth) * 100;
+
+        // Set in scope and send to mopidy
+        $scope.volume = volume;
+        mopidyservice.setVolume(volume);
+    };
+
+    // Set mousestate for dragging
+    var dragging = false;
+
+    $scope.volumebarMouseDown = function(event){
+        dragging = true;
+    };
+
+    $scope.volumebarMouseUp = function(event){
+        dragging = false;
+    };
+
+    $scope.volumebarMouseMove = function(event){
+        if(dragging && event.layerY >= 0 && event.layerY <= event.srcElement.clientHeight){
+            var layerX = event.layerX;
+            var volumebarWidth = event.srcElement.clientWidth;
+
+            var volume = (layerX / volumebarWidth) * 100;
+
+            // Set in scope and send to mopidy
+            $scope.volume = volume;
+            mopidyservice.setVolume(volume);
+        }
+    };
+
+
 });

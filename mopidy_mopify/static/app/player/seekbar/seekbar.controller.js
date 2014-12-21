@@ -8,7 +8,7 @@ angular.module('mopify.player.seekbar', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerSeekbarController", function PlayerSeekbarController($scope, mopidyservice, util){
+.controller("PlayerSeekbarController", function PlayerSeekbarController($scope, $interval, mopidyservice, util){
     // Private vars
     var isSeeking = false;
     var checkPositionInterval;
@@ -18,33 +18,16 @@ angular.module('mopify.player.seekbar', [
     $scope.timeCurrent = "0:00";
     $scope.timeTotal = "0:00";
 
-    $scope.$on('moped:slidervaluechanging', function(event, value) {
-        isSeeking = true;
+    $scope.$on('mopidy:state:online', function() {
+        getTrackLength();
     });
 
-    $scope.$on('moped:slidervaluechanged', function(event, value) {
-        isSeeking = false;
-    });
-
-    $scope.$on('mopidy:state:online', function(event, data) {
-        mopidyservice.getCurrentTrack().then(function(track){
-            trackLength = track.length;
-            $scope.timeTotal = util.timeFromMilliSeconds(trackLength);
-
-            mopidyservice.getState().then(function (state) {
-                if (state === 'playing') {
-                    checkPositionInterval = setInterval(function() {
-                        checkTimePosition();
-                    }, 1000);                
-                }
-            });
-
-        });
-
+    $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
+        getTrackLength();
     });
 
     $scope.$on('mopidy:state:offline', function() {
-        clearInterval(checkPositionInterval);
+        $interval.cancel(checkPositionInterval);
     });
 
     /**
@@ -58,5 +41,65 @@ angular.module('mopify.player.seekbar', [
             });
         }
     }
+
+    function getTrackLength(){
+        mopidyservice.getCurrentTrack().then(function(track){
+            trackLength = track.length;
+            $scope.timeTotal = util.timeFromMilliSeconds(trackLength);
+
+            mopidyservice.getState().then(function (state) {
+                if (state === 'playing') {
+                    checkPositionInterval = $interval(function() {
+                        checkTimePosition();
+                    }, 1000);                
+                }
+            });
+
+        });
+    }
+
+    $scope.seekbarMouseClick = function(event){
+        var layerX = event.layerX;
+        var barwidth = event.srcElement.clientWidth;
+
+        var seek = (layerX / barwidth) * 100;
+
+        // Set in scope and send to mopidy
+        $scope.seekbarWidth = seek;
+    
+        var ms = Math.round(trackLength * (seek / 100));
+
+        isSeeking = true;
+        mopidyservice.seek(ms).then(function(){
+            isSeeking = false;
+        });
+    };
+
+    $scope.seekbarMouseDown = function(){
+        isSeeking = true;
+    };
+
+    $scope.seekbarMouseUp = function(){
+        isSeeking = false;
+    };
+
+    $scope.seekbarMouseMove = function(event){
+        if(isSeeking){
+            var layerX = event.layerX;
+            var barwidth = event.srcElement.clientWidth;
+
+            var seek = (layerX / barwidth) * 100;
+
+            // Set in scope and send to mopidy
+            $scope.seekbarWidth = seek;
+
+            var ms = Math.round(trackLength * (seek / 100));
+
+            isSeeking = true;
+            mopidyservice.seek(ms).then(function(){
+                isSeeking = false;
+            });
+        }
+    };
 
 });

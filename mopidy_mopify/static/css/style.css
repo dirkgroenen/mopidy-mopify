@@ -290,7 +290,7 @@ body, html{
     display: block;
 }
 
-#application #overview .pagecontent #albumview .service .status .connection,
+#application #overview .pagecontent #tileview .service .status .connection,
 #application #leftside #accounts .account .content .status .connection{
     height: 4px;
     width: 4px;
@@ -302,12 +302,12 @@ body, html{
     margin: 0 4px 2.5px 0;
 }
 
-#application #overview .pagecontent #albumview .service .status .connection.connected,
+#application #overview .pagecontent #tileview .service .status .connection.connected,
 #application #leftside #accounts .account .content .status .connection.connected{
     background: #27ae60;
 }
 
-#application #overview .pagecontent #albumview .service .status .connection.disconnected,
+#application #overview .pagecontent #tileview .service .status .connection.disconnected,
 #application #leftside #accounts .account .content .status .connection.disconnected{
     background: #c0392b;
 }
@@ -326,7 +326,7 @@ body, html{
 }
 
 #application #header.big{
-    height: 350px;
+    height: 400px;
 }
 
 #application #header a{
@@ -351,6 +351,14 @@ body, html{
 #application #header a.active::after,
 #application #header a:hover::after{
     width: 100%;
+}
+
+#application #header .lefttext,
+#application #header .centertext,
+#application #header .righttext{
+    -webkit-transition: all .3s ease;
+    -moztransition: all .3s ease;
+    transition: all .3s ease;
 }
 
 #application #header.small .lefttext{
@@ -395,6 +403,12 @@ body, html{
 
 #application #header.small .righttext .button:hover{
     background-color: rgba(255,255,255,.15);
+}
+
+#application #header.big .lefttext,
+#application #header.big .centertext,
+#application #header.big .righttext{
+    padding-top: 20px !important;
 }
 
 #application #header #radiosearch{
@@ -627,31 +641,32 @@ body, html{
     font-size: 14px;
 }
 
-#application #overview .pagecontent #albumview{
+#application #overview .pagecontent #tileview{
     margin-left: -25px;
     margin-right: -25px;
 }
 
-#application #overview .pagecontent #albumview .single-album{
+#application #overview .pagecontent #tileview .single-tile{
     padding: 0 25px 50px 25px;
     position: relative;
 }
 
-#application #overview .pagecontent #albumview .single-album .albumart{
+#application #overview .pagecontent #tileview .single-tile .tileart{
     position: relative;
     display: inline-block;
     overflow: hidden;
     width: 100%;
     text-align: center;
+    background-color: rgba(0,0,0,.1);
 }
 
-#application #overview .pagecontent #albumview .single-album .albumart::after{
+#application #overview .pagecontent #tileview .single-tile .tileart::after{
     content: '';
     display: block;
     margin-top: 100%;
 }
  
-#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap{
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap{
     position: absolute;
     top: 0;
     left: 0;
@@ -666,11 +681,11 @@ body, html{
     transition: all .3s ease;
 }
 
-#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap:hover{
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap:hover{
     opacity: 1;
 }
 
-#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .icon{
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon{
     margin-top: 50%;
     -webkit-transform: translateY(-45%);
     font-size: 40px;
@@ -682,21 +697,21 @@ body, html{
     color: #bfbfbf;
 }
 
-#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .icon.small{
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon.small{
     font-size: 20px;
 }
 
-#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .icon a{
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon a{
     color: #bfbfbf;
     text-decoration: none !important;
 }
 
-#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .iconwrap a:hover,
-#application #overview .pagecontent #albumview .single-album .albumart .hoverwrap .iconwrap .icon:hover{
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .iconwrap a:hover,
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .iconwrap .icon:hover{
     color: white;
 }
 
-#application #overview .pagecontent #albumview .single-album .albumart img{
+#application #overview .pagecontent #tileview .single-tile .tileart img{
     min-height: 100%;
     min-width: 100%;
     width: 100%;
@@ -707,35 +722,35 @@ body, html{
     right: 0;
 }
 
-#application #overview .pagecontent #albumview .single-album .albuminfo{
+#application #overview .pagecontent #tileview .single-tile .tileinfo{
     padding-top: 5px;
 }
 
-#application #overview .pagecontent #albumview .single-album .albuminfo a{
+#application #overview .pagecontent #tileview .single-tile .tileinfo a{
     color: #404040;
 }
 
-#application #overview .pagecontent #albumview .single-album .albuminfo a:hover{
+#application #overview .pagecontent #tileview .single-tile .tileinfo a:hover{
     text-decoration: none;
 }
 
-#application #overview .pagecontent #albumview .single-album .albuminfo span{
+#application #overview .pagecontent #tileview .single-tile .tileinfo span{
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     transition: all .3s ease;   
 }
 
-#application #overview .pagecontent #albumview .single-album .albuminfo span.year{
+#application #overview .pagecontent #tileview .single-tile .tileinfo span.year{
     font-size: 14px;
     color: #bbb;
     display: block;
 }
 
-#application #overview .pagecontent #albumview .single-album .albuminfo.clickable:hover span.name{
+#application #overview .pagecontent #tileview .single-tile .tileinfo.clickable:hover span.name{
     color: black;
 }
 
-#application #overview .pagecontent #albumview .service .status{
+#application #overview .pagecontent #tileview .service .status{
     display: inline-block;
     padding-left: 5px;
 }
@@ -840,12 +855,31 @@ body, html{
     transition: color .2s ease;
 }
 
+#application #player .controlwrap .iconwrap i.active,
 #application #player .controlwrap .iconwrap i:hover{
     color: #eee;
 }
 
-#application #player #seekbar {
-    padding: 0 50px;
+#application #player .controlwrap .iconwrap .volumebar{
+    position: absolute;
+    top: 0px;
+    left: 25px;
+    width: 100px;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+#application #player .controlwrap .iconwrap .volumebar .outer{
+    height: 2px;
+    width: 100%;
+    background-color: rgba(255,255,255,.5);
+}
+
+#application #player .controlwrap .iconwrap .volumebar .inner{
+    width: 0%;
+    height: 100%;
+    background-color: white;
+    position: relative;
 }
 
 #application #player #seekbar .trackname{
@@ -885,16 +919,23 @@ body, html{
     width: calc(100% - 55px);
 }
 
-#application #player #seekbar .barwrap .outerbar{
-    display: inline-block;
+#application #player #seekbar .barwrap .bar{
     width: calc(100% - 100px);
-    height: 2px;
-    background-color: rgba(255,255,255,.5);
+    position: relative;
+    cursor: pointer;
     position: absolute;
-    top: 12px;
+    display: inline-block;
+    padding: 10px 0;
 }
 
-#application #player #seekbar .barwrap .outerbar .innerbar{
+#application #player #seekbar .barwrap .bar .outer{
+    width: 100%;
+    height: 2px;
+    background-color: rgba(255,255,255,.5);
+    margin-top: 4px;
+}
+
+#application #player #seekbar .barwrap .bar .outer .inner{
     height: 100%;
     width: 23%;
     background-color: white;

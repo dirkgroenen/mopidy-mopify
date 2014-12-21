@@ -1,4 +1,4 @@
-<div class="albumart" context-menu
+<div class="tileart" context-menu
      data-target="menu-{{ playlist.uri }}"
      ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
     <div class="hoverwrap">
@@ -17,7 +17,7 @@
 
     <img ng-src="{{ coverImage }}" />
 </div>
-<div class="albuminfo clickable">
+<div class="tileinfo clickable">
     <a href="{{ tracklistUrl }}">
         <span class="name">{{ playlist.name}}</span>
         <span class="year">{{ playlist.tracks.length}} tracks</span>

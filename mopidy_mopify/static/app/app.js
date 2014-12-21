@@ -18,6 +18,7 @@ angular.module('mopify', [
     'mopify.widgets.directive.playlist',
     'mopify.widgets.directive.album',
     'mopify.widgets.directive.track',
+    'mopify.widgets.directive.station',
     'mopify.account',
     'mopify.account.services',
     'mopify.account.spotify',

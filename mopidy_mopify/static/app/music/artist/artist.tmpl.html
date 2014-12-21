@@ -1,4 +1,4 @@
-<div id="header" class="small row" style="background-image: url('{{ artist.coverimage }}');">
+<div id="header" class="small row" ng-class="(currentview.id == 'bio') ? 'big' : ''" style="background-image: url('{{ artist.coverimage }}');">
     <div class="col-md-4 lefttext">
         <div class="inner">{{ artist.name }}</div>
     </div>
@@ -28,19 +28,19 @@
             {{ artist.bio.text }}
         </div>
 
-        <div id="albumview" ng-if="currentview.id == 'music'">
+        <div id="tileview" ng-if="currentview.id == 'music'">
             <div ng-repeat="album in albums"> 
-                <mopify-album album="album" class="single-album col-md-2"></mopify-album>
+                <mopify-album album="album" class="single-tile col-md-2"></mopify-album>
                 <div ng-if="($index + 1) % 6 == 0" class="row"></div>
             </div>
         </div>
 
-        <div id="albumview" ng-if="currentview.id == 'related'">
-            <div ng-repeat="relatedartist in related" class="single-album col-md-2"> 
-                <div class="albumart">
+        <div id="tileview" ng-if="currentview.id == 'related'">
+            <div ng-repeat="relatedartist in related" class="single-tile col-md-2"> 
+                <div class="tileart">
                     <img ng-src="{{ relatedartist.images[1].url }}" />
                 </div>
-                <div class="albuminfo clickable">
+                <div class="tileinfo clickable">
                     <a href="/#/music/artist/{{ relatedartist.uri }}">
                         <span class="name">{{ relatedartist.name}}</span>
                         <span class="year">Genres: {{ relatedartist.genres.join(", ") }} </span>
