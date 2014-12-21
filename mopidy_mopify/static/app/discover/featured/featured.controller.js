@@ -2,6 +2,7 @@
 
 angular.module("mopify.discover.featured", [
     "mopify.services.mopidy",
+    "mopify.services.spotifylogin",
     "spotify",
     "mopify.services.util",
     "mopify.services.station"
@@ -15,10 +16,10 @@ angular.module("mopify.discover.featured", [
 })
 
 
-.controller("DiscoverFeaturedController", function DiscoverFeaturedController($rootScope, $scope, $timeout, mopidyservice, Spotify, util, stationservice){
+.controller("DiscoverFeaturedController", function DiscoverFeaturedController($rootScope, $scope, $timeout, mopidyservice, Spotify, SpotifyLogin, util, stationservice){
 
     $scope.featuredplaylists = [];
-    $scope.titletext = "";
+    $scope.titletext = "Loading...";
     $scope.headerplaylist = {};
 
     // Load the feautured playlists when a connection with mopidy has been established
@@ -30,21 +31,27 @@ angular.module("mopify.discover.featured", [
      * Load all the data for the featured playlists page
      */
     function loadFeaturedPlaylists(){
-        // Get the featured playlists from spotify
-        // TODO: Change the locale to a setting value
-        Spotify.getFeaturedPlaylists({
-            locale: "nl_NL",
-            country: "NL",
-            limit: 12
-        }).then(function(data){
-            // Set the message and items
-            $scope.titletext = data.message;
-            $scope.featuredplaylists = data.playlists.items;
-            $scope.headerplaylist = data.playlists.items[Math.floor(Math.random() * 10)];
+        // Check if we are logged in to spotify 
+        if(SpotifyLogin.connected){
+            // Get the featured playlists from spotify
+            // TODO: Change the locale to a setting value
+            Spotify.getFeaturedPlaylists({
+                locale: "nl_NL",
+                country: "NL",
+                limit: 12
+            }).then(function(data){
+                // Set the message and items
+                $scope.titletext = data.message;
+                $scope.featuredplaylists = data.playlists.items;
+                $scope.headerplaylist = data.playlists.items[Math.floor(Math.random() * 10)];
 
-            // Load the tracks for the featured header playlist
-            loadHeaderPlaylistTracks();
-        });
+                // Load the tracks for the featured header playlist
+                loadHeaderPlaylistTracks();
+            });
+        }
+        else{
+            $scope.titletext = "Please connect to Spotify"
+        }
     };
 
     function loadHeaderPlaylistTracks(){

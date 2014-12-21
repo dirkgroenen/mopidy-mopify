@@ -2,6 +2,7 @@
 
 angular.module("mopify.discover.newreleases", [
     "mopify.services.mopidy",
+    "mopify.services.spotifylogin",
     "spotify",
     "mopify.services.util",
     "mopify.services.station"
@@ -15,7 +16,7 @@ angular.module("mopify.discover.newreleases", [
 })
 
 
-.controller("DiscoverNewReleasesController", function DiscoverNewReleasesController($rootScope, $scope, $timeout, mopidyservice, Spotify, util, stationservice){
+.controller("DiscoverNewReleasesController", function DiscoverNewReleasesController($rootScope, $scope, $timeout, mopidyservice, SpotifyLogin, Spotify, util, stationservice){
 
     $scope.newreleases = [];
     $scope.titletext = "Get to know the latest releases";
@@ -30,20 +31,25 @@ angular.module("mopify.discover.newreleases", [
      * Load all the data for the new releases page
      */
     function loadNewReleases(){
-        // Get the new releases from Spotify
-        // TODO: Change the locale to a setting value
-        Spotify.getNewReleases({
-            country: "NL",
-            limit: 18
-        }).then(function(data){
-            // Set the message and items
-            $scope.newreleases = data.albums.items;
-            $scope.headeralbum = data.albums.items[Math.floor(Math.random() * (data.albums.items.length - 1))];
+        if(SpotifyLogin.connected){
+            // Get the new releases from Spotify
+            // TODO: Change the locale to a setting value
+            Spotify.getNewReleases({
+                country: "NL",
+                limit: 18
+            }).then(function(data){
+                // Set the message and items
+                $scope.newreleases = data.albums.items;
+                $scope.headeralbum = data.albums.items[Math.floor(Math.random() * (data.albums.items.length - 1))];
+                $scope.titletext = $scope.headeralbum.name;
 
-            // Load the tracks for the featured header album
-            loadHeaderAlbumTracks();
-
-        });
+                // Load the tracks for the featured header album
+                loadHeaderAlbumTracks();
+            });
+        }
+        else{
+            $scope.titletext = "Please connect to Spotify"
+        }
     };
 
     function loadHeaderAlbumTracks(){

@@ -10,7 +10,10 @@
             Artists <span class="sub">{{ query }}</span>
         </div>
     </div>
-    <div class="pagecontent row" id="searchresults">
+    <div class="noresults" ng-show="results.artists.items.length == 0">
+        <p>No results</p>
+    </div>
+    <div class="pagecontent row" id="searchresults" ng-show="results.artists.items.length > 0">
         <div id="tileview" class="row">
             <div ng-repeat="artist in results.artists.items">
                 <mopify-artist artist="artist" class="col-md-2 single-tile"></mopify-artist>
@@ -24,7 +27,10 @@
             Albums <span class="sub">{{ query }}</span>
         </div>
     </div>
-    <div class="pagecontent row" id="searchresults">
+    <div class="noresults" ng-show="results.albums.items.length == 0">
+        <p>No results</p>
+    </div>
+    <div class="pagecontent row" id="searchresults" ng-show="results.albums.items.length > 0">
         <div id="tileview" class="row">
             <div ng-repeat="album in results.albums.items">
                 <mopify-album album="album" class="col-md-2 single-tile"></mopify-album>
@@ -38,7 +44,10 @@
             Tracks <span class="sub">{{ query }}</span>
         </div>
     </div>
-    <div class="pagecontent row" id="searchresults">
+    <div class="noresults" ng-show="results.tracks.length == 0">
+        <p>No results</p>
+    </div>
+    <div class="pagecontent row" id="searchresults" ng-show="results.tracks.length > 0">
         <div id="tracklist" class="row">
             <div ng-repeat="track in results.tracks">
                 <mopify-track track="track" surrounding="results.tracks"> </mopify-track>
@@ -52,7 +61,10 @@
             Playlists <span class="sub">{{ query }}</span>
         </div>
     </div>
-    <div class="pagecontent row" id="searchresults">
+    <div class="noresults" ng-show="results.playlists.items.length == 0">
+        <p>No results</p>
+    </div>
+    <div class="pagecontent row" id="searchresults" ng-show="results.playlists.items.length > 0">
         <div id="tileview" class="row">
             <div ng-repeat="playlist in results.playlists.items">
                 <mopify-playlist playlist="playlist" play="play(playlist)" class="col-md-2 single-tile"></mopify-playlist>
