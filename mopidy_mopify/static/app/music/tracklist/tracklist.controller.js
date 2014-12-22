@@ -84,6 +84,7 @@ angular.module('mopify.music.tracklist', [
         }
 
         // Lookup the tracks for the given album or playlist
+        // TODO: Add pagination
         if(uri.indexOf("spotify:") > -1){
             mopidyservice.lookup(uri).then(function(tracks){
                 cTracks = tracks;
