@@ -91,7 +91,7 @@ angular.module('mopify.music.artist', [
 
     // Get related artists from spotify
     Spotify.getRelatedArtists($scope.artistId).then(function(data){
-        $scope.related = data.artists;
+        $scope.related = data.artists.splice(0, 18);
     });
 
     
