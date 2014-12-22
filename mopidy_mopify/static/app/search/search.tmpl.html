@@ -7,6 +7,21 @@
 <div id="overview" class="row">
     <div class="pagetitle row">
         <div class="col-md-3">
+            Top result for <span class="sub">{{ query }}</span>
+        </div>
+    </div>
+
+    <div class="pagecontent row" id="searchresults" ng-show="results.artists.items.length > 0">
+        <div id="tileview" class="row" ng-if="topresult.type != 'tracks'">
+            <mopify-artist artist="topresult.item" class="col-md-2 single-tile"></mopify-artist>
+        </div>
+        <div id="tracklist" class="row" ng-if="topresult.type == 'tracks'">
+            <mopify-track track="topresult.item" surrounding="topresult.item"> </mopify-track>
+        </div>
+    </div>
+
+    <div class="pagetitle row">
+        <div class="col-md-3">
             Artists <span class="sub">{{ query }}</span>
         </div>
     </div>

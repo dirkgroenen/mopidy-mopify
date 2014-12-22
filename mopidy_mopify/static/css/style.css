@@ -15,6 +15,10 @@ body, html{
     box-sizing: border-box;
 }
 
+img[src=""] {
+   display: none;
+}
+
 .container-fluid{
     margin: 0;
     padding: 0;
