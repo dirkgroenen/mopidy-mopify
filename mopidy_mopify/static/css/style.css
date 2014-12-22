@@ -688,16 +688,10 @@ body, html{
     webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     transition: all .3s ease; 
-    -webkit-transform: scale(.9);
-    -moz-transform: scale(.9);
-    transform: scale(.9);
 }
 
 #application #header #featured .playlist:hover .hoverwrap{
     opacity: 1;
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    transform: scale(1);
 }
 
 #application #header #featured .playlist .hoverwrap .iconwrap{
@@ -826,16 +820,10 @@ body, html{
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     transition: all .3s ease;
-    -webkit-transform: scale(.9);
-    -moz-transform: scale(.9);
-    transform: scale(.9);
 }
 
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap:hover{
     opacity: 1;
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    transform: scale(1);
 }
 
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon{
