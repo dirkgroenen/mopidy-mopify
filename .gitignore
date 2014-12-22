@@ -18,5 +18,5 @@ nosetests.xml
 *.pbxproj
 *.egg-info
 mopidy_mopify/static/app/bower_components/*
-!mopidy_mopify/static/app/bower_components/angular-echonest
+!mopidy_mopify/static/app/bower_components/angular-echonest/*
 !mopidy_mopify/static/app/bower_components/angular-spotify
