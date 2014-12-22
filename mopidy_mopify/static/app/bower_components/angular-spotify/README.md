@@ -1,4 +1,4 @@
-# angular-spotify [![Build Status](https://travis-ci.org/eddiemoore/angular-spotify.svg?branch=master)](https://travis-ci.org/eddiemoore/angular-spotify) [![Coverage Status](https://img.shields.io/coveralls/eddiemoore/angular-spotify.svg)](https://coveralls.io/r/eddiemoore/angular-spotify) [![devDependency Status](https://david-dm.org/eddiemoore/angular-spotify/dev-status.svg)](https://david-dm.org/eddiemoore/angular-spotify#info=devDependencies)
+# angular-spotify [![Build Status](https://travis-ci.org/eddiemoore/angular-spotify.svg?branch=master)](https://travis-ci.org/eddiemoore/angular-spotify) [![Coverage Status](https://img.shields.io/coveralls/eddiemoore/angular-spotify.svg)](https://coveralls.io/r/eddiemoore/angular-spotify) [![devDependency Status](https://david-dm.org/eddiemoore/angular-spotify/dev-status.svg)](https://david-dm.org/eddiemoore/angular-spotify#info=devDependencies) [![Code Climate](https://codeclimate.com/github/eddiemoore/angular-spotify/badges/gpa.svg)](https://codeclimate.com/github/eddiemoore/angular-spotify)
 
 angular service to connect to the [Spotify Web API](https://developer.spotify.com/web-api/)
 
@@ -342,6 +342,41 @@ Spotify
   .then(function (data) {
     console.log('Updated playlist details');
   });
+```
+
+###Discover
+Discover new releases and featured playlists. User needs to be logged in to gain access to these features.
+
+####Get the featured playlists
+Get a list of Spotify featured playlists 
+```javascript
+Spotify.getFeaturedPlaylists(options);
+```
+#####Options Object (Optional)
+ - locale - string - Optional. The desired language, consisting of a lowercase ISO 639 language code and an uppercase ISO 3166-1 alpha-2 country code, joined by an underscore. For example: es_MX, meaning "Spanish (Mexico)". Provide this parameter if you want the results returned in a particular language (where available). 
+ - country - string - Optional. A country: an ISO 3166-1 alpha-2 country code. Provide this parameter if you want the list of returned items to be relevant to a particular country. If omitted, the returned items will be relevant to all countries.
+ - timestamp - string - Optional.  A timestamp in ISO 8601 format: yyyy-MM-ddTHH:mm:ss. Use this parameter to specify the user's local time to get results tailored for that specific date and time in the day. If not provided, the response defaults to the current UTC time. Example: "2014-10-23T09:00:00" for a user whose local time is 9AM.
+
+Example:
+```javascript
+Spotify.getFeaturedPlaylists({ locale: "nl_NL", country: "NL" }).then(function (data) {
+  console.log(data);
+});
+```
+
+####Get new releases
+Get a list of new album releases featured in Spotify 
+```javascript
+Spotify.getNewReleases(options);
+```
+#####Options Object (Optional)
+ - country - string - Optional. A country: an ISO 3166-1 alpha-2 country code. Provide this parameter if you want the list of returned items to be relevant to a particular country. If omitted, the returned items will be relevant to all countries.
+
+Example:
+```javascript
+Spotify.getNewReleases({ country: "NL" }).then(function (data) {
+  console.log(data);
+});
 ```
 
 

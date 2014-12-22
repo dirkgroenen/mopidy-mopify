@@ -344,7 +344,7 @@
         };
 
         /**
-          ====================== Bowse =====================
+          ====================== Browse =====================
          */
         NgSpotify.prototype.getFeaturedPlaylists = function (options) {
           return this.api('/browse/featured-playlists', 'GET', options, null, {

@@ -1,0 +1,411 @@
+{
+  "artists" : {
+    "href" : "https://api.spotify.com/v1/search?query=Nirvana&offset=0&limit=20&type=artist",
+    "items" : [ {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/6olE6TJLqED3rqDCT0FyPh"
+      },
+      "genres" : [ "alternative rock", "grunge", "hot", "permanent wave", "rock" ],
+      "href" : "https://api.spotify.com/v1/artists/6olE6TJLqED3rqDCT0FyPh",
+      "id" : "6olE6TJLqED3rqDCT0FyPh",
+      "images" : [ {
+        "height" : 1057,
+        "url" : "https://i.scdn.co/image/5d66307bbf73337bb073bfb2bf242e099a47e219",
+        "width" : 1000
+      }, {
+        "height" : 677,
+        "url" : "https://i.scdn.co/image/695867a7c6a0df25c5bddf0b00cc2cfde35b3ffc",
+        "width" : 640
+      }, {
+        "height" : 211,
+        "url" : "https://i.scdn.co/image/3a9c12e86ad8e2bbecb0e919b80bb5ece6f1dbe3",
+        "width" : 200
+      }, {
+        "height" : 68,
+        "url" : "https://i.scdn.co/image/5ae6f10633adc53210cd18a4f216f27de330f19d",
+        "width" : 64
+      } ],
+      "name" : "Nirvana",
+      "popularity" : 66,
+      "type" : "artist",
+      "uri" : "spotify:artist:6olE6TJLqED3rqDCT0FyPh"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/3sS2Q1UZuUXL7TZSbQumDI"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/3sS2Q1UZuUXL7TZSbQumDI",
+      "id" : "3sS2Q1UZuUXL7TZSbQumDI",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/3a6e6796d8918759ab2c020f6727e6cf145bee31",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/621c0f2ff8a77bd0c2df3ddcefd0b56ff8207850",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/6f27a6df6d6f8d8ad3eeaacd40a16cc8dc0fedcf",
+        "width" : 64
+      } ],
+      "name" : "Approaching Nirvana",
+      "popularity" : 38,
+      "type" : "artist",
+      "uri" : "spotify:artist:3sS2Q1UZuUXL7TZSbQumDI"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/7dIxU1XgxBIa3KJAWzaFAC"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/7dIxU1XgxBIa3KJAWzaFAC",
+      "id" : "7dIxU1XgxBIa3KJAWzaFAC",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/27aba4e27ca575477a863b3bbd08ec7b7f5860a9",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/28fc19d914747265c8988125142508225ff8f908",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/8dc55983a3c95a9b27a6bfd6376ae2a9fdb1e772",
+        "width" : 64
+      } ],
+      "name" : "Nirvana",
+      "popularity" : 11,
+      "type" : "artist",
+      "uri" : "spotify:artist:7dIxU1XgxBIa3KJAWzaFAC"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/4VWpDDJrQ45G5XMazt13NY"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/4VWpDDJrQ45G5XMazt13NY",
+      "id" : "4VWpDDJrQ45G5XMazt13NY",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/04bf904293cf1e8129a6511d279294cc88710d58",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/62bb4310560ed96fbc5dac2782fae44980fa2ee8",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/cd8ae9365bbeea96177169c9aafaf2b9a770937c",
+        "width" : 64
+      } ],
+      "name" : "Dylan Nirvana",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:4VWpDDJrQ45G5XMazt13NY"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/6Mb3w5zGtJrZfOiTsRg9sK"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/6Mb3w5zGtJrZfOiTsRg9sK",
+      "id" : "6Mb3w5zGtJrZfOiTsRg9sK",
+      "images" : [ ],
+      "name" : "Nirvana Lopez",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:6Mb3w5zGtJrZfOiTsRg9sK"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/35FtUNfeF80o8d2ZsBiL1q"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/35FtUNfeF80o8d2ZsBiL1q",
+      "id" : "35FtUNfeF80o8d2ZsBiL1q",
+      "images" : [ ],
+      "name" : "Nirvana 2",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:35FtUNfeF80o8d2ZsBiL1q"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/7trg2KlfOzVbPBHfMtHNVX"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/7trg2KlfOzVbPBHfMtHNVX",
+      "id" : "7trg2KlfOzVbPBHfMtHNVX",
+      "images" : [ ],
+      "name" : "Nirvana 2002",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:7trg2KlfOzVbPBHfMtHNVX"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/0Rd5mpn0dgnYj3amvWJcJT"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/0Rd5mpn0dgnYj3amvWJcJT",
+      "id" : "0Rd5mpn0dgnYj3amvWJcJT",
+      "images" : [ ],
+      "name" : "Nirvana Savoury",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:0Rd5mpn0dgnYj3amvWJcJT"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/6D1zhuR7mE86MMv92Z98FA"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/6D1zhuR7mE86MMv92Z98FA",
+      "id" : "6D1zhuR7mE86MMv92Z98FA",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/c9c111b423b208108ce5e69bf0426c0642c40a65",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/116199ba9875fdeb15a7742d64dcbddb97d2594e",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/564a103baf59d0e6293818f5eca0046cd1e070fe",
+        "width" : 64
+      } ],
+      "name" : "Frets Nirvana",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:6D1zhuR7mE86MMv92Z98FA"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/2PXPU5KedzYVI2iBpnNyHT"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/2PXPU5KedzYVI2iBpnNyHT",
+      "id" : "2PXPU5KedzYVI2iBpnNyHT",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/ae7861c5cd0960ffd419a36e041da14f08ec687b",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f017fe098fed8d24e6e482c7e36c523446743322",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/8359ebfae60849f2c17ae6b36e8fc54437a84163",
+        "width" : 64
+      } ],
+      "name" : "Nicole Nirvana",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:2PXPU5KedzYVI2iBpnNyHT"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/72ME0qtrjmv9j6oXSzmJlR"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/72ME0qtrjmv9j6oXSzmJlR",
+      "id" : "72ME0qtrjmv9j6oXSzmJlR",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/92f8ca3a870eb37cfcd07c77f6adbdd11aa2e758",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/f123f11c63769eaceffb094168686f279ed1ea32",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/3c45daefe1ea091680accf6cce539f9e8772cf7c",
+        "width" : 64
+      } ],
+      "name" : "Nirvana Singh",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:72ME0qtrjmv9j6oXSzmJlR"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/5jdyUplSQGWfRzefm3Ybeb"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/5jdyUplSQGWfRzefm3Ybeb",
+      "id" : "5jdyUplSQGWfRzefm3Ybeb",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/70051d8f6657f4acebee8652bce1365d5e3fafb5",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/9cdc261e76ee668ea3034cde3b2497086cf92a07",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/96baf3550d52705355e4ea3fa114e37385103b20",
+        "width" : 64
+      } ],
+      "name" : "Black Nirvana",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:5jdyUplSQGWfRzefm3Ybeb"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/7n8JJgvxvIYxtPL7KAWxQ9"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/7n8JJgvxvIYxtPL7KAWxQ9",
+      "id" : "7n8JJgvxvIYxtPL7KAWxQ9",
+      "images" : [ ],
+      "name" : "Raptile feat. Nirvana Savoury",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:7n8JJgvxvIYxtPL7KAWxQ9"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/7o0DbCO8JrLSb3Q8c8rFpk"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/7o0DbCO8JrLSb3Q8c8rFpk",
+      "id" : "7o0DbCO8JrLSb3Q8c8rFpk",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/7f06c00e0ca8918d99e6e902a838ccd79b8cd251",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/cc5dce9a9288111ff3342384c082570eb19a1838",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/399b6f4b8e907be4472e0f2c19b1869b97204c82",
+        "width" : 64
+      } ],
+      "name" : "Nirvana Meditation Orchestra",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:7o0DbCO8JrLSb3Q8c8rFpk"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/3fWjSLaMhzh6afo0wxu7sE"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/3fWjSLaMhzh6afo0wxu7sE",
+      "id" : "3fWjSLaMhzh6afo0wxu7sE",
+      "images" : [ ],
+      "name" : "Nirvana Oasis Spa",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:3fWjSLaMhzh6afo0wxu7sE"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/5x0skLD8uDinbbosepFm7S"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/5x0skLD8uDinbbosepFm7S",
+      "id" : "5x0skLD8uDinbbosepFm7S",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/f572519f97bc9729c80571732a07284c98d66c81",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/2ad9a6d40470b2264097959445feda8895894d7a",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/df19e91d29f6d4fdafaa39f63bf7cac160a388bb",
+        "width" : 64
+      } ],
+      "name" : "Capital Cities Nirvana",
+      "popularity" : 1,
+      "type" : "artist",
+      "uri" : "spotify:artist:5x0skLD8uDinbbosepFm7S"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/5NBv1IbgzUWfhlMCuQpm4q"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/5NBv1IbgzUWfhlMCuQpm4q",
+      "id" : "5NBv1IbgzUWfhlMCuQpm4q",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/437542885690aa4cfb9f39d1817028e5e4dfff8a",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/8050135ebee9536b6239db2aa29c13f7ca05b10b",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/5bd43ae15bd58750db06be212872a7d083ba6abc",
+        "width" : 64
+      } ],
+      "name" : "Dylan Nirvana & the Bad Flowers",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:5NBv1IbgzUWfhlMCuQpm4q"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/424VCRr8HdYc1YqRfLWRs6"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/424VCRr8HdYc1YqRfLWRs6",
+      "id" : "424VCRr8HdYc1YqRfLWRs6",
+      "images" : [ {
+        "height" : 600,
+        "url" : "https://i.scdn.co/image/0021a280ea1c5fa3305bb8c9abb1549c9fe54cbf",
+        "width" : 600
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/6dc9528eec17531eb0e253a0c8fefae51c2b3215",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/7cd44de77919eae3c31211d425386d74f625598d",
+        "width" : 64
+      } ],
+      "name" : "Nirvana",
+      "popularity" : 1,
+      "type" : "artist",
+      "uri" : "spotify:artist:424VCRr8HdYc1YqRfLWRs6"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/5bV14Dh6Wq4yCgx6FfIClA"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/5bV14Dh6Wq4yCgx6FfIClA",
+      "id" : "5bV14Dh6Wq4yCgx6FfIClA",
+      "images" : [ {
+        "height" : 640,
+        "url" : "https://i.scdn.co/image/cdff27d3d99fdbfdd4c5227dc352feb6728c8540",
+        "width" : 640
+      }, {
+        "height" : 300,
+        "url" : "https://i.scdn.co/image/16dc8fe0226340a93fa020e6b627fbd9f29a11f1",
+        "width" : 300
+      }, {
+        "height" : 64,
+        "url" : "https://i.scdn.co/image/1631cebb5cc142b3ff030bb7492ea1c3bdd387b1",
+        "width" : 64
+      } ],
+      "name" : "Nirvana's Dreams",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:5bV14Dh6Wq4yCgx6FfIClA"
+    }, {
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/artist/4kalcpdOZ3speoV6Vuh0h0"
+      },
+      "genres" : [ ],
+      "href" : "https://api.spotify.com/v1/artists/4kalcpdOZ3speoV6Vuh0h0",
+      "id" : "4kalcpdOZ3speoV6Vuh0h0",
+      "images" : [ ],
+      "name" : "Karaoke - Nirvana",
+      "popularity" : 0,
+      "type" : "artist",
+      "uri" : "spotify:artist:4kalcpdOZ3speoV6Vuh0h0"
+    } ],
+    "limit" : 20,
+    "next" : "https://api.spotify.com/v1/search?query=Nirvana&offset=20&limit=1&type=artist",
+    "offset" : 0,
+    "previous" : null,
+    "total" : 21
+  }
+}

@@ -9,6 +9,7 @@
     "commit": "72cdf1e96c6506c76c51e53abc1f2bd224776649"
   },
   "_source": "git://github.com/h5bp/html5-boilerplate.git",
-  "_target": "*",
-  "_originalSource": "html5-boilerplate"
+  "_target": "~4.3.0",
+  "_originalSource": "html5-boilerplate",
+  "_direct": true
 }

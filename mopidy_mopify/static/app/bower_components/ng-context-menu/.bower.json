@@ -41,6 +41,5 @@
   },
   "_source": "git://github.com/ianwalter/ng-context-menu.git",
   "_target": "~1.0.1",
-  "_originalSource": "ng-context-menu",
-  "_direct": true
+  "_originalSource": "ng-context-menu"
 }
