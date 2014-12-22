@@ -221,6 +221,7 @@ body, html{
     margin: 5px;
     display: inline-block;
     position: relative;
+    width: calc(100% - 40px);
 }
 
 #application #leftside #menu .block .content#search .inputwrap::after{
