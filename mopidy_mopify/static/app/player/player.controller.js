@@ -32,12 +32,10 @@ angular.module('mopify.player', [
 
         // Update information on a new track 
         $scope.$on('mopidy:event:trackPlaybackEnded', function(event, data) {
-            if(data.tl_track !== undefined)
-                updatePlayerInformation(data.tl_track.track);
+            updatePlayerInformation(data.tl_track.track);
         });
         $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
-            if(data.tl_track !== undefined)
-                updatePlayerInformation(data.tl_track.track);
+            updatePlayerInformation(data.tl_track.track);
         });
 
     });
@@ -47,13 +45,15 @@ angular.module('mopify.player', [
      * @param object track
      */
     function updatePlayerInformation(track){
-        $scope.trackArtist = track.artists[0].name;
-        $scope.trackTitle = track.name;
+        if(track !== undefined && track !== null){
+            $scope.trackArtist = track.artists[0].name;
+            $scope.trackTitle = track.name;
 
-        // Get the background image from Spotify
-        Spotify.getTrack(track.uri).then(function (data) {
-            $scope.playerBackground = data.album.images[0].url;
-        });
+            // Get the background image from Spotify
+            Spotify.getTrack(track.uri).then(function (data) {
+                $scope.playerBackground = data.album.images[0].url;
+            });
+        }
     };
 
 });

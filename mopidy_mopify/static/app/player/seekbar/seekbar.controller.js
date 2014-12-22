@@ -44,17 +44,18 @@ angular.module('mopify.player.seekbar', [
 
     function getTrackLength(){
         mopidyservice.getCurrentTrack().then(function(track){
-            trackLength = track.length;
-            $scope.timeTotal = util.timeFromMilliSeconds(trackLength);
+            if(track !== null){
+                trackLength = track.length;
+                $scope.timeTotal = util.timeFromMilliSeconds(trackLength);
 
-            mopidyservice.getState().then(function (state) {
-                if (state === 'playing') {
-                    checkPositionInterval = $interval(function() {
-                        checkTimePosition();
-                    }, 1000);                
-                }
-            });
-
+                mopidyservice.getState().then(function (state) {
+                    if (state === 'playing') {
+                        checkPositionInterval = $interval(function() {
+                            checkTimePosition();
+                        }, 1000);                
+                    }
+                });
+            }
         });
     }
 
