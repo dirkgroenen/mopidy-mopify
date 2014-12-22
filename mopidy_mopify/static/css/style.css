@@ -938,11 +938,17 @@ body, html{
     background-position: right -7px;
 }
 
-#application #overview .pagecontent #tracklist .track .artist,
-#application #overview .pagecontent #tracklist .track .album{
-    white-space: nowrap;
-    overflow:hidden !important;
+#application #overview .pagecontent #tracklist .track .artists,
+#application #overview .pagecontent #tracklist .track .album,
+#application #overview .pagecontent #tracklist .track .name{
+    overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 10px;
+}
+
+#application #overview .pagecontent #tracklist .track .artists,
+#application #overview .pagecontent #tracklist .track .album{
     color: #777;
 }
 
