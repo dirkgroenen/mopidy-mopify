@@ -6,6 +6,7 @@ angular.module('mopify.search', [
     'ngRoute',
     'mopify.services.spotifylogin',
     'mopify.services.mopidy',
+    'mopify.services.station',
     'mopify.services.util',
     'mopify.widgets.directive.playlist',
     'mopify.widgets.directive.album',
@@ -23,7 +24,7 @@ angular.module('mopify.search', [
     });
 })
 
-.controller("SearchController", function SearchController($scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, util){
+.controller("SearchController", function SearchController($scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, stationservice, util){
     
     $scope.query = $routeParams.query;
     var typingTimeout = null;
@@ -36,7 +37,7 @@ angular.module('mopify.search', [
         playlists: []
     };
 
-    $scope.topresult = {type: "test"};
+    $scope.topresult = {};
 
     /*
      * Perform a search with the current query
@@ -55,7 +56,7 @@ angular.module('mopify.search', [
 
             resultsloaded++;
             if(resultsloaded == 2)
-                $scope.topresult = getTopMatchingResult($scope.query, $scope.results).type;
+                getTopMatchingResult($scope.query, $scope.results).type;
         });
 
         mopidyservice.search($scope.query).then(function(data){
@@ -66,7 +67,7 @@ angular.module('mopify.search', [
             // Check if all data is loaded and if it is; calculate the topresult
             resultsloaded++;
             if(resultsloaded == 2)
-                $scope.topresult = getTopMatchingResult($scope.query, $scope.results);
+                getTopMatchingResult($scope.query, $scope.results);
         });
     };
 
@@ -78,11 +79,27 @@ angular.module('mopify.search', [
     if(mopidyservice.isConnected)
         $scope.performSearch();
 
+
+    /**
+     * Play the songs that are given in the topresult
+     */
+    $scope.playTopItem = function(){
+        mopidyservice.lookup($scope.topresult.item.uri).then(function(tracks){
+            mopidyservice.playTrack(tracks[0], tracks.splice(0, 100));
+        });
+    };
+
+    /**
+     * Start a station from the top result
+     */
+    $scope.startTopItemStation = function(){
+        stationservice.startFromSpotifyUri($scope.topresult.item.uri);
+    }
+
     /**
      * Get the top matching resutls from the given batch
      * @param  {string} search  The search string to check against
      * @param  {object} results All the results from spotify and mopidy
-     * @return {object}         The item that came out as best match
      */
     function getTopMatchingResult(search, results){
         var bestmatch = null;
@@ -92,18 +109,20 @@ angular.module('mopify.search', [
 
         // Loop through all results and create an array with all items
         _.each(results, function(result, key){
-            // Get correct items array
-            if(result.items){
-                items.push({
-                    type: key,
-                    items: result.items
-                });
-            }
-            else{
-                items.push({
-                    type: key,
-                    items: result
-                });
+            if(result !== undefined){
+                // Get correct items array
+                if(result.items){
+                    items.push({
+                        type: key,
+                        items: result.items
+                    });
+                }
+                else{
+                    items.push({
+                        type: key,
+                        items: result
+                    });
+                }
             }
         });
 
@@ -123,7 +142,16 @@ angular.module('mopify.search', [
             });
         });
 
-        return resultitem;
+        mopidyservice.lookup(resultitem.item.uri).then(function(results){
+            var filtered = _.filter(_.shuffle(results), function(item){
+                return item.name.indexOf("unplayable") < 0;
+            });
+
+            resultitem.item.tracks = filtered.splice(0, 7);
+
+            // Set the resultitem as $scope.topresult
+            $scope.topresult = resultitem;
+        });
     }
 
     /**

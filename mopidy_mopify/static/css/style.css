@@ -643,6 +643,7 @@ img[src=""] {
 
 #application #header #featured .playlist .cover img{
     height: 225px;
+    width: 225px;
     box-shadow: 0 0 40px rgba(0,0,0,.5);
 }
 
@@ -813,7 +814,6 @@ img[src=""] {
     display: block;
     margin-top: 100%;
 }
- 
 
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap{
     position: absolute;

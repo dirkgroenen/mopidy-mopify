@@ -1,27 +1,49 @@
-<div id="header" class="small row" style="background-image: url('/assets/images/playlists-header.jpg');">
-    <div class="col-md-4 lefttext">
-        <div class="inner"><i class="ss-icon ss-list"></i>  SEARCH</div>
+<div id="header" class="small big" style="background-image: url('/assets/images/discover-header.jpg');">
+    <div id="featured">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="title">
+                    {{ topresult.item.name }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="playlist col-md-4 col-md-offset-4">
+                <div class="cover">
+                    <img ng-src="{{ topresult.item.images[0].url }}" />
+                </div>
+                <div class="details">
+                    <div class="tracklist">
+                        <div class="row track" ng-repeat="track in topresult.item.tracks" ng-if="topresult.item.tracks" >
+                            <div class="col-md-7 name">
+                                {{ track.name }}    
+                            </div>
+                            <div class="col-md-5 artist">
+                                {{ track.artiststring }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hoverwrap">
+                    <div class="iconwrap row">
+                        <div class="icon small col-md-4">
+                            <a href="/#/music/tracklist/{{ topresult.item.uri }}"><i class="ss-icon ss-list"></i></a>
+                        </div>
+                        <div class="icon col-md-4">
+                            <i class="ss-icon ss-play" ng-click="playTopItem()"></i>
+                        </div>
+                        <div class="icon small col-md-4">
+                            <i class="ss-icon ss-wifi" ng-click="startTopItemStation()"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div id="overview" class="row">
-    <div class="pagetitle row">
-        <div class="col-md-3">
-            Top result for <span class="sub">{{ query }}</span>
-        </div>
-    </div>
-
-    <div class="pagecontent row" id="searchresults"> 
-        <div id="tileview" class="row" ng-if="topresult.type != 'tracks'">
-            <mopify-artist artist="topresult.item" class="col-md-2 single-tile" ng-if="topresult.type == 'artists'"></mopify-artist>
-            <mopify-playlist playlist="topresult.item" class="col-md-2 single-tile" ng-if="topresult.type == 'playlists'"></mopify-playlist>
-            <mopify-album album="topresult.item" class="col-md-2 single-tile" ng-if="topresult.type == 'albums'"></mopify-album>
-        </div>
-        <div id="tracklist" class="row" ng-if="topresult.type == 'tracks'">
-            <mopify-track track="topresult.item" surrounding="topresult.item"> </mopify-track>
-        </div>
-    </div>
-
+    
     <div class="pagetitle row" ng-if="results.artists.items.length != 0">
         <div class="col-md-3">
             Artists <span class="sub">{{ query }}</span>
