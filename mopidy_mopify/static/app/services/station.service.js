@@ -239,7 +239,7 @@ angular.module('mopify.services.station', [
                 };
                 
                 // Save the new station
-                var allstations = localStorageService.get("stations");
+                var allstations = localStorageService.get("stations") || [];
                 allstations.push(station);
                 localStorageService.set("stations", allstations);
 
