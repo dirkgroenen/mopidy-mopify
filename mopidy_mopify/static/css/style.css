@@ -42,7 +42,7 @@ body, html{
     border-radius: 25px;
     display: inline-block;
     -webkit-transition: all .3s ease;
-    -moztransition: all .3s ease;
+    -moz-transition: all .3s ease;
     transition: all .3s ease;
     cursor: pointer;
 }
@@ -67,7 +67,7 @@ body, html{
     margin: 0;
     padding: 8px 20px;
     -webkit-transition: all .3s ease;
-    -moztransition: all .3s ease;
+    -moz-transition: all .3s ease;
     transition: all .3s ease;
     cursor: pointer;
     font-size: 14px;
@@ -318,7 +318,7 @@ body, html{
     background-size: cover;
     background-position: center;
     -webkit-transition: height .5s ease;
-    -moztransition: height .5s ease;
+    -moz-transition: height .5s ease;
     transition: height .5s ease;
 }
 
@@ -345,7 +345,7 @@ body, html{
     height: 1px;
     background-color: white;
     -webkit-transition: all .3s ease;
-    -moztransition: all .3s ease;
+    -moz-transition: all .3s ease;
     transition: all .3s ease;
 }
 
@@ -358,7 +358,7 @@ body, html{
 #application #header .centertext,
 #application #header .righttext{
     -webkit-transition: all .3s ease;
-    -moztransition: all .3s ease;
+    -moz-transition: all .3s ease;
     transition: all .3s ease;
 }
 
@@ -456,7 +456,7 @@ body, html{
     -moz-border-radius: 25px;
     border-radius: 25px;
     -webkit-transition: all .3s ease;
-    -moztransition: all .3s ease;
+    -moz-transition: all .3s ease;
     transition: all .3s ease;
 }
 
@@ -532,7 +532,7 @@ body, html{
     opacity: 0;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
-    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
 }
 
 #application #header #radiosearch.dropdownvisible .resultswrap ul{
@@ -565,9 +565,11 @@ body, html{
 }
 
 #application #header #radiosearch .resultswrap ul li .thumb img{
-   width: 100%;
-   margin-top: -50%;        
+    width: 100%;
+    margin-top: -50%;        
     -webkit-transform: translateY(25%);
+    -moz-transform: translateY(25%);
+    transform: translateY(25%);
 }
 
 #application #header #radiosearch .resultswrap ul li:hover .thumb{
@@ -612,6 +614,8 @@ body, html{
     background-color: rgba(0,0,0,.4);
     opacity: 1;
     -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
 }
 
 #application #header #featured .title{
@@ -836,6 +840,8 @@ body, html{
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon{
     margin-top: 50%;
     -webkit-transform: translateY(-45%);
+    -moz-transform: translateY(-45%);
+    transform: translateY(-45%);
     font-size: 40px;
     line-height: 40px;
     cursor: pointer;
