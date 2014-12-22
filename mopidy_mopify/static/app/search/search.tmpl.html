@@ -11,22 +11,21 @@
         </div>
     </div>
 
-    <div class="pagecontent row" id="searchresults" ng-show="results.artists.items.length > 0">
+    <div class="pagecontent row" id="searchresults"> 
         <div id="tileview" class="row" ng-if="topresult.type != 'tracks'">
-            <mopify-artist artist="topresult.item" class="col-md-2 single-tile"></mopify-artist>
+            <mopify-artist artist="topresult.item" class="col-md-2 single-tile" ng-if="topresult.type == 'artists'"></mopify-artist>
+            <mopify-playlist playlist="topresult.item" class="col-md-2 single-tile" ng-if="topresult.type == 'playlists'"></mopify-playlist>
+            <mopify-album album="topresult.item" class="col-md-2 single-tile" ng-if="topresult.type == 'albums'"></mopify-album>
         </div>
         <div id="tracklist" class="row" ng-if="topresult.type == 'tracks'">
             <mopify-track track="topresult.item" surrounding="topresult.item"> </mopify-track>
         </div>
     </div>
 
-    <div class="pagetitle row">
+    <div class="pagetitle row" ng-if="results.artists.items.length != 0">
         <div class="col-md-3">
             Artists <span class="sub">{{ query }}</span>
         </div>
-    </div>
-    <div class="noresults" ng-show="results.artists.items.length == 0">
-        <p>No results</p>
     </div>
     <div class="pagecontent row" id="searchresults" ng-show="results.artists.items.length > 0">
         <div id="tileview" class="row">
@@ -37,13 +36,10 @@
         </div>
     </div>
 
-    <div class="pagetitle row">
+    <div class="pagetitle row" ng-if="results.albums.items.length != 0">
         <div class="col-md-3">
             Albums <span class="sub">{{ query }}</span>
         </div>
-    </div>
-    <div class="noresults" ng-show="results.albums.items.length == 0">
-        <p>No results</p>
     </div>
     <div class="pagecontent row" id="searchresults" ng-show="results.albums.items.length > 0">
         <div id="tileview" class="row">
@@ -54,13 +50,10 @@
         </div>
     </div>
 
-    <div class="pagetitle row">
+    <div class="pagetitle row" ng-if="results.tracks.length != 0">
         <div class="col-md-3">
             Tracks <span class="sub">{{ query }}</span>
         </div>
-    </div>
-    <div class="noresults" ng-show="results.tracks.length == 0">
-        <p>No results</p>
     </div>
     <div class="pagecontent row" id="searchresults" ng-show="results.tracks.length > 0">
         <div id="tracklist" class="row">
@@ -71,13 +64,10 @@
         </div>
     </div>
 
-    <div class="pagetitle row">
+    <div class="pagetitle row" ng-if="results.playlists.items.length != 0">
         <div class="col-md-3">
             Playlists <span class="sub">{{ query }}</span>
         </div>
-    </div>
-    <div class="noresults" ng-show="results.playlists.items.length == 0">
-        <p>No results</p>
     </div>
     <div class="pagecontent row" id="searchresults" ng-show="results.playlists.items.length > 0">
         <div id="tileview" class="row">

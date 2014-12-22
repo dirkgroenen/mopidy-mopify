@@ -781,8 +781,12 @@ img[src=""] {
 
 #application #overview .pagecontent{
     padding-top: 20px;
-    padding-bottom: 100px;
+    padding-bottom: 80px;
     font-size: 14px;
+}
+
+#application #overview .pagecontent#searchresults{
+    padding-bottom: 30px;
 }
 
 #application #overview .pagecontent #tileview{

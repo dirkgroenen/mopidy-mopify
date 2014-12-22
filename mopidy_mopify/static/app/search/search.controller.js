@@ -6,6 +6,7 @@ angular.module('mopify.search', [
     'ngRoute',
     'mopify.services.spotifylogin',
     'mopify.services.mopidy',
+    'mopify.services.util',
     'mopify.widgets.directive.playlist',
     'mopify.widgets.directive.album',
     'mopify.widgets.directive.artist',
@@ -22,7 +23,7 @@ angular.module('mopify.search', [
     });
 })
 
-.controller("SearchController", function SearchController($scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice){
+.controller("SearchController", function SearchController($scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, util){
     
     $scope.query = $routeParams.query;
     var typingTimeout = null;
@@ -35,6 +36,8 @@ angular.module('mopify.search', [
         playlists: []
     };
 
+    $scope.topresult = {type: "test"};
+
     /*
      * Perform a search with the current query
      */
@@ -46,24 +49,22 @@ angular.module('mopify.search', [
             market: "NL",
             limit: "12"
         }).then(function(data){
-            resultsloaded++;
-
             $scope.results.artists = data.artists;
             $scope.results.albums = data.albums;
             $scope.results.playlists = data.playlists;
 
+            resultsloaded++;
             if(resultsloaded == 2)
                 $scope.topresult = getTopMatchingResult($scope.query, $scope.results).type;
         });
 
         mopidyservice.search($scope.query).then(function(data){
-            resultsloaded++;
-
             if(data[0].tracks !== undefined){
                 $scope.results.tracks = data[0].tracks.splice(0,15);
             }
 
             // Check if all data is loaded and if it is; calculate the topresult
+            resultsloaded++;
             if(resultsloaded == 2)
                 $scope.topresult = getTopMatchingResult($scope.query, $scope.results);
         });
@@ -109,7 +110,10 @@ angular.module('mopify.search', [
         // Check each item with the query using the levenshtein algorithme
         _.each(items, function(collection){
             _.each(collection.items, function(item){
-                var distance = levenshteinDistance(search, item.name.toLowerCase());
+                var artists = (item.artists !== undefined) ? " - " + util.artistsToString(item.artists) : "";
+                var stringtocheck = item.name.toLowerCase() + artists;
+
+                var distance = levenshteinDistance(search, stringtocheck);
                 
                 // Check with previous bestmatch and update if needed
                 if(bestmatch == null || bestmatch > distance){
