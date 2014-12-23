@@ -447,7 +447,7 @@ module.exports = function ( grunt ) {
      * Register the tasks for Grunt
      */
     grunt.registerTask( 'compile', [
-        'clean:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'concat:compile_css', 'cssmin:combine', 'uglify', 'index:compile'
+        'clean:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'concat:compile_css', 'cssmin:combine', 'index:compile' // , 'uglify' >> TODO: Uglify creates js errors
     ]);
 
      /**
