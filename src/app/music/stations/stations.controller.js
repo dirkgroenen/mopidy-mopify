@@ -3,10 +3,11 @@
 angular.module('mopify.music.stations', [
     'ngRoute',
     'spotify',
+    'llNotifier',
     'mopify.services.station',
     'mopify.services.util',
     'mopify.services.spotifylogin',
-    "mopify.widgets.directive.station"
+    'mopify.widgets.directive.station'
 ])
 
 /**
@@ -22,14 +23,16 @@ angular.module('mopify.music.stations', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("StationsController", function StationsController($scope, $timeout, localStorageService, Spotify, stationservice, util, SpotifyLogin){
+.controller("StationsController", function StationsController($scope, $timeout, localStorageService, Spotify, stationservice, util, SpotifyLogin, notifier){
     
     // Bind the localstorage to the $scope so we always have the latest stations
     $scope.stations = localStorageService.get("stations");
 
-    // Check if $scope.stations ain't null
-    if($scope.stations === null)
+    // Check if $scope.stations ain't null and show a notification to the user
+    if($scope.stations === null){
         $scope.stations = [];
+        notifier.notify({type: "custom", template: "Look's like you haven't started any Station yet. Click the 'Create new' button to start", delay: 7500});
+    }
 
     // Set some default scope vars
     $scope.creatingRadio = false;
