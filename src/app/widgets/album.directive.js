@@ -16,7 +16,7 @@ angular.module('mopify.widgets.directive.album', [
         link: function(scope, element, attrs) {
 
             var encodedname = encodeURIComponent( scope.album.name.replace(/\//g, "-") );
-            scope.tracklistUrl = "/#/music/tracklist/" + scope.album.uri + "/" + encodedname;
+            scope.tracklistUrl = "#/music/tracklist/" + scope.album.uri + "/" + encodedname;
 
             /*
              * Play the album            

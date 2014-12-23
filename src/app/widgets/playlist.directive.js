@@ -45,7 +45,7 @@ angular.module('mopify.widgets.directive.playlist', [
             };
             
             var encodedname = encodeURIComponent( scope.playlist.name.replace(/\//g, "-") );
-            scope.tracklistUrl = "/#/music/tracklist/" + scope.playlist.uri + "/" + encodedname;
+            scope.tracklistUrl = "#/music/tracklist/" + scope.playlist.uri + "/" + encodedname;
 
             scope.startStation = function(){
                 stationservice.startFromSpotifyUri(scope.playlist.uri);

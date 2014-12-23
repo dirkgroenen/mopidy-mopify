@@ -25,13 +25,13 @@ angular.module('mopify.widgets.directive.station', [
             scope.getStationUrl = function(){
                 switch(scope.station.type.toLowerCase()){
                     case "album":
-                        return "/#/music/tracklist/" + scope.station.spotify.uri + "/" + scope.station.name;
+                        return "#/music/tracklist/" + scope.station.spotify.uri + "/" + scope.station.name;
                     case "playlist":
-                        return "/#/music/tracklist/" + scope.station.spotify.uri + "/" + scope.station.name;
+                        return "#/music/tracklist/" + scope.station.spotify.uri + "/" + scope.station.name;
                     case "artist":
-                        return "/#/music/artist/" + scope.station.spotify.uri;
+                        return "#/music/artist/" + scope.station.spotify.uri;
                     case "track":
-                        return "/#/music/tracklist/" + scope.station.spotify.album.uri + "/" + scope.station.spotify.album.name;
+                        return "#/music/tracklist/" + scope.station.spotify.album.uri + "/" + scope.station.spotify.album.name;
                 }
             };
         }

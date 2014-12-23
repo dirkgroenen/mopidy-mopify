@@ -1,5 +1,5 @@
 <div id="accounts" ng-controller="AccountServicesMenuController">
-    <div class="title"><a href="/#/account/services">Connected services</a></div>
+    <div class="title"><a href="#/account/services">Connected services</a></div>
 
     <ng-include ng-if="connectedServices.spotify" src="'account/services/spotify/menu.tmpl.html'"></ng-include>
     <ng-include ng-if="connectedServices.facebook" src="'account/services/facebook/menu.tmpl.html'"></ng-include>
@@ -22,6 +22,6 @@
     </section>
 
     <div ng-if="!hasServicesConnected">
-        <div class="notify"><a href="/#/account/services">You have no connected services. Click here to connect a service.</a></div>
+        <div class="notify"><a href="#/account/services">You have no connected services. Click here to connect a service.</a></div>
     </div>
 </div>
