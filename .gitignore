@@ -17,5 +17,5 @@ nosetests.xml
 *.pbxproj
 *.egg-info
 src/vendor*
-!src/vendor/angular-echonest
-!src/vendor/angular-spotify
+!src/vendor/angular-echonest/*
+!src/vendor/angular-spotify/*
