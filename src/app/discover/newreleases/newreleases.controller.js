@@ -33,10 +33,11 @@ angular.module("mopify.discover.newreleases", [
      */
     function loadNewReleases(){
         if(SpotifyLogin.connected){
+            var country = localStorageService.get("settings").country || "GB";
+
             // Get the new releases from Spotify
-            // TODO: Change the locale to a setting value
             Spotify.getNewReleases({
-                country: "NL",
+                country: country,
                 limit: 18
             }).then(function(data){
                 // Set the message and items
