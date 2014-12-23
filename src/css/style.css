@@ -978,6 +978,39 @@ img[src=""] {
     width: 100%;
 }
 
+/* START Application settigns styling */
+#application #overview .pagecontent .settingwrap{
+    border-bottom: 1px solid #e2e2e2;
+    padding: 25px 0;
+}
+
+#application #overview .pagecontent .settingwrap:first-child{
+    padding-top: 0;
+}
+
+#application #overview .pagecontent .settingwrap:last-child{
+    border: none;
+    padding-bottom: 0;
+}
+
+#application #overview .pagecontent .settingwrap .input input{
+    width: 100%;
+    background: white;
+    padding: 7px 12px;
+    border-radius: 5px;
+    border: 1px solid #c0c0c0;
+}
+
+#application #overview .pagecontent .settingwrap .description{
+    font-weight: normal;
+    font-size: 13px;
+}
+
+#application #overview .pagecontent .settingwrap .description p{
+    margin: 0 0 10px 0;
+}
+
+/* START Application player styling */
 #application #player{
     position: fixed;
     bottom: 0;

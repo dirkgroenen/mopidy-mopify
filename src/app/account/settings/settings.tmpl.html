@@ -7,14 +7,50 @@
 <div id="overview" class="row">
     <div class="pagetitle row">
         <div class="col-md-3">
-            Settings
+            Settings <span class="sub">Mopidy</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label for="mopidyip">Mopidy IP address</label>
+            </div>
+            <div class="input col-md-4">
+                <input name="mopidyip" placeholder="For example: 192.168.1.1 or localhost" ng-model="settings.mopidyip" class="field"/>
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>Change this IP address if Mopidy is running on an other computer than Mopify. Normally you don't have to change this IP address</p>
+            </div>
         </div>
     </div>
 
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Settings <span class="sub">Localization</span>
+        </div>
+    </div>
     <div class="pagecontent row">
-        <div id="tracklist" infinite-scroll="getMoreTracks()" infinite-scroll-distance="1">
-            <div class="row" ng-repeat="track in tracks track by $index" >
-                <mopify-track track="track" surrounding="tracks" currentplayingtrack="currentPlayingTrack" type="type"> </mopify-track>
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label for="mopidyip">Locale</label>
+            </div>
+            <div class="input col-md-4">
+                <input name="locale" placeholder="For example: nl_NL" ng-model="settings.locale" class="field"/>
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>The desired language, consisting of a lowercase <a href="http://en.wikipedia.org/wiki/ISO_639" target="_blank">ISO 639</a> language code and an uppercase <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha-2</a> country code, joined by an underscore. </p>
+                <p>This language code is used for some services like Spotify or Echonest to provide better content.</p>
+            </div>
+        </div>
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label for="mopidyip">Country</label>
+            </div>
+            <div class="input col-md-4">
+                <input name="locale" placeholder="For example: NL" ng-model="settings.country" class="field"/>
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>An <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha-2</a> country code which is used to localize some services.</p>
             </div>
         </div>
     </div>
