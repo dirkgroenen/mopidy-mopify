@@ -45,13 +45,9 @@
             </div>
         </div>
 
-        <!-- 
-            Include all scripts for the app below.
-            Might consider to use some tool to do this automatically...
-        -->
         <script src="http://localhost:6680/mopidy/mopidy.min.js"></script> <!-- CHANGE THIS ONE TO LOCALHOST LATER -->
 
-
+        <!-- Grunt will handle this part -->
         <% scripts.forEach( function ( file ) { %> 
         <script type="text/javascript" src="<%= file %>"></script> <% 
         }); %>
