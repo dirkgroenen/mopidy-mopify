@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module("mopify.discover.newreleases", [
-    "mopify.services.mopidy",
-    "mopify.services.spotifylogin",
-    "spotify",
-    "mopify.services.util",
-    "mopify.services.station",
-    "mopify.widgets.directive.playlist"
+    'mopify.services.mopidy',
+    'mopify.services.spotifylogin',
+    'spotify',
+    'mopify.services.util',
+    'mopify.services.station',
+    'mopify.widgets.directive.playlist',
+    'LocalStorageModule'
 ])
 
 .config(function($routeProvider) {
@@ -17,7 +18,7 @@ angular.module("mopify.discover.newreleases", [
 })
 
 
-.controller("DiscoverNewReleasesController", function DiscoverNewReleasesController($rootScope, $scope, $timeout, mopidyservice, SpotifyLogin, Spotify, util, stationservice){
+.controller("DiscoverNewReleasesController", function DiscoverNewReleasesController($rootScope, $scope, $timeout, mopidyservice, SpotifyLogin, Spotify, util, stationservice, localStorageService){
 
     $scope.newreleases = [];
     $scope.titletext = "Get to know the latest releases";
