@@ -75,7 +75,7 @@ module.exports = function ( grunt ) {
                     '<%= build_dir %>/src/app/**/*.js',
                     '<%= html2js.app.dest %>',
                     '<%= vendor_files.css %>',
-                    '<%= build_dir %>/assets/css/<%= pkg.name %>-<%= pkg.version %>.css'
+                    '<%= build_dir %>/src/css/**/*.css',
                 ]
             },
 
@@ -202,7 +202,7 @@ module.exports = function ( grunt ) {
               * The `build_css` target concatenates app CSS and vendor CSS
               * together.
               */
-            build_css: {
+            compile_css: {
                 options: {
                     stripBanners: {
                         block: true,
@@ -214,7 +214,7 @@ module.exports = function ( grunt ) {
                     '<%= vendor_files.css %>',
                     '<%= app_files.css %>'
                 ],
-                dest: '<%= build_dir %>/assets/css/<%= pkg.name %>-<%= pkg.version %>.css'
+                dest: '<%= compile_dir %>/assets/css/<%= pkg.name %>-<%= pkg.version %>.css'
             },
 
             /**
@@ -233,21 +233,6 @@ module.exports = function ( grunt ) {
                 ],
                 dest: '<%= compile_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.js'
             },
-
-            /**
-              * The `compile_css` target is the concatenation of our application css source
-              * code into a single file.
-              */
-            compile_css: {
-                options: {
-                    banner: '<%= meta.banner %>',
-                    separator: ';',
-                },
-                src: [
-                    '<%= build_dir %>/src/css/**/*.css'
-                ],
-                dest: '<%= compile_dir %>/assets/css/<%= pkg.name %>-<%= pkg.version %>.css'
-            }
         },
 
         /**
@@ -428,24 +413,23 @@ module.exports = function ( grunt ) {
       * before watching for changes.
       */
     grunt.renameTask( 'watch', 'delta' );
-    grunt.registerTask( 'watch', [ 'build', 'delta' ] );
+    grunt.registerTask( 'watch', [ 'build', 'connect', 'delta' ] );
 
     /**
       * The `build` task gets your app ready to run for development and testing.
       */
     grunt.registerTask( 'build', [
         'clean:build', 'html2js', 'jshint:src',
-        'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_vendorcss',
+        'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_vendorcss',
         'copy:build_vendor_fonts',
-        'copy:build_appjs', 'copy:build_appcss', 'copy:build_vendorjs', 'index:build',
-        'connect'
+        'copy:build_appjs', 'copy:build_appcss', 'copy:build_vendorjs', 'index:build'
     ]);
 
     /**
      * Register the tasks for Grunt
      */
     grunt.registerTask( 'compile', [
-        'clean:compile', 'copy:compile_assets', 'concat:compile_js', 'cssmin:combine', 'uglify', 'index:compile'
+        'clean:compile', 'copy:compile_assets', 'concat:compile_js', 'concat:compile_css', 'cssmin:combine', 'uglify', 'index:compile'
     ]);
 
      /**

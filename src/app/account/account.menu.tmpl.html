@@ -4,6 +4,21 @@
     <ng-include ng-if="connectedServices.spotify" src="'account/spotify/menu.tmpl.html'"></ng-include>
     <ng-include ng-if="connectedServices.facebook" src="'account/facebook/menu.tmpl.html'"></ng-include>
 
+
+    <section id="addnew" class="account">
+        <div class="profileimage icon">
+            <i class="ss-icon ss-plus"></i>
+        </div>
+        <div class="content">
+            <span class="username">
+                Connect another
+            </span>
+            <span class="status">
+                3 services not connected
+            </span>
+        </div>
+    </section>
+
     <div ng-if="!hasServicesConnected">
         <div class="notify"><a href="/#/account/services">You have no connected services. Click here to connect a service.</a></div>
     </div>

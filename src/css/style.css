@@ -286,6 +286,11 @@ img[src=""] {
     width: 45px;
 }
 
+#application #leftside #accounts .account .profileimage.icon{
+    padding: 13px 14px;
+    color: white;
+}
+
 #application #leftside #accounts .account .content{
     padding-left: 60px;
 }
