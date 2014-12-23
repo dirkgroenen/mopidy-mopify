@@ -79,7 +79,7 @@ angular.module('mopify.services.mopidy', [])
 
 			// Initialize mopidy
 			this.mopidy = new Mopidy({
-				webSocketUrl: "ws://localhost:6680/mopidy/ws", // FOR DEVELOPING 
+				webSocketUrl: "ws://192.168.1.11:6680/mopidy/ws", // FOR DEVELOPING 
 				callingConvention: 'by-position-or-by-name'
 			});
 			

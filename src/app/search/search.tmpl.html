@@ -2,14 +2,14 @@
     <div id="featured">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="title" ng-hide="topresult.item.name == undefined">
+                <div class="title" ng-hide="topresult.item.name === undefined">
                     Top result: {{ topresult.item.name }}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="playlist col-md-4 col-md-offset-4">
-                <div class="cover">
+                <div class="cover" ng-hide="topresult.item.images === undefined">
                     <img ng-src="{{ topresult.item.images[0].url }}" />
                 </div>
                 <div class="details" ng-class="{ 'fullwidth': topresult.item.images === undefined }">
@@ -44,7 +44,7 @@
 
 <div id="overview" class="row">
     
-    <div class="pagetitle row" ng-if="results.artists.items.length != 0">
+    <div class="pagetitle row" ng-show="results.artists.items.length > 0">
         <div class="col-md-3">
             Artists <span class="sub">{{ query }}</span>
         </div>
@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <div class="pagetitle row" ng-if="results.albums.items.length != 0">
+    <div class="pagetitle row" ng-show="results.albums.items.length > 0">
         <div class="col-md-3">
             Albums <span class="sub">{{ query }}</span>
         </div>
@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <div class="pagetitle row" ng-if="results.tracks.length != 0">
+    <div class="pagetitle row" ng-show="results.tracks.length > 0">
         <div class="col-md-3">
             Tracks <span class="sub">{{ query }}</span>
         </div>
@@ -86,7 +86,7 @@
         </div>
     </div>
 
-    <div class="pagetitle row" ng-if="results.playlists.items.length != 0">
+    <div class="pagetitle row" ng-show="results.playlists.items.length > 0">
         <div class="col-md-3">
             Playlists <span class="sub">{{ query }}</span>
         </div>
