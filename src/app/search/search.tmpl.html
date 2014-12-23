@@ -2,8 +2,8 @@
     <div id="featured">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="title">
-                    {{ topresult.item.name }}
+                <div class="title" ng-hide="topresult.item.name == undefined">
+                    Top result: {{ topresult.item.name }}
                 </div>
             </div>
         </div>
