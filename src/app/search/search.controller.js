@@ -61,7 +61,7 @@ angular.module('mopify.search', [
 
         mopidyservice.search($scope.query).then(function(data){
             if(data[0].tracks !== undefined){
-                $scope.results.tracks = data[0].tracks.splice(0,15);
+                $scope.results.tracks = data[0].tracks.splice(0,10);
             }
 
             // Check if all data is loaded and if it is; calculate the topresult
@@ -131,8 +131,7 @@ angular.module('mopify.search', [
         // Check each item with the query using the levenshtein algorithme
         _.each(items, function(collection){
             _.each(collection.items, function(item){
-                var artists = (item.artists !== undefined) ? " - " + util.artistsToString(item.artists) : "";
-                var stringtocheck = item.name.toLowerCase() + artists;
+                var stringtocheck = item.name.toLowerCase();
 
                 var distance = levenshteinDistance(search, stringtocheck);
                 
@@ -150,6 +149,9 @@ angular.module('mopify.search', [
             });
 
             resultitem.item.tracks = filtered.splice(0, 7);
+
+            if(resultitem.type == "tracks")
+                resultitem.item.tracks[0].artiststring = util.artistsToString(resultitem.item.tracks[0].artists);
 
             // Set the resultitem as $scope.topresult
             $scope.topresult = resultitem;

@@ -1,4 +1,4 @@
-<div id="header" class="small big" style="background-image: url('/assets/images/discover-header.jpg');">
+<div id="header" ng-class="{ small: topresult.type == 'tracks', big: topresult.type != 'tracks' }" style="background-image: url('/assets/images/discover-header.jpg');">
     <div id="featured">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -12,7 +12,7 @@
                 <div class="cover">
                     <img ng-src="{{ topresult.item.images[0].url }}" />
                 </div>
-                <div class="details">
+                <div class="details" ng-class="{ 'fullwidth': topresult.item.images === undefined }">
                     <div class="tracklist">
                         <div class="row track" ng-repeat="track in topresult.item.tracks" ng-if="topresult.item.tracks" >
                             <div class="col-md-7 name">

@@ -658,6 +658,10 @@ img[src=""] {
     text-shadow: 0 0 2px rgba(0,0,0,.3);
 }
 
+#application #header #featured .playlist .details.fullwidth{
+    width: 100%;
+}
+
 #application #header #featured .playlist .details .tracklist .track{
     padding: 7px 0;
     border-top: 1px solid #666;
