@@ -30,7 +30,7 @@ angular.module('mopify.music.tracklist', [
     var uri = $routeParams.uri;
 
     // Set default coverimage
-    $scope.coverImage = "/assets/images/playlists-header.jpg";
+    $scope.coverImage = "./assets/images/playlists-header.jpg";
 
     // Check mopidy state and call loadtracks function
     $scope.$on("mopidy:state:online", loadTracks);
@@ -51,7 +51,7 @@ angular.module('mopify.music.tracklist', [
 
     if(uri.indexOf("mopidy:current") > -1){
         $scope.type = "tracklist";    
-        $scope.coverImage = "/assets/images/tracklist-header.jpg";
+        $scope.coverImage = "./assets/images/tracklist-header.jpg";
     }
 
     // Check if a name has been defined

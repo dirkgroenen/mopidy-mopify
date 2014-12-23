@@ -256,7 +256,7 @@ angular.module('mopify.services.station', [
                 spotify: null,
                 tracks: tracks,
                 name: "Tracklist",
-                coverImage: "/assets/images/tracklist-header.jpg",
+                coverImage: "./assets/images/tracklist-header.jpg",
                 started_at: Date.now()
             };
             
