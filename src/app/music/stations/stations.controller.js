@@ -31,7 +31,7 @@ angular.module('mopify.music.stations', [
     // Check if $scope.stations ain't null and show a notification to the user
     if($scope.stations === null){
         $scope.stations = [];
-        notifier.notify({type: "custom", template: "Look's like you haven't started any Station yet. Click the 'Create new' button to start", delay: 7500});
+        notifier.notify({type: "custom", template: "Look's like you haven't started any Station yet. Click the 'Create new' button to start a new station.", delay: 7500});
     }
 
     // Set some default scope vars

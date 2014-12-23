@@ -74,8 +74,8 @@ module.exports = function ( grunt ) {
                     '<%= vendor_files.js %>',
                     '<%= build_dir %>/src/app/**/*.js',
                     '<%= html2js.app.dest %>',
-                    '<%= build_dir %>/assets/css/<%= pkg.name %>-<%= pkg.version %>.css',
-                    '<%= vendor_files.css %>'
+                    '<%= vendor_files.css %>',
+                    '<%= build_dir %>/assets/css/<%= pkg.name %>-<%= pkg.version %>.css'
                 ]
             },
 
