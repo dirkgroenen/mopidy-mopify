@@ -16,6 +16,6 @@ nosetests.xml
 .project
 *.pbxproj
 *.egg-info
-mopidy_mopify/static/app/bower_components/*
+src/vendor*
 !src/vendor/angular-echonest
 !src/vendor/angular-spotify
