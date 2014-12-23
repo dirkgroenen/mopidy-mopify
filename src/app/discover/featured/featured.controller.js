@@ -44,7 +44,7 @@ angular.module("mopify.discover.featured", [
                 // Set the message and items
                 $scope.titletext = data.message;
                 $scope.featuredplaylists = data.playlists.items;
-                $scope.headerplaylist = data.playlists.items[Math.floor(Math.random() * 10)];
+                $scope.headerplaylist = data.playlists.items[0];
 
                 // Load the tracks for the featured header playlist
                 loadHeaderPlaylistTracks();
