@@ -13,6 +13,7 @@ module.exports = function ( grunt ) {
     grunt.loadNpmTasks('grunt-html2js');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-ngmin');
 
      /**
       * Load in our build configuration file.
@@ -401,6 +402,23 @@ module.exports = function ( grunt ) {
 			globals: {}
 		},
 
+        /**
+          * `ng-min` annotates the sources before minifying. That is, it allows us
+          * to code without the array syntax.
+          */
+        ngmin: {
+            compile: {
+                files: [
+                    {
+                        src: [ '<%= app_files.js %>' ],
+                        cwd: '<%= build_dir %>',
+                        dest: '<%= build_dir %>',
+                        expand: true
+                    }
+                ]
+            }
+        },
+
     };
 
     grunt.initConfig( grunt.util._.extend( taskConfig, userConfig ) );
@@ -429,7 +447,7 @@ module.exports = function ( grunt ) {
      * Register the tasks for Grunt
      */
     grunt.registerTask( 'compile', [
-        'clean:compile', 'copy:compile_assets', 'concat:compile_js', 'concat:compile_css', 'cssmin:combine', 'uglify', 'index:compile'
+        'clean:compile', 'copy:compile_assets', 'concat:compile_js', 'concat:compile_css', 'cssmin:combine', 'ngmin', 'uglify', 'index:compile'
     ]);
 
      /**
