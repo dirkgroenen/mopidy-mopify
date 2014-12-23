@@ -9,7 +9,6 @@ MANIFEST
 build/
 cover/
 coverage.xml
-dist/
 docs/_build/
 mopidy.log*
 node_modules/
@@ -18,5 +17,5 @@ nosetests.xml
 *.pbxproj
 *.egg-info
 mopidy_mopify/static/app/bower_components/*
-!mopidy_mopify/static/app/bower_components/angular-echonest
-!mopidy_mopify/static/app/bower_components/angular-spotify
+!src/vendor/angular-echonest
+!src/vendor/angular-spotify

@@ -1,0 +1,20 @@
+<div class="bgimage">
+    <img ng-src="{{ playerBackground }}">
+</div>
+
+<div class="row">
+    <div class="col-md-2 controlwrap left" ng-controller="PlayerControlsController">
+        <ng-include src="'player/controls/controls.left.tmpl.html'"></ng-include>
+    </div>
+    <div class="col-md-8" id="seekbar">
+        <div class="trackname">
+            <span class="title">{{ trackTitle }}</span> <span class="delimiter">-</span> <span class="artist">{{ trackArtist }}</span>
+        </div>
+        <div ng-controller="PlayerSeekbarController">
+            <ng-include src="'player/seekbar/seekbar.tmpl.html'"></ng-include>
+        </div>
+    </div>
+    <div class="col-md-2 controlwrap right" ng-controller="PlayerControlsController">
+        <ng-include src="'player/controls/controls.right.tmpl.html'"></ng-include>
+    </div>
+</div>

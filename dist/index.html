@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="mopify" ng-controller="AppController">
+    <head>
+        <title ng-bind-template="&#9654; {{ pageTitle }}">Mopify</title>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="assets/webfonts/ss-standard.css">
+        
+         
+        <link rel="stylesheet" type="text/css" href="assets/css/mopidy-mopify-1.0.0.css" /> 
+    </head>
+
+    <body>
+
+        <!-- Main application --> 
+        <div id="application" class="fullheight">
+            <div class="container-fluid fullheight">
+                <div class="row fullheight">
+                    <div class="col-md-2 fullheight">
+                        <div id="leftside" class="fullheight">
+                            <div id="menu">
+                                <ng-include src="'app/search/menu.tmpl.html'"></ng-include>
+                                <ng-include src="'app/discover/menu.tmpl.html'"></ng-include>
+                                <ng-include src="'app/music/menu.tmpl.html'"></ng-include>
+                            </div>
+
+                            <ng-include src="'app/account/account.menu.tmpl.html'"></ng-include>
+                        </div>
+                    </div>
+
+                    <div id="mainwrap" class="col-md-10 fullheight">
+                        <div class="container-fluid fullheight" ng-view></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="player" class="container-fluid" ng-controller="PlayerController">
+                <ng-include src="'app/player/player.tmpl.html'"></ng-include>
+            </div>
+        </div>
+
+        <!-- 
+            Include all scripts for the app below.
+            Might consider to use some tool to do this automatically...
+        -->
+        <script src="http://localhost:6680/mopidy/mopidy.min.js"></script> <!-- CHANGE THIS ONE TO LOCALHOST LATER -->
+
+
+         
+        <script type="text/javascript" src="assets/mopidy-mopify-1.0.0.js"></script> 
+
+    </body>
+</html>
