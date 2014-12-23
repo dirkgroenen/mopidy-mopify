@@ -16,6 +16,3 @@ nosetests.xml
 .project
 *.pbxproj
 *.egg-info
-src/vendor*
-!src/vendor/angular-echonest/*
-!src/vendor/angular-spotify/*

@@ -1,0 +1,336 @@
+{
+  "message" : "Coffee and music – a perfect pairing!",
+  "playlists" : {
+    "href" : "https://api.spotify.com/v1/browse/featured-playlists?timestamp=2014-12-22T11:24:34&offset=0&limit=20",
+    "items" : [ {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/4BKT5olNFqLB1FAa8OtC8k"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/4BKT5olNFqLB1FAa8OtC8k",
+      "id" : "4BKT5olNFqLB1FAa8OtC8k",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/248213a045c2f086f427692085827fb1feb70645"
+      } ],
+      "name" : "Your Favorite Coffeehouse",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/4BKT5olNFqLB1FAa8OtC8k/tracks",
+        "total" : 84
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:4BKT5olNFqLB1FAa8OtC8k"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/5FJXhjdILmRA2z5bvz4nzf"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/5FJXhjdILmRA2z5bvz4nzf",
+      "id" : "5FJXhjdILmRA2z5bvz4nzf",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/3618cc1fa353d0dc720ecbd902de23c980fc1b31"
+      } ],
+      "name" : "Today's Top Hits",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/5FJXhjdILmRA2z5bvz4nzf/tracks",
+        "total" : 50
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:5FJXhjdILmRA2z5bvz4nzf"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/2ujjMpFriZ2nayLmrD1Jgl"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/2ujjMpFriZ2nayLmrD1Jgl",
+      "id" : "2ujjMpFriZ2nayLmrD1Jgl",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/c6ae992ff7b6b9e49bea3b76e3d739ef2f1b1fb2"
+      } ],
+      "name" : "Deep Focus",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/2ujjMpFriZ2nayLmrD1Jgl/tracks",
+        "total" : 98
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:2ujjMpFriZ2nayLmrD1Jgl"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/5UFRIQ89nVPcVsrWjLyjqI"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/5UFRIQ89nVPcVsrWjLyjqI",
+      "id" : "5UFRIQ89nVPcVsrWjLyjqI",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/9c320a0e9f484ac3668678ae9ee1338fd31e1a7b"
+      } ],
+      "name" : "Caffeine Rush",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/5UFRIQ89nVPcVsrWjLyjqI/tracks",
+        "total" : 71
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:5UFRIQ89nVPcVsrWjLyjqI"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/0ExbFrTy6ypLj9YYNMTnmd"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/0ExbFrTy6ypLj9YYNMTnmd",
+      "id" : "0ExbFrTy6ypLj9YYNMTnmd",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/52a250248c75034207a34a56248c6686ab2b70eb"
+      } ],
+      "name" : "Intense Studying",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/0ExbFrTy6ypLj9YYNMTnmd/tracks",
+        "total" : 142
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:0ExbFrTy6ypLj9YYNMTnmd"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/74lsbDpc3vMNHHwD0w07ke"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/74lsbDpc3vMNHHwD0w07ke",
+      "id" : "74lsbDpc3vMNHHwD0w07ke",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/6684e0debbbe7ca94d7eb96c1a186d7bbb2d366e"
+      } ],
+      "name" : "Country Coffeehouse",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/74lsbDpc3vMNHHwD0w07ke/tracks",
+        "total" : 32
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:74lsbDpc3vMNHHwD0w07ke"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/19uVLpMdgv0Dy3LvpYx4LA"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/19uVLpMdgv0Dy3LvpYx4LA",
+      "id" : "19uVLpMdgv0Dy3LvpYx4LA",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/7feba1395174bd9bc16f1babafffe8570a5ef3c7"
+      } ],
+      "name" : "Workday – Lounge",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/19uVLpMdgv0Dy3LvpYx4LA/tracks",
+        "total" : 95
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:19uVLpMdgv0Dy3LvpYx4LA"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/65y98W0UItf73DJKVgylTP"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/65y98W0UItf73DJKVgylTP",
+      "id" : "65y98W0UItf73DJKVgylTP",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/223eaea3d44938b833a86651267db608bea1c5a3"
+      } ],
+      "name" : "ESM | Electronic Study Music",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/65y98W0UItf73DJKVgylTP/tracks",
+        "total" : 53
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:65y98W0UItf73DJKVgylTP"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/2SSEozHbLRKueJBM7LAlAo"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/2SSEozHbLRKueJBM7LAlAo",
+      "id" : "2SSEozHbLRKueJBM7LAlAo",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/8a6deaff6a3af92a9b9fd923e98e22c5acb65e56"
+      } ],
+      "name" : "Workday – Pop",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/2SSEozHbLRKueJBM7LAlAo/tracks",
+        "total" : 128
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:2SSEozHbLRKueJBM7LAlAo"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/7cOO30bzxMm4tO34C9UalD"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/7cOO30bzxMm4tO34C9UalD",
+      "id" : "7cOO30bzxMm4tO34C9UalD",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/acf2d1cdd5fa27b589262aba943e8c3b170e014e"
+      } ],
+      "name" : "Cardio",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/7cOO30bzxMm4tO34C9UalD/tracks",
+        "total" : 45
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:7cOO30bzxMm4tO34C9UalD"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/5O2ERf8kAYARVVdfCKZ9G7"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/5O2ERf8kAYARVVdfCKZ9G7",
+      "id" : "5O2ERf8kAYARVVdfCKZ9G7",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/34baf4085738a1e2ad1b426d1fa2d1e64a5bd856"
+      } ],
+      "name" : "Coffee Table Jazz",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/5O2ERf8kAYARVVdfCKZ9G7/tracks",
+        "total" : 57
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:5O2ERf8kAYARVVdfCKZ9G7"
+    }, {
+      "collaborative" : false,
+      "external_urls" : {
+        "spotify" : "http://open.spotify.com/user/spotify/playlist/67nMZWgcUxNa5uaiyLDR2x"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/67nMZWgcUxNa5uaiyLDR2x",
+      "id" : "67nMZWgcUxNa5uaiyLDR2x",
+      "images" : [ {
+        "url" : "https://i.scdn.co/image/a69b2bd382b17654cb57c42ab276097c9a7367da"
+      } ],
+      "name" : "Brain Food",
+      "owner" : {
+        "external_urls" : {
+          "spotify" : "http://open.spotify.com/user/spotify"
+        },
+        "href" : "https://api.spotify.com/v1/users/spotify",
+        "id" : "spotify",
+        "type" : "user",
+        "uri" : "spotify:user:spotify"
+      },
+      "public" : null,
+      "tracks" : {
+        "href" : "https://api.spotify.com/v1/users/spotify/playlists/67nMZWgcUxNa5uaiyLDR2x/tracks",
+        "total" : 90
+      },
+      "type" : "playlist",
+      "uri" : "spotify:user:spotify:playlist:67nMZWgcUxNa5uaiyLDR2x"
+    } ],
+    "limit" : 20,
+    "next" : null,
+    "offset" : 0,
+    "previous" : null,
+    "total" : 12
+  }
+}
