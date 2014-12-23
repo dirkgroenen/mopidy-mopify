@@ -56,7 +56,7 @@ angular.module('mopify.search', [
 
             resultsloaded++;
             if(resultsloaded == 2)
-                getTopMatchingResult($scope.query, $scope.results).type;
+                getTopMatchingResult($scope.query, $scope.results);
         });
 
         mopidyservice.search($scope.query).then(function(data){
@@ -94,7 +94,7 @@ angular.module('mopify.search', [
      */
     $scope.startTopItemStation = function(){
         stationservice.startFromSpotifyUri($scope.topresult.item.uri);
-    }
+    };
 
     /**
      * Get the top matching resutls from the given batch
@@ -105,7 +105,9 @@ angular.module('mopify.search', [
         var bestmatch = null;
         var resultitem = {};
         var items = [];
-        var results = angular.copy(results);
+        
+        // Override results with angular copy of results 
+        results = angular.copy(results);
 
         // Loop through all results and create an array with all items
         _.each(results, function(result, key){
@@ -135,7 +137,7 @@ angular.module('mopify.search', [
                 var distance = levenshteinDistance(search, stringtocheck);
                 
                 // Check with previous bestmatch and update if needed
-                if(bestmatch == null || bestmatch > distance){
+                if(bestmatch === null || bestmatch > distance){
                     bestmatch = distance;
                     resultitem = { item: item, type: collection.type };
                 }
@@ -193,7 +195,7 @@ angular.module('mopify.search', [
         }
 
         return matrix[b.length][a.length];
-    };
+    }
 
 })
 

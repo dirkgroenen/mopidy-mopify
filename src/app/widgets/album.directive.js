@@ -25,7 +25,7 @@ angular.module('mopify.widgets.directive.album', [
                 mopidyservice.getAlbum(scope.album.uri).then(function(tracks){
                     mopidyservice.playTrack(tracks[0], tracks);
                 }); 
-            }
+            };
             
             scope.startStation = function(){
                 stationservice.startFromSpotifyUri(scope.album.uri);

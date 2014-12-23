@@ -50,7 +50,7 @@ angular.module('mopify.widgets.directive.track', [
 
                     // Convert spotify tracks to mopidy tracks
                     var surroundinguris = _.map(surrounding, function(track){
-                        return track.uri
+                        return track.uri;
                     });
 
                     // Get a list of all the urls and play it
@@ -59,7 +59,7 @@ angular.module('mopify.widgets.directive.track', [
                         mopidyservice.playTrack(tracks[clickedindex], tracks);
                     });
                 }
-            }
+            };
             
             scope.startStation = function(){
                 stationservice.startFromSpotifyUri(scope.track.uri);
@@ -76,7 +76,7 @@ angular.module('mopify.widgets.directive.track', [
              */
             scope.removeFromQueue = function(){
                 // Remove from tracklist
-                mopidyservice.removeFromTracklist({'uri': [track.uri]});;
+                mopidyservice.removeFromTracklist({'uri': [track.uri]});
             };
         }
     };

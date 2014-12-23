@@ -9,6 +9,8 @@
     "afterEach": false,
     "module": false,
     "inject": false,
-    "_": false
+    "_": false,
+    "console": false,
+    "Mopidy": false
   }
 }

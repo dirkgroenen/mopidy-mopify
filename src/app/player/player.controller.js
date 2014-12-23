@@ -54,6 +54,6 @@ angular.module('mopify.player', [
                 $scope.playerBackground = data.album.images[0].url;
             });
         }
-    };
+    }
 
 });

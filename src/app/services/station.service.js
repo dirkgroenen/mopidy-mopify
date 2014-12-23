@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * The station service will keep track of the current station (if started)
  * This means that it will enable/disable functions in the player and check when a new song has to be loaded
@@ -14,6 +12,7 @@ angular.module('mopify.services.station', [
     "spotify"
 ])
 .factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, util, SpotifyLogin, notifier){
+    'use strict';
 
     var stationPlaying = false;
     var echonestTracksQueue = [];
@@ -35,7 +34,7 @@ angular.module('mopify.services.station', [
         }
 
         return deferred.promise;
-    };
+    }
 
     function generateMopidyTracks(number){
         // Get tracks from array
@@ -47,25 +46,25 @@ angular.module('mopify.services.station', [
 
         for(var x = 0; x < batch.length; x++){
             var track = batch[x];
+            mopidyservice.searchTrack(track.artist_name, track.title).then(resolveBatchTracks);
+        }
 
-            mopidyservice.searchTrack(track.artist_name, track.title).then(function(data){
-                done++;
+        function resolveBatchTracks(data){
+            done++;
 
-                if(data[0].tracks){
-                    var mopidytrack = data[0].tracks[0];
-                    mopidytracks.push(mopidytrack);
-                }
+            if(data[0].tracks){
+                var mopidytrack = data[0].tracks[0];
+                mopidytracks.push(mopidytrack);
+            }
 
-                if(done == number){
-                    deferred.resolve(mopidytracks);
-                }
-            });
-
+            if(done == number){
+                deferred.resolve(mopidytracks);
+            }
         }
 
         return deferred.promise;
         
-    };
+    }
 
     function addTracksToMopidy(tracks){
         return mopidyservice.addToTracklist({ tracks: tracks});
@@ -102,7 +101,7 @@ angular.module('mopify.services.station', [
         if(station.type == "album" || station.type == "user"){
             parameters.type = "song-radio";
 
-            if(station.spotify.tracks == undefined){
+            if(station.spotify.tracks === undefined){
                 Spotify.getAlbum(station.spotify.id).then(function (data) {
                     parameters.song_id = createTrackIdsList(data.tracks);
 
@@ -124,18 +123,18 @@ angular.module('mopify.services.station', [
         }
 
         return deferred.promise;
-    };
+    }
 
     function createTrackIdsList(tracks){
         // Get items and shuffle
         var items = tracks.items || tracks; 
         items = util.shuffleArray(items);
 
-        var tracks = items.splice(0, 4);
+        tracks = items.splice(0, 4);
         var trackids = [];
 
         for(var x = 0; x < tracks.length;x++){
-            if(tracks[x].uri == undefined)
+            if(tracks[x].uri === undefined)
                 trackids.push(tracks[x].track.uri);
             else
                 trackids.push(tracks[x].uri);
@@ -162,7 +161,7 @@ angular.module('mopify.services.station', [
                 });
             }); 
         });
-    };
+    }
 
     function getSpotifyObject(uri){
         var urisplitted = uri.split(":");
@@ -187,14 +186,14 @@ angular.module('mopify.services.station', [
             case "user":
                 if(SpotifyLogin.connected){
                     Spotify.getPlaylist(urisplitted[2], urisplitted[4]).then(function(data) {
-                        if(data.images == undefined)
-                            var image = data.album.images[1].url;
-                        else if(data.images[1] != undefined)
-                            var image = data.images[1].url;
-                        else if(data.images[0] != undefined)
-                            var image = data.images[0].url;
-                        else
-                            var image = "";
+                        var image = "";
+
+                        if(data.images === undefined)
+                            image = data.album.images[1].url;
+                        else if(data.images[1] !== undefined)
+                            image = data.images[1].url;
+                        else if(data.images[0] !== undefined)
+                            image = data.images[0].url;
                         
                         data.images = [image, image];
                         deferred.resolve(data);
@@ -207,7 +206,7 @@ angular.module('mopify.services.station', [
         }
 
         return deferred.promise;
-    };
+    }
 
     return {
         init: function(){},
@@ -221,14 +220,14 @@ angular.module('mopify.services.station', [
             var deferred = $q.defer();
 
             getSpotifyObject(uri).then(function(data){
-                if(data.images == undefined)
-                    var image = data.album.images[1].url;
-                else if(data.images[1] != undefined)
-                    var image = data.images[1].url;
-                else if(data.images[0] != undefined)
-                    var image = data.images[0].url;
-                else
-                    var image = "";
+                var image = "";
+
+                if(data.images === undefined)
+                    image = data.album.images[1].url;
+                else if(data.images[1] !== undefined)
+                    image = data.images[1].url;
+                else if(data.images[0] !== undefined)
+                    image = data.images[0].url;
 
                 var station = {
                     type: urisplitted[1],

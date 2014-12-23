@@ -2,7 +2,9 @@ angular.module("mopify.services.spotifylogin", [
     'spotify'
 ])
 
-.factory("SpotifyLogin", function SpotifyLogin($q, $timeout, $document, Spotify, $interval){
+.factory("SpotifyLogin", function($q, $timeout, $document, Spotify, $interval){
+    "use strict";
+
     // Get body
     var body = $document.find('body').eq(0);
 
@@ -78,7 +80,7 @@ angular.module("mopify.services.spotifylogin", [
 
         // Start waiting for the spotify answer
         that.requestKey().then(function(){
-            if(that.accessToken != null){
+            if(that.accessToken !== null){
                 // Set the auth token
                 Spotify.setAuthToken(that.accessToken);
                 that.connected = true;
@@ -98,7 +100,7 @@ angular.module("mopify.services.spotifylogin", [
 
     SpotifyLogin.prototype.requestKey = function(deferred){
         var that = this;
-        var deferred = deferred || $q.defer();
+        deferred = deferred || $q.defer();
 
         var postdata = {
             method: "get"
@@ -108,7 +110,7 @@ angular.module("mopify.services.spotifylogin", [
         frame.contentWindow.postMessage(JSON.stringify(postdata), "*");
 
         // Check if key has landed
-        if(that.accessToken != null){
+        if(that.accessToken !== null){
             deferred.resolve();
         }
         else{
@@ -132,7 +134,7 @@ angular.module("mopify.services.spotifylogin", [
         var response = e.data;
 
         if(response.service == "spotify"){
-            if(response.key != null)
+            if(response.key !== null)
                 spotifyLogin.accessToken = response.key;
         }
     });

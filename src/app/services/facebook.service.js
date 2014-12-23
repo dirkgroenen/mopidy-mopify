@@ -1,6 +1,7 @@
 angular.module("mopify.services.facebook", [])
 
-.factory("Facebook", function Facebook($q, $timeout, $document){
+.factory("Facebook", function($q, $timeout, $document){
+    "use strict";
 
     // Get body
     var body = $document.find('body').eq(0);
@@ -56,7 +57,7 @@ angular.module("mopify.services.facebook", [])
             this.connected = true;
 
         if(this.callbackqueue[data.id] !== undefined){
-            if(this.callbackqueue[data.id].callback != undefined){
+            if(this.callbackqueue[data.id].callback !== undefined){
                 this.callbackqueue[data.id].callback(data.callbackdata);    
                 this.callbackqueue[data.id].finished = false;
             }

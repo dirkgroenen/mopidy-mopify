@@ -22,7 +22,7 @@ angular.module('mopify.widgets.directive.artist', [
                 mopidyservice.getArtist(scope.artist.uri).then(function(tracks){
                     mopidyservice.playTrack(tracks[0], tracks.splice(0, 50));
                 }); 
-            }
+            };
             
             /**
              * Start a station from the given artist

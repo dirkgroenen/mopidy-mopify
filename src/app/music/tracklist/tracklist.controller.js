@@ -50,11 +50,11 @@ angular.module('mopify.music.tracklist', [
 
     if(uri.indexOf("mopidy:current") > -1){
         $scope.type = "tracklist";    
-        $scope.coverImage = "/assets/images/tracklist-header.jpg"
+        $scope.coverImage = "/assets/images/tracklist-header.jpg";
     }
 
     // Check if a name has been defined
-    $scope.name = ($routeParams.name != undefined) ? $routeParams.name : ((uri.indexOf("mopidy:") > -1) ? "Current tracklist" : "");
+    $scope.name = ($routeParams.name !== undefined) ? $routeParams.name : ((uri.indexOf("mopidy:") > -1) ? "Current tracklist" : "");
     $scope.tracks = [];
     var tlTracks = [];
     var cTracks = [];
@@ -109,7 +109,7 @@ angular.module('mopify.music.tracklist', [
             });
 
         }
-    };
+    }
 
     /**
      * Load information about the playlist from Spotify
@@ -148,7 +148,7 @@ angular.module('mopify.music.tracklist', [
             if(data.tl_track !== undefined)
                 $scope.currentPlayingTrack = data.tl_track.track;
         });
-    };
+    }
 
     /**
      * Get an album image from Spotify

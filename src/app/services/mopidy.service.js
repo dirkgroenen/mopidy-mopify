@@ -43,7 +43,7 @@ angular.module('mopify.services.mopidy', [])
 			}
 			return deferred.promise;
 		};
-	};
+	}
 
 	/*
      * Execute the given function
@@ -61,7 +61,7 @@ angular.module('mopify.services.mopidy', [])
 		}
 
 		return context[func].apply(context, args);
-	};
+	}
 
 	return {
 		mopidy: {},
@@ -185,7 +185,7 @@ angular.module('mopify.services.mopidy', [])
         playTrack: function(track, surroundingTracks) {
             var self = this;
 
-            if(surroundingTracks == undefined)
+            if(surroundingTracks === undefined)
                 surroundingTracks = [track];
 
             // Check if a playlist change is required. If not cust change the track.
@@ -256,31 +256,6 @@ angular.module('mopify.services.mopidy', [])
             return this.mopidy.tracklist.clear();
         },
 
-        addReplaceAndPlayPlaylist: function(playlist){
-            var self = this;
-
-            self.mopidy.playback.stop({ clear_current_track: true })
-                .then(function() {
-                    self.mopidy.tracklist.clear();
-                }, consoleError)
-                .then(function() {
-                    self.mopidy.tracklist.add({ tracks: surroundingTracks });
-                }, consoleError)
-                .then(function() {
-                    self.mopidy.tracklist.getTlTracks()
-                .then(function(tlTracks) {
-                    self.currentTlTracks = tlTracks;
-                    var tlTrackToPlay = _.find(tlTracks, function(tlTrack) {
-                        return tlTrack.track.uri === track.uri;
-                    });
-                    self.mopidy.playback.changeTrack({ tl_track: tlTrackToPlay })
-                        .then(function() {
-                            self.mopidy.playback.play();
-                        });
-                    }, consoleError);
-                } , consoleError);
-        },
-
         addToTracklist: function(obj){
             return wrapMopidyFunc("mopidy.tracklist.add", this)(obj);
         },
@@ -294,7 +269,7 @@ angular.module('mopify.services.mopidy', [])
         },
 
         play: function(tltrack) {
-            if(tltrack != undefined){
+            if(tltrack !== undefined){
                 return wrapMopidyFunc("mopidy.playback.play", this)({ tl_track: tltrack });
             }
             else{

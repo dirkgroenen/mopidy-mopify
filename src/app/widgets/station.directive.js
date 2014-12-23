@@ -26,18 +26,14 @@ angular.module('mopify.widgets.directive.station', [
                 switch(scope.station.type.toLowerCase()){
                     case "album":
                         return "/#/music/tracklist/" + scope.station.spotify.uri + "/" + scope.station.name;
-                        break;
                     case "playlist":
                         return "/#/music/tracklist/" + scope.station.spotify.uri + "/" + scope.station.name;
-                        break;
                     case "artist":
                         return "/#/music/artist/" + scope.station.spotify.uri;
-                        break;
                     case "track":
                         return "/#/music/tracklist/" + scope.station.spotify.album.uri + "/" + scope.station.spotify.album.name;
-                        break;
                 }
-            }
+            };
         }
     };
 

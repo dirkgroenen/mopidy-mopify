@@ -23,9 +23,9 @@ angular.module('mopify.widgets.directive.playlist', [
                     scope.coverImage = data.album.images[1].url;
                 });
             }
-            if(scope.playlist.__model__ == undefined){
+            if(scope.playlist.__model__ === undefined){
                 Spotify.getPlaylist(scope.playlist.owner.id, scope.playlist.id).then(function(data){
-                    scope.coverImage = (data.images[0] != undefined) ? data.images[0].url : data.tracks.items[0].track.album.images[0].url;
+                    scope.coverImage = (data.images[0] !== undefined) ? data.images[0].url : data.tracks.items[0].track.album.images[0].url;
                 });
             }
 
