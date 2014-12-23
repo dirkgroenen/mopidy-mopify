@@ -78,5 +78,5 @@ angular.module('mopify', [
     function updateTitle(track){
         if(track !== null && track !== undefined)
             $scope.pageTitle = track.name + " - " + track.artists[0].name + " | " + defaultPageTitle;
-    };
+    }
 });

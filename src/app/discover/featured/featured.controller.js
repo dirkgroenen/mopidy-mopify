@@ -51,9 +51,9 @@ angular.module("mopify.discover.featured", [
             });
         }
         else{
-            $scope.titletext = "Please connect to Spotify"
+            $scope.titletext = "Please connect to Spotify";
         }
-    };
+    }
 
     function loadHeaderPlaylistTracks(){
         // Get the tracks for the headerplaylist
@@ -63,7 +63,7 @@ angular.module("mopify.discover.featured", [
 
             // Create an artist string for every song
             _.each(frontendtracks, function(track){
-                track.artiststring = util.artistsToString(track.artists)
+                track.artiststring = util.artistsToString(track.artists);
 
                 if(track.name.indexOf("loading") > -1)
                     tracksloaded = false;
@@ -73,10 +73,8 @@ angular.module("mopify.discover.featured", [
                 $scope.headerplaylist.tracks = frontendtracks;
             else
                 $timeout(loadHeaderPlaylistTracks, 1000);
-        });
-        
-    };
-    
+        });  
+    }
 
     $scope.playHeaderPlaylist = function(){
         mopidyservice.lookup($scope.headerplaylist.uri).then(function(tracks){
@@ -86,5 +84,5 @@ angular.module("mopify.discover.featured", [
 
     $scope.startHeaderPlaylistStation = function(){
         stationservice.startFromSpotifyUri($scope.headerplaylist.uri);
-    }
+    };
 });

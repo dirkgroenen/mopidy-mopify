@@ -28,7 +28,7 @@ angular.module('mopify.music.stations', [
     $scope.stations = localStorageService.get("stations");
 
     // Check if $scope.stations ain't null
-    if($scope.stations == null)
+    if($scope.stations === null)
         $scope.stations = [];
 
     // Set some default scope vars

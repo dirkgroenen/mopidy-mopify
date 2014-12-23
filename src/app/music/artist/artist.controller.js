@@ -46,7 +46,7 @@ angular.module('mopify.music.artist', [
                     id: 'related',
                     name: "Related Artists"
                 };
-                break
+                break;
             case "bio":
                 $scope.currentview = {
                     id: 'bio',
@@ -54,7 +54,7 @@ angular.module('mopify.music.artist', [
                 };
                 break;
         }
-    }
+    };
     
     // Load artist data
     $scope.artist = {};
@@ -81,7 +81,7 @@ angular.module('mopify.music.artist', [
         artist.getBiographies().then(function(data){
             var bios = data.biographies;
             for(var x = 0; x < bios.length; x++){
-                if(bios[x].truncated == false || bios[x].truncated == undefined){
+                if(bios[x].truncated === false || bios[x].truncated === undefined){
                     $scope.artist.bio = bios[x];
                     break;
                 }
