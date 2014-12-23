@@ -8,7 +8,8 @@ angular.module('mopify.music.tracklist', [
     'mopify.services.spotifylogin',
     'spotify',
     'ngSanitize',
-    "mopify.widgets.directive.track"
+    'mopify.widgets.directive.track',
+    'infinite-scroll'
 ])
 
 /**
@@ -56,9 +57,9 @@ angular.module('mopify.music.tracklist', [
     // Check if a name has been defined
     $scope.name = ($routeParams.name !== undefined) ? $routeParams.name : ((uri.indexOf("mopidy:") > -1) ? "Current tracklist" : "");
     $scope.tracks = [];
-    var tlTracks = [];
-    var cTracks = [];
     $scope.currentPlayingTrack = {};
+
+    var loadedTracks = [];
 
     if($scope.type == "Playlist"){
         loadSpotifyInfo();
@@ -68,10 +69,9 @@ angular.module('mopify.music.tracklist', [
      * Load the tracks from the mopidy library
      */
     function loadTracks(){    
-        // Get curren tracklist
+        // Get curren tracklist from Mopidy
         if(uri.indexOf("mopidy:") > -1){
             mopidyservice.getTracklist().then(function(tracks){
-                tlTracks = tracks;
 
                 var mappedTracks = tracks.map(function(tltrack){
                     return tltrack.track;
@@ -84,28 +84,29 @@ angular.module('mopify.music.tracklist', [
         }
 
         // Lookup the tracks for the given album or playlist
-        // TODO: Add pagination
         if(uri.indexOf("spotify:") > -1){
             mopidyservice.lookup(uri).then(function(tracks){
-                cTracks = tracks;
-
-                $scope.tracks = angular.copy(tracks);
-
                 // Check if the $scope.tracks contains loading tracks
-                var loadingTracks = [];
+                var loadingTracks = false;
 
-                _.each($scope.tracks, function(track){
+                _.each(tracks, function(track){
                     if(track.name.indexOf("[loading]") > -1)
-                        loadingTracks.push(track);
+                        loadingTracks = true;
                 });
 
-                if(loadingTracks.length > 0)
+                if(loadingTracks){
                     $timeout(loadTracks, 1000);
+                }
+                else{
+                    loadedTracks = angular.copy(tracks);
 
-                var random = Math.floor((Math.random() * tracks.length) + 0);
+                    var random = Math.floor((Math.random() * tracks.length) + 0);
 
-                if($scope.type == "Album")
-                    getCoverImage(tracks[random]);
+                    if($scope.type == "Album")
+                        getCoverImage(tracks[random]);
+
+                    $scope.getMoreTracks();
+                }
             });
 
         }
@@ -187,6 +188,21 @@ angular.module('mopify.music.tracklist', [
 
         if(uri.indexOf("mopidy:") > -1)
             stationservice.startFromTracks($scope.tracks);
+    };
+
+    var tracksPerCall = 50;
+
+    /*
+     * Add {trackspercall} tracks to the scope
+     * This function is used in combination with infinite scroll
+     */
+    $scope.getMoreTracks = function(){
+        if(loadedTracks.length > 0){
+            var current = $scope.tracks;
+            var toAdd = loadedTracks.splice(0, tracksPerCall);
+            
+            $scope.tracks = current.concat(toAdd);
+        }
     };
 
 });

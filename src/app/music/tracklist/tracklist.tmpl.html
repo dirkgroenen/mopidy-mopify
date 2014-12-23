@@ -22,8 +22,8 @@
     </div>
 
     <div class="pagecontent row">
-        <div id="tracklist">
-            <div class="row" ng-repeat="track in tracks" >
+        <div id="tracklist" infinite-scroll="getMoreTracks()" infinite-scroll-distance="1">
+            <div class="row" ng-repeat="track in tracks track by $index" >
                 <mopify-track track="track" surrounding="tracks" currentplayingtrack="currentPlayingTrack" type="type"> </mopify-track>
             </div>
         </div>
