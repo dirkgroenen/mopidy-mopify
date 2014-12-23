@@ -1,0 +1,134 @@
+/*!
+ * angular-notifier - v0.0.3
+ * https://github.com/l-lin/angular-notifier
+ */
+.notifier-msg {
+    position: fixed;
+    z-index: 1000;
+}
+
+.notifier-msg.top {
+    top: 1%;
+}
+
+.notifier-msg.right {
+    right: 1%;
+}
+
+.notifier-msg.bottom {
+    bottom: 1%;
+}
+
+.notifier-msg.left {
+    left: 1%;
+}
+
+.notifier-msg.center {
+    left: 50%;
+}
+
+.notifier-msg-content {
+    font-size: 16px;
+    font-family: 'Gilda Display', serif;
+    padding: 20px 10px;
+    -webkit-user-select: none;
+    box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.7);
+    border-left: 5px solid;
+    border-radius: 1px;
+    color: #FFF;
+}
+
+.notifier-msg-content.center {
+    position: relative;
+    left: -50%;
+}
+
+.notifier-msg-content.default {
+    background-color: #3276b1;
+    border-color: #2a6496;
+}
+
+.notifier-msg-content.success {
+    background-color: #739e73;
+    border-color: #618561;
+}
+
+.notifier-msg-content.warning {
+    background-color: #c79121;
+    border-color: #a87a1b;
+}
+
+.notifier-msg-content.info {
+    background-color: #3276b1;
+    border-color: #2a6496;
+}
+
+.notifier-msg-content.error {
+    background-color: #c46a69;
+    border-color: #a65959;
+}
+
+/* BUTTONS */
+.notifier-button.notifier-button-close {
+    position: absolute;
+    display: none;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    outline:none;
+    padding-bottom: 2px;
+    border: none;
+    color: #FFF;
+    opacity: 0.5;
+    background: transparent;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.notifier-msg-content:hover>.notifier-button.notifier-button-close {
+    display: block;
+}
+
+.notifier-button.notifier-button-close:hover, .notifier-button.notifier-button-close:active {
+    opacity: 1;
+}
+
+/* TRANSITION */
+@-moz-keyframes fadeIn {
+    0%{opacity:0}
+    100%{opacity:1}
+}
+@-webkit-keyframes fadeIn {
+    0%{opacity:0}
+    100%{opacity:1}
+}
+@-ms-keyframes fadeIn {
+    0%{opacity:0}
+    100%{opacity:1}
+}
+@keyframes fadeIn {
+    0%{opacity:0}
+    100%{opacity:1}
+}
+.notifier-msg {
+    -webkit-animation:fadeIn 0.2s linear;
+    animation:fadeIn 0.2s linear;
+}
+.notifier-msg.ng-hide-add, 
+.notifier-msg.ng-hide-remove {
+    -webkit-transition:all linear 0.5s;
+    -moz-transition:all linear 0.5s;
+    -o-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+    display:block!important;
+}
+ 
+.notifier-msg.ng-hide-add.ng-hide-add-active,
+.notifier-msg.ng-hide-remove {
+    opacity:0;
+}
+ 
+.notifier-msg.ng-hide-add,
+.notifier-msg.ng-hide-remove.ng-hide-remove-active {
+    opacity:1;
+}
