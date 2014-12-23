@@ -22,7 +22,7 @@ angular.module('mopify.music.stations', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("StationsController", function StationsController($scope, localStorageService, Spotify, stationservice, util, SpotifyLogin){
+.controller("StationsController", function StationsController($scope, $timeout, localStorageService, Spotify, stationservice, util, SpotifyLogin){
     
     // Bind the localstorage to the $scope so we always have the latest stations
     $scope.stations = localStorageService.get("stations");
@@ -41,7 +41,7 @@ angular.module('mopify.music.stations', [
 
     $scope.buildArtistString = function(artists){
         return util.artistsToString(artists);
-    }
+    };
 
     // Some local private vars
     var typingTimeout = null;
@@ -55,7 +55,7 @@ angular.module('mopify.music.stations', [
     };
 
     $scope.search = function(event){
-        clearTimeout(typingTimeout);
+        $timeout.cancel(typingTimeout);
 
         // Check if user pressed esc
         if(event.keyCode == 27){
@@ -64,7 +64,7 @@ angular.module('mopify.music.stations', [
         }
 
         if($scope.searchQuery.length > 1){
-            typingTimeout = setTimeout(function(){
+            typingTimeout = $timeout(function(){
                 $scope.wrapclass = "dropdownvisible";
                 var searchableItems = (!SpotifyLogin.connected) ? "album,artist,track" : "album,artist,track,playlist";
 
