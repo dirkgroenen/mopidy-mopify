@@ -16,15 +16,17 @@ angular.module("mopify.account", [
             $scope.connectedServices[service.name.toLowerCase()] = service.connected;
         }
 
+        $scope.totalServices = Object.keys($scope.connectedServices).length;
+
         // Count the number of connected services
-        var count = 0;
+        $scope.connectedCount = 0;
         for (var k in $scope.connectedServices) {
             if ($scope.connectedServices.hasOwnProperty(k) && $scope.connectedServices[k] === true) {
-               ++count;
+               $scope.connectedCount++;
             }
         }
 
-        if(count === 0)
+        if($scope.connectedCount === 0)
             $scope.hasServicesConnected = false;
         else
             $scope.hasServicesConnected = true;
