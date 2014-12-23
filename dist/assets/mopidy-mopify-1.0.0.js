@@ -30466,7 +30466,7 @@ angular.module('mopify.account.services.menu', ['LocalStorageModule']).controlle
       if (service !== undefined) {
         $scope.connectedServices[service.name.toLowerCase()] = service.connected;
       }
-      $scope.totalServices = Object.keys($scope.connectedServices).length;
+      $scope.totalServices = typeof $scope.connectedServices === 'object' ? Object.keys($scope.connectedServices).length : 0;
       // Count the number of connected services
       $scope.connectedCount = 0;
       for (var k in $scope.connectedServices) {

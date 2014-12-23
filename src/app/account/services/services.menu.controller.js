@@ -9,14 +9,14 @@ angular.module("mopify.account.services.menu", [
     function checkConnectedServices(event, service){
 
         // Get from storage
-        $scope.connectedServices = localStorageService.get("connectedServices");
+        $scope.connectedServices = localStorageService.get("connectedServices") || {};
 
         // If service is defined we use that one's connected value to override the connectedService
         if(service !== undefined){
             $scope.connectedServices[service.name.toLowerCase()] = service.connected;
         }
 
-        $scope.totalServices = (typeof $scope.connectedServices === 'object') ? Object.keys($scope.connectedServices).length : 0;
+        $scope.totalServices = Object.keys($scope.connectedServices).length;
 
         // Count the number of connected services
         $scope.connectedCount = 0;
