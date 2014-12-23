@@ -29445,7 +29445,7 @@ angular.module("account/services/services.menu.tmpl.html", []).run(["$templateCa
 
 angular.module("account/services/services.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("account/services/services.tmpl.html",
-    "<div id=\"header\" class=\"small row\" style=\"background-image: url('/assets/images/services-header.jpg');\">\n" +
+    "<div id=\"header\" class=\"small row\" style=\"background-image: url('./assets/images/services-header.jpg');\">\n" +
     "    <div class=\"col-md-10 lefttext\">\n" +
     "        <div class=\"inner\"><i class=\"ss-icon ss-merge\"></i>  Services</div>\n" +
     "    </div>\n" +
@@ -29495,7 +29495,7 @@ angular.module("account/services/spotify/menu.tmpl.html", []).run(["$templateCac
 
 angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("account/settings/settings.tmpl.html",
-    "<div id=\"header\" class=\"small row\" style=\"background-image: url('/assets/images/settings-header.jpg');\">\n" +
+    "<div id=\"header\" class=\"small row\" style=\"background-image: url('./assets/images/settings-header.jpg');\">\n" +
     "    <div class=\"col-md-10 lefttext\">\n" +
     "        <div class=\"inner\"><i class=\"ss-icon ss-settings\"></i>  Settings</div>\n" +
     "    </div>\n" +
@@ -29561,7 +29561,7 @@ angular.module("dashboard/dashboard.tmpl.html", []).run(["$templateCache", funct
 
 angular.module("discover/featured/featured.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("discover/featured/featured.tmpl.html",
-    "<div id=\"header\" class=\"big row\" style=\"background-image: url('/assets/images/discover-header.jpg');\">\n" +
+    "<div id=\"header\" class=\"big row\" style=\"background-image: url('./assets/images/discover-header.jpg');\">\n" +
     "    <div id=\"featured\">\n" +
     "        <div class=\"row\">\n" +
     "            <div class=\"col-md-8 col-md-offset-2\">\n" +
@@ -29791,7 +29791,7 @@ angular.module("music/menu.tmpl.html", []).run(["$templateCache", function($temp
 
 angular.module("music/playlists/playlists.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("music/playlists/playlists.tmpl.html",
-    "<div id=\"header\" class=\"small row\" style=\"background-image: url('/assets/images/playlists-header.jpg');\">\n" +
+    "<div id=\"header\" class=\"small row\" style=\"background-image: url('./assets/images/playlists-header.jpg');\">\n" +
     "    <div class=\"col-md-4 lefttext\">\n" +
     "        <div class=\"inner\"><i class=\"ss-icon ss-list\"></i>  Playlists</div>\n" +
     "    </div>\n" +
@@ -29819,7 +29819,7 @@ angular.module("music/playlists/playlists.tmpl.html", []).run(["$templateCache",
 
 angular.module("music/stations/stations.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("music/stations/stations.tmpl.html",
-    "<div id=\"header\" class=\"row\" ng-class=\"headerSize\" style=\"background-image: url('/assets/images/stations-header.jpg');\">\n" +
+    "<div id=\"header\" class=\"row\" ng-class=\"headerSize\" style=\"background-image: url('./assets/images/stations-header.jpg');\">\n" +
     "    <div class=\"col-md-4 lefttext\" ng-hide=\"creatingRadio\">\n" +
     "        <div class=\"inner\"><i class=\"ss-icon ss-wifi\"></i>  Stations</div>\n" +
     "    </div>\n" +
@@ -30027,7 +30027,7 @@ angular.module("search/menu.tmpl.html", []).run(["$templateCache", function($tem
 
 angular.module("search/search.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("search/search.tmpl.html",
-    "<div id=\"header\" ng-class=\"{ small: topresult.type == 'tracks', big: topresult.type != 'tracks' }\" style=\"background-image: url('/assets/images/discover-header.jpg');\">\n" +
+    "<div id=\"header\" ng-class=\"{ small: topresult.type == 'tracks', big: topresult.type != 'tracks' }\" style=\"background-image: url('./assets/images/discover-header.jpg');\">\n" +
     "    <div id=\"featured\">\n" +
     "        <div class=\"row\">\n" +
     "            <div class=\"col-md-8 col-md-offset-2\">\n" +
@@ -31063,7 +31063,7 @@ angular.module('mopify.music.tracklist', [
     // Grab params in var
     var uri = $routeParams.uri;
     // Set default coverimage
-    $scope.coverImage = '/assets/images/playlists-header.jpg';
+    $scope.coverImage = './assets/images/playlists-header.jpg';
     // Check mopidy state and call loadtracks function
     $scope.$on('mopidy:state:online', loadTracks);
     $scope.$on('mopidy:state:online', loadCurrentTrack);
@@ -31079,7 +31079,7 @@ angular.module('mopify.music.tracklist', [
       $scope.type = 'Album';
     if (uri.indexOf('mopidy:current') > -1) {
       $scope.type = 'tracklist';
-      $scope.coverImage = '/assets/images/tracklist-header.jpg';
+      $scope.coverImage = './assets/images/tracklist-header.jpg';
     }
     // Check if a name has been defined
     $scope.name = $routeParams.name !== undefined ? $routeParams.name : uri.indexOf('mopidy:') > -1 ? 'Current tracklist' : '';
@@ -32346,7 +32346,7 @@ angular.module('mopify.services.station', [
             spotify: null,
             tracks: tracks,
             name: 'Tracklist',
-            coverImage: '/assets/images/tracklist-header.jpg',
+            coverImage: './assets/images/tracklist-header.jpg',
             started_at: Date.now()
           };
         // Save the new station
