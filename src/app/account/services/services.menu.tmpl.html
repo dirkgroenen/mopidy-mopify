@@ -1,10 +1,10 @@
-<div id="accounts" ng-controller="AccountMenuController">
+<div id="accounts" ng-controller="AccountServicesMenuController">
     <div class="title"><a href="/#/account/services">Connected services</a></div>
 
-    <ng-include ng-if="connectedServices.spotify" src="'account/spotify/menu.tmpl.html'"></ng-include>
-    <ng-include ng-if="connectedServices.facebook" src="'account/facebook/menu.tmpl.html'"></ng-include>
+    <ng-include ng-if="connectedServices.spotify" src="'account/services/spotify/menu.tmpl.html'"></ng-include>
+    <ng-include ng-if="connectedServices.facebook" src="'account/services/facebook/menu.tmpl.html'"></ng-include>
 
-
+    <!-- connect left button -->
     <section id="addnew" class="account" ng-hide="connectedCount == totalServices || connectedCount == 0">
         <a href="#/account/services">
             <div class="profileimage icon">

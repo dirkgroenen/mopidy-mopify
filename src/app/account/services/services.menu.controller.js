@@ -1,10 +1,10 @@
 'use strict';
 
-angular.module("mopify.account", [
+angular.module("mopify.account.services.menu", [
     'LocalStorageModule'
 ])
 
-.controller("AccountMenuController", function AccountController($scope, localStorageService){
+.controller("AccountServicesMenuController", function AccountServicesMenuController($scope, localStorageService){
 
     function checkConnectedServices(event, service){
 

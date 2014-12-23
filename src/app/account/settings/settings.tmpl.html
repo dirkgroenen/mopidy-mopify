@@ -1,0 +1,21 @@
+<div id="header" class="small row" style="background-image: url('/assets/images/settings-header.jpg');">
+    <div class="col-md-10 lefttext">
+        <div class="inner"><i class="ss-icon ss-settings"></i>  Settings</div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Settings
+        </div>
+    </div>
+
+    <div class="pagecontent row">
+        <div id="tracklist" infinite-scroll="getMoreTracks()" infinite-scroll-distance="1">
+            <div class="row" ng-repeat="track in tracks track by $index" >
+                <mopify-track track="track" surrounding="tracks" currentplayingtrack="currentPlayingTrack" type="type"> </mopify-track>
+            </div>
+        </div>
+    </div>
+</div>
