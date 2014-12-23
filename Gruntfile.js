@@ -228,7 +228,7 @@ module.exports = function ( grunt ) {
                 },
                 src: [
                     '<%= vendor_files.js %>',
-                    '<%= html2js.common.dest %>',
+                    '<%= html2js.app.dest %>',
                     '<%= build_dir %>/src/**/*.js'
                 ],
                 dest: '<%= compile_dir %>/assets/<%= pkg.name %>-<%= pkg.version %>.js'
@@ -448,6 +448,11 @@ module.exports = function ( grunt ) {
         'clean:compile', 'copy:compile_assets', 'concat:compile_js', 'cssmin:combine', 'uglify', 'index:compile'
     ]);
 
+     /**
+      * The `build-mopidy-extension` task builds Mopidy extension package
+      */
+    grunt.registerTask( 'package', [ 'clean:mopidy', 'build', 'compile', 'copy:build_for_mopidy', 'mopidypackageversion' ] );
+
     /**
      * The default tasks to run.
      */
@@ -482,6 +487,20 @@ module.exports = function ( grunt ) {
             }
         });
     });
+
+    grunt.registerTask( 'mopidypackageversion', 'Create a mopidy package', function () {
+        grunt.file.copy('__init__.py.tmpl', grunt.config( 'mopidy_package_dir' ) + '/__init__.py', {
+            process: function ( contents, path ) {
+                return grunt.template.process( contents, {
+                    data: {
+                        version: grunt.config( 'pkg.version' )
+                    }
+                });
+            }
+        });
+        grunt.file.copy('ext.conf', grunt.config( 'mopidy_package_dir' ) + '/ext.conf');
+    });
+
     
     /**
       * A utility function to get all app JavaScript sources.
