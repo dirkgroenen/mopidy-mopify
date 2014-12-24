@@ -36,9 +36,15 @@ angular.module("mopify.services.spotifylogin", [
         this.getLoginStatus().then(function(resp){
             $rootScope.$broadcast("mopify:spotify:" + resp.status.replace(" ", ""));
         });
+
         $interval(this.getLoginStatus, 300000);
     }
 
+    /**
+     * Get the current login status from Spotify and return 
+     * if we're connected or not
+     * @return {$q.defer().promise}
+     */
     SpotifyLogin.prototype.getLoginStatus = function(){
         var that = this;
         var deferred = $q.defer();
@@ -73,6 +79,12 @@ angular.module("mopify.services.spotifylogin", [
         return deferred.promise;
     };
 
+    /**
+     * Open the Spotify login screen and start asking for the key
+     * The key will be saved on the bitlabs.nl localstorage which can be accessed
+     * through the created iframe
+     * @return {$q.defer().promise}
+     */
     SpotifyLogin.prototype.login = function(){
         var that = this;
         var deferred = $q.defer();
@@ -100,6 +112,26 @@ angular.module("mopify.services.spotifylogin", [
         return deferred.promise;
     };
 
+    /**
+     * Disconnect from Spotify
+     */
+    SpotifyLogin.prototype.disconnect = function(){
+        // Remove storage token
+        localStorage.removeItem("spotify-token");
+
+        // Clear Spotify auth token
+        Spotify.setAuthToken("");
+
+        // Set connected to false
+        this.connected = false;
+    };
+
+    /**
+     * Request a key from spotify.
+     * This is done by sending a request to the bitlabs server which will return the saved spotify key
+     * @param  {$.defer} deferred 
+     * @return {$.defer().promise}        
+     */
     SpotifyLogin.prototype.requestKey = function(deferred){
         var that = this;
         deferred = deferred || $q.defer();

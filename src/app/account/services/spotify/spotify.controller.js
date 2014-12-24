@@ -31,4 +31,10 @@ angular.module("mopify.account.spotify", [
             $scope.userProfile = data;
         });
     }
+
+    $scope.$on("mopify:services:disconnected", function(e, service){
+        if(service.name == "Spotify"){
+            SpotifyLogin.disconnect();
+        }
+    });
 });
