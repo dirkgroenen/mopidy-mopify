@@ -2,13 +2,14 @@
 
 angular.module('mopify.player', [
     'spotify',
-    'mopify.services.mopidy'
+    'mopify.services.mopidy',
+    'mopify.services.history'
 ])
 
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerController", function PlayerController($scope, Spotify, mopidyservice){
+.controller("PlayerController", function PlayerController($scope, Spotify, mopidyservice, History){
     $scope.trackTitle = "";
     $scope.trackArtist= "";
     $scope.playerBackground = "";
@@ -32,10 +33,14 @@ angular.module('mopify.player', [
 
         // Update information on a new track 
         $scope.$on('mopidy:event:trackPlaybackEnded', function(event, data) {
-            updatePlayerInformation(data.tl_track.track);
+            if(data.tl_track !== undefined)
+                updatePlayerInformation(data.tl_track.track);
         });
         $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
-            updatePlayerInformation(data.tl_track.track);
+            if(data.tl_track !== undefined){
+                updatePlayerInformation(data.tl_track.track);
+                addToHistory(data.tl_track.track);
+            }            
         });
 
     });
@@ -56,4 +61,13 @@ angular.module('mopify.player', [
         }
     }
 
+    /**
+     * Add a track to the history data
+     * @param {tl_tracl} track
+     */
+    function addToHistory(track){
+        if(track !== undefined && track !== null){
+            History.addTrack(track);
+        }
+    }
 });

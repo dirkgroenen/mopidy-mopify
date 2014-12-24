@@ -1,0 +1,37 @@
+<div id="header" class="small row" style="background-image: url('./assets/images/discover-header.jpg');">
+    <div class="col-md-4 lefttext">
+        <div class="inner"><i class="ss-icon ss-list"></i>  Browse</div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Discover <span class="sub">Browse</span>
+        </div>
+        <div class="col-md-6 col-md-offset-3 alignright">
+        </div>
+    </div>
+
+    <div class="pagecontent row">
+        <div id="tracklist">
+            <div class="row">
+                <div class="col-md-4">
+                     <div ng-repeat="track in tracks" ng-if="$index % 3 == 0">
+                        <mopify-browse track="track"></mopify-browse>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div ng-repeat="track in tracks" ng-if="$index % 3 == 1">
+                        <mopify-browse track="track"></mopify-browse>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div ng-repeat="track in tracks" ng-if="$index % 3 == 2">
+                        <mopify-browse track="track"></mopify-browse>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

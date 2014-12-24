@@ -21,6 +21,7 @@ angular.module('mopify', [
     'mopify.account.facebook',
     'mopify.music.tracklist',
     'ng-context-menu',
+    'mopify.discover.browse',
     'mopify.discover.featured',
     'mopify.discover.newreleases',
     'templates-app'
