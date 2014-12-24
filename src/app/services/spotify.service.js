@@ -2,7 +2,7 @@ angular.module("mopify.services.spotifylogin", [
     'spotify'
 ])
 
-.factory("SpotifyLogin", function($q, $timeout, $document, Spotify, $interval){
+.factory("SpotifyLogin", function($q, $rootScope, $timeout, $document, Spotify, $interval){
     "use strict";
 
     // Get body
@@ -33,7 +33,9 @@ angular.module("mopify.services.spotifylogin", [
         this.lastPositiveLoginCheck = 0;
 
         // Run the login check on create and set the interval to check every five minutes
-        this.getLoginStatus();
+        this.getLoginStatus().then(function(resp){
+            $rootScope.$broadcast("mopify:spotify:" + resp.status.replace(" ", ""));
+        });
         $interval(this.getLoginStatus, 300000);
     }
 

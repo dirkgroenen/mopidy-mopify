@@ -7,7 +7,7 @@ angular.module("mopify.discover.newreleases", [
     'mopify.services.util',
     'mopify.services.station',
     'mopify.widgets.directive.playlist',
-    'LocalStorageModule'
+    'mopify.services.settings'
 ])
 
 .config(function($routeProvider) {
@@ -18,15 +18,15 @@ angular.module("mopify.discover.newreleases", [
 })
 
 
-.controller("DiscoverNewReleasesController", function DiscoverNewReleasesController($rootScope, $scope, $timeout, mopidyservice, SpotifyLogin, Spotify, util, stationservice, localStorageService){
+.controller("DiscoverNewReleasesController", function DiscoverNewReleasesController($rootScope, $scope, $timeout, mopidyservice, SpotifyLogin, Spotify, util, stationservice, Settings){
 
     $scope.newreleases = [];
     $scope.titletext = "Get to know the latest releases";
     $scope.headeralbum = {};
 
-    // Load the feautured playlists when a connection with mopidy has been established
-    $scope.$on("mopidy:state:online", loadNewReleases);
-    if(mopidyservice.isConnected)
+    // Load the feautured playlists when a connection with spotify has been established
+    $scope.$on("mopify:spotify:connected", loadNewReleases);
+    if(SpotifyLogin.connected)
         loadNewReleases();
 
     /**
@@ -34,7 +34,7 @@ angular.module("mopify.discover.newreleases", [
      */
     function loadNewReleases(){
         if(SpotifyLogin.connected){
-            var country = localStorageService.get("settings").country || "GB";
+            var country = Settings.get("country", "GB");
 
             // Get the new releases from Spotify
             Spotify.getNewReleases({
@@ -47,7 +47,8 @@ angular.module("mopify.discover.newreleases", [
                 $scope.titletext = $scope.headeralbum.name;
 
                 // Load the tracks for the featured header album
-                loadHeaderAlbumTracks();
+                if(mopidyservice.isConnected)
+                    loadHeaderAlbumTracks();
             });
         }
         else{

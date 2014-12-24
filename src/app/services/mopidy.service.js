@@ -4,8 +4,11 @@
  */
 'use strict';
 
-angular.module('mopify.services.mopidy', [])
-.factory("mopidyservice", function($q, $rootScope, $cacheFactory){
+angular.module('mopify.services.mopidy', [
+    "mopify.services.settings"
+])
+
+.factory("mopidyservice", function($q, $rootScope, $cacheFactory, Settings){
 	// Create consolelog object for Mopidy to log it's logs on
     var consoleError = console.error.bind(console);
 
@@ -63,6 +66,8 @@ angular.module('mopify.services.mopidy', [])
 		return context[func].apply(context, args);
 	}
 
+
+
 	return {
 		mopidy: {},
 		isConnected: false,
@@ -77,9 +82,13 @@ angular.module('mopify.services.mopidy', [])
 			// Emit message that we're starting the Mopidy service
 			$rootScope.$broadcast("mopify:startingmopidy");
 
+            // Get mopidy ip and port from settigns
+            var mopidyip = Settings.get("mopidyip", "localhost");
+            var mopidyport = Settings.get("mopidyport", "6680");
+
 			// Initialize mopidy
 			this.mopidy = new Mopidy({
-				webSocketUrl: "ws://192.168.1.11:6680/mopidy/ws", // FOR DEVELOPING 
+				webSocketUrl: "ws://" + mopidyip + ":" + mopidyport + "/mopidy/ws", // FOR DEVELOPING 
 				callingConvention: 'by-position-or-by-name'
 			});
 			

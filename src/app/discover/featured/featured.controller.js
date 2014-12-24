@@ -3,6 +3,7 @@
 angular.module("mopify.discover.featured", [
     'mopify.services.mopidy',
     'mopify.services.spotifylogin',
+    'mopify.services.settings',
     'spotify',
     'mopify.services.util',
     'mopify.services.station',
@@ -18,15 +19,15 @@ angular.module("mopify.discover.featured", [
 })
 
 
-.controller("DiscoverFeaturedController", function DiscoverFeaturedController($rootScope, $scope, $timeout, mopidyservice, Spotify, SpotifyLogin, util, stationservice, localStorageService){
+.controller("DiscoverFeaturedController", function DiscoverFeaturedController($rootScope, $scope, $timeout, mopidyservice, Spotify, Settings, SpotifyLogin, util, stationservice, localStorageService){
 
     $scope.featuredplaylists = [];
     $scope.titletext = "Loading...";
     $scope.headerplaylist = {};
 
-    // Load the feautured playlists when a connection with mopidy has been established
-    $scope.$on("mopidy:state:online", loadFeaturedPlaylists);
-    if(mopidyservice.isConnected)
+    // Load the feautured playlists when a connection with spotify has been established
+    $scope.$on("mopify:spotify:connected", loadFeaturedPlaylists);
+    if(SpotifyLogin.connected)
         loadFeaturedPlaylists();
 
     /**
@@ -35,8 +36,8 @@ angular.module("mopify.discover.featured", [
     function loadFeaturedPlaylists(){
         // Check if we are logged in to spotify 
         if(SpotifyLogin.connected){
-            var locale = localStorageService.get("settings").locale || "en_GB";
-            var country = localStorageService.get("settings").country || "GB";
+            var locale = Settings.get("locale", "en_GB");
+            var country = Settings.get("country", "GB");
 
             // Get the featured playlists from spotify
             Spotify.getFeaturedPlaylists({
