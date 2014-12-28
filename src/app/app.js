@@ -64,7 +64,8 @@ angular.module('mopify', [
 
         // Get the track for the page title
         mopidyservice.getCurrentTrack().then(function(track){
-            updateTitle(track);
+            if(data.tl_track !== undefined)
+                updateTitle(track);
         });
     });
 
