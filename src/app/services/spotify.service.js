@@ -37,7 +37,10 @@ angular.module("mopify.services.spotifylogin", [
             $rootScope.$broadcast("mopify:spotify:" + resp.status.replace(" ", ""));
         });
 
-        $interval(this.getLoginStatus, 300000);
+        var that = this;
+        $interval(function(){
+            that.getLoginStatus();
+        }, 5000);
     }
 
     /**
@@ -48,7 +51,7 @@ angular.module("mopify.services.spotifylogin", [
     SpotifyLogin.prototype.getLoginStatus = function(){
         var that = this;
         var deferred = $q.defer();
-
+        
         // Check with last login check
         if(Date.now() - that.lastPositiveLoginCheck > 600000){
             // Set the old token from the localstorage and check if that one still works
