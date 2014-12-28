@@ -24,7 +24,8 @@ angular.module('mopify', [
     'mopify.discover.browse',
     'mopify.discover.featured',
     'mopify.discover.newreleases',
-    'templates-app'
+    'templates-app',
+    'llNotifier'
 ])
 
 .config(['localStorageServiceProvider', 'EchonestProvider', 'SpotifyProvider', function(localStorageServiceProvider, EchonestProvider, SpotifyProvider){
@@ -36,13 +37,16 @@ angular.module('mopify', [
     SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
 }])
 
-.controller("AppController", function AppController($scope, mopidyservice){
+.controller("AppController", function AppController($scope, $rootScope, $http, mopidyservice, notifier){
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
     };
 
     var defaultPageTitle = 'Mopify';
+
+    // Set version in the rootscope
+    $rootScope.mopifyversion = "1.0.0";
 
     // Watch for track changes so we can update the title
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
@@ -84,4 +88,23 @@ angular.module('mopify', [
         if(track !== null && track !== undefined)
             $scope.pageTitle = track.name + " - " + track.artists[0].name + " | " + defaultPageTitle;
     }
+
+    /**
+     * Check for a newer Mopify version by getting the Github releases
+     */
+    function checkMopifyVersion(){
+        $scope.newversion = false;
+
+        // Get releases from github
+        $http.get('https://api.github.com/repos/dirkgroenen/mopidy-mopify/releases').success(function(data){
+            if(data[0] !== undefined){
+                var lastversion = data[0].tag_name;
+                
+                if($rootScope.mopifyversion != lastversion){
+                    notifier.notify({type: "custom", template: "A new version is available. Please read the <a href='https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md' target='_blank'>README</a> on how to update Mopify.", delay: 7500});
+                }
+            }
+        });
+    }
+    checkMopifyVersion();
 });
