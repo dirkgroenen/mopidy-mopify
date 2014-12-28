@@ -23,7 +23,7 @@ angular.module("mopify.services.settings", [
      * @param  {string} defaultvalue 
      */
     Settings.prototype.get = function(key, defaultvalue){
-        return (localStorageService.get(rootkey) !== null) ? localStorageService.get(rootkey)[key] : defaultvalue;
+        return (localStorageService.get(rootkey) !== null && localStorageService.get(rootkey)[key] !== undefined) ? localStorageService.get(rootkey)[key] : defaultvalue;
     };
 
     /**

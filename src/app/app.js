@@ -70,6 +70,9 @@ angular.module('mopify', [
         $scope.$apply();
     });
 
+    // Set the mopidyserver
+    $scope.mopidyserer = "localhost8080";
+
     // Start the mopidy service
     mopidyservice.start();
 
