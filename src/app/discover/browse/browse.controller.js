@@ -3,6 +3,7 @@
 angular.module("mopify.discover.browse", [
     'mopify.services.mopidy',
     'mopify.services.history',
+    'mopify.services.facebook',
     'mopify.widgets.directive.browse',
     'mopify.services.tasteprofile',
     'angular-echonest',
@@ -17,7 +18,7 @@ angular.module("mopify.discover.browse", [
 })
 
 
-.controller("DiscoverBrowseController", function DiscoverBrowseController($scope, $http, mopidyservice, History, TasteProfile, Echonest){
+.controller("DiscoverBrowseController", function DiscoverBrowseController($scope, $http, mopidyservice, History, Facebook, TasteProfile, Echonest){
     var history = History.getTracks().reverse().splice(0, 50);
     var echonest = [];
     var builtblocks = [];
