@@ -37,7 +37,7 @@ angular.module('mopify', [
     SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
 }])
 
-.controller("AppController", function AppController($scope, $rootScope, $http, mopidyservice, notifier){
+.controller("AppController", function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier){
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
@@ -73,6 +73,11 @@ angular.module('mopify', [
     $scope.$on('mopidy:state:offline', function() {
         $scope.connectionState = connectionStates.offline;
         $scope.$apply();
+    });
+
+    $scope.$on('$viewContentLoaded', function(event) {
+        console.log($location.path());
+        $window.ga('send', 'pageview', { page: $location.path() });
     });
 
     // Set the mopidyserver
