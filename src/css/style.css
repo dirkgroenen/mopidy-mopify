@@ -1059,6 +1059,16 @@ img[src=""] {
     width: 100%;
 }
 
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap .icon{
+    margin-top: 0;
+}
+
 /* START Application player styling */
 #application #player{
     position: fixed;

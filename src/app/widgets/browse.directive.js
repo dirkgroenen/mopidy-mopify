@@ -19,12 +19,12 @@ angular.module('mopify.widgets.directive.browse', [
             scope.spotifyuri = null;
            
             if(scope.item.type == "echonest"){
-                scope.titleslogan = "Here's something you might like:";
+                scope.titleslogan = (Math.floor(Math.random() * 2) == 1) ? "Here's something you might like:" : "Recommended for you:";
                 scope.spotifyuri = scope.item.echonest.tracks[0].foreign_id;
 
                 Spotify.getTrack(scope.spotifyuri).then(function(response){
-                    console.log(response);
                     scope.image = response.album.images[0].url;
+                    scope.spotifyuri = response.album.uri;
                 });
 
                 scope.suggestion = {

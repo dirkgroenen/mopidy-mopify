@@ -18,7 +18,7 @@ angular.module("mopify.discover.browse", [
 
 
 .controller("DiscoverBrowseController", function DiscoverBrowseController($scope, $http, mopidyservice, History, TasteProfile, Echonest){
-    var history = History.getTracks().reverse().splice(0, 100);
+    var history = History.getTracks().reverse().splice(0, 50);
     var echonest = [];
     var builtblocks = [];
     $scope.blocks = [];
