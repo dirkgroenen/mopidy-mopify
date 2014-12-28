@@ -830,6 +830,7 @@ img[src=""] {
     margin-top: 100%;
 }
 
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap,
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap{
     position: absolute;
     top: 0;
@@ -845,12 +846,22 @@ img[src=""] {
     transition: all .3s ease;
 }
 
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap:hover,
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap:hover{
     opacity: 1;
 }
 
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap,
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap,
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .iconwrap,
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .iconwrap{
+    height: 100%;
+    top: 50%;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .icon,
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon{
-    margin-top: 50%;
+    top: 50%;
     -webkit-transform: translateY(-45%);
     -moz-transform: translateY(-45%);
     transform: translateY(-45%);
@@ -861,17 +872,22 @@ img[src=""] {
     -moz-transition: all .3s ease;
     transition: all .3s ease;
     color: #bfbfbf;
+    text-align: center;
 }
 
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .icon.small,
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon.small{
     font-size: 20px;
 }
 
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .icon a,
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon a{
     color: #bfbfbf;
     text-decoration: none !important;
 }
 
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap a:hover,
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap .icon:hover,
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .iconwrap a:hover,
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .iconwrap .icon:hover{
     color: white;
@@ -1043,6 +1059,7 @@ img[src=""] {
 }
 
 #application #overview .pagecontent #browsewrap .browseitem .imagewrap{
+    position: relative;
     width: 100%;
 }
 

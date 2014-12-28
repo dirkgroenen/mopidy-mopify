@@ -18,6 +18,7 @@ angular.module('mopify.widgets.directive.browse', [
         link: function(scope, element, attrs) {
             var suggestrandom = Math.floor(Math.random() * 3);
             var suggestiontype = "";
+            var spotifyuri = null;
 
             if(suggestrandom === 0)
                 suggestiontype = "track";
@@ -44,7 +45,7 @@ angular.module('mopify.widgets.directive.browse', [
                 else if(suggestiontype == "artist")
                     scope.titleslogan = "You listened to <a href='#/music/artist/" + scope.item.history[0].track.artists[0].uri + "'>" + scope.item.history[0].track.artists[0].name + "</a>. You might like this artist too:";
                 else if(suggestiontype == "album")
-                    scope.titleslogan = "Have you heard of <a href='#/music/tracklist/" + scope.item.history[0].track.album.uri + "'>" + scope.item.history[0].track.album.name + "</a>. Here's an album you might like:";
+                    scope.titleslogan = "You have listened to <a href='#/music/tracklist/" + scope.item.history[0].track.album.uri + "'>" + scope.item.history[0].track.name + "</a>. Here's an album you might like:";
             }
             else if(scope.item.history.length === 2){
                 if(suggestiontype == "track")
@@ -58,17 +59,45 @@ angular.module('mopify.widgets.directive.browse', [
 
             // Get spotify information for the echonest item
             if(suggestiontype == "artist"){
-                Spotify.getArtist(scope.item.echonest.artist_foreign_ids[0].foreign_id).then(function(data){
+                spotifyuri = scope.item.echonest.artist_foreign_ids[0].foreign_id;
+
+                Spotify.getArtist(spotifyuri).then(function(data){
                     scope.spotify = data;
                 });
             }
             else{
                 Spotify.getTrack(scope.item.echonest.tracks[0].foreign_id).then(function(data){
                     scope.spotify = data;
-                    scope.spotify.artiststring = $sce.trustAsHtml(util.artistsToString(data.artists, true));
+                    scope.spotify.artiststring = $sce.trustAsHtml(util.artistsToString(data.artists));
+
+                    if(suggestiontype == "track")
+                        spotifyuri = scope.item.echonest.tracks[0].foreign_id;
+
+                    if(suggestiontype == "album")
+                        spotifyuri = data.album.uri;
+
                 });    
             }
             
+            // Play the suggestion
+            scope.play = function(){
+                if(suggestiontype == "artist"){
+                    mopidyservice.lookup(spotifyuri).then(function(tracks){
+                        var playtracks = tracks.splice(0,25);
+                        mopidyservice.playTrack(playtracks[0], playtracks);
+                    }); 
+                }
+                else{
+                    mopidyservice.lookup(spotifyuri).then(function(tracks){
+                        mopidyservice.playTrack(tracks[0], tracks);
+                    }); 
+                }
+            };
+
+            // Start a station
+            scope.startStation = function(){
+                stationservice.startFromSpotifyUri(spotifyuri);
+            };
         }
     };
 
