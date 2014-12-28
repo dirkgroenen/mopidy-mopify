@@ -1,1 +1,1 @@
-The vendor dependencies in this directory have been extended or customized for Mopify. When developing you have to run ```bower install`` to install the other dependencies. 
+The vendor dependencies in this directory have been extended or customized for Mopify. When developing you have to run ``bower install`` to install the other dependencies. 
