@@ -35,6 +35,10 @@ img[src=""] {
 .alignright{
     text-align: right;
 }
+
+.aligncenter{
+    text-align: center;
+}
     
 .button{
     padding: 10px 15px;
@@ -1010,6 +1014,40 @@ img[src=""] {
 
 #application #overview .pagecontent .settingwrap .description p{
     margin: 0 0 10px 0;
+}
+
+/* Start discover browse styling */
+#application #overview .pagecontent #browsewrap{
+
+}
+
+#application #overview .pagecontent #browsewrap .browseitem{
+    width: 90%;
+    margin-bottom: 50px;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 4px rgba(0,0,0,.1);
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .text{
+    padding: 20px;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .text .title{
+    color: #404040;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .text .artist{
+    color: #777;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap{
+    width: 100%;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap img{
+    width: 100%;
 }
 
 /* START Application player styling */

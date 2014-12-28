@@ -1,11 +1,12 @@
-<div class="browse">
-    
-    <div class="row">
-        <div class="col-md-10 col-offset-md-1">
-            <div class="name">
-                You have listened to {{ track.name }} 
-            </div>
-        </div>
-        
+<div class="browseitem">
+    <div class="text">
+        You have listened to <a href='#/music/tracklist/{{ item.track.album.uri }}'>{{ item.track.name }}</a>. Here's something you might like:
+    </div>
+    <div class="imagewrap">
+        <img ng-src="{{ item.meta.images[0].url }}" />
+    </div>  
+    <div class="text">
+        <span class="title">Where you let me go</span><br>
+        <span class="artist">Ben Howard</span>
     </div>
 </div>

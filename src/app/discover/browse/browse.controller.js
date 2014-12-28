@@ -15,7 +15,5 @@ angular.module("mopify.discover.browse", [
 
 
 .controller("DiscoverBrowseController", function DiscoverBrowseController($scope, mopidyservice, History){
-    $scope.tracks = _.map(History.getTracks().reverse(), function(item){
-        return item.track;
-    });
+    $scope.tracks = History.getTracks().reverse();
 });

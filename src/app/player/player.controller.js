@@ -39,7 +39,6 @@ angular.module('mopify.player', [
         $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
             if(data.tl_track !== undefined){
                 updatePlayerInformation(data.tl_track.track);
-                addToHistory(data.tl_track.track);
             }            
         });
 
@@ -57,6 +56,9 @@ angular.module('mopify.player', [
             // Get the background image from Spotify
             Spotify.getTrack(track.uri).then(function (data) {
                 $scope.playerBackground = data.album.images[0].url;
+
+                // Add to history
+                addToHistory(track, data.album.images);
             });
         }
     }
@@ -64,10 +66,13 @@ angular.module('mopify.player', [
     /**
      * Add a track to the history data
      * @param {tl_tracl} track
+     * @param {array} images
      */
-    function addToHistory(track){
+    function addToHistory(track, images){
         if(track !== undefined && track !== null){
-            History.addTrack(track);
+            History.addTrack(track, {
+                images: images
+            });
         }
     }
 });

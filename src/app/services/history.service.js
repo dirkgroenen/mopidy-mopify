@@ -1,9 +1,8 @@
 angular.module("mopify.services.history", [
-    'mopify.services.mopidy',
     'LocalStorageModule'
 ])
 
-.factory("History", function(mopidyservice, localStorageService){
+.factory("History", function(localStorageService){
     "use strict";
 
     var storagekey = "history";
@@ -19,15 +18,24 @@ angular.module("mopify.services.history", [
         }
     }
 
-    History.prototype.addTrack = function(track) {
+    History.prototype.addTrack = function(track, meta) {
         // Create trackobject with track and added time
         var trackobject = {
             track: track,
+            meta: meta,
             created: Date.now()
         };
 
         // Add track
         this.historystorage.tracks.push(trackobject);
+
+        // Create an unique version of the tracks based on the track uri
+        var unique = _.uniq(this.historystorage.tracks, function(t){
+            return t.track.uri;
+        });
+
+        // Save the unique array
+        this.historystorage.tracks = unique;
 
         // Save to storage
         localStorageService.set(storagekey, this.historystorage);

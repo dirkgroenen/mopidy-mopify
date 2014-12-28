@@ -14,21 +14,26 @@
     </div>
 
     <div class="pagecontent row">
-        <div id="tracklist">
+        <div id="browsewrap">
             <div class="row">
-                <div class="col-md-4">
-                     <div ng-repeat="track in tracks" ng-if="$index % 3 == 0">
-                        <mopify-browse track="track"></mopify-browse>
+                <div class="col-md-3">
+                     <div ng-repeat="item in tracks" ng-if="$index % 4 == 0">
+                        <mopify-browse item="item"></mopify-browse>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div ng-repeat="track in tracks" ng-if="$index % 3 == 1">
-                        <mopify-browse track="track"></mopify-browse>
+                <div class="col-md-3">
+                    <div ng-repeat="item in tracks" ng-if="$index % 4 == 1">
+                        <mopify-browse item="item"></mopify-browse>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div ng-repeat="track in tracks" ng-if="$index % 3 == 2">
-                        <mopify-browse track="track"></mopify-browse>
+                <div class="col-md-3">
+                    <div ng-repeat="item in tracks" ng-if="$index % 4 == 2">
+                        <mopify-browse item="item"></mopify-browse>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div ng-repeat="item in tracks" ng-if="$index % 4 == 3">
+                        <mopify-browse item="item"></mopify-browse>
                     </div>
                 </div>
             </div>
