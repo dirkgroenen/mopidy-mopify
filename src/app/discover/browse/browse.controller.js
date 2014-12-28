@@ -18,8 +18,9 @@ angular.module("mopify.discover.browse", [
 
 
 .controller("DiscoverBrowseController", function DiscoverBrowseController($scope, $http, mopidyservice, History, TasteProfile, Echonest){
-    var history = History.getTracks();
+    var history = History.getTracks().reverse().splice(0, 100);
     var echonest = [];
+    var builtblocks = [];
     $scope.blocks = [];
 
     // Get a catalog radio based on the tasteprofile id 
@@ -36,27 +37,31 @@ angular.module("mopify.discover.browse", [
 
     Echonest.playlist.static(parameters).then(function(songs){
         echonest = songs;
+
+        prebuildblocks();
         $scope.buildblocks();
     });
 
-    $scope.buildblocks = function(){
-        var blocks = [];
-        var maxruns = 12;
-
-        while(history.length > 0 && echonest.length > 0 && maxruns > 0){
-            var rnd = Math.floor(Math.random() * history.length);
-            var picknmbr = Math.floor(Math.random() * 3);
-            var items = history.splice(rnd, picknmbr);
-            var echonestitem = echonest.splice(0,1);
-
-            blocks.push({
-                echonest: echonestitem[0],
-                history: items
+    function prebuildblocks(){
+        _.forEach(echonest, function(item){
+            builtblocks.push({
+                type: "echonest",
+                echonest: item
             });
+        });
 
-            maxruns--;
-        }
-        
-        $scope.blocks = $scope.blocks.concat(blocks);
+        _.forEach(history, function(item){
+            builtblocks.push({
+                type: "artist",
+                artist: item.track.artists[0]
+            });
+        });
+
+        // Shuffle the array
+        builtblocks = _.shuffle(builtblocks);
+    }
+
+    $scope.buildblocks = function(){
+        $scope.blocks = $scope.blocks.concat(builtblocks.splice(0, 12));
     };
 });

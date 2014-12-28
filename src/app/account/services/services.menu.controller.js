@@ -13,7 +13,7 @@ angular.module("mopify.account.services.menu", [
 
         // If service is defined we use that one's connected value to override the connectedService
         if(service !== undefined){
-            $scope.connectedServices[service.name.toLowerCase()] = service.connected;
+            $scope.connectedServices[service.name.replace(" ", "").toLowerCase()] = service.connected;
         }
 
         $scope.totalServices = Object.keys($scope.connectedServices).length;

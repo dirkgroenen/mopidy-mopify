@@ -6,8 +6,8 @@
         <div class="hoverwrap">
             <div class="iconwrap row">
                 <div class="icon small col-md-4">
-                    <a href="#/music/artist/{{ spotify.uri }}" ng-if="suggestiontype == 'artist'"><i class="ss-icon ss-list"></i></a>
-                    <a href="#/music/tracklist/{{ spotify.album.uri }}" ng-if="suggestiontype != 'artist'"><i class="ss-icon ss-list"></i></a>
+                    <a href="#/music/artist/{{ spotifyuri }}" ng-if="item.type == 'artist'"><i class="ss-icon ss-list"></i></a>
+                    <a href="#/music/tracklist/{{ spotifyuri }}" ng-if="item.type == 'echonest'"><i class="ss-icon ss-list"></i></a>
                 </div>
                 <div class="icon col-md-4">
                     <i class="ss-icon ss-play" ng-click="play()"></i>
@@ -18,11 +18,10 @@
             </div>
         </div>
 
-        <img ng-src="{{ spotify.album.images[1].url }}" ng-if="suggestiontype != 'artist'"/>
-        <img ng-src="{{ spotify.images[1].url }}" ng-if="suggestiontype == 'artist'"/>
+        <img ng-src="{{ image }}"/>
     </div>  
     <div class="text">
-        <span class="title">{{ spotify.name }}</span><br>
-        <span class="artist" ng-if="suggestiontype != 'artist'">{{ spotify.artiststring }}</span>
+        <span class="title">{{ suggestion.name }}</span><br>
+        <span class="artist" ng-if="suggestion.artist">{{ suggestion.artist }}</span>
     </div>
 </div>

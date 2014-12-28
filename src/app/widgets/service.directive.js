@@ -20,7 +20,7 @@ angular.module('mopify.widgets.directive.service', [
              * Connect the service with mopify
              */
             scope.connectService = function(){
-                var servicekey = scope.service.name.toLowerCase();
+                var servicekey = scope.service.name.replace(" ", "").toLowerCase();
                 scope.service.connected = true;
 
                 connectedServices[servicekey] = true;
@@ -36,7 +36,7 @@ angular.module('mopify.widgets.directive.service', [
              * Disconnect the service from mopify
              */
             scope.disconnectService = function(){
-                var servicekey = scope.service.name.toLowerCase();
+                var servicekey = scope.service.name.replace(" ", "").toLowerCase();
                 scope.service.connected = false;
 
                 connectedServices[servicekey] = false;

@@ -1,8 +1,9 @@
 angular.module("mopify.services.tasteprofile", [
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'llNotifier'
 ])
 
-.factory("TasteProfile", function($http, $q, localStorageService){
+.factory("TasteProfile", function($http, $q, localStorageService, notifier){
     "use strict";
 
     var apiUrl = "http://developer.echonest.com/api/v4/";

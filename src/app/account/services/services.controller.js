@@ -39,7 +39,7 @@ angular.module("mopify.account.services", [
 
         for(var x = 0; x < $scope.availableServices.length; x++){
             var service = $scope.availableServices[x];
-            $scope.connectedServices[service.name.toLowerCase()] = false;
+            $scope.connectedServices[service.name.replace(" ", "").toLowerCase()] = false;
         }
     }
 });
