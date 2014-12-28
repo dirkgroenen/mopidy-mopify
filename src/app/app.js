@@ -28,14 +28,18 @@ angular.module('mopify', [
     'llNotifier'
 ])
 
-.config(['localStorageServiceProvider', 'EchonestProvider', 'SpotifyProvider', function(localStorageServiceProvider, EchonestProvider, SpotifyProvider){
+.config(function($routeProvider, localStorageServiceProvider, EchonestProvider, SpotifyProvider){
     localStorageServiceProvider.setPrefix("mopify");
     EchonestProvider.setApiKey("UVUDDM7M0S5MWNQFV");
 
     SpotifyProvider.setClientId('b6b699a5595b406d9bfba11bee303aa4');
     SpotifyProvider.setRedirectUri('http://mopify.bitlabs.nl/auth/spotify/callback/');
     SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
-}])
+
+    $routeProvider.otherwise({
+        redirectTo: '/discover/featured'
+    });
+})
 
 .controller("AppController", function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier){
     var connectionStates = {
