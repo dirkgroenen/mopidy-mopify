@@ -14,25 +14,25 @@
     </div>
 
     <div class="pagecontent row">
-        <div id="browsewrap">
+        <div id="browsewrap" infinite-scroll="buildblocks()" infinite-scroll-distance="1">
             <div class="row">
                 <div class="col-md-3">
-                     <div ng-repeat="item in tracks" ng-if="$index % 4 == 0">
+                     <div ng-repeat="item in blocks" ng-if="$index % 4 == 0">
                         <mopify-browse item="item"></mopify-browse>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div ng-repeat="item in tracks" ng-if="$index % 4 == 1">
+                    <div ng-repeat="item in blocks" ng-if="$index % 4 == 1">
                         <mopify-browse item="item"></mopify-browse>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div ng-repeat="item in tracks" ng-if="$index % 4 == 2">
+                    <div ng-repeat="item in blocks" ng-if="$index % 4 == 2">
                         <mopify-browse item="item"></mopify-browse>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div ng-repeat="item in tracks" ng-if="$index % 4 == 3">
+                    <div ng-repeat="item in blocks" ng-if="$index % 4 == 3">
                         <mopify-browse item="item"></mopify-browse>
                     </div>
                 </div>

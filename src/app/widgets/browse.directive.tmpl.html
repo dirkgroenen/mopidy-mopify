@@ -1,12 +1,13 @@
 <div class="browseitem">
     <div class="text">
-        You have listened to <a href='#/music/tracklist/{{ item.track.album.uri }}'>{{ item.track.name }}</a>. Here's something you might like:
+        <span ng-bind-html="titleslogan"></span>
     </div>
     <div class="imagewrap">
-        <img ng-src="{{ item.meta.images[0].url }}" />
+        <img ng-src="{{ spotify.album.images[1].url }}" ng-if="suggestiontype != 'artist'"/>
+        <img ng-src="{{ spotify.images[1].url }}" ng-if="suggestiontype == 'artist'"/>
     </div>  
     <div class="text">
-        <span class="title">Where you let me go</span><br>
-        <span class="artist">Ben Howard</span>
+        <span class="title">{{ spotify.name }}</span><br>
+        <span class="artist" ng-bind-html="spotify.artiststring" ng-if="suggestiontype != 'artist'"></span>
     </div>
 </div>
