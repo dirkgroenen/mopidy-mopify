@@ -3,7 +3,8 @@
 angular.module("mopify.discover.browse", [
     'mopify.services.mopidy',
     'mopify.services.history',
-    'mopify.widgets.directive.browse'
+    'mopify.widgets.directive.browse',
+    'mopify.services.tasteprofile'
 ])
 
 .config(function($routeProvider) {
@@ -14,6 +15,7 @@ angular.module("mopify.discover.browse", [
 })
 
 
-.controller("DiscoverBrowseController", function DiscoverBrowseController($scope, mopidyservice, History){
+.controller("DiscoverBrowseController", function DiscoverBrowseController($scope, $http, mopidyservice, History, TasteProfile){
     $scope.tracks = History.getTracks().reverse();
+
 });
