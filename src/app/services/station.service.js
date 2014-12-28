@@ -17,16 +17,21 @@ angular.module('mopify.services.station', [
     var stationPlaying = false;
     var echonestTracksQueue = [];
     
+    /**
+     * Process a number of tracks from the echonestTracksQue
+     * @return {$q.defer} a promise 
+     */
     function processMopidyTracklist(){
-        var TRACKSPERBATCH = 10;
         var deferred = $q.defer();
 
         // The reponse from echonest only contains the artist name and track title. We need to look up the tracks in mopidy and add them
         // This is done in batches to prevent mopidy from overloading
         if(echonestTracksQueue.length > 0){
-            generateMopidyTracks(TRACKSPERBATCH).then(function(tracks){
-                addTracksToMopidy(tracks).then(function(response){
-                    $timeout(processMopidyTracklist, 5000);
+            generateMopidyTracks().then(function(tracks){
+                console.log(tracks);
+
+                mopidyservice.addToTracklist({ tracks: tracks }).then(function(response){
+                    $timeout(processMopidyTracklist, 1000);
 
                     deferred.resolve(response);
                 });
@@ -36,38 +41,26 @@ angular.module('mopify.services.station', [
         return deferred.promise;
     }
 
-    function generateMopidyTracks(number){
+    /**
+     * Generate Mopidy tracks from the echonestTracksQueue in batches
+     * @return {$q.defer} a promise 
+     */
+    function generateMopidyTracks(){
         // Get tracks from array
-        var batch = echonestTracksQueue.splice(0, number);
-        var mopidytracks = [];
-        var done = 0;
-
+        var batch = echonestTracksQueue.splice(0, 10);
         var deferred = $q.defer();
 
-        for(var x = 0; x < batch.length; x++){
-            var track = batch[x];
-            mopidyservice.searchTrack(track.artist_name, track.title).then(resolveBatchTracks);
-        }
+        // Map the uri from the echonest results
+        var songuris = _.map(batch, function(song){
+            return song.tracks[0].foreign_id;
+        });
 
-        function resolveBatchTracks(data){
-            done++;
+        // Find all uris in mopidy
+        mopidyservice.findExact({ uri: songuris }).then(function(result){
+            deferred.resolve(result[0].tracks);
+        });
 
-            if(data[0].tracks){
-                var mopidytrack = data[0].tracks[0];
-                mopidytracks.push(mopidytrack);
-            }
-
-            if(done == number){
-                deferred.resolve(mopidytracks);
-            }
-        }
-
-        return deferred.promise;
-        
-    }
-
-    function addTracksToMopidy(tracks){
-        return mopidyservice.addToTracklist({ tracks: tracks});
+        return deferred.promise;        
     }
 
     /**
@@ -78,7 +71,7 @@ angular.module('mopify.services.station', [
     function prepareParameters(station){
         var parameters = {
             results: 50,
-            bucket: 'id:spotify',
+            bucket: ['id:spotify', 'tracks'],
             limit: true
         };
 
@@ -125,6 +118,11 @@ angular.module('mopify.services.station', [
         return deferred.promise;
     }
 
+    /**
+     * Get 5 track ids from the given tracks (random)
+     * @param  {array} tracks 
+     * @return {array}        the spotify track ids
+     */
     function createTrackIdsList(tracks){
         // Get items and shuffle
         var items = tracks.items || tracks; 
@@ -159,10 +157,16 @@ angular.module('mopify.services.station', [
                         mopidyservice.playTrackAtIndex(0);
                     });
                 });
+                
             }); 
         });
     }
 
+    /**
+     * Get the Spotify object from the given uri
+     * @param  {string} uri
+     * @return {object}     Spotify object
+     */
     function getSpotifyObject(uri){
         var urisplitted = uri.split(":");
         var deferred = $q.defer();
