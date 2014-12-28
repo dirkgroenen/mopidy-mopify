@@ -50,7 +50,8 @@ angular.module('mopify', [
 
     // Watch for track changes so we can update the title
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
-        updateTitle(data.tl_track.track);
+        if(data.tl_track !== undefined)
+            updateTitle(data.tl_track.track);
     });
 
     // Page title and connection state to $scope
@@ -64,8 +65,7 @@ angular.module('mopify', [
 
         // Get the track for the page title
         mopidyservice.getCurrentTrack().then(function(track){
-            if(data.tl_track !== undefined)
-                updateTitle(track);
+            updateTitle(track);
         });
     });
 
