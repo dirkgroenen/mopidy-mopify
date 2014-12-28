@@ -851,17 +851,9 @@ img[src=""] {
     opacity: 1;
 }
 
-#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap,
-#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap,
-#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .iconwrap,
-#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .iconwrap{
-    height: 100%;
-    top: 50%;
-}
-
 #application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .icon,
 #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon{
-    top: 50%;
+    margin-top: 50%;
     -webkit-transform: translateY(-45%);
     -moz-transform: translateY(-45%);
     transform: translateY(-45%);
