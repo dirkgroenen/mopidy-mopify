@@ -32,15 +32,19 @@ angular.module("mopify.services.spotifylogin", [
         this.connected = false;
         this.lastPositiveLoginCheck = 0;
 
-        // Run the login check on create and set the interval to check every five minutes
+        // Run the login check on create and set the interval to check every two minutes
         this.getLoginStatus().then(function(resp){
             $rootScope.$broadcast("mopify:spotify:" + resp.status.replace(" ", ""));
         });
 
         var that = this;
         $interval(function(){
-            that.getLoginStatus();
-        }, 5000);
+            that.getLoginStatus().then(function(response){
+                // Login if disconnected
+                if(response.status != "connected")
+                    that.login();
+            });
+        }, 120000);
     }
 
     /**
@@ -51,7 +55,7 @@ angular.module("mopify.services.spotifylogin", [
     SpotifyLogin.prototype.getLoginStatus = function(){
         var that = this;
         var deferred = $q.defer();
-        
+
         // Check with last login check
         if(Date.now() - that.lastPositiveLoginCheck > 600000){
             // Set the old token from the localstorage and check if that one still works

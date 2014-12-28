@@ -9,10 +9,12 @@ angular.module('mopify.player', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerController", function PlayerController($scope, Spotify, mopidyservice, History){
+.controller("PlayerController", function PlayerController($scope, $timeout, Spotify, mopidyservice, History){
     $scope.trackTitle = "";
     $scope.trackArtist= "";
     $scope.playerBackground = "";
+
+    var historyaddtimeout = null;
 
     // If Mopidy is online we collect the init data about playback, volume and shuffle mode
     $scope.$on('mopidy:state:online', function(){
@@ -53,8 +55,13 @@ angular.module('mopify.player', [
             Spotify.getTrack(track.uri).then(function (data) {
                 $scope.playerBackground = data.album.images[0].url;
 
-                // Add to history
-                addToHistory(track, data.album.images);
+                // Clear previous timeout and start new timer
+                // When timeout clears the current track is added to the history
+                $timeout.cancel(historyaddtimeout);
+                historyaddtimeout = $timeout(function(){
+                    // Add to history
+                    addToHistory(track, data.album.images);
+                }, 10000);
             });
         }
     }
