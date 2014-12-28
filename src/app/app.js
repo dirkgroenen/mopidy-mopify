@@ -76,12 +76,8 @@ angular.module('mopify', [
     });
 
     $scope.$on('$viewContentLoaded', function(event) {
-        console.log($location.path());
         $window.ga('send', 'pageview', { page: $location.path() });
     });
-
-    // Set the mopidyserver
-    $scope.mopidyserer = "localhost8080";
 
     // Start the mopidy service
     mopidyservice.start();
