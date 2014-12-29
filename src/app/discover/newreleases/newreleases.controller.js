@@ -7,7 +7,8 @@ angular.module("mopify.discover.newreleases", [
     'mopify.services.util',
     'mopify.services.station',
     'mopify.widgets.directive.playlist',
-    'mopify.services.settings'
+    'mopify.services.settings',
+    'llNotifier'
 ])
 
 .config(function($routeProvider) {
@@ -18,7 +19,7 @@ angular.module("mopify.discover.newreleases", [
 })
 
 
-.controller("DiscoverNewReleasesController", function DiscoverNewReleasesController($rootScope, $scope, $timeout, mopidyservice, SpotifyLogin, Spotify, util, stationservice, Settings){
+.controller("DiscoverNewReleasesController", function DiscoverNewReleasesController($rootScope, $scope, $timeout, mopidyservice, SpotifyLogin, Spotify, util, stationservice, Settings, notifier){
 
     $scope.newreleases = [];
     $scope.titletext = "Get to know the latest releases";
@@ -28,6 +29,8 @@ angular.module("mopify.discover.newreleases", [
     $scope.$on("mopify:spotify:connected", loadNewReleases);
     if(SpotifyLogin.connected)
         loadNewReleases();
+    else
+        notifier.notify({type: "custom", template: "Please connect with the Spotify service first.", delay: 3000});
 
     /**
      * Load all the data for the new releases page

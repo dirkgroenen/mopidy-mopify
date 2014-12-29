@@ -8,7 +8,8 @@ angular.module("mopify.discover.featured", [
     'mopify.services.util',
     'mopify.services.station',
     'mopify.widgets.directive.album',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'llNotifier'
 ])
 
 .config(function($routeProvider) {
@@ -19,7 +20,7 @@ angular.module("mopify.discover.featured", [
 })
 
 
-.controller("DiscoverFeaturedController", function DiscoverFeaturedController($rootScope, $scope, $timeout, mopidyservice, Spotify, Settings, SpotifyLogin, util, stationservice, localStorageService){
+.controller("DiscoverFeaturedController", function DiscoverFeaturedController($rootScope, $scope, $timeout, mopidyservice, Spotify, Settings, SpotifyLogin, util, stationservice, localStorageService, notifier){
 
     $scope.featuredplaylists = [];
     $scope.titletext = "Loading...";
@@ -29,6 +30,8 @@ angular.module("mopify.discover.featured", [
     $scope.$on("mopify:spotify:connected", loadFeaturedPlaylists);
     if(SpotifyLogin.connected)
         loadFeaturedPlaylists();
+    else
+        notifier.notify({type: "custom", template: "Please connect with the Spotify service first.", delay: 3000});
 
     /**
      * Load all the data for the featured playlists page

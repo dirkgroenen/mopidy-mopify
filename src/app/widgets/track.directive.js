@@ -3,12 +3,13 @@
 angular.module('mopify.widgets.directive.track', [
     "mopify.services.mopidy",
     "mopify.services.station",
+    "mopify.services.spotifylogin",
     "mopify.services.util",
     "spotify",
     "llNotifier"
 ])
 
-.directive('mopifyTrack', function($routeParams, mopidyservice, stationservice, util, Spotify, notifier) {
+.directive('mopifyTrack', function($routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, notifier) {
 
     return {
         restrict: 'E',
@@ -101,18 +102,23 @@ angular.module('mopify.widgets.directive.track', [
              * Load all user's playlists
              */
             scope.showPlaylists = function(){
-                scope.showplaylists = true;
-                scope.userplaylists = [{name: "loading..."}];
+                if(SpotifyLogin.connected){
+                    scope.showplaylists = true;
+                    scope.userplaylists = [{name: "loading..."}];
 
-                Spotify.getCurrentUser().then(function(user){
-                    mopidyservice.getPlaylists().then(function(data){
-                        var playlists = _.filter(data, function(playlist){
-                            return (playlist.uri.indexOf(user.id) > 0);
+                    Spotify.getCurrentUser().then(function(user){
+                        mopidyservice.getPlaylists().then(function(data){
+                            var playlists = _.filter(data, function(playlist){
+                                return (playlist.uri.indexOf(user.id) > 0);
+                            });
+
+                            scope.userplaylists = playlists;
                         });
-
-                        scope.userplaylists = playlists;
                     });
-                });
+                }
+                else{
+                    notifier.notify({type: "custom", template: "Please connect with the Spotify service first.", delay: 3000});
+                }
             };
 
             /**
@@ -120,12 +126,17 @@ angular.module('mopify.widgets.directive.track', [
              * @param {string} uri playlist uri
              */
             scope.addToPlaylist = function(uri){
-                scope.showplaylists = false;
+                if(SpotifyLogin.connected){
+                    scope.showplaylists = false;
 
-                var splituri =  uri.split(":");
-                Spotify.addPlaylistTracks(splituri[2], splituri[4], scope.track.uri).then(function(data){
-                    notifier.notify({type: "custom", template: "Track succesfully added to playlist.", delay: 3000});
-                });
+                    var splituri =  uri.split(":");
+                    Spotify.addPlaylistTracks(splituri[2], splituri[4], scope.track.uri).then(function(data){
+                        notifier.notify({type: "custom", template: "Track succesfully added to playlist.", delay: 3000});
+                    });
+                }
+                else{
+                    notifier.notify({type: "custom", template: "Please connect with the Spotify service first.", delay: 3000});
+                }
             };
         }
     };
