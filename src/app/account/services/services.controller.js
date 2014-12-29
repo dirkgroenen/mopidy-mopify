@@ -26,12 +26,12 @@ angular.module("mopify.account.services", [
             image: "http://icons.iconarchive.com/icons/danleech/simple/256/spotify-icon.png",
             connected: ($scope.connectedServices !== null) ? $scope.connectedServices.spotify : false
         },
-        {
+        /*{
             name: "Facebook",
             description: "Get more music based on your Facebook likes.",
             image: "http://www.ednfoundation.org/wp-content/uploads/facebook-logo-square.png",
             connected: ($scope.connectedServices !== null) ? $scope.connectedServices.facebook : false
-        }
+        }*/
     ];
 
     if($scope.connectedServices === null){
