@@ -1,7 +1,8 @@
 <div class="track" context-menu
     data-target="{{ track.uri || track.tlid }}"
     ng-class="{ 'highlight': highlight, 'expanded' : expanded, 'loading': track.loading }"
-    ng-dblclick="play()">
+    ng-dblclick="play()"
+    ng-show="visible">
 
     <div class="row" ng-class="{'nowplaying': ($parent.currentPlayingTrack.uri == track.uri)}">
         <div class="col-md-4 name">
@@ -15,6 +16,38 @@
         </div>
         <div class="col-md-1 length">
             {{ lengthHuman() }}
+        </div>
+    </div>
+</div>
+<div class="selectplaylist" ng-show='showplaylists'>
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="playlists" role="menu">
+                <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 0" ng-click="addToPlaylist(playlist.uri)">
+                    {{ playlist.name }}
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 1" ng-click="addToPlaylist(playlist.uri)">
+                    {{ playlist.name }}
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 2" ng-click="addToPlaylist(playlist.uri)">
+                    {{ playlist.name }}
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 3" ng-click="addToPlaylist(playlist.uri)">
+                    {{ playlist.name }}
+                </li>
+            </ul>
         </div>
     </div>
 </div>
@@ -34,6 +67,13 @@
         <li class="divider"></li>
         <li ng-click="startStation()">
             Start station
+        </li>
+        <li class="divider"></li>
+        <li ng-click="showPlaylists()">
+            Add to playlist
+        </li>
+        <li ng-if="$parent.isowner" ng-click="removeFromPlaylist()">
+            Remove from playlist
         </li>
     </ul>
 </div>

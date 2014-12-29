@@ -54,6 +54,17 @@ angular.module('mopify.music.tracklist', [
         $scope.coverImage = "./assets/images/tracklist-header.jpg";
     }
 
+    // Check if this is a playlist from the loggedin Spotify user
+    if($scope.type == "Playlist"){
+        $scope.isowner = false;
+        var ownerid = uri.split(":")[2];
+
+        Spotify.getCurrentUser().then(function(data){
+            if(ownerid == data.id){
+                $scope.isowner = true;            }
+        });
+    }
+
     // Check if a name has been defined
     $scope.name = ($routeParams.name !== undefined) ? $routeParams.name : ((uri.indexOf("mopidy:") > -1) ? "Current tracklist" : "");
     $scope.tracks = [];

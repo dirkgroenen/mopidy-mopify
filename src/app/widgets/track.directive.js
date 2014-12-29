@@ -3,10 +3,12 @@
 angular.module('mopify.widgets.directive.track', [
     "mopify.services.mopidy",
     "mopify.services.station",
-    "mopify.services.util"
+    "mopify.services.util",
+    "spotify",
+    "llNotifier"
 ])
 
-.directive('mopifyTrack', function(mopidyservice, stationservice, util) {
+.directive('mopifyTrack', function($routeParams, mopidyservice, stationservice, util, Spotify, notifier) {
 
     return {
         restrict: 'E',
@@ -16,12 +18,17 @@ angular.module('mopify.widgets.directive.track', [
             type: "=",
             currentPlayingTrack: "=currentplayingtrack"
         },
+        transclude: true,
         templateUrl: 'widgets/track.directive.tmpl.html',
         link: function(scope, element, attrs) {
+            var uri = $routeParams.uri;
 
             // Copy so we have raw tracks again (otherwise mopidy will crash)
             var track = angular.copy(scope.track);
             var surrounding = angular.copy(scope.surrounding);
+
+            scope.visible = true;
+            scope.showplaylists = false;
 
             scope.artistsString = function(){
                 return util.artistsToString(scope.track.artists, true);
@@ -69,7 +76,6 @@ angular.module('mopify.widgets.directive.track', [
                 mopidyservice.addToTracklist({ uri: scope.track.uri });
             };
 
-                    
             /**
              * Remove the track from the tracklist
              * @param  {track} track
@@ -77,6 +83,49 @@ angular.module('mopify.widgets.directive.track', [
             scope.removeFromQueue = function(){
                 // Remove from tracklist
                 mopidyservice.removeFromTracklist({'uri': [track.uri]});
+            };
+
+            /*
+             * Remove track from the playlist
+             */
+            scope.removeFromPlaylist = function(){
+                var playlistid = uri.split(":")[4];
+                var userid = uri.split(":")[2];
+
+                Spotify.removePlaylistTracks(userid, playlistid, scope.track.uri).then(function(response){
+                    scope.visible = false;
+                });
+            };
+
+            /**
+             * Load all user's playlists
+             */
+            scope.showPlaylists = function(){
+                scope.showplaylists = true;
+                scope.userplaylists = [{name: "loading..."}];
+
+                Spotify.getCurrentUser().then(function(user){
+                    mopidyservice.getPlaylists().then(function(data){
+                        var playlists = _.filter(data, function(playlist){
+                            return (playlist.uri.indexOf(user.id) > 0);
+                        });
+
+                        scope.userplaylists = playlists;
+                    });
+                });
+            };
+
+            /**
+             * Add the track to the playlist
+             * @param {string} uri playlist uri
+             */
+            scope.addToPlaylist = function(uri){
+                scope.showplaylists = false;
+
+                var splituri =  uri.split(":");
+                Spotify.addPlaylistTracks(splituri[2], splituri[4], scope.track.uri).then(function(data){
+                    notifier.notify({type: "custom", template: "Track succesfully added to playlist.", delay: 3000});
+                });
             };
         }
     };
