@@ -31295,9 +31295,9 @@ angular.module('mopify.music.playlists', [
      */
     function sortPlaylists() {
       $scope.playlists = $scope.playlists.sort(function (a, b) {
-        if (a.name < b.name)
+        if (a.name.toLowerCase() < b.name.toLowerCase())
           return -1;
-        if (a.name > b.name)
+        if (a.name.toLowerCase() > b.name.toLowerCase())
           return 1;
         return 0;
       });
