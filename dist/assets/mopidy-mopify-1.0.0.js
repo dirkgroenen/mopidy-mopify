@@ -31802,7 +31802,8 @@ angular.module('mopify.player.seekbar', [
     }
     $scope.seekbarMouseClick = function (event) {
       var layerX = event.layerX;
-      var barwidth = event.srcElement.clientWidth;
+      var target = event.target || event.srcElement;
+      var barwidth = target.clientWidth;
       var seek = layerX / barwidth * 100;
       // Set in scope and send to mopidy
       $scope.seekbarWidth = seek;
@@ -31821,7 +31822,8 @@ angular.module('mopify.player.seekbar', [
     $scope.seekbarMouseMove = function (event) {
       if (isSeeking) {
         var layerX = event.layerX;
-        var barwidth = event.srcElement.clientWidth;
+        var target = event.target || event.srcElement;
+        var barwidth = target.clientWidth;
         var seek = layerX / barwidth * 100;
         // Set in scope and send to mopidy
         $scope.seekbarWidth = seek;
