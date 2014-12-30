@@ -33100,6 +33100,7 @@ angular.module('mopify.widgets.directive.browse', [
           Spotify.getRelatedArtists(scope.spotifyuri).then(function (response) {
             var artist = response.artists[Math.floor(Math.random() * response.artists.length)];
             scope.image = artist.images[1].url;
+            scope.spotifyuri = artist.uri;
             scope.suggestion = { name: artist.name };
           });
         }
