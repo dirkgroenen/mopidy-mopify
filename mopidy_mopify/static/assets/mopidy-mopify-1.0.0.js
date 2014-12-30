@@ -30981,8 +30981,8 @@ angular.module('mopify.discover.featured', [
     function loadFeaturedPlaylists() {
       // Check if we are logged in to spotify 
       if (SpotifyLogin.connected) {
-        var locale = Settings.get('locale', 'en_GB');
-        var country = Settings.get('country', 'GB');
+        var locale = Settings.get('locale', 'en_US');
+        var country = Settings.get('country', 'US');
         // Get the featured playlists from spotify
         Spotify.getFeaturedPlaylists({
           locale: locale,
@@ -32479,7 +32479,7 @@ angular.module('mopify.services.mopidy', ['mopify.services.settings']).factory('
      * @param  {string} defaultvalue 
      */
     Settings.prototype.get = function (key, defaultvalue) {
-      return localStorageService.get(rootkey) !== null && localStorageService.get(rootkey)[key] !== undefined ? localStorageService.get(rootkey)[key] : defaultvalue;
+      return localStorageService.get(rootkey) !== null && localStorageService.get(rootkey)[key] !== undefined && localStorageService.get(rootkey)[key] !== '' ? localStorageService.get(rootkey)[key] : defaultvalue;
     };
     /**
      * Save a (new) value
