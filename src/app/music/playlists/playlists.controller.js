@@ -23,12 +23,13 @@ angular.module('mopify.music.playlists', [
  * After defining the routes we create the controller for this module
  */
 .controller("PlaylistsController", function PlaylistsController($scope, Spotify, SpotifyLogin, mopidyservice, Echonest){
-    var groupedLists = {},splitList = [];
+    var groupedLists = {}, splitList = [];
 
     $scope.playlists = [];
 
     $scope.$on("mopidy:state:online", loadPlaylists);
     $scope.$on("mopidy:event:playlistsLoaded", loadPlaylists);
+    $scope.$on("mopify:spotify:connected", loadPlaylists);
     
     if(mopidyservice.isConnected)
         loadPlaylists();
