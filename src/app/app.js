@@ -50,7 +50,7 @@ angular.module('mopify', [
     var defaultPageTitle = 'Mopify';
 
     // Set version in the rootscope
-    $rootScope.mopifyversion = "1.0.0";
+    $rootScope.mopifyversion = getMetaTag("version");
 
     // Watch for track changes so we can update the title
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
@@ -113,4 +113,21 @@ angular.module('mopify', [
         });
     }
     checkMopifyVersion();
+
+    /**
+     * Get the given meta tag's content
+     * @param  {string} tagname The meta tag's key
+     * @return {string}         The meta tag's content
+     */
+    function getMetaTag(tagname) { 
+        var metas = $window.document.getElementsByTagName('meta'); 
+
+        for (var i = 0; i < metas.length; i++) { 
+            if (metas[i].getAttribute("name") == tagname) { 
+                return metas[i].getAttribute("content"); 
+            } 
+        } 
+
+        return "";
+    } 
 });
