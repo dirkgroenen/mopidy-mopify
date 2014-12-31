@@ -753,6 +753,13 @@ img[src=""] {
 }
 
 /* START Application code */
+#application .note{
+    font-size: 13px;
+    border: 1px solid #ccc;
+    color: #777;
+    padding: 0px 15px;
+}
+
 #application #overview{
     padding: 35px 50px;
 }
