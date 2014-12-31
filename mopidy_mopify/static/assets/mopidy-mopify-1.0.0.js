@@ -1,5 +1,5 @@
 /**
- * mopidy-mopify - v1.0.0 - 2014-12-30
+ * mopidy-mopify - v1.0.0 - 2014-12-31
  * 
  *
  * Copyright (c) 2014 Dirk Groenen
@@ -29464,6 +29464,12 @@ angular.module("account/services/services.tmpl.html", []).run(["$templateCache",
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
+    "    <div class=\"row note\">\n" +
+    "        <div class=\"col-md-10\">\n" +
+    "            <p>Note: browsers are likely to block the login popups. Please enable popups from this domain to prevent the browser from blocking the login popups.</p>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
     "    <div class=\"pagecontent row\">\n" +
     "        <div id=\"tileview\">\n" +
     "            <div class=\"row\">\n" +
@@ -30794,7 +30800,7 @@ angular.module('mopify', [
       };
     var defaultPageTitle = 'Mopify';
     // Set version in the rootscope
-    $rootScope.mopifyversion = '1.0.0';
+    $rootScope.mopifyversion = getMetaTag('version');
     // Watch for track changes so we can update the title
     $scope.$on('mopidy:event:trackPlaybackStarted', function (event, data) {
       if (data.tl_track !== undefined)
@@ -30850,6 +30856,20 @@ angular.module('mopify', [
       });
     }
     checkMopifyVersion();
+    /**
+     * Get the given meta tag's content
+     * @param  {string} tagname The meta tag's key
+     * @return {string}         The meta tag's content
+     */
+    function getMetaTag(tagname) {
+      var metas = $window.document.getElementsByTagName('meta');
+      for (var i = 0; i < metas.length; i++) {
+        if (metas[i].getAttribute('name') == tagname) {
+          return metas[i].getAttribute('content');
+        }
+      }
+      return '';
+    }
   }
 ]);;'use strict';
 angular.module('mopify.dashboard', ['ngRoute']).config([
@@ -31248,6 +31268,7 @@ angular.module('mopify.music.playlists', [
     $scope.playlists = [];
     $scope.$on('mopidy:state:online', loadPlaylists);
     $scope.$on('mopidy:event:playlistsLoaded', loadPlaylists);
+    $scope.$on('mopify:spotify:connected', loadPlaylists);
     if (mopidyservice.isConnected)
       loadPlaylists();
     /**
