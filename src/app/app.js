@@ -6,6 +6,7 @@ angular.module('mopify', [
     'angular-echonest',
     'angular-loading-bar',
     'mopify.services.mopidy',
+    'mopify.services.versionmanager',
     'spotify',
     'mopify.search',
     'mopify.music.artist',
@@ -41,7 +42,7 @@ angular.module('mopify', [
     });
 })
 
-.controller("AppController", function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier){
+.controller("AppController", function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier, VersionManager){
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
@@ -50,7 +51,7 @@ angular.module('mopify', [
     var defaultPageTitle = 'Mopify';
 
     // Set version in the rootscope
-    $rootScope.mopifyversion = getMetaTag("version");
+    $rootScope.mopifyversion = VersionManager.version;
 
     // Watch for track changes so we can update the title
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
@@ -94,40 +95,4 @@ angular.module('mopify', [
         if(track !== null && track !== undefined)
             $scope.pageTitle = track.name + " - " + track.artists[0].name + " | " + defaultPageTitle;
     }
-
-    /**
-     * Check for a newer Mopify version by getting the Github releases
-     */
-    function checkMopifyVersion(){
-        $scope.newversion = false;
-
-        // Get releases from github
-        $http.get('https://api.github.com/repos/dirkgroenen/mopidy-mopify/releases').success(function(data){
-            if(data[0] !== undefined){
-                var lastversion = data[0].tag_name;
-                
-                if($rootScope.mopifyversion != lastversion){
-                    notifier.notify({type: "custom", template: "A new version is available. Please read the <a href='https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md' target='_blank'>README</a> on how to update Mopify.", delay: 7500});
-                }
-            }
-        });
-    }
-    checkMopifyVersion();
-
-    /**
-     * Get the given meta tag's content
-     * @param  {string} tagname The meta tag's key
-     * @return {string}         The meta tag's content
-     */
-    function getMetaTag(tagname) { 
-        var metas = $window.document.getElementsByTagName('meta'); 
-
-        for (var i = 0; i < metas.length; i++) { 
-            if (metas[i].getAttribute("name") == tagname) { 
-                return metas[i].getAttribute("content"); 
-            } 
-        } 
-
-        return "";
-    } 
 });
