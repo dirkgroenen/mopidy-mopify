@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('mopify.widgets.directive.service', [
-    'LocalStorageModule'
+    'mopify.services.servicemanager'
 ])
 
-.directive('mopifyService', function($rootScope, localStorageService) {
+.directive('mopifyService', function($rootScope, ServiceManager) {
 
     return {
         restrict: 'E',
@@ -14,38 +14,25 @@ angular.module('mopify.widgets.directive.service', [
         templateUrl: 'widgets/service.directive.tmpl.html',
         link: function(scope, element, attrs) {
                 
-            var connectedServices = localStorageService.get("connectedServices");
+            /**
+             * Get the current service and extend it's connection state
+             */
+            scope.service.connected = ServiceManager.isEnabled(scope.service);
 
             /**
              * Connect the service with mopify
              */
             scope.connectService = function(){
-                var servicekey = scope.service.name.replace(" ", "").toLowerCase();
-                scope.service.connected = true;
-
-                connectedServices[servicekey] = true;
-
-                // Broadcast the service change
-                $rootScope.$broadcast("mopify:services:connected", scope.service);
-
-                // Save to storage
-                localStorageService.set("connectedServices", connectedServices);
+                ServiceManager.enableService(scope.service);
+                scope.service.connected = !scope.service.connected;
             };
 
             /**
              * Disconnect the service from mopify
              */
             scope.disconnectService = function(){
-                var servicekey = scope.service.name.replace(" ", "").toLowerCase();
-                scope.service.connected = false;
-
-                connectedServices[servicekey] = false;
-
-                // Broadcast the service change
-                $rootScope.$broadcast("mopify:services:disconnected", scope.service);
-
-                // Save to storage
-                localStorageService.set("connectedServices", connectedServices);
+                ServiceManager.disableService(scope.service);
+                scope.service.connected = !scope.service.connected;
             };
 
         }

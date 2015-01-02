@@ -1,8 +1,9 @@
 angular.module("mopify.services.spotifylogin", [
-    'spotify'
+    'spotify',
+    'mopify.services.servicemanager'
 ])
 
-.factory("SpotifyLogin", function($q, $rootScope, $timeout, $document, Spotify, $interval){
+.factory("SpotifyLogin", function($q, $rootScope, $timeout, $document, Spotify, $interval, ServiceManager){
     "use strict";
 
     // Get body
@@ -56,6 +57,11 @@ angular.module("mopify.services.spotifylogin", [
         var that = this;
         var deferred = $q.defer();
 
+        if(ServiceManager.isEnabled("spotify") !== true){
+            deferred.reject();
+            return deferred.promise;
+        }
+
         // Check with last login check
         if(Date.now() - that.lastPositiveLoginCheck > 600000){
             // Set the old token from the localstorage and check if that one still works
@@ -96,20 +102,36 @@ angular.module("mopify.services.spotifylogin", [
         var that = this;
         var deferred = $q.defer();
 
+        if(ServiceManager.isEnabled("spotify") !== true){
+            deferred.reject();
+        }
+
         // Ask the spotify login window
         Spotify.login();
 
         // Start waiting for the spotify answer
         that.requestKey().then(function(){
             if(that.accessToken !== null){
+
                 // Set the auth token
                 Spotify.setAuthToken(that.accessToken);
-                that.connected = true;
+                    
+                // Check if the auth token works
+                Spotify.getCurrentUser().then(function(data){
+                    that.connected = true;
 
-                // Save token
-                localStorage.setItem("spotify-token", that.accessToken);
+                    // Save token and resolve
+                    localStorage.setItem("spotify-token", that.accessToken);
+                    deferred.resolve(that.accessToken);    
 
-                deferred.resolve(that.accessToken);    
+                }, function(errData){
+                    // If status equals 401 we have to reauthorize the user
+                    if(errData.error.status == 401){
+                        that.connected = false;
+                        deferred.reject();
+                    }
+                });
+
             }
             else{
                 deferred.reject();
