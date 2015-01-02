@@ -5,10 +5,11 @@
 'use strict';
 
 angular.module('mopify.services.mopidy', [
-    "mopify.services.settings"
+    "mopify.services.settings",
+    'llNotifier'
 ])
 
-.factory("mopidyservice", function($q, $rootScope, $cacheFactory, Settings){
+.factory("mopidyservice", function($q, $rootScope, $cacheFactory, Settings, notifier){
 	// Create consolelog object for Mopidy to log it's logs on
     var consoleError = console.error.bind(console);
 
@@ -87,11 +88,21 @@ angular.module('mopify.services.mopidy', [
             var mopidyport = Settings.get("mopidyport", "6680");
 
 			// Initialize mopidy
-			this.mopidy = new Mopidy({
-				webSocketUrl: "ws://" + mopidyip + ":" + mopidyport + "/mopidy/ws", // FOR DEVELOPING 
-				callingConvention: 'by-position-or-by-name'
-			});
-			
+            try{
+    			this.mopidy = new Mopidy({
+    				webSocketUrl: "ws://" + mopidyip + ":" + mopidyport + "/mopidy/ws", // FOR DEVELOPING 
+    				callingConvention: 'by-position-or-by-name'
+    			});
+            }
+			catch(e){
+                notifier.notify({type: "custom", template: "Connecting with Mopidy failed with the following error message: <br>" + e, delay: 15000});
+
+                // Try to connect without a given url
+                this.mopidy = new Mopidy({
+                    callingConvention: 'by-position-or-by-name'
+                });
+            }
+
 			// Convert Mopidy events to Angular events
 			this.mopidy.on(function(ev, args) {
 				$rootScope.$broadcast('mopidy:' + ev, args);

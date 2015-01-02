@@ -7,7 +7,11 @@ angular.module("mopify.services.settings", [
 
     var rootkey = "settings";
 
-    function Settings(){}
+    function Settings(){
+        // Check if settings object exists in localstorage
+        if(localStorageService.get(rootkey) === null)
+            localStorageService.set(rootkey, {});
+    }
 
     /**
      * Bind a variable to the localStorageService
