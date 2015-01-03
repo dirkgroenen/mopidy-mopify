@@ -150,6 +150,10 @@ angular.module("mopify.services.spotifylogin", [
                 that.access_token = result.access_token;
                 that.expires = Date.now() + (result.expires_in * 1000);
 
+                // Set token in spotify
+                Spotify.setAuthToken(result.access_token);
+
+                // Save tokens
                 localStorageService.set(tokenStorageKey, {
                     access_token: that.access_token,
                     refresh_token: that.refresh_token,
