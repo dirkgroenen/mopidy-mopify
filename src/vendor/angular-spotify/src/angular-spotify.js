@@ -379,7 +379,7 @@
             client_id: this.clientId,
             redirect_uri: this.redirectUri,
             scope: this.scope || '',
-            response_type: 'token'
+            response_type: 'code'
           };
 
           var authWindow = window.open(
@@ -387,7 +387,9 @@
             'Spotify',
             'menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,width=' + w + ',height=' + h + ',top=' + top + ',left=' + left
           );
-
+          /*
+           * Checking the returned code is done in other servives and pages
+           * 
           function storageChanged (e) {
             if (e.key === 'spotify-token') {
               if (authWindow) {
@@ -403,7 +405,7 @@
           }
 
           $window.addEventListener('storage', storageChanged, false);
-
+          */
           return deferred.promise;
         };
 
