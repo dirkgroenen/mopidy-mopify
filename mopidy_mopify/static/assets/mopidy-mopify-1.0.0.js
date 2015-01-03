@@ -1,8 +1,8 @@
 /**
- * mopidy-mopify - v1.0.0 - 2014-12-31
+ * mopidy-mopify - v1.0.0 - 2015-01-03
  * 
  *
- * Copyright (c) 2014 Dirk Groenen
+ * Copyright (c) 2015 Dirk Groenen
  * Licensed Apache License <http://www.apache.org/licenses/LICENSE-2.0.txt>
  */
 /*! Mopidy.js v0.4.0 - built 2014-06-24
@@ -29341,7 +29341,7 @@ b,c,d){d=d||{};return T("removeClass",a,q(b,"-remove"),c,d.to)}}}])}])})(window,
             client_id: this.clientId,
             redirect_uri: this.redirectUri,
             scope: this.scope || '',
-            response_type: 'token'
+            response_type: 'code'
           };
 
           var authWindow = window.open(
@@ -29349,7 +29349,9 @@ b,c,d){d=d||{};return T("removeClass",a,q(b,"-remove"),c,d.to)}}}])}])})(window,
             'Spotify',
             'menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,width=' + w + ',height=' + h + ',top=' + top + ',left=' + left
           );
-
+          /*
+           * Checking the returned code is done in other servives and pages
+           * 
           function storageChanged (e) {
             if (e.key === 'spotify-token') {
               if (authWindow) {
@@ -29365,7 +29367,7 @@ b,c,d){d=d||{};return T("removeClass",a,q(b,"-remove"),c,d.to)}}}])}])})(window,
           }
 
           $window.addEventListener('storage', storageChanged, false);
-
+          */
           return deferred.promise;
         };
 
@@ -29381,7 +29383,16 @@ b,c,d){d=d||{};return T("removeClass",a,q(b,"-remove"),c,d.to)}}}])}])})(window,
 //     Underscore may be freely distributed under the MIT license.
 (function(){var n=this,t=n._,r=Array.prototype,e=Object.prototype,u=Function.prototype,i=r.push,a=r.slice,o=r.concat,l=e.toString,c=e.hasOwnProperty,f=Array.isArray,s=Object.keys,p=u.bind,h=function(n){return n instanceof h?n:this instanceof h?void(this._wrapped=n):new h(n)};"undefined"!=typeof exports?("undefined"!=typeof module&&module.exports&&(exports=module.exports=h),exports._=h):n._=h,h.VERSION="1.7.0";var g=function(n,t,r){if(t===void 0)return n;switch(null==r?3:r){case 1:return function(r){return n.call(t,r)};case 2:return function(r,e){return n.call(t,r,e)};case 3:return function(r,e,u){return n.call(t,r,e,u)};case 4:return function(r,e,u,i){return n.call(t,r,e,u,i)}}return function(){return n.apply(t,arguments)}};h.iteratee=function(n,t,r){return null==n?h.identity:h.isFunction(n)?g(n,t,r):h.isObject(n)?h.matches(n):h.property(n)},h.each=h.forEach=function(n,t,r){if(null==n)return n;t=g(t,r);var e,u=n.length;if(u===+u)for(e=0;u>e;e++)t(n[e],e,n);else{var i=h.keys(n);for(e=0,u=i.length;u>e;e++)t(n[i[e]],i[e],n)}return n},h.map=h.collect=function(n,t,r){if(null==n)return[];t=h.iteratee(t,r);for(var e,u=n.length!==+n.length&&h.keys(n),i=(u||n).length,a=Array(i),o=0;i>o;o++)e=u?u[o]:o,a[o]=t(n[e],e,n);return a};var v="Reduce of empty array with no initial value";h.reduce=h.foldl=h.inject=function(n,t,r,e){null==n&&(n=[]),t=g(t,e,4);var u,i=n.length!==+n.length&&h.keys(n),a=(i||n).length,o=0;if(arguments.length<3){if(!a)throw new TypeError(v);r=n[i?i[o++]:o++]}for(;a>o;o++)u=i?i[o]:o,r=t(r,n[u],u,n);return r},h.reduceRight=h.foldr=function(n,t,r,e){null==n&&(n=[]),t=g(t,e,4);var u,i=n.length!==+n.length&&h.keys(n),a=(i||n).length;if(arguments.length<3){if(!a)throw new TypeError(v);r=n[i?i[--a]:--a]}for(;a--;)u=i?i[a]:a,r=t(r,n[u],u,n);return r},h.find=h.detect=function(n,t,r){var e;return t=h.iteratee(t,r),h.some(n,function(n,r,u){return t(n,r,u)?(e=n,!0):void 0}),e},h.filter=h.select=function(n,t,r){var e=[];return null==n?e:(t=h.iteratee(t,r),h.each(n,function(n,r,u){t(n,r,u)&&e.push(n)}),e)},h.reject=function(n,t,r){return h.filter(n,h.negate(h.iteratee(t)),r)},h.every=h.all=function(n,t,r){if(null==n)return!0;t=h.iteratee(t,r);var e,u,i=n.length!==+n.length&&h.keys(n),a=(i||n).length;for(e=0;a>e;e++)if(u=i?i[e]:e,!t(n[u],u,n))return!1;return!0},h.some=h.any=function(n,t,r){if(null==n)return!1;t=h.iteratee(t,r);var e,u,i=n.length!==+n.length&&h.keys(n),a=(i||n).length;for(e=0;a>e;e++)if(u=i?i[e]:e,t(n[u],u,n))return!0;return!1},h.contains=h.include=function(n,t){return null==n?!1:(n.length!==+n.length&&(n=h.values(n)),h.indexOf(n,t)>=0)},h.invoke=function(n,t){var r=a.call(arguments,2),e=h.isFunction(t);return h.map(n,function(n){return(e?t:n[t]).apply(n,r)})},h.pluck=function(n,t){return h.map(n,h.property(t))},h.where=function(n,t){return h.filter(n,h.matches(t))},h.findWhere=function(n,t){return h.find(n,h.matches(t))},h.max=function(n,t,r){var e,u,i=-1/0,a=-1/0;if(null==t&&null!=n){n=n.length===+n.length?n:h.values(n);for(var o=0,l=n.length;l>o;o++)e=n[o],e>i&&(i=e)}else t=h.iteratee(t,r),h.each(n,function(n,r,e){u=t(n,r,e),(u>a||u===-1/0&&i===-1/0)&&(i=n,a=u)});return i},h.min=function(n,t,r){var e,u,i=1/0,a=1/0;if(null==t&&null!=n){n=n.length===+n.length?n:h.values(n);for(var o=0,l=n.length;l>o;o++)e=n[o],i>e&&(i=e)}else t=h.iteratee(t,r),h.each(n,function(n,r,e){u=t(n,r,e),(a>u||1/0===u&&1/0===i)&&(i=n,a=u)});return i},h.shuffle=function(n){for(var t,r=n&&n.length===+n.length?n:h.values(n),e=r.length,u=Array(e),i=0;e>i;i++)t=h.random(0,i),t!==i&&(u[i]=u[t]),u[t]=r[i];return u},h.sample=function(n,t,r){return null==t||r?(n.length!==+n.length&&(n=h.values(n)),n[h.random(n.length-1)]):h.shuffle(n).slice(0,Math.max(0,t))},h.sortBy=function(n,t,r){return t=h.iteratee(t,r),h.pluck(h.map(n,function(n,r,e){return{value:n,index:r,criteria:t(n,r,e)}}).sort(function(n,t){var r=n.criteria,e=t.criteria;if(r!==e){if(r>e||r===void 0)return 1;if(e>r||e===void 0)return-1}return n.index-t.index}),"value")};var m=function(n){return function(t,r,e){var u={};return r=h.iteratee(r,e),h.each(t,function(e,i){var a=r(e,i,t);n(u,e,a)}),u}};h.groupBy=m(function(n,t,r){h.has(n,r)?n[r].push(t):n[r]=[t]}),h.indexBy=m(function(n,t,r){n[r]=t}),h.countBy=m(function(n,t,r){h.has(n,r)?n[r]++:n[r]=1}),h.sortedIndex=function(n,t,r,e){r=h.iteratee(r,e,1);for(var u=r(t),i=0,a=n.length;a>i;){var o=i+a>>>1;r(n[o])<u?i=o+1:a=o}return i},h.toArray=function(n){return n?h.isArray(n)?a.call(n):n.length===+n.length?h.map(n,h.identity):h.values(n):[]},h.size=function(n){return null==n?0:n.length===+n.length?n.length:h.keys(n).length},h.partition=function(n,t,r){t=h.iteratee(t,r);var e=[],u=[];return h.each(n,function(n,r,i){(t(n,r,i)?e:u).push(n)}),[e,u]},h.first=h.head=h.take=function(n,t,r){return null==n?void 0:null==t||r?n[0]:0>t?[]:a.call(n,0,t)},h.initial=function(n,t,r){return a.call(n,0,Math.max(0,n.length-(null==t||r?1:t)))},h.last=function(n,t,r){return null==n?void 0:null==t||r?n[n.length-1]:a.call(n,Math.max(n.length-t,0))},h.rest=h.tail=h.drop=function(n,t,r){return a.call(n,null==t||r?1:t)},h.compact=function(n){return h.filter(n,h.identity)};var y=function(n,t,r,e){if(t&&h.every(n,h.isArray))return o.apply(e,n);for(var u=0,a=n.length;a>u;u++){var l=n[u];h.isArray(l)||h.isArguments(l)?t?i.apply(e,l):y(l,t,r,e):r||e.push(l)}return e};h.flatten=function(n,t){return y(n,t,!1,[])},h.without=function(n){return h.difference(n,a.call(arguments,1))},h.uniq=h.unique=function(n,t,r,e){if(null==n)return[];h.isBoolean(t)||(e=r,r=t,t=!1),null!=r&&(r=h.iteratee(r,e));for(var u=[],i=[],a=0,o=n.length;o>a;a++){var l=n[a];if(t)a&&i===l||u.push(l),i=l;else if(r){var c=r(l,a,n);h.indexOf(i,c)<0&&(i.push(c),u.push(l))}else h.indexOf(u,l)<0&&u.push(l)}return u},h.union=function(){return h.uniq(y(arguments,!0,!0,[]))},h.intersection=function(n){if(null==n)return[];for(var t=[],r=arguments.length,e=0,u=n.length;u>e;e++){var i=n[e];if(!h.contains(t,i)){for(var a=1;r>a&&h.contains(arguments[a],i);a++);a===r&&t.push(i)}}return t},h.difference=function(n){var t=y(a.call(arguments,1),!0,!0,[]);return h.filter(n,function(n){return!h.contains(t,n)})},h.zip=function(n){if(null==n)return[];for(var t=h.max(arguments,"length").length,r=Array(t),e=0;t>e;e++)r[e]=h.pluck(arguments,e);return r},h.object=function(n,t){if(null==n)return{};for(var r={},e=0,u=n.length;u>e;e++)t?r[n[e]]=t[e]:r[n[e][0]]=n[e][1];return r},h.indexOf=function(n,t,r){if(null==n)return-1;var e=0,u=n.length;if(r){if("number"!=typeof r)return e=h.sortedIndex(n,t),n[e]===t?e:-1;e=0>r?Math.max(0,u+r):r}for(;u>e;e++)if(n[e]===t)return e;return-1},h.lastIndexOf=function(n,t,r){if(null==n)return-1;var e=n.length;for("number"==typeof r&&(e=0>r?e+r+1:Math.min(e,r+1));--e>=0;)if(n[e]===t)return e;return-1},h.range=function(n,t,r){arguments.length<=1&&(t=n||0,n=0),r=r||1;for(var e=Math.max(Math.ceil((t-n)/r),0),u=Array(e),i=0;e>i;i++,n+=r)u[i]=n;return u};var d=function(){};h.bind=function(n,t){var r,e;if(p&&n.bind===p)return p.apply(n,a.call(arguments,1));if(!h.isFunction(n))throw new TypeError("Bind must be called on a function");return r=a.call(arguments,2),e=function(){if(!(this instanceof e))return n.apply(t,r.concat(a.call(arguments)));d.prototype=n.prototype;var u=new d;d.prototype=null;var i=n.apply(u,r.concat(a.call(arguments)));return h.isObject(i)?i:u}},h.partial=function(n){var t=a.call(arguments,1);return function(){for(var r=0,e=t.slice(),u=0,i=e.length;i>u;u++)e[u]===h&&(e[u]=arguments[r++]);for(;r<arguments.length;)e.push(arguments[r++]);return n.apply(this,e)}},h.bindAll=function(n){var t,r,e=arguments.length;if(1>=e)throw new Error("bindAll must be passed function names");for(t=1;e>t;t++)r=arguments[t],n[r]=h.bind(n[r],n);return n},h.memoize=function(n,t){var r=function(e){var u=r.cache,i=t?t.apply(this,arguments):e;return h.has(u,i)||(u[i]=n.apply(this,arguments)),u[i]};return r.cache={},r},h.delay=function(n,t){var r=a.call(arguments,2);return setTimeout(function(){return n.apply(null,r)},t)},h.defer=function(n){return h.delay.apply(h,[n,1].concat(a.call(arguments,1)))},h.throttle=function(n,t,r){var e,u,i,a=null,o=0;r||(r={});var l=function(){o=r.leading===!1?0:h.now(),a=null,i=n.apply(e,u),a||(e=u=null)};return function(){var c=h.now();o||r.leading!==!1||(o=c);var f=t-(c-o);return e=this,u=arguments,0>=f||f>t?(clearTimeout(a),a=null,o=c,i=n.apply(e,u),a||(e=u=null)):a||r.trailing===!1||(a=setTimeout(l,f)),i}},h.debounce=function(n,t,r){var e,u,i,a,o,l=function(){var c=h.now()-a;t>c&&c>0?e=setTimeout(l,t-c):(e=null,r||(o=n.apply(i,u),e||(i=u=null)))};return function(){i=this,u=arguments,a=h.now();var c=r&&!e;return e||(e=setTimeout(l,t)),c&&(o=n.apply(i,u),i=u=null),o}},h.wrap=function(n,t){return h.partial(t,n)},h.negate=function(n){return function(){return!n.apply(this,arguments)}},h.compose=function(){var n=arguments,t=n.length-1;return function(){for(var r=t,e=n[t].apply(this,arguments);r--;)e=n[r].call(this,e);return e}},h.after=function(n,t){return function(){return--n<1?t.apply(this,arguments):void 0}},h.before=function(n,t){var r;return function(){return--n>0?r=t.apply(this,arguments):t=null,r}},h.once=h.partial(h.before,2),h.keys=function(n){if(!h.isObject(n))return[];if(s)return s(n);var t=[];for(var r in n)h.has(n,r)&&t.push(r);return t},h.values=function(n){for(var t=h.keys(n),r=t.length,e=Array(r),u=0;r>u;u++)e[u]=n[t[u]];return e},h.pairs=function(n){for(var t=h.keys(n),r=t.length,e=Array(r),u=0;r>u;u++)e[u]=[t[u],n[t[u]]];return e},h.invert=function(n){for(var t={},r=h.keys(n),e=0,u=r.length;u>e;e++)t[n[r[e]]]=r[e];return t},h.functions=h.methods=function(n){var t=[];for(var r in n)h.isFunction(n[r])&&t.push(r);return t.sort()},h.extend=function(n){if(!h.isObject(n))return n;for(var t,r,e=1,u=arguments.length;u>e;e++){t=arguments[e];for(r in t)c.call(t,r)&&(n[r]=t[r])}return n},h.pick=function(n,t,r){var e,u={};if(null==n)return u;if(h.isFunction(t)){t=g(t,r);for(e in n){var i=n[e];t(i,e,n)&&(u[e]=i)}}else{var l=o.apply([],a.call(arguments,1));n=new Object(n);for(var c=0,f=l.length;f>c;c++)e=l[c],e in n&&(u[e]=n[e])}return u},h.omit=function(n,t,r){if(h.isFunction(t))t=h.negate(t);else{var e=h.map(o.apply([],a.call(arguments,1)),String);t=function(n,t){return!h.contains(e,t)}}return h.pick(n,t,r)},h.defaults=function(n){if(!h.isObject(n))return n;for(var t=1,r=arguments.length;r>t;t++){var e=arguments[t];for(var u in e)n[u]===void 0&&(n[u]=e[u])}return n},h.clone=function(n){return h.isObject(n)?h.isArray(n)?n.slice():h.extend({},n):n},h.tap=function(n,t){return t(n),n};var b=function(n,t,r,e){if(n===t)return 0!==n||1/n===1/t;if(null==n||null==t)return n===t;n instanceof h&&(n=n._wrapped),t instanceof h&&(t=t._wrapped);var u=l.call(n);if(u!==l.call(t))return!1;switch(u){case"[object RegExp]":case"[object String]":return""+n==""+t;case"[object Number]":return+n!==+n?+t!==+t:0===+n?1/+n===1/t:+n===+t;case"[object Date]":case"[object Boolean]":return+n===+t}if("object"!=typeof n||"object"!=typeof t)return!1;for(var i=r.length;i--;)if(r[i]===n)return e[i]===t;var a=n.constructor,o=t.constructor;if(a!==o&&"constructor"in n&&"constructor"in t&&!(h.isFunction(a)&&a instanceof a&&h.isFunction(o)&&o instanceof o))return!1;r.push(n),e.push(t);var c,f;if("[object Array]"===u){if(c=n.length,f=c===t.length)for(;c--&&(f=b(n[c],t[c],r,e)););}else{var s,p=h.keys(n);if(c=p.length,f=h.keys(t).length===c)for(;c--&&(s=p[c],f=h.has(t,s)&&b(n[s],t[s],r,e)););}return r.pop(),e.pop(),f};h.isEqual=function(n,t){return b(n,t,[],[])},h.isEmpty=function(n){if(null==n)return!0;if(h.isArray(n)||h.isString(n)||h.isArguments(n))return 0===n.length;for(var t in n)if(h.has(n,t))return!1;return!0},h.isElement=function(n){return!(!n||1!==n.nodeType)},h.isArray=f||function(n){return"[object Array]"===l.call(n)},h.isObject=function(n){var t=typeof n;return"function"===t||"object"===t&&!!n},h.each(["Arguments","Function","String","Number","Date","RegExp"],function(n){h["is"+n]=function(t){return l.call(t)==="[object "+n+"]"}}),h.isArguments(arguments)||(h.isArguments=function(n){return h.has(n,"callee")}),"function"!=typeof/./&&(h.isFunction=function(n){return"function"==typeof n||!1}),h.isFinite=function(n){return isFinite(n)&&!isNaN(parseFloat(n))},h.isNaN=function(n){return h.isNumber(n)&&n!==+n},h.isBoolean=function(n){return n===!0||n===!1||"[object Boolean]"===l.call(n)},h.isNull=function(n){return null===n},h.isUndefined=function(n){return n===void 0},h.has=function(n,t){return null!=n&&c.call(n,t)},h.noConflict=function(){return n._=t,this},h.identity=function(n){return n},h.constant=function(n){return function(){return n}},h.noop=function(){},h.property=function(n){return function(t){return t[n]}},h.matches=function(n){var t=h.pairs(n),r=t.length;return function(n){if(null==n)return!r;n=new Object(n);for(var e=0;r>e;e++){var u=t[e],i=u[0];if(u[1]!==n[i]||!(i in n))return!1}return!0}},h.times=function(n,t,r){var e=Array(Math.max(0,n));t=g(t,r,1);for(var u=0;n>u;u++)e[u]=t(u);return e},h.random=function(n,t){return null==t&&(t=n,n=0),n+Math.floor(Math.random()*(t-n+1))},h.now=Date.now||function(){return(new Date).getTime()};var _={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;","`":"&#x60;"},w=h.invert(_),j=function(n){var t=function(t){return n[t]},r="(?:"+h.keys(n).join("|")+")",e=RegExp(r),u=RegExp(r,"g");return function(n){return n=null==n?"":""+n,e.test(n)?n.replace(u,t):n}};h.escape=j(_),h.unescape=j(w),h.result=function(n,t){if(null==n)return void 0;var r=n[t];return h.isFunction(r)?n[t]():r};var x=0;h.uniqueId=function(n){var t=++x+"";return n?n+t:t},h.templateSettings={evaluate:/<%([\s\S]+?)%>/g,interpolate:/<%=([\s\S]+?)%>/g,escape:/<%-([\s\S]+?)%>/g};var A=/(.)^/,k={"'":"'","\\":"\\","\r":"r","\n":"n","\u2028":"u2028","\u2029":"u2029"},O=/\\|'|\r|\n|\u2028|\u2029/g,F=function(n){return"\\"+k[n]};h.template=function(n,t,r){!t&&r&&(t=r),t=h.defaults({},t,h.templateSettings);var e=RegExp([(t.escape||A).source,(t.interpolate||A).source,(t.evaluate||A).source].join("|")+"|$","g"),u=0,i="__p+='";n.replace(e,function(t,r,e,a,o){return i+=n.slice(u,o).replace(O,F),u=o+t.length,r?i+="'+\n((__t=("+r+"))==null?'':_.escape(__t))+\n'":e?i+="'+\n((__t=("+e+"))==null?'':__t)+\n'":a&&(i+="';\n"+a+"\n__p+='"),t}),i+="';\n",t.variable||(i="with(obj||{}){\n"+i+"}\n"),i="var __t,__p='',__j=Array.prototype.join,"+"print=function(){__p+=__j.call(arguments,'');};\n"+i+"return __p;\n";try{var a=new Function(t.variable||"obj","_",i)}catch(o){throw o.source=i,o}var l=function(n){return a.call(this,n,h)},c=t.variable||"obj";return l.source="function("+c+"){\n"+i+"}",l},h.chain=function(n){var t=h(n);return t._chain=!0,t};var E=function(n){return this._chain?h(n).chain():n};h.mixin=function(n){h.each(h.functions(n),function(t){var r=h[t]=n[t];h.prototype[t]=function(){var n=[this._wrapped];return i.apply(n,arguments),E.call(this,r.apply(h,n))}})},h.mixin(h),h.each(["pop","push","reverse","shift","sort","splice","unshift"],function(n){var t=r[n];h.prototype[n]=function(){var r=this._wrapped;return t.apply(r,arguments),"shift"!==n&&"splice"!==n||0!==r.length||delete r[0],E.call(this,r)}}),h.each(["concat","join","slice"],function(n){var t=r[n];h.prototype[n]=function(){return E.call(this,t.apply(this._wrapped,arguments))}}),h.prototype.value=function(){return this._wrapped},"function"==typeof define&&define.amd&&define("underscore",[],function(){return h})}).call(this);
 //# sourceMappingURL=underscore-min.map;/* ng-infinite-scroll - v1.2.0 - 2014-12-02 */
-var mod;mod=angular.module("infinite-scroll",[]),mod.value("THROTTLE_MILLISECONDS",null),mod.directive("infiniteScroll",["$rootScope","$window","$interval","THROTTLE_MILLISECONDS",function(a,b,c,d){return{scope:{infiniteScroll:"&",infiniteScrollContainer:"=",infiniteScrollDistance:"=",infiniteScrollDisabled:"=",infiniteScrollUseDocumentBottom:"="},link:function(e,f,g){var h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x;return x=angular.element(b),t=null,u=null,i=null,j=null,q=!0,w=!1,p=function(a){return a=a[0]||a,isNaN(a.offsetHeight)?a.document.documentElement.clientHeight:a.offsetHeight},r=function(a){return a[0].getBoundingClientRect&&!a.css("none")?a[0].getBoundingClientRect().top+s(a):void 0},s=function(a){return a=a[0]||a,isNaN(window.pageYOffset)?a.document.documentElement.scrollTop:a.ownerDocument.defaultView.pageYOffset},o=function(){var b,c,d,g,h;return j===x?(b=p(j)+s(j[0].document.documentElement),d=r(f)+p(f)):(b=p(j),c=0,void 0!==r(j)&&(c=r(j)),d=r(f)-c+p(f)),w&&(d=p((f[0].ownerDocument||f[0].document).documentElement)),g=d-b,h=g<=p(j)*t+1,h?(i=!0,u?e.$$phase||a.$$phase?e.infiniteScroll():e.$apply(e.infiniteScroll):void 0):i=!1},v=function(a,b){var d,e,f;return f=null,e=0,d=function(){var b;return e=(new Date).getTime(),c.cancel(f),f=null,a.call(),b=null},function(){var g,h;return g=(new Date).getTime(),h=b-(g-e),0>=h?(clearTimeout(f),c.cancel(f),f=null,e=g,a.call()):f?void 0:f=c(d,h,1)}},null!=d&&(o=v(o,d)),e.$on("$destroy",function(){return j.unbind("scroll",o)}),m=function(a){return t=parseFloat(a)||0},e.$watch("infiniteScrollDistance",m),m(e.infiniteScrollDistance),l=function(a){return u=!a,u&&i?(i=!1,o()):void 0},e.$watch("infiniteScrollDisabled",l),l(e.infiniteScrollDisabled),n=function(a){return w=a},e.$watch("infiniteScrollUseDocumentBottom",n),n(e.infiniteScrollUseDocumentBottom),h=function(a){return null!=j&&j.unbind("scroll",o),j=a,null!=a?j.bind("scroll",o):void 0},h(x),k=function(a){if(null!=a&&0!==a.length){if(a instanceof HTMLElement?a=angular.element(a):"function"==typeof a.append?a=angular.element(a[a.length-1]):"string"==typeof a&&(a=angular.element(document.querySelector(a))),null!=a)return h(a);throw new Exception("invalid infinite-scroll-container attribute.")}},e.$watch("infiniteScrollContainer",k),k(e.infiniteScrollContainer||[]),null!=g.infiniteScrollParent&&h(angular.element(f.parent())),null!=g.infiniteScrollImmediateCheck&&(q=e.$eval(g.infiniteScrollImmediateCheck)),c(function(){return q?o():void 0},0,1)}}}]);;angular.module('templates-app', ['account/menu.tmpl.html', 'account/services/facebook/menu.tmpl.html', 'account/services/services.menu.tmpl.html', 'account/services/services.tmpl.html', 'account/services/spotify/menu.tmpl.html', 'account/settings/settings.tmpl.html', 'dashboard/dashboard.tmpl.html', 'discover/browse/browse.tmpl.html', 'discover/featured/featured.tmpl.html', 'discover/menu.tmpl.html', 'discover/newreleases/newreleases.tmpl.html', 'music/artist/artist.tmpl.html', 'music/menu.tmpl.html', 'music/playlists/playlists.tmpl.html', 'music/stations/stations.tmpl.html', 'music/tracklist/tracklist.tmpl.html', 'player/controls/controls.left.tmpl.html', 'player/controls/controls.right.tmpl.html', 'player/player.tmpl.html', 'player/seekbar/seekbar.tmpl.html', 'search/menu.tmpl.html', 'search/search.tmpl.html', 'widgets/album.directive.tmpl.html', 'widgets/album.tmpl.html', 'widgets/artist.directive.tmpl.html', 'widgets/browse.directive.tmpl.html', 'widgets/playlist.directive.tmpl.html', 'widgets/service.directive.tmpl.html', 'widgets/station.directive.tmpl.html', 'widgets/track.directive.tmpl.html']);
+var mod;mod=angular.module("infinite-scroll",[]),mod.value("THROTTLE_MILLISECONDS",null),mod.directive("infiniteScroll",["$rootScope","$window","$interval","THROTTLE_MILLISECONDS",function(a,b,c,d){return{scope:{infiniteScroll:"&",infiniteScrollContainer:"=",infiniteScrollDistance:"=",infiniteScrollDisabled:"=",infiniteScrollUseDocumentBottom:"="},link:function(e,f,g){var h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x;return x=angular.element(b),t=null,u=null,i=null,j=null,q=!0,w=!1,p=function(a){return a=a[0]||a,isNaN(a.offsetHeight)?a.document.documentElement.clientHeight:a.offsetHeight},r=function(a){return a[0].getBoundingClientRect&&!a.css("none")?a[0].getBoundingClientRect().top+s(a):void 0},s=function(a){return a=a[0]||a,isNaN(window.pageYOffset)?a.document.documentElement.scrollTop:a.ownerDocument.defaultView.pageYOffset},o=function(){var b,c,d,g,h;return j===x?(b=p(j)+s(j[0].document.documentElement),d=r(f)+p(f)):(b=p(j),c=0,void 0!==r(j)&&(c=r(j)),d=r(f)-c+p(f)),w&&(d=p((f[0].ownerDocument||f[0].document).documentElement)),g=d-b,h=g<=p(j)*t+1,h?(i=!0,u?e.$$phase||a.$$phase?e.infiniteScroll():e.$apply(e.infiniteScroll):void 0):i=!1},v=function(a,b){var d,e,f;return f=null,e=0,d=function(){var b;return e=(new Date).getTime(),c.cancel(f),f=null,a.call(),b=null},function(){var g,h;return g=(new Date).getTime(),h=b-(g-e),0>=h?(clearTimeout(f),c.cancel(f),f=null,e=g,a.call()):f?void 0:f=c(d,h,1)}},null!=d&&(o=v(o,d)),e.$on("$destroy",function(){return j.unbind("scroll",o)}),m=function(a){return t=parseFloat(a)||0},e.$watch("infiniteScrollDistance",m),m(e.infiniteScrollDistance),l=function(a){return u=!a,u&&i?(i=!1,o()):void 0},e.$watch("infiniteScrollDisabled",l),l(e.infiniteScrollDisabled),n=function(a){return w=a},e.$watch("infiniteScrollUseDocumentBottom",n),n(e.infiniteScrollUseDocumentBottom),h=function(a){return null!=j&&j.unbind("scroll",o),j=a,null!=a?j.bind("scroll",o):void 0},h(x),k=function(a){if(null!=a&&0!==a.length){if(a instanceof HTMLElement?a=angular.element(a):"function"==typeof a.append?a=angular.element(a[a.length-1]):"string"==typeof a&&(a=angular.element(document.querySelector(a))),null!=a)return h(a);throw new Exception("invalid infinite-scroll-container attribute.")}},e.$watch("infiniteScrollContainer",k),k(e.infiniteScrollContainer||[]),null!=g.infiniteScrollParent&&h(angular.element(f.parent())),null!=g.infiniteScrollImmediateCheck&&(q=e.$eval(g.infiniteScrollImmediateCheck)),c(function(){return q?o():void 0},0,1)}}}]);;/*
+ * angular-ui-bootstrap
+ * http://angular-ui.github.io/bootstrap/
+
+ * Version: 0.11.2 - 2014-09-26
+ * License: MIT
+ */
+angular.module("ui.bootstrap",["ui.bootstrap.tpls","ui.bootstrap.transition","ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.dateparser","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdown","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]),angular.module("ui.bootstrap.tpls",["template/accordion/accordion-group.html","template/accordion/accordion.html","template/alert/alert.html","template/carousel/carousel.html","template/carousel/slide.html","template/datepicker/datepicker.html","template/datepicker/day.html","template/datepicker/month.html","template/datepicker/popup.html","template/datepicker/year.html","template/modal/backdrop.html","template/modal/window.html","template/pagination/pager.html","template/pagination/pagination.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/popover/popover.html","template/progressbar/bar.html","template/progressbar/progress.html","template/progressbar/progressbar.html","template/rating/rating.html","template/tabs/tab.html","template/tabs/tabset.html","template/timepicker/timepicker.html","template/typeahead/typeahead-match.html","template/typeahead/typeahead-popup.html"]),angular.module("ui.bootstrap.transition",[]).factory("$transition",["$q","$timeout","$rootScope",function(a,b,c){function d(a){for(var b in a)if(void 0!==f.style[b])return a[b]}var e=function(d,f,g){g=g||{};var h=a.defer(),i=e[g.animation?"animationEndEventName":"transitionEndEventName"],j=function(){c.$apply(function(){d.unbind(i,j),h.resolve(d)})};return i&&d.bind(i,j),b(function(){angular.isString(f)?d.addClass(f):angular.isFunction(f)?f(d):angular.isObject(f)&&d.css(f),i||h.resolve(d)}),h.promise.cancel=function(){i&&d.unbind(i,j),h.reject("Transition cancelled")},h.promise},f=document.createElement("trans"),g={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd",transition:"transitionend"},h={WebkitTransition:"webkitAnimationEnd",MozTransition:"animationend",OTransition:"oAnimationEnd",transition:"animationend"};return e.transitionEndEventName=d(g),e.animationEndEventName=d(h),e}]),angular.module("ui.bootstrap.collapse",["ui.bootstrap.transition"]).directive("collapse",["$transition",function(a){return{link:function(b,c,d){function e(b){function d(){j===e&&(j=void 0)}var e=a(c,b);return j&&j.cancel(),j=e,e.then(d,d),e}function f(){k?(k=!1,g()):(c.removeClass("collapse").addClass("collapsing"),e({height:c[0].scrollHeight+"px"}).then(g))}function g(){c.removeClass("collapsing"),c.addClass("collapse in"),c.css({height:"auto"})}function h(){if(k)k=!1,i(),c.css({height:0});else{c.css({height:c[0].scrollHeight+"px"});{c[0].offsetWidth}c.removeClass("collapse in").addClass("collapsing"),e({height:0}).then(i)}}function i(){c.removeClass("collapsing"),c.addClass("collapse")}var j,k=!0;b.$watch(d.collapse,function(a){a?h():f()})}}}]),angular.module("ui.bootstrap.accordion",["ui.bootstrap.collapse"]).constant("accordionConfig",{closeOthers:!0}).controller("AccordionController",["$scope","$attrs","accordionConfig",function(a,b,c){this.groups=[],this.closeOthers=function(d){var e=angular.isDefined(b.closeOthers)?a.$eval(b.closeOthers):c.closeOthers;e&&angular.forEach(this.groups,function(a){a!==d&&(a.isOpen=!1)})},this.addGroup=function(a){var b=this;this.groups.push(a),a.$on("$destroy",function(){b.removeGroup(a)})},this.removeGroup=function(a){var b=this.groups.indexOf(a);-1!==b&&this.groups.splice(b,1)}}]).directive("accordion",function(){return{restrict:"EA",controller:"AccordionController",transclude:!0,replace:!1,templateUrl:"template/accordion/accordion.html"}}).directive("accordionGroup",function(){return{require:"^accordion",restrict:"EA",transclude:!0,replace:!0,templateUrl:"template/accordion/accordion-group.html",scope:{heading:"@",isOpen:"=?",isDisabled:"=?"},controller:function(){this.setHeading=function(a){this.heading=a}},link:function(a,b,c,d){d.addGroup(a),a.$watch("isOpen",function(b){b&&d.closeOthers(a)}),a.toggleOpen=function(){a.isDisabled||(a.isOpen=!a.isOpen)}}}}).directive("accordionHeading",function(){return{restrict:"EA",transclude:!0,template:"",replace:!0,require:"^accordionGroup",link:function(a,b,c,d,e){d.setHeading(e(a,function(){}))}}}).directive("accordionTransclude",function(){return{require:"^accordionGroup",link:function(a,b,c,d){a.$watch(function(){return d[c.accordionTransclude]},function(a){a&&(b.html(""),b.append(a))})}}}),angular.module("ui.bootstrap.alert",[]).controller("AlertController",["$scope","$attrs",function(a,b){a.closeable="close"in b}]).directive("alert",function(){return{restrict:"EA",controller:"AlertController",templateUrl:"template/alert/alert.html",transclude:!0,replace:!0,scope:{type:"@",close:"&"}}}),angular.module("ui.bootstrap.bindHtml",[]).directive("bindHtmlUnsafe",function(){return function(a,b,c){b.addClass("ng-binding").data("$binding",c.bindHtmlUnsafe),a.$watch(c.bindHtmlUnsafe,function(a){b.html(a||"")})}}),angular.module("ui.bootstrap.buttons",[]).constant("buttonConfig",{activeClass:"active",toggleEvent:"click"}).controller("ButtonsController",["buttonConfig",function(a){this.activeClass=a.activeClass||"active",this.toggleEvent=a.toggleEvent||"click"}]).directive("btnRadio",function(){return{require:["btnRadio","ngModel"],controller:"ButtonsController",link:function(a,b,c,d){var e=d[0],f=d[1];f.$render=function(){b.toggleClass(e.activeClass,angular.equals(f.$modelValue,a.$eval(c.btnRadio)))},b.bind(e.toggleEvent,function(){var d=b.hasClass(e.activeClass);(!d||angular.isDefined(c.uncheckable))&&a.$apply(function(){f.$setViewValue(d?null:a.$eval(c.btnRadio)),f.$render()})})}}}).directive("btnCheckbox",function(){return{require:["btnCheckbox","ngModel"],controller:"ButtonsController",link:function(a,b,c,d){function e(){return g(c.btnCheckboxTrue,!0)}function f(){return g(c.btnCheckboxFalse,!1)}function g(b,c){var d=a.$eval(b);return angular.isDefined(d)?d:c}var h=d[0],i=d[1];i.$render=function(){b.toggleClass(h.activeClass,angular.equals(i.$modelValue,e()))},b.bind(h.toggleEvent,function(){a.$apply(function(){i.$setViewValue(b.hasClass(h.activeClass)?f():e()),i.$render()})})}}}),angular.module("ui.bootstrap.carousel",["ui.bootstrap.transition"]).controller("CarouselController",["$scope","$timeout","$transition",function(a,b,c){function d(){e();var c=+a.interval;!isNaN(c)&&c>=0&&(g=b(f,c))}function e(){g&&(b.cancel(g),g=null)}function f(){h?(a.next(),d()):a.pause()}var g,h,i=this,j=i.slides=a.slides=[],k=-1;i.currentSlide=null;var l=!1;i.select=a.select=function(e,f){function g(){if(!l){if(i.currentSlide&&angular.isString(f)&&!a.noTransition&&e.$element){e.$element.addClass(f);{e.$element[0].offsetWidth}angular.forEach(j,function(a){angular.extend(a,{direction:"",entering:!1,leaving:!1,active:!1})}),angular.extend(e,{direction:f,active:!0,entering:!0}),angular.extend(i.currentSlide||{},{direction:f,leaving:!0}),a.$currentTransition=c(e.$element,{}),function(b,c){a.$currentTransition.then(function(){h(b,c)},function(){h(b,c)})}(e,i.currentSlide)}else h(e,i.currentSlide);i.currentSlide=e,k=m,d()}}function h(b,c){angular.extend(b,{direction:"",active:!0,leaving:!1,entering:!1}),angular.extend(c||{},{direction:"",active:!1,leaving:!1,entering:!1}),a.$currentTransition=null}var m=j.indexOf(e);void 0===f&&(f=m>k?"next":"prev"),e&&e!==i.currentSlide&&(a.$currentTransition?(a.$currentTransition.cancel(),b(g)):g())},a.$on("$destroy",function(){l=!0}),i.indexOfSlide=function(a){return j.indexOf(a)},a.next=function(){var b=(k+1)%j.length;return a.$currentTransition?void 0:i.select(j[b],"next")},a.prev=function(){var b=0>k-1?j.length-1:k-1;return a.$currentTransition?void 0:i.select(j[b],"prev")},a.isActive=function(a){return i.currentSlide===a},a.$watch("interval",d),a.$on("$destroy",e),a.play=function(){h||(h=!0,d())},a.pause=function(){a.noPause||(h=!1,e())},i.addSlide=function(b,c){b.$element=c,j.push(b),1===j.length||b.active?(i.select(j[j.length-1]),1==j.length&&a.play()):b.active=!1},i.removeSlide=function(a){var b=j.indexOf(a);j.splice(b,1),j.length>0&&a.active?i.select(b>=j.length?j[b-1]:j[b]):k>b&&k--}}]).directive("carousel",[function(){return{restrict:"EA",transclude:!0,replace:!0,controller:"CarouselController",require:"carousel",templateUrl:"template/carousel/carousel.html",scope:{interval:"=",noTransition:"=",noPause:"="}}}]).directive("slide",function(){return{require:"^carousel",restrict:"EA",transclude:!0,replace:!0,templateUrl:"template/carousel/slide.html",scope:{active:"=?"},link:function(a,b,c,d){d.addSlide(a,b),a.$on("$destroy",function(){d.removeSlide(a)}),a.$watch("active",function(b){b&&d.select(a)})}}}),angular.module("ui.bootstrap.dateparser",[]).service("dateParser",["$locale","orderByFilter",function(a,b){function c(a){var c=[],d=a.split("");return angular.forEach(e,function(b,e){var f=a.indexOf(e);if(f>-1){a=a.split(""),d[f]="("+b.regex+")",a[f]="$";for(var g=f+1,h=f+e.length;h>g;g++)d[g]="",a[g]="$";a=a.join(""),c.push({index:f,apply:b.apply})}}),{regex:new RegExp("^"+d.join("")+"$"),map:b(c,"index")}}function d(a,b,c){return 1===b&&c>28?29===c&&(a%4===0&&a%100!==0||a%400===0):3===b||5===b||8===b||10===b?31>c:!0}this.parsers={};var e={yyyy:{regex:"\\d{4}",apply:function(a){this.year=+a}},yy:{regex:"\\d{2}",apply:function(a){this.year=+a+2e3}},y:{regex:"\\d{1,4}",apply:function(a){this.year=+a}},MMMM:{regex:a.DATETIME_FORMATS.MONTH.join("|"),apply:function(b){this.month=a.DATETIME_FORMATS.MONTH.indexOf(b)}},MMM:{regex:a.DATETIME_FORMATS.SHORTMONTH.join("|"),apply:function(b){this.month=a.DATETIME_FORMATS.SHORTMONTH.indexOf(b)}},MM:{regex:"0[1-9]|1[0-2]",apply:function(a){this.month=a-1}},M:{regex:"[1-9]|1[0-2]",apply:function(a){this.month=a-1}},dd:{regex:"[0-2][0-9]{1}|3[0-1]{1}",apply:function(a){this.date=+a}},d:{regex:"[1-2]?[0-9]{1}|3[0-1]{1}",apply:function(a){this.date=+a}},EEEE:{regex:a.DATETIME_FORMATS.DAY.join("|")},EEE:{regex:a.DATETIME_FORMATS.SHORTDAY.join("|")}};this.parse=function(b,e){if(!angular.isString(b)||!e)return b;e=a.DATETIME_FORMATS[e]||e,this.parsers[e]||(this.parsers[e]=c(e));var f=this.parsers[e],g=f.regex,h=f.map,i=b.match(g);if(i&&i.length){for(var j,k={year:1900,month:0,date:1,hours:0},l=1,m=i.length;m>l;l++){var n=h[l-1];n.apply&&n.apply.call(k,i[l])}return d(k.year,k.month,k.date)&&(j=new Date(k.year,k.month,k.date,k.hours)),j}}}]),angular.module("ui.bootstrap.position",[]).factory("$position",["$document","$window",function(a,b){function c(a,c){return a.currentStyle?a.currentStyle[c]:b.getComputedStyle?b.getComputedStyle(a)[c]:a.style[c]}function d(a){return"static"===(c(a,"position")||"static")}var e=function(b){for(var c=a[0],e=b.offsetParent||c;e&&e!==c&&d(e);)e=e.offsetParent;return e||c};return{position:function(b){var c=this.offset(b),d={top:0,left:0},f=e(b[0]);f!=a[0]&&(d=this.offset(angular.element(f)),d.top+=f.clientTop-f.scrollTop,d.left+=f.clientLeft-f.scrollLeft);var g=b[0].getBoundingClientRect();return{width:g.width||b.prop("offsetWidth"),height:g.height||b.prop("offsetHeight"),top:c.top-d.top,left:c.left-d.left}},offset:function(c){var d=c[0].getBoundingClientRect();return{width:d.width||c.prop("offsetWidth"),height:d.height||c.prop("offsetHeight"),top:d.top+(b.pageYOffset||a[0].documentElement.scrollTop),left:d.left+(b.pageXOffset||a[0].documentElement.scrollLeft)}},positionElements:function(a,b,c,d){var e,f,g,h,i=c.split("-"),j=i[0],k=i[1]||"center";e=d?this.offset(a):this.position(a),f=b.prop("offsetWidth"),g=b.prop("offsetHeight");var l={center:function(){return e.left+e.width/2-f/2},left:function(){return e.left},right:function(){return e.left+e.width}},m={center:function(){return e.top+e.height/2-g/2},top:function(){return e.top},bottom:function(){return e.top+e.height}};switch(j){case"right":h={top:m[k](),left:l[j]()};break;case"left":h={top:m[k](),left:e.left-f};break;case"bottom":h={top:m[j](),left:l[k]()};break;default:h={top:e.top-g,left:l[k]()}}return h}}}]),angular.module("ui.bootstrap.datepicker",["ui.bootstrap.dateparser","ui.bootstrap.position"]).constant("datepickerConfig",{formatDay:"dd",formatMonth:"MMMM",formatYear:"yyyy",formatDayHeader:"EEE",formatDayTitle:"MMMM yyyy",formatMonthTitle:"yyyy",datepickerMode:"day",minMode:"day",maxMode:"year",showWeeks:!0,startingDay:0,yearRange:20,minDate:null,maxDate:null}).controller("DatepickerController",["$scope","$attrs","$parse","$interpolate","$timeout","$log","dateFilter","datepickerConfig",function(a,b,c,d,e,f,g,h){var i=this,j={$setViewValue:angular.noop};this.modes=["day","month","year"],angular.forEach(["formatDay","formatMonth","formatYear","formatDayHeader","formatDayTitle","formatMonthTitle","minMode","maxMode","showWeeks","startingDay","yearRange"],function(c,e){i[c]=angular.isDefined(b[c])?8>e?d(b[c])(a.$parent):a.$parent.$eval(b[c]):h[c]}),angular.forEach(["minDate","maxDate"],function(d){b[d]?a.$parent.$watch(c(b[d]),function(a){i[d]=a?new Date(a):null,i.refreshView()}):i[d]=h[d]?new Date(h[d]):null}),a.datepickerMode=a.datepickerMode||h.datepickerMode,a.uniqueId="datepicker-"+a.$id+"-"+Math.floor(1e4*Math.random()),this.activeDate=angular.isDefined(b.initDate)?a.$parent.$eval(b.initDate):new Date,a.isActive=function(b){return 0===i.compare(b.date,i.activeDate)?(a.activeDateId=b.uid,!0):!1},this.init=function(a){j=a,j.$render=function(){i.render()}},this.render=function(){if(j.$modelValue){var a=new Date(j.$modelValue),b=!isNaN(a);b?this.activeDate=a:f.error('Datepicker directive: "ng-model" value must be a Date object, a number of milliseconds since 01.01.1970 or a string representing an RFC2822 or ISO 8601 date.'),j.$setValidity("date",b)}this.refreshView()},this.refreshView=function(){if(this.element){this._refreshView();var a=j.$modelValue?new Date(j.$modelValue):null;j.$setValidity("date-disabled",!a||this.element&&!this.isDisabled(a))}},this.createDateObject=function(a,b){var c=j.$modelValue?new Date(j.$modelValue):null;return{date:a,label:g(a,b),selected:c&&0===this.compare(a,c),disabled:this.isDisabled(a),current:0===this.compare(a,new Date)}},this.isDisabled=function(c){return this.minDate&&this.compare(c,this.minDate)<0||this.maxDate&&this.compare(c,this.maxDate)>0||b.dateDisabled&&a.dateDisabled({date:c,mode:a.datepickerMode})},this.split=function(a,b){for(var c=[];a.length>0;)c.push(a.splice(0,b));return c},a.select=function(b){if(a.datepickerMode===i.minMode){var c=j.$modelValue?new Date(j.$modelValue):new Date(0,0,0,0,0,0,0);c.setFullYear(b.getFullYear(),b.getMonth(),b.getDate()),j.$setViewValue(c),j.$render()}else i.activeDate=b,a.datepickerMode=i.modes[i.modes.indexOf(a.datepickerMode)-1]},a.move=function(a){var b=i.activeDate.getFullYear()+a*(i.step.years||0),c=i.activeDate.getMonth()+a*(i.step.months||0);i.activeDate.setFullYear(b,c,1),i.refreshView()},a.toggleMode=function(b){b=b||1,a.datepickerMode===i.maxMode&&1===b||a.datepickerMode===i.minMode&&-1===b||(a.datepickerMode=i.modes[i.modes.indexOf(a.datepickerMode)+b])},a.keys={13:"enter",32:"space",33:"pageup",34:"pagedown",35:"end",36:"home",37:"left",38:"up",39:"right",40:"down"};var k=function(){e(function(){i.element[0].focus()},0,!1)};a.$on("datepicker.focus",k),a.keydown=function(b){var c=a.keys[b.which];if(c&&!b.shiftKey&&!b.altKey)if(b.preventDefault(),b.stopPropagation(),"enter"===c||"space"===c){if(i.isDisabled(i.activeDate))return;a.select(i.activeDate),k()}else!b.ctrlKey||"up"!==c&&"down"!==c?(i.handleKeyDown(c,b),i.refreshView()):(a.toggleMode("up"===c?1:-1),k())}}]).directive("datepicker",function(){return{restrict:"EA",replace:!0,templateUrl:"template/datepicker/datepicker.html",scope:{datepickerMode:"=?",dateDisabled:"&"},require:["datepicker","?^ngModel"],controller:"DatepickerController",link:function(a,b,c,d){var e=d[0],f=d[1];f&&e.init(f)}}}).directive("daypicker",["dateFilter",function(a){return{restrict:"EA",replace:!0,templateUrl:"template/datepicker/day.html",require:"^datepicker",link:function(b,c,d,e){function f(a,b){return 1!==b||a%4!==0||a%100===0&&a%400!==0?i[b]:29}function g(a,b){var c=new Array(b),d=new Date(a),e=0;for(d.setHours(12);b>e;)c[e++]=new Date(d),d.setDate(d.getDate()+1);return c}function h(a){var b=new Date(a);b.setDate(b.getDate()+4-(b.getDay()||7));var c=b.getTime();return b.setMonth(0),b.setDate(1),Math.floor(Math.round((c-b)/864e5)/7)+1}b.showWeeks=e.showWeeks,e.step={months:1},e.element=c;var i=[31,28,31,30,31,30,31,31,30,31,30,31];e._refreshView=function(){var c=e.activeDate.getFullYear(),d=e.activeDate.getMonth(),f=new Date(c,d,1),i=e.startingDay-f.getDay(),j=i>0?7-i:-i,k=new Date(f);j>0&&k.setDate(-j+1);for(var l=g(k,42),m=0;42>m;m++)l[m]=angular.extend(e.createDateObject(l[m],e.formatDay),{secondary:l[m].getMonth()!==d,uid:b.uniqueId+"-"+m});b.labels=new Array(7);for(var n=0;7>n;n++)b.labels[n]={abbr:a(l[n].date,e.formatDayHeader),full:a(l[n].date,"EEEE")};if(b.title=a(e.activeDate,e.formatDayTitle),b.rows=e.split(l,7),b.showWeeks){b.weekNumbers=[];for(var o=h(b.rows[0][0].date),p=b.rows.length;b.weekNumbers.push(o++)<p;);}},e.compare=function(a,b){return new Date(a.getFullYear(),a.getMonth(),a.getDate())-new Date(b.getFullYear(),b.getMonth(),b.getDate())},e.handleKeyDown=function(a){var b=e.activeDate.getDate();if("left"===a)b-=1;else if("up"===a)b-=7;else if("right"===a)b+=1;else if("down"===a)b+=7;else if("pageup"===a||"pagedown"===a){var c=e.activeDate.getMonth()+("pageup"===a?-1:1);e.activeDate.setMonth(c,1),b=Math.min(f(e.activeDate.getFullYear(),e.activeDate.getMonth()),b)}else"home"===a?b=1:"end"===a&&(b=f(e.activeDate.getFullYear(),e.activeDate.getMonth()));e.activeDate.setDate(b)},e.refreshView()}}}]).directive("monthpicker",["dateFilter",function(a){return{restrict:"EA",replace:!0,templateUrl:"template/datepicker/month.html",require:"^datepicker",link:function(b,c,d,e){e.step={years:1},e.element=c,e._refreshView=function(){for(var c=new Array(12),d=e.activeDate.getFullYear(),f=0;12>f;f++)c[f]=angular.extend(e.createDateObject(new Date(d,f,1),e.formatMonth),{uid:b.uniqueId+"-"+f});b.title=a(e.activeDate,e.formatMonthTitle),b.rows=e.split(c,3)},e.compare=function(a,b){return new Date(a.getFullYear(),a.getMonth())-new Date(b.getFullYear(),b.getMonth())},e.handleKeyDown=function(a){var b=e.activeDate.getMonth();if("left"===a)b-=1;else if("up"===a)b-=3;else if("right"===a)b+=1;else if("down"===a)b+=3;else if("pageup"===a||"pagedown"===a){var c=e.activeDate.getFullYear()+("pageup"===a?-1:1);e.activeDate.setFullYear(c)}else"home"===a?b=0:"end"===a&&(b=11);e.activeDate.setMonth(b)},e.refreshView()}}}]).directive("yearpicker",["dateFilter",function(){return{restrict:"EA",replace:!0,templateUrl:"template/datepicker/year.html",require:"^datepicker",link:function(a,b,c,d){function e(a){return parseInt((a-1)/f,10)*f+1}var f=d.yearRange;d.step={years:f},d.element=b,d._refreshView=function(){for(var b=new Array(f),c=0,g=e(d.activeDate.getFullYear());f>c;c++)b[c]=angular.extend(d.createDateObject(new Date(g+c,0,1),d.formatYear),{uid:a.uniqueId+"-"+c});a.title=[b[0].label,b[f-1].label].join(" - "),a.rows=d.split(b,5)},d.compare=function(a,b){return a.getFullYear()-b.getFullYear()},d.handleKeyDown=function(a){var b=d.activeDate.getFullYear();"left"===a?b-=1:"up"===a?b-=5:"right"===a?b+=1:"down"===a?b+=5:"pageup"===a||"pagedown"===a?b+=("pageup"===a?-1:1)*d.step.years:"home"===a?b=e(d.activeDate.getFullYear()):"end"===a&&(b=e(d.activeDate.getFullYear())+f-1),d.activeDate.setFullYear(b)},d.refreshView()}}}]).constant("datepickerPopupConfig",{datepickerPopup:"yyyy-MM-dd",currentText:"Today",clearText:"Clear",closeText:"Done",closeOnDateSelection:!0,appendToBody:!1,showButtonBar:!0}).directive("datepickerPopup",["$compile","$parse","$document","$position","dateFilter","dateParser","datepickerPopupConfig",function(a,b,c,d,e,f,g){return{restrict:"EA",require:"ngModel",scope:{isOpen:"=?",currentText:"@",clearText:"@",closeText:"@",dateDisabled:"&"},link:function(h,i,j,k){function l(a){return a.replace(/([A-Z])/g,function(a){return"-"+a.toLowerCase()})}function m(a){if(a){if(angular.isDate(a)&&!isNaN(a))return k.$setValidity("date",!0),a;if(angular.isString(a)){var b=f.parse(a,n)||new Date(a);return isNaN(b)?void k.$setValidity("date",!1):(k.$setValidity("date",!0),b)}return void k.$setValidity("date",!1)}return k.$setValidity("date",!0),null}var n,o=angular.isDefined(j.closeOnDateSelection)?h.$parent.$eval(j.closeOnDateSelection):g.closeOnDateSelection,p=angular.isDefined(j.datepickerAppendToBody)?h.$parent.$eval(j.datepickerAppendToBody):g.appendToBody;h.showButtonBar=angular.isDefined(j.showButtonBar)?h.$parent.$eval(j.showButtonBar):g.showButtonBar,h.getText=function(a){return h[a+"Text"]||g[a+"Text"]},j.$observe("datepickerPopup",function(a){n=a||g.datepickerPopup,k.$render()});var q=angular.element("<div datepicker-popup-wrap><div datepicker></div></div>");q.attr({"ng-model":"date","ng-change":"dateSelection()"});var r=angular.element(q.children()[0]);j.datepickerOptions&&angular.forEach(h.$parent.$eval(j.datepickerOptions),function(a,b){r.attr(l(b),a)}),h.watchData={},angular.forEach(["minDate","maxDate","datepickerMode"],function(a){if(j[a]){var c=b(j[a]);if(h.$parent.$watch(c,function(b){h.watchData[a]=b}),r.attr(l(a),"watchData."+a),"datepickerMode"===a){var d=c.assign;h.$watch("watchData."+a,function(a,b){a!==b&&d(h.$parent,a)})}}}),j.dateDisabled&&r.attr("date-disabled","dateDisabled({ date: date, mode: mode })"),k.$parsers.unshift(m),h.dateSelection=function(a){angular.isDefined(a)&&(h.date=a),k.$setViewValue(h.date),k.$render(),o&&(h.isOpen=!1,i[0].focus())},i.bind("input change keyup",function(){h.$apply(function(){h.date=k.$modelValue})}),k.$render=function(){var a=k.$viewValue?e(k.$viewValue,n):"";i.val(a),h.date=m(k.$modelValue)};var s=function(a){h.isOpen&&a.target!==i[0]&&h.$apply(function(){h.isOpen=!1})},t=function(a){h.keydown(a)};i.bind("keydown",t),h.keydown=function(a){27===a.which?(a.preventDefault(),a.stopPropagation(),h.close()):40!==a.which||h.isOpen||(h.isOpen=!0)},h.$watch("isOpen",function(a){a?(h.$broadcast("datepicker.focus"),h.position=p?d.offset(i):d.position(i),h.position.top=h.position.top+i.prop("offsetHeight"),c.bind("click",s)):c.unbind("click",s)}),h.select=function(a){if("today"===a){var b=new Date;angular.isDate(k.$modelValue)?(a=new Date(k.$modelValue),a.setFullYear(b.getFullYear(),b.getMonth(),b.getDate())):a=new Date(b.setHours(0,0,0,0))}h.dateSelection(a)},h.close=function(){h.isOpen=!1,i[0].focus()};var u=a(q)(h);q.remove(),p?c.find("body").append(u):i.after(u),h.$on("$destroy",function(){u.remove(),i.unbind("keydown",t),c.unbind("click",s)})}}}]).directive("datepickerPopupWrap",function(){return{restrict:"EA",replace:!0,transclude:!0,templateUrl:"template/datepicker/popup.html",link:function(a,b){b.bind("click",function(a){a.preventDefault(),a.stopPropagation()})}}}),angular.module("ui.bootstrap.dropdown",[]).constant("dropdownConfig",{openClass:"open"}).service("dropdownService",["$document",function(a){var b=null;this.open=function(e){b||(a.bind("click",c),a.bind("keydown",d)),b&&b!==e&&(b.isOpen=!1),b=e},this.close=function(e){b===e&&(b=null,a.unbind("click",c),a.unbind("keydown",d))};var c=function(a){var c=b.getToggleElement();a&&c&&c[0].contains(a.target)||b.$apply(function(){b.isOpen=!1})},d=function(a){27===a.which&&(b.focusToggleElement(),c())}}]).controller("DropdownController",["$scope","$attrs","$parse","dropdownConfig","dropdownService","$animate",function(a,b,c,d,e,f){var g,h=this,i=a.$new(),j=d.openClass,k=angular.noop,l=b.onToggle?c(b.onToggle):angular.noop;this.init=function(d){h.$element=d,b.isOpen&&(g=c(b.isOpen),k=g.assign,a.$watch(g,function(a){i.isOpen=!!a}))},this.toggle=function(a){return i.isOpen=arguments.length?!!a:!i.isOpen},this.isOpen=function(){return i.isOpen},i.getToggleElement=function(){return h.toggleElement},i.focusToggleElement=function(){h.toggleElement&&h.toggleElement[0].focus()},i.$watch("isOpen",function(b,c){f[b?"addClass":"removeClass"](h.$element,j),b?(i.focusToggleElement(),e.open(i)):e.close(i),k(a,b),angular.isDefined(b)&&b!==c&&l(a,{open:!!b})}),a.$on("$locationChangeSuccess",function(){i.isOpen=!1}),a.$on("$destroy",function(){i.$destroy()})}]).directive("dropdown",function(){return{restrict:"CA",controller:"DropdownController",link:function(a,b,c,d){d.init(b)}}}).directive("dropdownToggle",function(){return{restrict:"CA",require:"?^dropdown",link:function(a,b,c,d){if(d){d.toggleElement=b;var e=function(e){e.preventDefault(),b.hasClass("disabled")||c.disabled||a.$apply(function(){d.toggle()})};b.bind("click",e),b.attr({"aria-haspopup":!0,"aria-expanded":!1}),a.$watch(d.isOpen,function(a){b.attr("aria-expanded",!!a)}),a.$on("$destroy",function(){b.unbind("click",e)})}}}}),angular.module("ui.bootstrap.modal",["ui.bootstrap.transition"]).factory("$$stackedMap",function(){return{createNew:function(){var a=[];return{add:function(b,c){a.push({key:b,value:c})},get:function(b){for(var c=0;c<a.length;c++)if(b==a[c].key)return a[c]},keys:function(){for(var b=[],c=0;c<a.length;c++)b.push(a[c].key);return b},top:function(){return a[a.length-1]},remove:function(b){for(var c=-1,d=0;d<a.length;d++)if(b==a[d].key){c=d;break}return a.splice(c,1)[0]},removeTop:function(){return a.splice(a.length-1,1)[0]},length:function(){return a.length}}}}}).directive("modalBackdrop",["$timeout",function(a){return{restrict:"EA",replace:!0,templateUrl:"template/modal/backdrop.html",link:function(b,c,d){b.backdropClass=d.backdropClass||"",b.animate=!1,a(function(){b.animate=!0})}}}]).directive("modalWindow",["$modalStack","$timeout",function(a,b){return{restrict:"EA",scope:{index:"@",animate:"="},replace:!0,transclude:!0,templateUrl:function(a,b){return b.templateUrl||"template/modal/window.html"},link:function(c,d,e){d.addClass(e.windowClass||""),c.size=e.size,b(function(){c.animate=!0,d[0].querySelectorAll("[autofocus]").length||d[0].focus()}),c.close=function(b){var c=a.getTop();c&&c.value.backdrop&&"static"!=c.value.backdrop&&b.target===b.currentTarget&&(b.preventDefault(),b.stopPropagation(),a.dismiss(c.key,"backdrop click"))}}}}]).directive("modalTransclude",function(){return{link:function(a,b,c,d,e){e(a.$parent,function(a){b.empty(),b.append(a)})}}}).factory("$modalStack",["$transition","$timeout","$document","$compile","$rootScope","$$stackedMap",function(a,b,c,d,e,f){function g(){for(var a=-1,b=n.keys(),c=0;c<b.length;c++)n.get(b[c]).value.backdrop&&(a=c);return a}function h(a){var b=c.find("body").eq(0),d=n.get(a).value;n.remove(a),j(d.modalDomEl,d.modalScope,300,function(){d.modalScope.$destroy(),b.toggleClass(m,n.length()>0),i()})}function i(){if(k&&-1==g()){var a=l;j(k,l,150,function(){a.$destroy(),a=null}),k=void 0,l=void 0}}function j(c,d,e,f){function g(){g.done||(g.done=!0,c.remove(),f&&f())}d.animate=!1;var h=a.transitionEndEventName;if(h){var i=b(g,e);c.bind(h,function(){b.cancel(i),g(),d.$apply()})}else b(g)}var k,l,m="modal-open",n=f.createNew(),o={};return e.$watch(g,function(a){l&&(l.index=a)}),c.bind("keydown",function(a){var b;27===a.which&&(b=n.top(),b&&b.value.keyboard&&(a.preventDefault(),e.$apply(function(){o.dismiss(b.key,"escape key press")})))}),o.open=function(a,b){n.add(a,{deferred:b.deferred,modalScope:b.scope,backdrop:b.backdrop,keyboard:b.keyboard});var f=c.find("body").eq(0),h=g();if(h>=0&&!k){l=e.$new(!0),l.index=h;var i=angular.element("<div modal-backdrop></div>");i.attr("backdrop-class",b.backdropClass),k=d(i)(l),f.append(k)}var j=angular.element("<div modal-window></div>");j.attr({"template-url":b.windowTemplateUrl,"window-class":b.windowClass,size:b.size,index:n.length()-1,animate:"animate"}).html(b.content);var o=d(j)(b.scope);n.top().value.modalDomEl=o,f.append(o),f.addClass(m)},o.close=function(a,b){var c=n.get(a);c&&(c.value.deferred.resolve(b),h(a))},o.dismiss=function(a,b){var c=n.get(a);c&&(c.value.deferred.reject(b),h(a))},o.dismissAll=function(a){for(var b=this.getTop();b;)this.dismiss(b.key,a),b=this.getTop()},o.getTop=function(){return n.top()},o}]).provider("$modal",function(){var a={options:{backdrop:!0,keyboard:!0},$get:["$injector","$rootScope","$q","$http","$templateCache","$controller","$modalStack",function(b,c,d,e,f,g,h){function i(a){return a.template?d.when(a.template):e.get(angular.isFunction(a.templateUrl)?a.templateUrl():a.templateUrl,{cache:f}).then(function(a){return a.data})}function j(a){var c=[];return angular.forEach(a,function(a){(angular.isFunction(a)||angular.isArray(a))&&c.push(d.when(b.invoke(a)))}),c}var k={};return k.open=function(b){var e=d.defer(),f=d.defer(),k={result:e.promise,opened:f.promise,close:function(a){h.close(k,a)},dismiss:function(a){h.dismiss(k,a)}};if(b=angular.extend({},a.options,b),b.resolve=b.resolve||{},!b.template&&!b.templateUrl)throw new Error("One of template or templateUrl options is required.");var l=d.all([i(b)].concat(j(b.resolve)));return l.then(function(a){var d=(b.scope||c).$new();d.$close=k.close,d.$dismiss=k.dismiss;var f,i={},j=1;b.controller&&(i.$scope=d,i.$modalInstance=k,angular.forEach(b.resolve,function(b,c){i[c]=a[j++]}),f=g(b.controller,i),b.controllerAs&&(d[b.controllerAs]=f)),h.open(k,{scope:d,deferred:e,content:a[0],backdrop:b.backdrop,keyboard:b.keyboard,backdropClass:b.backdropClass,windowClass:b.windowClass,windowTemplateUrl:b.windowTemplateUrl,size:b.size})},function(a){e.reject(a)}),l.then(function(){f.resolve(!0)},function(){f.reject(!1)}),k},k}]};return a}),angular.module("ui.bootstrap.pagination",[]).controller("PaginationController",["$scope","$attrs","$parse",function(a,b,c){var d=this,e={$setViewValue:angular.noop},f=b.numPages?c(b.numPages).assign:angular.noop;this.init=function(f,g){e=f,this.config=g,e.$render=function(){d.render()},b.itemsPerPage?a.$parent.$watch(c(b.itemsPerPage),function(b){d.itemsPerPage=parseInt(b,10),a.totalPages=d.calculateTotalPages()}):this.itemsPerPage=g.itemsPerPage},this.calculateTotalPages=function(){var b=this.itemsPerPage<1?1:Math.ceil(a.totalItems/this.itemsPerPage);return Math.max(b||0,1)},this.render=function(){a.page=parseInt(e.$viewValue,10)||1},a.selectPage=function(b){a.page!==b&&b>0&&b<=a.totalPages&&(e.$setViewValue(b),e.$render())},a.getText=function(b){return a[b+"Text"]||d.config[b+"Text"]},a.noPrevious=function(){return 1===a.page},a.noNext=function(){return a.page===a.totalPages},a.$watch("totalItems",function(){a.totalPages=d.calculateTotalPages()}),a.$watch("totalPages",function(b){f(a.$parent,b),a.page>b?a.selectPage(b):e.$render()})}]).constant("paginationConfig",{itemsPerPage:10,boundaryLinks:!1,directionLinks:!0,firstText:"First",previousText:"Previous",nextText:"Next",lastText:"Last",rotate:!0}).directive("pagination",["$parse","paginationConfig",function(a,b){return{restrict:"EA",scope:{totalItems:"=",firstText:"@",previousText:"@",nextText:"@",lastText:"@"},require:["pagination","?ngModel"],controller:"PaginationController",templateUrl:"template/pagination/pagination.html",replace:!0,link:function(c,d,e,f){function g(a,b,c){return{number:a,text:b,active:c}}function h(a,b){var c=[],d=1,e=b,f=angular.isDefined(k)&&b>k;f&&(l?(d=Math.max(a-Math.floor(k/2),1),e=d+k-1,e>b&&(e=b,d=e-k+1)):(d=(Math.ceil(a/k)-1)*k+1,e=Math.min(d+k-1,b)));for(var h=d;e>=h;h++){var i=g(h,h,h===a);c.push(i)}if(f&&!l){if(d>1){var j=g(d-1,"...",!1);c.unshift(j)}if(b>e){var m=g(e+1,"...",!1);c.push(m)}}return c}var i=f[0],j=f[1];if(j){var k=angular.isDefined(e.maxSize)?c.$parent.$eval(e.maxSize):b.maxSize,l=angular.isDefined(e.rotate)?c.$parent.$eval(e.rotate):b.rotate;c.boundaryLinks=angular.isDefined(e.boundaryLinks)?c.$parent.$eval(e.boundaryLinks):b.boundaryLinks,c.directionLinks=angular.isDefined(e.directionLinks)?c.$parent.$eval(e.directionLinks):b.directionLinks,i.init(j,b),e.maxSize&&c.$parent.$watch(a(e.maxSize),function(a){k=parseInt(a,10),i.render()
+});var m=i.render;i.render=function(){m(),c.page>0&&c.page<=c.totalPages&&(c.pages=h(c.page,c.totalPages))}}}}}]).constant("pagerConfig",{itemsPerPage:10,previousText:"« Previous",nextText:"Next »",align:!0}).directive("pager",["pagerConfig",function(a){return{restrict:"EA",scope:{totalItems:"=",previousText:"@",nextText:"@"},require:["pager","?ngModel"],controller:"PaginationController",templateUrl:"template/pagination/pager.html",replace:!0,link:function(b,c,d,e){var f=e[0],g=e[1];g&&(b.align=angular.isDefined(d.align)?b.$parent.$eval(d.align):a.align,f.init(g,a))}}}]),angular.module("ui.bootstrap.tooltip",["ui.bootstrap.position","ui.bootstrap.bindHtml"]).provider("$tooltip",function(){function a(a){var b=/[A-Z]/g,c="-";return a.replace(b,function(a,b){return(b?c:"")+a.toLowerCase()})}var b={placement:"top",animation:!0,popupDelay:0},c={mouseenter:"mouseleave",click:"click",focus:"blur"},d={};this.options=function(a){angular.extend(d,a)},this.setTriggers=function(a){angular.extend(c,a)},this.$get=["$window","$compile","$timeout","$parse","$document","$position","$interpolate",function(e,f,g,h,i,j,k){return function(e,l,m){function n(a){var b=a||o.trigger||m,d=c[b]||b;return{show:b,hide:d}}var o=angular.extend({},b,d),p=a(e),q=k.startSymbol(),r=k.endSymbol(),s="<div "+p+'-popup title="'+q+"tt_title"+r+'" content="'+q+"tt_content"+r+'" placement="'+q+"tt_placement"+r+'" animation="tt_animation" is-open="tt_isOpen"></div>';return{restrict:"EA",scope:!0,compile:function(){var a=f(s);return function(b,c,d){function f(){b.tt_isOpen?m():k()}function k(){(!y||b.$eval(d[l+"Enable"]))&&(b.tt_popupDelay?v||(v=g(p,b.tt_popupDelay,!1),v.then(function(a){a()})):p()())}function m(){b.$apply(function(){q()})}function p(){return v=null,u&&(g.cancel(u),u=null),b.tt_content?(r(),t.css({top:0,left:0,display:"block"}),w?i.find("body").append(t):c.after(t),z(),b.tt_isOpen=!0,b.$digest(),z):angular.noop}function q(){b.tt_isOpen=!1,g.cancel(v),v=null,b.tt_animation?u||(u=g(s,500)):s()}function r(){t&&s(),t=a(b,function(){}),b.$digest()}function s(){u=null,t&&(t.remove(),t=null)}var t,u,v,w=angular.isDefined(o.appendToBody)?o.appendToBody:!1,x=n(void 0),y=angular.isDefined(d[l+"Enable"]),z=function(){var a=j.positionElements(c,t,b.tt_placement,w);a.top+="px",a.left+="px",t.css(a)};b.tt_isOpen=!1,d.$observe(e,function(a){b.tt_content=a,!a&&b.tt_isOpen&&q()}),d.$observe(l+"Title",function(a){b.tt_title=a}),d.$observe(l+"Placement",function(a){b.tt_placement=angular.isDefined(a)?a:o.placement}),d.$observe(l+"PopupDelay",function(a){var c=parseInt(a,10);b.tt_popupDelay=isNaN(c)?o.popupDelay:c});var A=function(){c.unbind(x.show,k),c.unbind(x.hide,m)};d.$observe(l+"Trigger",function(a){A(),x=n(a),x.show===x.hide?c.bind(x.show,f):(c.bind(x.show,k),c.bind(x.hide,m))});var B=b.$eval(d[l+"Animation"]);b.tt_animation=angular.isDefined(B)?!!B:o.animation,d.$observe(l+"AppendToBody",function(a){w=angular.isDefined(a)?h(a)(b):w}),w&&b.$on("$locationChangeSuccess",function(){b.tt_isOpen&&q()}),b.$on("$destroy",function(){g.cancel(u),g.cancel(v),A(),s()})}}}}}]}).directive("tooltipPopup",function(){return{restrict:"EA",replace:!0,scope:{content:"@",placement:"@",animation:"&",isOpen:"&"},templateUrl:"template/tooltip/tooltip-popup.html"}}).directive("tooltip",["$tooltip",function(a){return a("tooltip","tooltip","mouseenter")}]).directive("tooltipHtmlUnsafePopup",function(){return{restrict:"EA",replace:!0,scope:{content:"@",placement:"@",animation:"&",isOpen:"&"},templateUrl:"template/tooltip/tooltip-html-unsafe-popup.html"}}).directive("tooltipHtmlUnsafe",["$tooltip",function(a){return a("tooltipHtmlUnsafe","tooltip","mouseenter")}]),angular.module("ui.bootstrap.popover",["ui.bootstrap.tooltip"]).directive("popoverPopup",function(){return{restrict:"EA",replace:!0,scope:{title:"@",content:"@",placement:"@",animation:"&",isOpen:"&"},templateUrl:"template/popover/popover.html"}}).directive("popover",["$tooltip",function(a){return a("popover","popover","click")}]),angular.module("ui.bootstrap.progressbar",[]).constant("progressConfig",{animate:!0,max:100}).controller("ProgressController",["$scope","$attrs","progressConfig",function(a,b,c){var d=this,e=angular.isDefined(b.animate)?a.$parent.$eval(b.animate):c.animate;this.bars=[],a.max=angular.isDefined(b.max)?a.$parent.$eval(b.max):c.max,this.addBar=function(b,c){e||c.css({transition:"none"}),this.bars.push(b),b.$watch("value",function(c){b.percent=+(100*c/a.max).toFixed(2)}),b.$on("$destroy",function(){c=null,d.removeBar(b)})},this.removeBar=function(a){this.bars.splice(this.bars.indexOf(a),1)}}]).directive("progress",function(){return{restrict:"EA",replace:!0,transclude:!0,controller:"ProgressController",require:"progress",scope:{},templateUrl:"template/progressbar/progress.html"}}).directive("bar",function(){return{restrict:"EA",replace:!0,transclude:!0,require:"^progress",scope:{value:"=",type:"@"},templateUrl:"template/progressbar/bar.html",link:function(a,b,c,d){d.addBar(a,b)}}}).directive("progressbar",function(){return{restrict:"EA",replace:!0,transclude:!0,controller:"ProgressController",scope:{value:"=",type:"@"},templateUrl:"template/progressbar/progressbar.html",link:function(a,b,c,d){d.addBar(a,angular.element(b.children()[0]))}}}),angular.module("ui.bootstrap.rating",[]).constant("ratingConfig",{max:5,stateOn:null,stateOff:null}).controller("RatingController",["$scope","$attrs","ratingConfig",function(a,b,c){var d={$setViewValue:angular.noop};this.init=function(e){d=e,d.$render=this.render,this.stateOn=angular.isDefined(b.stateOn)?a.$parent.$eval(b.stateOn):c.stateOn,this.stateOff=angular.isDefined(b.stateOff)?a.$parent.$eval(b.stateOff):c.stateOff;var f=angular.isDefined(b.ratingStates)?a.$parent.$eval(b.ratingStates):new Array(angular.isDefined(b.max)?a.$parent.$eval(b.max):c.max);a.range=this.buildTemplateObjects(f)},this.buildTemplateObjects=function(a){for(var b=0,c=a.length;c>b;b++)a[b]=angular.extend({index:b},{stateOn:this.stateOn,stateOff:this.stateOff},a[b]);return a},a.rate=function(b){!a.readonly&&b>=0&&b<=a.range.length&&(d.$setViewValue(b),d.$render())},a.enter=function(b){a.readonly||(a.value=b),a.onHover({value:b})},a.reset=function(){a.value=d.$viewValue,a.onLeave()},a.onKeydown=function(b){/(37|38|39|40)/.test(b.which)&&(b.preventDefault(),b.stopPropagation(),a.rate(a.value+(38===b.which||39===b.which?1:-1)))},this.render=function(){a.value=d.$viewValue}}]).directive("rating",function(){return{restrict:"EA",require:["rating","ngModel"],scope:{readonly:"=?",onHover:"&",onLeave:"&"},controller:"RatingController",templateUrl:"template/rating/rating.html",replace:!0,link:function(a,b,c,d){var e=d[0],f=d[1];f&&e.init(f)}}}),angular.module("ui.bootstrap.tabs",[]).controller("TabsetController",["$scope",function(a){var b=this,c=b.tabs=a.tabs=[];b.select=function(a){angular.forEach(c,function(b){b.active&&b!==a&&(b.active=!1,b.onDeselect())}),a.active=!0,a.onSelect()},b.addTab=function(a){c.push(a),1===c.length?a.active=!0:a.active&&b.select(a)},b.removeTab=function(a){var d=c.indexOf(a);if(a.active&&c.length>1){var e=d==c.length-1?d-1:d+1;b.select(c[e])}c.splice(d,1)}}]).directive("tabset",function(){return{restrict:"EA",transclude:!0,replace:!0,scope:{type:"@"},controller:"TabsetController",templateUrl:"template/tabs/tabset.html",link:function(a,b,c){a.vertical=angular.isDefined(c.vertical)?a.$parent.$eval(c.vertical):!1,a.justified=angular.isDefined(c.justified)?a.$parent.$eval(c.justified):!1}}}).directive("tab",["$parse",function(a){return{require:"^tabset",restrict:"EA",replace:!0,templateUrl:"template/tabs/tab.html",transclude:!0,scope:{active:"=?",heading:"@",onSelect:"&select",onDeselect:"&deselect"},controller:function(){},compile:function(b,c,d){return function(b,c,e,f){b.$watch("active",function(a){a&&f.select(b)}),b.disabled=!1,e.disabled&&b.$parent.$watch(a(e.disabled),function(a){b.disabled=!!a}),b.select=function(){b.disabled||(b.active=!0)},f.addTab(b),b.$on("$destroy",function(){f.removeTab(b)}),b.$transcludeFn=d}}}}]).directive("tabHeadingTransclude",[function(){return{restrict:"A",require:"^tab",link:function(a,b){a.$watch("headingElement",function(a){a&&(b.html(""),b.append(a))})}}}]).directive("tabContentTransclude",function(){function a(a){return a.tagName&&(a.hasAttribute("tab-heading")||a.hasAttribute("data-tab-heading")||"tab-heading"===a.tagName.toLowerCase()||"data-tab-heading"===a.tagName.toLowerCase())}return{restrict:"A",require:"^tabset",link:function(b,c,d){var e=b.$eval(d.tabContentTransclude);e.$transcludeFn(e.$parent,function(b){angular.forEach(b,function(b){a(b)?e.headingElement=b:c.append(b)})})}}}),angular.module("ui.bootstrap.timepicker",[]).constant("timepickerConfig",{hourStep:1,minuteStep:1,showMeridian:!0,meridians:null,readonlyInput:!1,mousewheel:!0}).controller("TimepickerController",["$scope","$attrs","$parse","$log","$locale","timepickerConfig",function(a,b,c,d,e,f){function g(){var b=parseInt(a.hours,10),c=a.showMeridian?b>0&&13>b:b>=0&&24>b;return c?(a.showMeridian&&(12===b&&(b=0),a.meridian===p[1]&&(b+=12)),b):void 0}function h(){var b=parseInt(a.minutes,10);return b>=0&&60>b?b:void 0}function i(a){return angular.isDefined(a)&&a.toString().length<2?"0"+a:a}function j(a){k(),o.$setViewValue(new Date(n)),l(a)}function k(){o.$setValidity("time",!0),a.invalidHours=!1,a.invalidMinutes=!1}function l(b){var c=n.getHours(),d=n.getMinutes();a.showMeridian&&(c=0===c||12===c?12:c%12),a.hours="h"===b?c:i(c),a.minutes="m"===b?d:i(d),a.meridian=n.getHours()<12?p[0]:p[1]}function m(a){var b=new Date(n.getTime()+6e4*a);n.setHours(b.getHours(),b.getMinutes()),j()}var n=new Date,o={$setViewValue:angular.noop},p=angular.isDefined(b.meridians)?a.$parent.$eval(b.meridians):f.meridians||e.DATETIME_FORMATS.AMPMS;this.init=function(c,d){o=c,o.$render=this.render;var e=d.eq(0),g=d.eq(1),h=angular.isDefined(b.mousewheel)?a.$parent.$eval(b.mousewheel):f.mousewheel;h&&this.setupMousewheelEvents(e,g),a.readonlyInput=angular.isDefined(b.readonlyInput)?a.$parent.$eval(b.readonlyInput):f.readonlyInput,this.setupInputEvents(e,g)};var q=f.hourStep;b.hourStep&&a.$parent.$watch(c(b.hourStep),function(a){q=parseInt(a,10)});var r=f.minuteStep;b.minuteStep&&a.$parent.$watch(c(b.minuteStep),function(a){r=parseInt(a,10)}),a.showMeridian=f.showMeridian,b.showMeridian&&a.$parent.$watch(c(b.showMeridian),function(b){if(a.showMeridian=!!b,o.$error.time){var c=g(),d=h();angular.isDefined(c)&&angular.isDefined(d)&&(n.setHours(c),j())}else l()}),this.setupMousewheelEvents=function(b,c){var d=function(a){a.originalEvent&&(a=a.originalEvent);var b=a.wheelDelta?a.wheelDelta:-a.deltaY;return a.detail||b>0};b.bind("mousewheel wheel",function(b){a.$apply(d(b)?a.incrementHours():a.decrementHours()),b.preventDefault()}),c.bind("mousewheel wheel",function(b){a.$apply(d(b)?a.incrementMinutes():a.decrementMinutes()),b.preventDefault()})},this.setupInputEvents=function(b,c){if(a.readonlyInput)return a.updateHours=angular.noop,void(a.updateMinutes=angular.noop);var d=function(b,c){o.$setViewValue(null),o.$setValidity("time",!1),angular.isDefined(b)&&(a.invalidHours=b),angular.isDefined(c)&&(a.invalidMinutes=c)};a.updateHours=function(){var a=g();angular.isDefined(a)?(n.setHours(a),j("h")):d(!0)},b.bind("blur",function(){!a.invalidHours&&a.hours<10&&a.$apply(function(){a.hours=i(a.hours)})}),a.updateMinutes=function(){var a=h();angular.isDefined(a)?(n.setMinutes(a),j("m")):d(void 0,!0)},c.bind("blur",function(){!a.invalidMinutes&&a.minutes<10&&a.$apply(function(){a.minutes=i(a.minutes)})})},this.render=function(){var a=o.$modelValue?new Date(o.$modelValue):null;isNaN(a)?(o.$setValidity("time",!1),d.error('Timepicker directive: "ng-model" value must be a Date object, a number of milliseconds since 01.01.1970 or a string representing an RFC2822 or ISO 8601 date.')):(a&&(n=a),k(),l())},a.incrementHours=function(){m(60*q)},a.decrementHours=function(){m(60*-q)},a.incrementMinutes=function(){m(r)},a.decrementMinutes=function(){m(-r)},a.toggleMeridian=function(){m(720*(n.getHours()<12?1:-1))}}]).directive("timepicker",function(){return{restrict:"EA",require:["timepicker","?^ngModel"],controller:"TimepickerController",replace:!0,scope:{},templateUrl:"template/timepicker/timepicker.html",link:function(a,b,c,d){var e=d[0],f=d[1];f&&e.init(f,b.find("input"))}}}),angular.module("ui.bootstrap.typeahead",["ui.bootstrap.position","ui.bootstrap.bindHtml"]).factory("typeaheadParser",["$parse",function(a){var b=/^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w\d]*))\s+in\s+([\s\S]+?)$/;return{parse:function(c){var d=c.match(b);if(!d)throw new Error('Expected typeahead specification in form of "_modelValue_ (as _label_)? for _item_ in _collection_" but got "'+c+'".');return{itemName:d[3],source:a(d[4]),viewMapper:a(d[2]||d[1]),modelMapper:a(d[1])}}}}]).directive("typeahead",["$compile","$parse","$q","$timeout","$document","$position","typeaheadParser",function(a,b,c,d,e,f,g){var h=[9,13,27,38,40];return{require:"ngModel",link:function(i,j,k,l){var m,n=i.$eval(k.typeaheadMinLength)||1,o=i.$eval(k.typeaheadWaitMs)||0,p=i.$eval(k.typeaheadEditable)!==!1,q=b(k.typeaheadLoading).assign||angular.noop,r=b(k.typeaheadOnSelect),s=k.typeaheadInputFormatter?b(k.typeaheadInputFormatter):void 0,t=k.typeaheadAppendToBody?i.$eval(k.typeaheadAppendToBody):!1,u=b(k.ngModel).assign,v=g.parse(k.typeahead),w=i.$new();i.$on("$destroy",function(){w.$destroy()});var x="typeahead-"+w.$id+"-"+Math.floor(1e4*Math.random());j.attr({"aria-autocomplete":"list","aria-expanded":!1,"aria-owns":x});var y=angular.element("<div typeahead-popup></div>");y.attr({id:x,matches:"matches",active:"activeIdx",select:"select(activeIdx)",query:"query",position:"position"}),angular.isDefined(k.typeaheadTemplateUrl)&&y.attr("template-url",k.typeaheadTemplateUrl);var z=function(){w.matches=[],w.activeIdx=-1,j.attr("aria-expanded",!1)},A=function(a){return x+"-option-"+a};w.$watch("activeIdx",function(a){0>a?j.removeAttr("aria-activedescendant"):j.attr("aria-activedescendant",A(a))});var B=function(a){var b={$viewValue:a};q(i,!0),c.when(v.source(i,b)).then(function(c){var d=a===l.$viewValue;if(d&&m)if(c.length>0){w.activeIdx=0,w.matches.length=0;for(var e=0;e<c.length;e++)b[v.itemName]=c[e],w.matches.push({id:A(e),label:v.viewMapper(w,b),model:c[e]});w.query=a,w.position=t?f.offset(j):f.position(j),w.position.top=w.position.top+j.prop("offsetHeight"),j.attr("aria-expanded",!0)}else z();d&&q(i,!1)},function(){z(),q(i,!1)})};z(),w.query=void 0;var C,D=function(a){C=d(function(){B(a)},o)},E=function(){C&&d.cancel(C)};l.$parsers.unshift(function(a){return m=!0,a&&a.length>=n?o>0?(E(),D(a)):B(a):(q(i,!1),E(),z()),p?a:a?void l.$setValidity("editable",!1):(l.$setValidity("editable",!0),a)}),l.$formatters.push(function(a){var b,c,d={};return s?(d.$model=a,s(i,d)):(d[v.itemName]=a,b=v.viewMapper(i,d),d[v.itemName]=void 0,c=v.viewMapper(i,d),b!==c?b:a)}),w.select=function(a){var b,c,e={};e[v.itemName]=c=w.matches[a].model,b=v.modelMapper(i,e),u(i,b),l.$setValidity("editable",!0),r(i,{$item:c,$model:b,$label:v.viewMapper(i,e)}),z(),d(function(){j[0].focus()},0,!1)},j.bind("keydown",function(a){0!==w.matches.length&&-1!==h.indexOf(a.which)&&(a.preventDefault(),40===a.which?(w.activeIdx=(w.activeIdx+1)%w.matches.length,w.$digest()):38===a.which?(w.activeIdx=(w.activeIdx?w.activeIdx:w.matches.length)-1,w.$digest()):13===a.which||9===a.which?w.$apply(function(){w.select(w.activeIdx)}):27===a.which&&(a.stopPropagation(),z(),w.$digest()))}),j.bind("blur",function(){m=!1});var F=function(a){j[0]!==a.target&&(z(),w.$digest())};e.bind("click",F),i.$on("$destroy",function(){e.unbind("click",F)});var G=a(y)(w);t?e.find("body").append(G):j.after(G)}}}]).directive("typeaheadPopup",function(){return{restrict:"EA",scope:{matches:"=",query:"=",active:"=",position:"=",select:"&"},replace:!0,templateUrl:"template/typeahead/typeahead-popup.html",link:function(a,b,c){a.templateUrl=c.templateUrl,a.isOpen=function(){return a.matches.length>0},a.isActive=function(b){return a.active==b},a.selectActive=function(b){a.active=b},a.selectMatch=function(b){a.select({activeIdx:b})}}}}).directive("typeaheadMatch",["$http","$templateCache","$compile","$parse",function(a,b,c,d){return{restrict:"EA",scope:{index:"=",match:"=",query:"="},link:function(e,f,g){var h=d(g.templateUrl)(e.$parent)||"template/typeahead/typeahead-match.html";a.get(h,{cache:b}).success(function(a){f.replaceWith(c(a.trim())(e))})}}}]).filter("typeaheadHighlight",function(){function a(a){return a.replace(/([.?*+^$[\]\\(){}|-])/g,"\\$1")}return function(b,c){return c?(""+b).replace(new RegExp(a(c),"gi"),"<strong>$&</strong>"):b}}),angular.module("template/accordion/accordion-group.html",[]).run(["$templateCache",function(a){a.put("template/accordion/accordion-group.html",'<div class="panel panel-default">\n  <div class="panel-heading">\n    <h4 class="panel-title">\n      <a class="accordion-toggle" ng-click="toggleOpen()" accordion-transclude="heading"><span ng-class="{\'text-muted\': isDisabled}">{{heading}}</span></a>\n    </h4>\n  </div>\n  <div class="panel-collapse" collapse="!isOpen">\n	  <div class="panel-body" ng-transclude></div>\n  </div>\n</div>')}]),angular.module("template/accordion/accordion.html",[]).run(["$templateCache",function(a){a.put("template/accordion/accordion.html",'<div class="panel-group" ng-transclude></div>')}]),angular.module("template/alert/alert.html",[]).run(["$templateCache",function(a){a.put("template/alert/alert.html",'<div class="alert" ng-class="[\'alert-\' + (type || \'warning\'), closeable ? \'alert-dismissable\' : null]" role="alert">\n    <button ng-show="closeable" type="button" class="close" ng-click="close()">\n        <span aria-hidden="true">&times;</span>\n        <span class="sr-only">Close</span>\n    </button>\n    <div ng-transclude></div>\n</div>\n')}]),angular.module("template/carousel/carousel.html",[]).run(["$templateCache",function(a){a.put("template/carousel/carousel.html",'<div ng-mouseenter="pause()" ng-mouseleave="play()" class="carousel" ng-swipe-right="prev()" ng-swipe-left="next()">\n    <ol class="carousel-indicators" ng-show="slides.length > 1">\n        <li ng-repeat="slide in slides track by $index" ng-class="{active: isActive(slide)}" ng-click="select(slide)"></li>\n    </ol>\n    <div class="carousel-inner" ng-transclude></div>\n    <a class="left carousel-control" ng-click="prev()" ng-show="slides.length > 1"><span class="glyphicon glyphicon-chevron-left"></span></a>\n    <a class="right carousel-control" ng-click="next()" ng-show="slides.length > 1"><span class="glyphicon glyphicon-chevron-right"></span></a>\n</div>\n')}]),angular.module("template/carousel/slide.html",[]).run(["$templateCache",function(a){a.put("template/carousel/slide.html","<div ng-class=\"{\n    'active': leaving || (active && !entering),\n    'prev': (next || active) && direction=='prev',\n    'next': (next || active) && direction=='next',\n    'right': direction=='prev',\n    'left': direction=='next'\n  }\" class=\"item text-center\" ng-transclude></div>\n")}]),angular.module("template/datepicker/datepicker.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/datepicker.html",'<div ng-switch="datepickerMode" role="application" ng-keydown="keydown($event)">\n  <daypicker ng-switch-when="day" tabindex="0"></daypicker>\n  <monthpicker ng-switch-when="month" tabindex="0"></monthpicker>\n  <yearpicker ng-switch-when="year" tabindex="0"></yearpicker>\n</div>')}]),angular.module("template/datepicker/day.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/day.html",'<table role="grid" aria-labelledby="{{uniqueId}}-title" aria-activedescendant="{{activeDateId}}">\n  <thead>\n    <tr>\n      <th><button type="button" class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-left"></i></button></th>\n      <th colspan="{{5 + showWeeks}}"><button id="{{uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="btn btn-default btn-sm" ng-click="toggleMode()" tabindex="-1" style="width:100%;"><strong>{{title}}</strong></button></th>\n      <th><button type="button" class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-right"></i></button></th>\n    </tr>\n    <tr>\n      <th ng-show="showWeeks" class="text-center"></th>\n      <th ng-repeat="label in labels track by $index" class="text-center"><small aria-label="{{label.full}}">{{label.abbr}}</small></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat="row in rows track by $index">\n      <td ng-show="showWeeks" class="text-center h6"><em>{{ weekNumbers[$index] }}</em></td>\n      <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{dt.uid}}" aria-disabled="{{!!dt.disabled}}">\n        <button type="button" style="width:100%;" class="btn btn-default btn-sm" ng-class="{\'btn-info\': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="{\'text-muted\': dt.secondary, \'text-info\': dt.current}">{{dt.label}}</span></button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n')}]),angular.module("template/datepicker/month.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/month.html",'<table role="grid" aria-labelledby="{{uniqueId}}-title" aria-activedescendant="{{activeDateId}}">\n  <thead>\n    <tr>\n      <th><button type="button" class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-left"></i></button></th>\n      <th><button id="{{uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="btn btn-default btn-sm" ng-click="toggleMode()" tabindex="-1" style="width:100%;"><strong>{{title}}</strong></button></th>\n      <th><button type="button" class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-right"></i></button></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat="row in rows track by $index">\n      <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{dt.uid}}" aria-disabled="{{!!dt.disabled}}">\n        <button type="button" style="width:100%;" class="btn btn-default" ng-class="{\'btn-info\': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="{\'text-info\': dt.current}">{{dt.label}}</span></button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n')}]),angular.module("template/datepicker/popup.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/popup.html",'<ul class="dropdown-menu" ng-style="{display: (isOpen && \'block\') || \'none\', top: position.top+\'px\', left: position.left+\'px\'}" ng-keydown="keydown($event)">\n	<li ng-transclude></li>\n	<li ng-if="showButtonBar" style="padding:10px 9px 2px">\n		<span class="btn-group">\n			<button type="button" class="btn btn-sm btn-info" ng-click="select(\'today\')">{{ getText(\'current\') }}</button>\n			<button type="button" class="btn btn-sm btn-danger" ng-click="select(null)">{{ getText(\'clear\') }}</button>\n		</span>\n		<button type="button" class="btn btn-sm btn-success pull-right" ng-click="close()">{{ getText(\'close\') }}</button>\n	</li>\n</ul>\n')}]),angular.module("template/datepicker/year.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/year.html",'<table role="grid" aria-labelledby="{{uniqueId}}-title" aria-activedescendant="{{activeDateId}}">\n  <thead>\n    <tr>\n      <th><button type="button" class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-left"></i></button></th>\n      <th colspan="3"><button id="{{uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="btn btn-default btn-sm" ng-click="toggleMode()" tabindex="-1" style="width:100%;"><strong>{{title}}</strong></button></th>\n      <th><button type="button" class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-right"></i></button></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat="row in rows track by $index">\n      <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{dt.uid}}" aria-disabled="{{!!dt.disabled}}">\n        <button type="button" style="width:100%;" class="btn btn-default" ng-class="{\'btn-info\': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="{\'text-info\': dt.current}">{{dt.label}}</span></button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n')}]),angular.module("template/modal/backdrop.html",[]).run(["$templateCache",function(a){a.put("template/modal/backdrop.html",'<div class="modal-backdrop fade {{ backdropClass }}"\n     ng-class="{in: animate}"\n     ng-style="{\'z-index\': 1040 + (index && 1 || 0) + index*10}"\n></div>\n')}]),angular.module("template/modal/window.html",[]).run(["$templateCache",function(a){a.put("template/modal/window.html",'<div tabindex="-1" role="dialog" class="modal fade" ng-class="{in: animate}" ng-style="{\'z-index\': 1050 + index*10, display: \'block\'}" ng-click="close($event)">\n    <div class="modal-dialog" ng-class="{\'modal-sm\': size == \'sm\', \'modal-lg\': size == \'lg\'}"><div class="modal-content" modal-transclude></div></div>\n</div>')}]),angular.module("template/pagination/pager.html",[]).run(["$templateCache",function(a){a.put("template/pagination/pager.html",'<ul class="pager">\n  <li ng-class="{disabled: noPrevious(), previous: align}"><a href ng-click="selectPage(page - 1)">{{getText(\'previous\')}}</a></li>\n  <li ng-class="{disabled: noNext(), next: align}"><a href ng-click="selectPage(page + 1)">{{getText(\'next\')}}</a></li>\n</ul>')}]),angular.module("template/pagination/pagination.html",[]).run(["$templateCache",function(a){a.put("template/pagination/pagination.html",'<ul class="pagination">\n  <li ng-if="boundaryLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(1)">{{getText(\'first\')}}</a></li>\n  <li ng-if="directionLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(page - 1)">{{getText(\'previous\')}}</a></li>\n  <li ng-repeat="page in pages track by $index" ng-class="{active: page.active}"><a href ng-click="selectPage(page.number)">{{page.text}}</a></li>\n  <li ng-if="directionLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(page + 1)">{{getText(\'next\')}}</a></li>\n  <li ng-if="boundaryLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(totalPages)">{{getText(\'last\')}}</a></li>\n</ul>')}]),angular.module("template/tooltip/tooltip-html-unsafe-popup.html",[]).run(["$templateCache",function(a){a.put("template/tooltip/tooltip-html-unsafe-popup.html",'<div class="tooltip {{placement}}" ng-class="{ in: isOpen(), fade: animation() }">\n  <div class="tooltip-arrow"></div>\n  <div class="tooltip-inner" bind-html-unsafe="content"></div>\n</div>\n')}]),angular.module("template/tooltip/tooltip-popup.html",[]).run(["$templateCache",function(a){a.put("template/tooltip/tooltip-popup.html",'<div class="tooltip {{placement}}" ng-class="{ in: isOpen(), fade: animation() }">\n  <div class="tooltip-arrow"></div>\n  <div class="tooltip-inner" ng-bind="content"></div>\n</div>\n')}]),angular.module("template/popover/popover.html",[]).run(["$templateCache",function(a){a.put("template/popover/popover.html",'<div class="popover {{placement}}" ng-class="{ in: isOpen(), fade: animation() }">\n  <div class="arrow"></div>\n\n  <div class="popover-inner">\n      <h3 class="popover-title" ng-bind="title" ng-show="title"></h3>\n      <div class="popover-content" ng-bind="content"></div>\n  </div>\n</div>\n')}]),angular.module("template/progressbar/bar.html",[]).run(["$templateCache",function(a){a.put("template/progressbar/bar.html",'<div class="progress-bar" ng-class="type && \'progress-bar-\' + type" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="{{max}}" ng-style="{width: percent + \'%\'}" aria-valuetext="{{percent | number:0}}%" ng-transclude></div>')}]),angular.module("template/progressbar/progress.html",[]).run(["$templateCache",function(a){a.put("template/progressbar/progress.html",'<div class="progress" ng-transclude></div>')}]),angular.module("template/progressbar/progressbar.html",[]).run(["$templateCache",function(a){a.put("template/progressbar/progressbar.html",'<div class="progress">\n  <div class="progress-bar" ng-class="type && \'progress-bar-\' + type" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="{{max}}" ng-style="{width: percent + \'%\'}" aria-valuetext="{{percent | number:0}}%" ng-transclude></div>\n</div>')}]),angular.module("template/rating/rating.html",[]).run(["$templateCache",function(a){a.put("template/rating/rating.html",'<span ng-mouseleave="reset()" ng-keydown="onKeydown($event)" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="{{range.length}}" aria-valuenow="{{value}}">\n    <i ng-repeat="r in range track by $index" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon" ng-class="$index < value && (r.stateOn || \'glyphicon-star\') || (r.stateOff || \'glyphicon-star-empty\')">\n        <span class="sr-only">({{ $index < value ? \'*\' : \' \' }})</span>\n    </i>\n</span>')}]),angular.module("template/tabs/tab.html",[]).run(["$templateCache",function(a){a.put("template/tabs/tab.html",'<li ng-class="{active: active, disabled: disabled}">\n  <a ng-click="select()" tab-heading-transclude>{{heading}}</a>\n</li>\n')}]),angular.module("template/tabs/tabset.html",[]).run(["$templateCache",function(a){a.put("template/tabs/tabset.html",'<div>\n  <ul class="nav nav-{{type || \'tabs\'}}" ng-class="{\'nav-stacked\': vertical, \'nav-justified\': justified}" ng-transclude></ul>\n  <div class="tab-content">\n    <div class="tab-pane" \n         ng-repeat="tab in tabs" \n         ng-class="{active: tab.active}"\n         tab-content-transclude="tab">\n    </div>\n  </div>\n</div>\n')}]),angular.module("template/timepicker/timepicker.html",[]).run(["$templateCache",function(a){a.put("template/timepicker/timepicker.html",'<table>\n	<tbody>\n		<tr class="text-center">\n			<td><a ng-click="incrementHours()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span></a></td>\n			<td>&nbsp;</td>\n			<td><a ng-click="incrementMinutes()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span></a></td>\n			<td ng-show="showMeridian"></td>\n		</tr>\n		<tr>\n			<td style="width:50px;" class="form-group" ng-class="{\'has-error\': invalidHours}">\n				<input type="text" ng-model="hours" ng-change="updateHours()" class="form-control text-center" ng-mousewheel="incrementHours()" ng-readonly="readonlyInput" maxlength="2">\n			</td>\n			<td>:</td>\n			<td style="width:50px;" class="form-group" ng-class="{\'has-error\': invalidMinutes}">\n				<input type="text" ng-model="minutes" ng-change="updateMinutes()" class="form-control text-center" ng-readonly="readonlyInput" maxlength="2">\n			</td>\n			<td ng-show="showMeridian"><button type="button" class="btn btn-default text-center" ng-click="toggleMeridian()">{{meridian}}</button></td>\n		</tr>\n		<tr class="text-center">\n			<td><a ng-click="decrementHours()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span></a></td>\n			<td>&nbsp;</td>\n			<td><a ng-click="decrementMinutes()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span></a></td>\n			<td ng-show="showMeridian"></td>\n		</tr>\n	</tbody>\n</table>\n')}]),angular.module("template/typeahead/typeahead-match.html",[]).run(["$templateCache",function(a){a.put("template/typeahead/typeahead-match.html",'<a tabindex="-1" bind-html-unsafe="match.label | typeaheadHighlight:query"></a>')
+}]),angular.module("template/typeahead/typeahead-popup.html",[]).run(["$templateCache",function(a){a.put("template/typeahead/typeahead-popup.html",'<ul class="dropdown-menu" ng-show="isOpen()" ng-style="{top: position.top+\'px\', left: position.left+\'px\'}" style="display: block;" role="listbox" aria-hidden="{{!isOpen()}}">\n    <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{match.id}}">\n        <div typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>\n    </li>\n</ul>\n')}]);;angular.module("cgPrompt",["ui.bootstrap"]),angular.module("cgPrompt").factory("prompt",["$modal","$q",function(a,b){var c=function(c){var d={title:"",message:"",input:!1,label:"",value:"",values:!1,buttons:[{label:"Cancel",cancel:!0},{label:"OK",primary:!0}]};void 0===c&&(c={});for(var e in d)void 0===c[e]&&(c[e]=d[e]);var f=b.defer();return a.open({templateUrl:"angular-prompt.html",controller:"cgPromptCtrl",resolve:{options:function(){return c}}}).result.then(function(a){f.resolve(c.input?a.input:a.button)},function(){f.reject()}),f.promise};return c}]),angular.module("cgPrompt").controller("cgPromptCtrl",["$scope","options","$timeout",function(a,b,c){a.input={name:b.value},a.options=b,a.buttonClicked=function(c){return c.cancel?void a.$dismiss():b.input&&angular.element(document.querySelector("#cgPromptForm")).scope().cgPromptForm.$invalid?void(a.changed=!0):void a.$close({button:c,input:a.input.name})},a.submit=function(){var b;angular.forEach(a.options.buttons,function(a){a.primary&&(b=a)}),b&&a.buttonClicked(b)},c(function(){var a=document.querySelector("#cgPromptInput");a&&(a.select&&a.select(),a.focus&&a.focus())},100)}]),angular.module("cgPrompt").run(["$templateCache",function(a){"use strict";a.put("angular-prompt.html",'<div>\n    <div class="modal-header">\n        <button type="button" class="close pull-right" ng-click="$dismiss()" aria-hidden="true">×</button>\n        <h4 class="modal-title">{{options.title}}</h4>\n    </div>\n    <div class="modal-body">\n\n        <p ng-if="options.message">\n            {{options.message}}\n        </p>\n\n        <form id="cgPromptForm" name="cgPromptForm" ng-if="options.input" ng-submit="submit()">\n            <div class="form-group" ng-class="{\'has-error\':cgPromptForm.$invalid && changed}">\n                <label for="cgPromptInput">{{options.label}}</label>\n                <input id="cgPromptInput" type="text" class="form-control"  placeholder="{{options.label}}" ng-model="input.name" required ng-change="changed=true" ng-if="!options.values || options.values.length === 0"/ autofocus="autofocus">\n                <div class="input-group" ng-if="options.values">\n                    <input id="cgPromptInput" type="text" class="form-control" placeholder="{{options.label}}" ng-model="input.name" required ng-change="changed=true" autofocus="autofocus"/>\n\n                    <div class="input-group-btn">\n                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>\n                        <ul class="dropdown-menu pull-right">\n                            <li ng-repeat="value in options.values"><a href="" ng-click="input.name = value">{{value}}</a></li>\n                        </ul>\n                    </div>\n                </div>\n            </div>\n         </form>\n\n    </div>\n    <div class="modal-footer">\n        <button ng-repeat="button in options.buttons track by button.label" class="btn btn-default {{button.style}}" ng-class="{\'btn-primary\':button.primary}" ng-click="buttonClicked(button)">{{button.label}}</button>\n    </div>\n</div>')}]);;angular.module('templates-app', ['account/menu.tmpl.html', 'account/services/facebook/menu.tmpl.html', 'account/services/services.menu.tmpl.html', 'account/services/services.tmpl.html', 'account/services/spotify/menu.tmpl.html', 'account/services/tasteprofile/menu.tmpl.html', 'account/services/tasteprofile/tasteprofile.tmpl.html', 'account/settings/settings.tmpl.html', 'dashboard/dashboard.tmpl.html', 'discover/browse/browse.tmpl.html', 'discover/featured/featured.tmpl.html', 'discover/menu.tmpl.html', 'discover/newreleases/newreleases.tmpl.html', 'music/artist/artist.tmpl.html', 'music/menu.tmpl.html', 'music/playlists/playlists.tmpl.html', 'music/stations/stations.tmpl.html', 'music/tracklist/tracklist.tmpl.html', 'player/controls/controls.left.tmpl.html', 'player/controls/controls.right.tmpl.html', 'player/player.tmpl.html', 'player/seekbar/seekbar.tmpl.html', 'search/menu.tmpl.html', 'search/search.tmpl.html', 'widgets/album.directive.tmpl.html', 'widgets/album.tmpl.html', 'widgets/artist.directive.tmpl.html', 'widgets/browse.directive.tmpl.html', 'widgets/playlist.directive.tmpl.html', 'widgets/service.directive.tmpl.html', 'widgets/station.directive.tmpl.html', 'widgets/track.directive.tmpl.html']);
 
 angular.module("account/menu.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("account/menu.tmpl.html",
@@ -29423,6 +29434,7 @@ angular.module("account/services/services.menu.tmpl.html", []).run(["$templateCa
     "\n" +
     "    <ng-include ng-if=\"connectedServices.spotify\" src=\"'account/services/spotify/menu.tmpl.html'\"></ng-include>\n" +
     "    <ng-include ng-if=\"connectedServices.facebook\" src=\"'account/services/facebook/menu.tmpl.html'\"></ng-include>\n" +
+    "    <ng-include ng-if=\"connectedServices.tasteprofile\" src=\"'account/services/tasteprofile/menu.tmpl.html'\"></ng-include>\n" +
     "\n" +
     "    <!-- connect left button -->\n" +
     "    <section id=\"addnew\" class=\"account\" ng-hide=\"connectedCount == totalServices || connectedCount == 0\">\n" +
@@ -29503,6 +29515,84 @@ angular.module("account/services/spotify/menu.tmpl.html", []).run(["$templateCac
     "</section>");
 }]);
 
+angular.module("account/services/tasteprofile/menu.tmpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("account/services/tasteprofile/menu.tmpl.html",
+    "<section id=\"tasteprofile\" class=\"account\" ng-controller=\"TasteProfileMenuController\">\n" +
+    "    <div class=\"profileimage\">\n" +
+    "        <img src=\"./assets/images/echonest-menu-logo.jpg\" />\n" +
+    "    </div>\n" +
+    "    <div class=\"content\">\n" +
+    "        <span class=\"username\" ng-hide=\"authorized\">\n" +
+    "            {{ tasteprofile.id }}\n" +
+    "        </span>\n" +
+    "        <span class=\"status\">\n" +
+    "            <div class=\"connection connected\"></div>Connected - Taste Profile\n" +
+    "        </span>\n" +
+    "    </div>\n" +
+    "</section>");
+}]);
+
+angular.module("account/services/tasteprofile/tasteprofile.tmpl.html", []).run(["$templateCache", function($templateCache) {
+  $templateCache.put("account/services/tasteprofile/tasteprofile.tmpl.html",
+    "<div id=\"header\" class=\"small row\" style=\"background-image: url('./assets/images/settings-header.jpg');\">\n" +
+    "    <div class=\"col-md-10 lefttext\">\n" +
+    "        <div class=\"inner\"><i class=\"ss-icon ss-settings\"></i>  Settings</div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div id=\"overview\" class=\"row\">\n" +
+    "    <div class=\"pagetitle row\">\n" +
+    "        <div class=\"col-md-3\">\n" +
+    "            Service <span class=\"sub\">Taste Profile</span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"pagecontent row\">\n" +
+    "        <div class=\"settingwrap row\">\n" +
+    "            <div class=\"label col-md-2\">\n" +
+    "                <label>Description</label>\n" +
+    "            </div>\n" +
+    "            <div class=\"description col-md-8\">\n" +
+    "                <p>Taste Profile is an <a href=\"http://the.echonest.com/\" target=\"_blank\">Echonest service</a>. This services keeps track of the songs you listen. This list is called a Taste Profile and can be used to create personal music recommendations. Those recommendations can be viewed at the 'Browse' page. This Taste Profile is completely anonymous and can always be deleted.</p>\n" +
+    "                <p><i>Songs can only be saved to your Taste Profile when Mopify is opened.</i></p>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"settingwrap row\">\n" +
+    "            <div class=\"label col-md-2\">\n" +
+    "                <label>Profile ID</label>\n" +
+    "            </div>\n" +
+    "            <div class=\"input col-md-4\">\n" +
+    "                <input name=\"trackingid\" ng-model=\"tasteprofile.id\" class=\"field\" readonly=\"readonly\" />\n" +
+    "            </div>\n" +
+    "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
+    "                <p>This profile ID was generated for you when you enabled the service. This ID is used to keep track of your personal Taste Profile.</p>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"pagetitle row\">\n" +
+    "        <div class=\"col-md-3\">\n" +
+    "            Danger zone <span class=\"sub\">Taste Profile</span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"pagecontent row\">\n" +
+    "        <div class=\"settingwrap row\">\n" +
+    "            <div class=\"label col-md-2\">\n" +
+    "                <label>Delete</label>\n" +
+    "            </div>\n" +
+    "            <div class=\"input col-md-4\">\n" +
+    "                <div class=\"button white dangerous fullwidth\" ng-click=\"deleteProfile()\">\n" +
+    "                    <span class=\"text\">Delete profile</span>\n" +
+    "                    <i class=\"ss-icon ss-trash\"></i> \n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
+    "                <p>You can delete your Taste Profile and all its contents by clicking on this button. Note that this action can't be undone.</p>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>");
+}]);
+
 angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("account/settings/settings.tmpl.html",
     "<div id=\"header\" class=\"small row\" style=\"background-image: url('./assets/images/settings-header.jpg');\">\n" +
@@ -29516,6 +29606,7 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "        <div class=\"col-md-3\">\n" +
     "            Settings <span class=\"sub\">Mopidy</span>\n" +
     "        </div>\n" +
+    "\n" +
     "        <div class=\"col-md-3 col-md-offset-6 alignright\">\n" +
     "            <div class=\"button white\" ng-class=\"{ active: buttonactive }\">\n" +
     "                <span class=\"text\">Saved automatically</span>\n" +
@@ -29523,6 +29614,7 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
+    "\n" +
     "    <div class=\"pagecontent row\">\n" +
     "        <div class=\"settingwrap row\">\n" +
     "            <div class=\"label col-md-2\">\n" +
@@ -29533,6 +29625,7 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "            </div>\n" +
     "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
     "                <p>Change this IP address if Mopidy is running on an other computer than Mopify. Normally you don't have to change this IP address</p>\n" +
+    "                <p><i>New Mopidy connection settings will be applied after a page refresh.</i></p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "        <div class=\"settingwrap row\">\n" +
@@ -29544,6 +29637,7 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "            </div>\n" +
     "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
     "                <p>Change this port if Mopidy is running on an other port than 6680. Normally you don't have to change this port.</p>\n" +
+    "                 <p><i>New Mopidy connection settings will be applied after a page refresh.</i></p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -29588,7 +29682,7 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "            <div class=\"label col-md-2\">\n" +
     "                <label>Author</label>\n" +
     "            </div>\n" +
-    "            <div class=\"description col-md-4\">\n" +
+    "            <div class=\"description col-md-6\">\n" +
     "                <p><a href=\"https://github.com/dirkgroenen/mopidy-mopify\" target=\"_blank\">Mopify</a> is a project developed by <a href=\"http://github.com/dirkgroenen\" target=\"_blank\">Dirk Groenen</a>.</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -29596,7 +29690,7 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "            <div class=\"label col-md-2\">\n" +
     "                <label>License</label>\n" +
     "            </div>\n" +
-    "            <div class=\"description col-md-4\">\n" +
+    "            <div class=\"description col-md-6\">\n" +
     "                <p>Licensed under the <a href=\"https://github.com/dirkgroenen/mopidy-mopify/blob/master/LICENSE.md\" target=\"_blank\">Apache 2 license</a>.</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -29605,9 +29699,35 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "            <div class=\"label col-md-2\">\n" +
     "                <label>Version</label>\n" +
     "            </div>\n" +
-    "            <div class=\"description col-md-4\">\n" +
+    "            <div class=\"description col-md-6\">\n" +
     "                <p>Current version: {{ mopifyversion }}</p>\n" +
-    "                <p ng-if=\"newversion\" style=\"font-weight: bold\">A new version of Mopify is available ({{ newversion }}). Read the <a href=\"https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md\" target=\"_blank\">Github readme</a> on how to update mopify.</p>\n" +
+    "                <p ng-if=\"newversion\" style=\"font-weight: bold\">A new version of Mopify is available ({{ newversionnumber }}). Read the <a href=\"https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md\" target=\"_blank\">Github readme</a> on how to update mopify.</p>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"settingwrap row\">\n" +
+    "            <div class=\"label col-md-2\">\n" +
+    "                <label>Contact</label>\n" +
+    "            </div>\n" +
+    "            <div class=\"description col-md-6\">\n" +
+    "                <p>Encounter problems or having questions while using Mopify? Please post them on <a href=\"https://github.com/dirkgroenen/mopidy-mopify/issues\" target=\"_blank\">Mopify's Github page</a>.</p>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"pagetitle row\">\n" +
+    "        <div class=\"col-md-3\">\n" +
+    "            Tracking <span class=\"sub\">Mopify</span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"pagecontent row\">\n" +
+    "        <div class=\"settingwrap row\">\n" +
+    "            <div class=\"label col-md-2\">\n" +
+    "                <label>Data collecting</label>\n" +
+    "            </div>\n" +
+    "            <div class=\"description col-md-6\">\n" +
+    "                <p>Mopify uses Google Analytics to collect usage information and errors. This data is all collected anonymously and isn't connected to your connected services.</p>\n" +
+    "                <p>This data is used to improve Mopify and make it an even better web client.</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -29633,6 +29753,10 @@ angular.module("discover/browse/browse.tmpl.html", []).run(["$templateCache", fu
     "            Discover <span class=\"sub\">Browse</span>\n" +
     "        </div>\n" +
     "        <div class=\"col-md-6 col-md-offset-3 alignright\">\n" +
+    "            <div class=\"button white\" ng-click=\"startStation()\">\n" +
+    "                <span class=\"text\">Start station</span>\n" +
+    "                <i class=\"ss-icon ss-wifi\"></i> \n" +
+    "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
@@ -29908,6 +30032,12 @@ angular.module("music/playlists/playlists.tmpl.html", []).run(["$templateCache",
     "    <div class=\"pagetitle row\">\n" +
     "        <div class=\"col-md-3\">\n" +
     "            Your Music <span class=\"sub\">Playlists</span>\n" +
+    "        </div>\n" +
+    "        <div class=\"col-md-6 col-md-offset-3 alignright\">\n" +
+    "            <div class=\"button white\" ng-click=\"createPlaylist()\" ng-show=\"spotifyplaylists\">\n" +
+    "                <span class=\"text\">Create new playlist</span>\n" +
+    "                <i class=\"ss-icon ss-plus\"></i> \n" +
+    "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
@@ -30447,8 +30577,11 @@ angular.module("widgets/service.directive.tmpl.html", []).run(["$templateCache",
     "<div class=\"tileart\">\n" +
     "    <div class=\"hoverwrap\">\n" +
     "        <div class=\"iconwrap\">\n" +
-    "            <div class=\"icon\">\n" +
+    "            <div class=\"icon\" ng-class=\"(service.hasSettings && service.connected) ? 'col-md-6' : 'col-md-12'\">\n" +
     "                <i class=\"ss-icon \" ng-class=\"!service.connected ? 'ss-contract' : 'ss-expand'\" ng-click=\"!service.connected ? connectService() : disconnectService()\"></i>\n" +
+    "            </div>\n" +
+    "            <div class=\"icon col-md-6\" ng-if=\"(service.hasSettings && service.connected)\">\n" +
+    "                <a href=\"#/account/services/{{ service.name.replace(' ', '').toLowerCase() }}\"><i class=\"ss-icon ss-settings\"></i></a>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -30566,7 +30699,7 @@ angular.module("widgets/track.directive.tmpl.html", []).run(["$templateCache", f
     "</div>");
 }]);
 ;'use strict';
-angular.module('mopify.account.facebook', ['mopify.services.facebook']).controller('FacebookMenuController', [
+angular.module('mopify.account.services.facebook', ['mopify.services.facebook']).controller('FacebookMenuController', [
   '$q',
   '$scope',
   'Facebook',
@@ -30595,8 +30728,8 @@ angular.module('mopify.account.facebook', ['mopify.services.facebook']).controll
   }
 ]);;;'use strict';
 angular.module('mopify.account.services', [
-  'LocalStorageModule',
-  'mopify.widgets.directive.service'
+  'mopify.widgets.directive.service',
+  'mopify.services.servicemanager'
 ]).config([
   '$routeProvider',
   function ($routeProvider) {
@@ -30608,45 +30741,26 @@ angular.module('mopify.account.services', [
 ]).controller('AccountServicesController', [
   '$rootScope',
   '$scope',
-  'localStorageService',
-  function AccountServicesController($rootScope, $scope, localStorageService) {
-    // bind connectedServices with the $scope
-    localStorageService.bind($scope, 'connectedServices');
+  'ServiceManager',
+  function AccountServicesController($rootScope, $scope, ServiceManager) {
     // Define the default connectedServices object and extend it with the connectedServices object from storage
-    $scope.availableServices = [{
-        name: 'Spotify',
-        description: 'Search and manage playlists and get the latests charts',
-        image: 'http://icons.iconarchive.com/icons/danleech/simple/256/spotify-icon.png',
-        connected: $scope.connectedServices !== null ? $scope.connectedServices.spotify : false
-      }];
-    if ($scope.connectedServices === null) {
-      $scope.connectedServices = {};
-      for (var x = 0; x < $scope.availableServices.length; x++) {
-        var service = $scope.availableServices[x];
-        $scope.connectedServices[service.name.replace(' ', '').toLowerCase()] = false;
-      }
-    }
+    $scope.availableServices = ServiceManager.getAvailableServices();
+    $scope.connectedServices = ServiceManager.getEnabledServices();
   }
 ]);;'use strict';
-angular.module('mopify.account.services.menu', ['LocalStorageModule']).controller('AccountServicesMenuController', [
+angular.module('mopify.account.services.menu', ['mopify.services.servicemanager']).controller('AccountServicesMenuController', [
   '$scope',
-  'localStorageService',
-  function AccountServicesMenuController($scope, localStorageService) {
+  'ServiceManager',
+  function AccountServicesMenuController($scope, ServiceManager) {
     function checkConnectedServices(event, service) {
-      // Get from storage
-      $scope.connectedServices = localStorageService.get('connectedServices') || {};
-      // If service is defined we use that one's connected value to override the connectedService
-      if (service !== undefined) {
-        $scope.connectedServices[service.name.replace(' ', '').toLowerCase()] = service.connected;
-      }
-      $scope.totalServices = Object.keys($scope.connectedServices).length;
+      // Get all enabled services from servicemanager
+      $scope.connectedServices = ServiceManager.getEnabledServices();
       // Count the number of connected services
-      $scope.connectedCount = 0;
-      for (var k in $scope.connectedServices) {
-        if ($scope.connectedServices.hasOwnProperty(k) && $scope.connectedServices[k] === true) {
-          $scope.connectedCount++;
-        }
-      }
+      var enabled = _.filter($scope.connectedServices, function (service) {
+          return service;
+        });
+      $scope.totalServices = ServiceManager.getAvailableServices().length;
+      $scope.connectedCount = enabled.length;
       if ($scope.connectedCount === 0)
         $scope.hasServicesConnected = false;
       else
@@ -30654,11 +30768,11 @@ angular.module('mopify.account.services.menu', ['LocalStorageModule']).controlle
     }
     // Run check function on load and received message
     checkConnectedServices();
-    $scope.$on('mopify:services:connected', checkConnectedServices);
-    $scope.$on('mopify:services:disconnected', checkConnectedServices);
+    $scope.$on('mopify:services:enabled', checkConnectedServices);
+    $scope.$on('mopify:services:disabled', checkConnectedServices);
   }
 ]);;'use strict';
-angular.module('mopify.account.spotify', [
+angular.module('mopify.account.services.spotify', [
   'spotify',
   'mopify.services.spotifylogin'
 ]).controller('SpotifyMenuController', [
@@ -30695,10 +30809,49 @@ angular.module('mopify.account.spotify', [
     });
   }
 ]);;;'use strict';
+angular.module('mopify.account.services.tasteprofile', [
+  'mopify.services.servicemanager',
+  'mopify.services.tasteprofile'
+]).config([
+  '$routeProvider',
+  function ($routeProvider) {
+    $routeProvider.when('/account/services/tasteprofile', {
+      templateUrl: 'account/services/tasteprofile/tasteprofile.tmpl.html',
+      controller: 'TasteProfileServiceController'
+    });
+  }
+]).controller('TasteProfileServiceController', [
+  '$scope',
+  '$location',
+  'ServiceManager',
+  'TasteProfile',
+  function TasteProfileServiceController($scope, $location, ServiceManager, TasteProfile) {
+    if (!ServiceManager.isEnabled('tasteprofile')) {
+      $location.path('/account/services');
+      return;
+    }
+    $scope.tasteprofile = { id: TasteProfile.id };
+    $scope.deleteProfile = function () {
+      // Delete profile and disable service
+      TasteProfile.deleteProfile().then(function (response) {
+        ServiceManager.disableService({ name: 'tasteprofile' });
+        $scope.tasteprofile.id = '';
+        $location.path('/account/services');
+      });
+    };
+  }
+]).controller('TasteProfileMenuController', [
+  '$scope',
+  'TasteProfile',
+  function TasteProfileMenuController($scope, TasteProfile) {
+    $scope.tasteprofile = { id: TasteProfile.id };
+  }
+]);;'use strict';
 angular.module('mopify.account.settings', [
   'ngRoute',
   'LocalStorageModule',
-  'mopify.services.settings'
+  'mopify.services.settings',
+  'mopify.services.versionmanager'
 ]).config([
   '$routeProvider',
   function ($routeProvider) {
@@ -30714,7 +30867,8 @@ angular.module('mopify.account.settings', [
   '$http',
   'localStorageService',
   'Settings',
-  function SettingsController($scope, $rootScope, $timeout, $http, localStorageService, Settings) {
+  'VersionManager',
+  function SettingsController($scope, $rootScope, $timeout, $http, localStorageService, Settings, VersionManager) {
     // bind settings with the $scope
     Settings.bind($scope);
     $scope.buttonactive = false;
@@ -30729,21 +30883,12 @@ angular.module('mopify.account.settings', [
       }, 500);
     };
     /**
-     * Check for a newer Mopify version by getting the Github releases
+     * Check for a newer Mopify version
      */
-    function checkMopifyVersion() {
-      $scope.newversion = false;
-      // Get releases from github
-      $http.get('https://api.github.com/repos/dirkgroenen/mopidy-mopify/releases').success(function (data) {
-        if (data[0] !== undefined) {
-          var lastversion = data[0].tag_name;
-          if ($rootScope.mopifyversion != lastversion) {
-            $scope.newversion = lastversion;
-          }
-        }
-      });
-    }
-    checkMopifyVersion();
+    VersionManager.checkVersion().then(function (version) {
+      $scope.newversion = VersionManager.newVersion;
+      $scope.newversionnumber = VersionManager.lastversion;
+    });
   }
 ]);;;'use strict';
 // Declare app level module which depends on views, and components
@@ -30752,6 +30897,7 @@ angular.module('mopify', [
   'angular-echonest',
   'angular-loading-bar',
   'mopify.services.mopidy',
+  'mopify.services.versionmanager',
   'spotify',
   'mopify.search',
   'mopify.music.artist',
@@ -30762,16 +30908,18 @@ angular.module('mopify', [
   'mopify.player.seekbar',
   'mopify.account.settings',
   'mopify.account.services',
+  'mopify.account.services.tasteprofile',
   'mopify.account.services.menu',
-  'mopify.account.spotify',
-  'mopify.account.facebook',
+  'mopify.account.services.spotify',
+  'mopify.account.services.facebook',
   'mopify.music.tracklist',
   'ng-context-menu',
   'mopify.discover.browse',
   'mopify.discover.featured',
   'mopify.discover.newreleases',
   'templates-app',
-  'llNotifier'
+  'llNotifier',
+  'ErrorCatcher'
 ]).config([
   '$routeProvider',
   'localStorageServiceProvider',
@@ -30793,14 +30941,16 @@ angular.module('mopify', [
   '$window',
   'mopidyservice',
   'notifier',
-  function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier) {
+  'VersionManager',
+  'localStorageService',
+  function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier, VersionManager, localStorageService) {
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
       };
     var defaultPageTitle = 'Mopify';
     // Set version in the rootscope
-    $rootScope.mopifyversion = getMetaTag('version');
+    $rootScope.mopifyversion = VersionManager.version;
     // Watch for track changes so we can update the title
     $scope.$on('mopidy:event:trackPlaybackStarted', function (event, data) {
       if (data.tl_track !== undefined)
@@ -30821,54 +30971,34 @@ angular.module('mopify', [
     // Listen for messages
     $scope.$on('mopidy:state:offline', function () {
       $scope.connectionState = connectionStates.offline;
+      $scope.pageTitle = 'No connection';
       $scope.$apply();
     });
     $scope.$on('$viewContentLoaded', function (event) {
+      // Send pageview
       $window.ga('send', 'pageview', { page: $location.path() });
+    });
+    // Set current app version
+    $window.ga('set', {
+      'appName': 'mopidy-mopify',
+      'appVersion': VersionManager.version
     });
     // Start the mopidy service
     mopidyservice.start();
     /**
      * Update the page title with the current playing track
-     * @param object track
+     * @param object track 
      */
     function updateTitle(track) {
-      if (track !== null && track !== undefined)
-        $scope.pageTitle = track.name + ' - ' + track.artists[0].name + ' | ' + defaultPageTitle;
-    }
-    /**
-     * Check for a newer Mopify version by getting the Github releases
-     */
-    function checkMopifyVersion() {
-      $scope.newversion = false;
-      // Get releases from github
-      $http.get('https://api.github.com/repos/dirkgroenen/mopidy-mopify/releases').success(function (data) {
-        if (data[0] !== undefined) {
-          var lastversion = data[0].tag_name;
-          if ($rootScope.mopifyversion != lastversion) {
-            notifier.notify({
-              type: 'custom',
-              template: 'A new version is available. Please read the <a href=\'https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md\' target=\'_blank\'>README</a> on how to update Mopify.',
-              delay: 7500
-            });
-          }
-        }
-      });
-    }
-    checkMopifyVersion();
-    /**
-     * Get the given meta tag's content
-     * @param  {string} tagname The meta tag's key
-     * @return {string}         The meta tag's content
-     */
-    function getMetaTag(tagname) {
-      var metas = $window.document.getElementsByTagName('meta');
-      for (var i = 0; i < metas.length; i++) {
-        if (metas[i].getAttribute('name') == tagname) {
-          return metas[i].getAttribute('content');
+      if (track !== null && track !== undefined) {
+        if (track.name.indexOf('[loading]') > -1) {
+          mopidyservice.lookup(track.uri).then(function (result) {
+            $scope.pageTitle = result[0].name + ' - ' + result[0].artists[0].name + ' | ' + defaultPageTitle;
+          });
+        } else {
+          $scope.pageTitle = track.name + ' - ' + track.artists[0].name + ' | ' + defaultPageTitle;
         }
       }
-      return '';
     }
   }
 ]);;'use strict';
@@ -30887,12 +31017,12 @@ angular.module('mopify.dashboard', ['ngRoute']).config([
 ]);;;'use strict';
 angular.module('mopify.discover.browse', [
   'mopify.services.mopidy',
-  'mopify.services.history',
-  'mopify.services.facebook',
   'mopify.widgets.directive.browse',
-  'mopify.services.tasteprofile',
-  'angular-echonest',
-  'infinite-scroll'
+  'mopify.services.discover',
+  'mopify.services.station',
+  'mopify.services.servicemanager',
+  'infinite-scroll',
+  'llNotifier'
 ]).config([
   '$routeProvider',
   function ($routeProvider) {
@@ -30903,52 +31033,33 @@ angular.module('mopify.discover.browse', [
   }
 ]).controller('DiscoverBrowseController', [
   '$scope',
-  '$http',
-  'mopidyservice',
-  'History',
-  'Facebook',
-  'TasteProfile',
-  'Echonest',
-  function DiscoverBrowseController($scope, $http, mopidyservice, History, Facebook, TasteProfile, Echonest) {
-    var history = History.getTracks().reverse().splice(0, 50);
-    var echonest = [];
-    var builtblocks = [];
+  'Discover',
+  'stationservice',
+  'ServiceManager',
+  'notifier',
+  function DiscoverBrowseController($scope, Discover, stationservice, ServiceManager, notifier) {
     $scope.blocks = [];
-    // Get a catalog radio based on the tasteprofile id 
-    var parameters = {
-        results: 50,
-        type: 'catalog-radio',
-        seed_catalog: TasteProfile.id,
-        bucket: [
-          'id:spotify',
-          'tracks'
-        ],
-        limit: true
+    var builtblocks = [];
+    var sliceloops = 0;
+    if (ServiceManager.isEnabled('tasteprofile')) {
+      Discover.getBrowseBlocks().then(function (blocks) {
+        builtblocks = blocks;
+        $scope.buildblocks();
+      });
+      $scope.buildblocks = function () {
+        $scope.blocks = $scope.blocks.concat(builtblocks.slice(sliceloops * 12, sliceloops * 12 + 12));
+        sliceloops++;
       };
-    Echonest.playlist.static(parameters).then(function (songs) {
-      echonest = songs;
-      prebuildblocks();
-      $scope.buildblocks();
-    });
-    function prebuildblocks() {
-      _.forEach(echonest, function (item) {
-        builtblocks.push({
-          type: 'echonest',
-          echonest: item
-        });
+      $scope.startStation = function () {
+        stationservice.startFromTaste();
+      };
+    } else {
+      notifier.notify({
+        type: 'custom',
+        template: 'You have to enabled the Taste Profile service if you wan\'t to use this feature.',
+        delay: 7500
       });
-      _.forEach(history, function (item) {
-        builtblocks.push({
-          type: 'artist',
-          artist: item.track.artists[0]
-        });
-      });
-      // Shuffle the array
-      builtblocks = _.shuffle(builtblocks);
     }
-    $scope.buildblocks = function () {
-      $scope.blocks = $scope.blocks.concat(builtblocks.splice(0, 12));
-    };
   }
 ]);;;'use strict';
 angular.module('mopify.discover.featured', [
@@ -31244,11 +31355,13 @@ angular.module('mopify.music.artist', [
 ]);;;'use strict';
 angular.module('mopify.music.playlists', [
   'ngRoute',
-  'spotify',
-  'mopify.services.spotifylogin',
+  'mopify.services.servicemanager',
   'mopify.services.mopidy',
+  'mopify.services.playlistmanager',
   'angular-echonest',
-  'mopify.widgets.directive.playlist'
+  'mopify.widgets.directive.playlist',
+  'cgPrompt',
+  'llNotifier'
 ]).config([
   '$routeProvider',
   function ($routeProvider) {
@@ -31259,68 +31372,58 @@ angular.module('mopify.music.playlists', [
   }
 ]).controller('PlaylistsController', [
   '$scope',
-  'Spotify',
-  'SpotifyLogin',
+  'ServiceManager',
+  'PlaylistManager',
   'mopidyservice',
   'Echonest',
-  function PlaylistsController($scope, Spotify, SpotifyLogin, mopidyservice, Echonest) {
+  'prompt',
+  'notifier',
+  function PlaylistsController($scope, ServiceManager, PlaylistManager, mopidyservice, Echonest, prompt, notifier) {
     var groupedLists = {}, splitList = [];
     $scope.playlists = [];
-    $scope.$on('mopidy:state:online', loadPlaylists);
-    $scope.$on('mopidy:event:playlistsLoaded', loadPlaylists);
-    $scope.$on('mopify:spotify:connected', loadPlaylists);
-    if (mopidyservice.isConnected)
+    if (ServiceManager.isEnabled('spotify')) {
+      $scope.spotifyplaylists = true;
       loadPlaylists();
-    /**
-     * Load all playlists
+    } else {
+      if (mopidyservice.isConnected)
+        loadPlaylists();
+      $scope.$on('mopidy:event:playlistsLoaded', loadPlaylists);
+      $scope.$on('mopidy:state:online', loadPlaylists);
+      $scope.spotifyplaylists = false;
+    }
+    /*
+     * Create a new Playlist
      */
-    function loadPlaylists() {
-      // Load the playlists from Spotify is the user is connected, otherwise load them from Mopidy
-      if (SpotifyLogin.connected) {
-        Spotify.getCurrentUser().then(function (user) {
-          Spotify.getUserPlaylists(user.id, { limit: 50 }).then(function (data) {
-            $scope.playlists = data.items;
-            // Starts loading more playlists if needed
-            if (data.next !== null)
-              loadMorePlaylists(data.next);
-            else
-              sortPlaylists();
+    $scope.createPlaylist = function () {
+      prompt({
+        title: 'New Spotify playlist',
+        message: 'Please enter the name for the new playlist. This playlist will be added to your Spotify account.',
+        input: true,
+        label: 'Playlist name'
+      }).then(function (name) {
+        // Create the playlist
+        PlaylistManager.createPlaylist(name).then(function (playlist) {
+          // Notify
+          notifier.notify({
+            type: 'custom',
+            template: 'Playlist created.',
+            delay: 3000
+          });
+        }, function () {
+          notifier.notify({
+            type: 'custom',
+            template: 'Can\'t create playlist. Are you connected with Spotify?',
+            delay: 5000
           });
         });
-      } else {
-        mopidyservice.getPlaylists().then(function (playlists) {
-          $scope.playlists = playlists;
-          sortPlaylists();
-        });
-      }
-    }
-    /**
-     * Load more playlists 
-     * This is used when spotify playlists are loaded and the next attribute is present
-     */
-    function loadMorePlaylists(next) {
-      Spotify.api(next.replace('https://api.spotify.com/v1', ''), 'GET', null, {}, {
-        'Authorization': 'Bearer ' + Spotify.authToken,
-        'Content-Type': 'application/json'
-      }).then(function (data) {
-        $scope.playlists = $scope.playlists.concat(data.items);
-        // Starts loading more playlists if needed
-        if (data.next !== null)
-          loadMorePlaylists(data.next);
-        else
-          sortPlaylists();
       });
-    }
+    };
     /**
-     * Sort the playlist from A to Z
+     * Load playlists into the scope
      */
-    function sortPlaylists() {
-      $scope.playlists = $scope.playlists.sort(function (a, b) {
-        if (a.name.toLowerCase() < b.name.toLowerCase())
-          return -1;
-        if (a.name.toLowerCase() > b.name.toLowerCase())
-          return 1;
-        return 0;
+    function loadPlaylists() {
+      PlaylistManager.getPlaylists().then(function (playlists) {
+        $scope.playlists = playlists;
       });
     }
   }
@@ -31427,6 +31530,7 @@ angular.module('mopify.music.tracklist', [
   'mopify.services.util',
   'mopify.services.station',
   'mopify.services.spotifylogin',
+  'mopify.services.servicemanager',
   'spotify',
   'ngSanitize',
   'mopify.widgets.directive.track',
@@ -31448,7 +31552,8 @@ angular.module('mopify.music.tracklist', [
   'util',
   'Spotify',
   'SpotifyLogin',
-  function TracklistController($scope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin) {
+  'ServiceManager',
+  function TracklistController($scope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager) {
     // Grab params in var
     var uri = $routeParams.uri;
     // Set default coverimage
@@ -31530,15 +31635,13 @@ angular.module('mopify.music.tracklist', [
       var splitteduri = uri.split(':');
       var userid = splitteduri[2];
       var playlistid = splitteduri[4];
-      SpotifyLogin.getLoginStatus().then(function (resp) {
-        if (resp.status == 'connected') {
-          Spotify.getPlaylist(userid, playlistid).then(function (data) {
-            $scope.name = data.name + ' from ' + data.owner.id;
-          });
-        } else {
-          $scope.name = 'Playlist from ' + userid;
-        }
-      });
+      if (ServiceManager.isEnabled('spotify') && SpotifyLogin.connected) {
+        Spotify.getPlaylist(userid, playlistid).then(function (data) {
+          $scope.name = data.name + ' from ' + data.owner.id;
+        });
+      } else {
+        $scope.name = 'Playlist from ' + userid;
+      }
     }
     /**
      * Load the current playing track
@@ -31720,7 +31823,13 @@ angular.module('mopify.player', [
     $scope.$on('mopidy:state:online', function () {
       // Get the current track
       mopidyservice.getCurrentTrack().then(function (track) {
-        updatePlayerInformation(track);
+        if (track.name.indexOf('[loading]') > -1) {
+          mopidyservice.lookup(track.uri).then(function (result) {
+            updatePlayerInformation(result[0]);
+          });
+        } else {
+          updatePlayerInformation(track);
+        }
       });
       // Get playback state
       mopidyservice.getState().then(function (state) {
@@ -31733,9 +31842,20 @@ angular.module('mopify.player', [
       // Update information on a new track 
       $scope.$on('mopidy:event:trackPlaybackStarted', function (event, data) {
         if (data.tl_track !== undefined) {
-          updatePlayerInformation(data.tl_track.track);
+          if (data.tl_track.track.name.indexOf('[loading]') > -1) {
+            mopidyservice.lookup(data.tl_track.track.uri).then(function (result) {
+              updatePlayerInformation(result[0]);
+            });
+          } else {
+            updatePlayerInformation(data.tl_track.track);
+          }
         }
       });
+    });
+    // Listen for messages
+    $scope.$on('mopidy:state:offline', function () {
+      $scope.trackArtist = 'Mopidy';
+      $scope.trackTitle = 'No connection';
     });
     /**
      * Update the information which is displayed in the player
@@ -32049,7 +32169,85 @@ angular.module('mopify.search', [
       }
     };
   }
-]);;;angular.module('mopify.services.facebook', []).factory('Facebook', [
+]);;;angular.module('mopify.services.discover', [
+  'mopify.services.history',
+  'mopify.services.tasteprofile',
+  'angular-echonest'
+]).factory('Discover', [
+  '$q',
+  'History',
+  'TasteProfile',
+  'Echonest',
+  function ($q, History, TasteProfile, Echonest) {
+    'use strict';
+    function Discover() {
+      this.data = { blocks: [] };
+    }
+    Discover.prototype.getBrowseBlocks = function () {
+      var that = this;
+      var deferred = $q.defer();
+      if (that.data.blocks.length === 0) {
+        that.generateBrowseContent().then(function (blocks) {
+          deferred.resolve(blocks);
+          that.data.blocks = blocks;
+        });
+      } else {
+        deferred.resolve(that.data.blocks);
+      }
+      return deferred.promise;
+    };
+    /**
+     * Generate new browse content
+     * @return {$q.defer().promise}
+     */
+    Discover.prototype.generateBrowseContent = function () {
+      var that = this;
+      var deferred = $q.defer();
+      var history = History.getTracks().reverse().splice(0, 50);
+      var echonest = [];
+      var builtblocks = [];
+      // Get a catalog radio based on the tasteprofile id 
+      var parameters = {
+          results: 50,
+          type: 'catalog-radio',
+          seed_catalog: TasteProfile.id,
+          bucket: [
+            'id:spotify',
+            'tracks'
+          ],
+          limit: true
+        };
+      Echonest.playlist.static(parameters).then(function (songs) {
+        echonest = songs;
+        _.forEach(echonest, function (item) {
+          builtblocks.push({
+            type: 'echonest',
+            echonest: item
+          });
+        });
+        _.forEach(history, function (item) {
+          builtblocks.push({
+            type: 'artist',
+            artist: item.track.artists[0]
+          });
+        });
+        // Shuffle the array
+        deferred.resolve(_.shuffle(builtblocks));
+      });
+      return deferred.promise;
+    };
+    return new Discover();
+  }
+]);;'use strict';
+angular.module('ErrorCatcher', []).factory('$exceptionHandler', [
+  '$window',
+  function ($window) {
+    return function errorCatcherHandler(exception, cause) {
+      console.error(exception.stack);
+      $window.ga('send', 'exception', { 'exDescription': exception.stack });
+    };
+  }
+]);;angular.module('mopify.services.facebook', []).factory('Facebook', [
   '$q',
   '$timeout',
   '$document',
@@ -32214,12 +32412,16 @@ angular.module('mopify.search', [
  * https://github.com/martijnboland/moped/blob/master/src/app/services/mopidyservice.js
  */
 'use strict';
-angular.module('mopify.services.mopidy', ['mopify.services.settings']).factory('mopidyservice', [
+angular.module('mopify.services.mopidy', [
+  'mopify.services.settings',
+  'llNotifier'
+]).factory('mopidyservice', [
   '$q',
   '$rootScope',
   '$cacheFactory',
   'Settings',
-  function ($q, $rootScope, $cacheFactory, Settings) {
+  'notifier',
+  function ($q, $rootScope, $cacheFactory, Settings, notifier) {
     // Create consolelog object for Mopidy to log it's logs on
     var consoleError = console.error.bind(console);
     /*
@@ -32298,10 +32500,20 @@ angular.module('mopify.services.mopidy', ['mopify.services.settings']).factory('
         var mopidyip = Settings.get('mopidyip', 'localhost');
         var mopidyport = Settings.get('mopidyport', '6680');
         // Initialize mopidy
-        this.mopidy = new Mopidy({
-          webSocketUrl: 'ws://' + mopidyip + ':' + mopidyport + '/mopidy/ws',
-          callingConvention: 'by-position-or-by-name'
-        });
+        try {
+          this.mopidy = new Mopidy({
+            webSocketUrl: 'ws://' + mopidyip + ':' + mopidyport + '/mopidy/ws',
+            callingConvention: 'by-position-or-by-name'
+          });
+        } catch (e) {
+          notifier.notify({
+            type: 'custom',
+            template: 'Connecting with Mopidy failed with the following error message: <br>' + e,
+            delay: 15000
+          });
+          // Try to connect without a given url
+          this.mopidy = new Mopidy({ callingConvention: 'by-position-or-by-name' });
+        }
         // Convert Mopidy events to Angular events
         this.mopidy.on(function (ev, args) {
           $rootScope.$broadcast('mopidy:' + ev, args);
@@ -32482,12 +32694,259 @@ angular.module('mopify.services.mopidy', ['mopify.services.settings']).factory('
       }
     };
   }
+]);;angular.module('mopify.services.playlistmanager', [
+  'mopify.services.mopidy',
+  'mopify.services.servicemanager',
+  'spotify'
+]).factory('PlaylistManager', [
+  '$rootScope',
+  '$q',
+  '$interval',
+  'ServiceManager',
+  'Spotify',
+  'mopidyservice',
+  function ($rootScope, $q, $interval, ServiceManager, Spotify, mopidyservice) {
+    'use strict';
+    function PlaylistManager() {
+      var that = this;
+      this.playlists = [];
+      this.loading = true;
+      // Load when mopidy is online
+      $rootScope.$on('mopidy:state:online', function () {
+        that.loadPlaylists();
+      });
+      if (mopidyservice.isConnected) {
+        that.loadPlaylists();
+      }
+      that.spotifyuserid = null;
+    }
+    /**
+     * Return the previously loaded playlists
+     * @param  {object} options extra options for the returned object
+     * @return {array}         the playlists
+     */
+    PlaylistManager.prototype.getPlaylists = function (options) {
+      var deferred = $q.defer();
+      var that = this;
+      options = options || {};
+      if (!that.loading) {
+        var playlists = that.playlists;
+        if (options.useronly === true) {
+          playlists = _.filter(that.playlists, function (playlist) {
+            return playlist.uri.indexOf(that.spotifyuserid) > 0;
+          });
+        }
+        deferred.resolve(playlists);
+      } else {
+        var loadinginterval = $interval(function () {
+            if (!that.loading) {
+              $interval.cancel(loadinginterval);
+              var playlists = that.playlists;
+              if (options.useronly === true) {
+                playlists = _.filter(that.playlists, function (playlist) {
+                  return playlist.uri.indexOf(that.spotifyuserid) > 0;
+                });
+              }
+              deferred.resolve(playlists);
+            }
+          }, 300);
+      }
+      return deferred.promise;
+    };
+    /**
+     * Load the playlists from Spotify or Mopidy
+     */
+    PlaylistManager.prototype.loadPlaylists = function () {
+      var that = this;
+      this.loading = true;
+      // Load the playlists from Spotify is the user is connected, otherwise load them from Mopidy
+      if (ServiceManager.isEnabled('spotify')) {
+        Spotify.getCurrentUser().then(function (user) {
+          // Set spotify userid
+          that.spotifyuserid = user.id;
+          // Get user's playlists
+          Spotify.getUserPlaylists(user.id, { limit: 50 }).then(function (data) {
+            that.playlists = data.items;
+            // Starts loading more playlists if needed
+            if (data.next !== null) {
+              that.loadMorePlaylists(data.next);
+            } else {
+              that.playlists = sortPlaylists(playlists);
+              that.loading = false;
+            }
+          });
+        });
+      } else {
+        mopidyservice.getPlaylists().then(function (playlists) {
+          that.playlists = sortPlaylists(playlists);
+          that.loading = false;
+        });
+      }
+    };
+    /**
+     * Load more playlists 
+     * This is used when spotify playlists are loaded and the next attribute is present
+     * @param {string} next The url of the next page
+     */
+    PlaylistManager.prototype.loadMorePlaylists = function (next) {
+      var that = this;
+      Spotify.api(next.replace('https://api.spotify.com/v1', ''), 'GET', null, {}, {
+        'Authorization': 'Bearer ' + Spotify.authToken,
+        'Content-Type': 'application/json'
+      }).then(function (data) {
+        // Starts loading more playlists if needed
+        if (data.next !== null) {
+          loadMorePlaylists(data.next);
+        } else {
+          that.playlists = sortPlaylists(that.playlists.concat(data.items));
+          that.loading = false;
+        }
+      });
+    };
+    /**
+     * Remove a track from a playlist
+     * @param  {string} playlistid The id of the spotify playlist
+     * @param  {string} trackuri   The spotify track URI
+     * @return {$q.defer}          
+     */
+    PlaylistManager.prototype.removeTrack = function (playlistid, trackuri) {
+      var deferred = $q.defer();
+      if (ServiceManager.isEnabled('spotify')) {
+        Spotify.removePlaylistTracks(this.spotifyuserid, playlistid, trackuri).then(function (response) {
+          deferred.resolve(response);
+        });
+      } else {
+        deferred.reject();
+      }
+      return deferred.promise;
+    };
+    /**
+     * Add a track to a playlist
+     * @param  {string} playlistid The id of the spotify playlist
+     * @param  {string} trackuri   The spotify track URI
+     * @return {$q.defer}          
+     */
+    PlaylistManager.prototype.addTrack = function (playlistid, trackuri) {
+      var deferred = $q.defer();
+      if (ServiceManager.isEnabled('spotify')) {
+        Spotify.addPlaylistTracks(this.spotifyuserid, playlistid, trackuri).then(function (response) {
+          deferred.resolve(response);
+        });
+      } else {
+        deferred.reject();
+      }
+      return deferred.promise;
+    };
+    PlaylistManager.prototype.createPlaylist = function (name) {
+      var deferred = $q.defer();
+      var that = this;
+      if (ServiceManager.isEnabled('spotify')) {
+        Spotify.createPlaylist(that.spotifyuserid, { name: name }).then(function (response) {
+          deferred.resolve(response);
+          // Add playlist to playlists
+          that.playlists.push(response);
+          that.playlists = sortPlaylists(that.playlists);
+        });
+      } else {
+        deferred.reject();
+      }
+      return deferred.promise;
+    };
+    /**
+     * Sort the playlist from A to Z
+     */
+    function sortPlaylists(playlists) {
+      return playlists.sort(function (a, b) {
+        if (a.name.toLowerCase() < b.name.toLowerCase())
+          return -1;
+        if (a.name.toLowerCase() > b.name.toLowerCase())
+          return 1;
+        return 0;
+      });
+    }
+    return new PlaylistManager();
+  }
+]);;angular.module('mopify.services.servicemanager', ['LocalStorageModule']).factory('ServiceManager', [
+  '$rootScope',
+  '$window',
+  'localStorageService',
+  function ($rootScope, $window, localStorageService) {
+    'use strict';
+    var rootkey = 'settings';
+    function ServiceManager() {
+      this.availableServices = [
+        {
+          name: 'Spotify',
+          description: 'Search and manage playlists and get the latests charts',
+          image: 'http://icons.iconarchive.com/icons/danleech/simple/256/spotify-icon.png',
+          hasSettings: false
+        },
+        {
+          name: 'Taste Profile',
+          description: 'Stores tracks anonymously in a so called TasteProfile which is used to feed the \'Browse\' page with recommendations.',
+          image: './assets/images/echonest-logo.jpg',
+          hasSettings: true
+        }
+      ];
+      this.initializeSavedObject();
+    }
+    ServiceManager.prototype.initializeSavedObject = function () {
+      var that = this;
+      var trackedservices = localStorageService.get('services');
+      if (trackedservices === null) {
+        trackedservices = {};
+      }
+      for (var x = 0; x < that.availableServices.length; x++) {
+        var service = that.availableServices[x];
+        var servicename = service.name.replace(' ', '').toLowerCase();
+        if (trackedservices[servicename] === undefined)
+          trackedservices[servicename] = false;
+      }
+      localStorageService.set('services', trackedservices);
+    };
+    ServiceManager.prototype.getAvailableServices = function () {
+      return this.availableServices;
+    };
+    ServiceManager.prototype.getEnabledServices = function () {
+      return localStorageService.get('services');
+    };
+    ServiceManager.prototype.enableService = function (service) {
+      var servicename = service.name.replace(' ', '').toLowerCase();
+      var services = localStorageService.get('services');
+      services[servicename] = true;
+      // Save to the localstorage
+      localStorageService.set('services', services);
+      // Broadcast this change
+      $rootScope.$broadcast('mopify:services:enabled', service);
+      // Send to GA
+      $window.ga('send', 'event', 'service', 'enabled', servicename);
+    };
+    ServiceManager.prototype.disableService = function (service) {
+      var servicename = service.name.replace(' ', '').toLowerCase();
+      var services = localStorageService.get('services');
+      services[servicename] = false;
+      // Save to the localstorage
+      localStorageService.set('services', services);
+      // Broadcast this change
+      $rootScope.$broadcast('mopify:services:disabled', service);
+      // Send to GA
+      $window.ga('send', 'event', 'service', 'disabled', servicename);
+    };
+    ServiceManager.prototype.isEnabled = function (service) {
+      var servicename = typeof service === 'string' ? service.replace(' ', '').toLowerCase() : service.name.replace(' ', '').toLowerCase();
+      return localStorageService.get('services')[servicename];
+    };
+    return new ServiceManager();
+  }
 ]);;angular.module('mopify.services.settings', ['LocalStorageModule']).factory('Settings', [
   'localStorageService',
   function (localStorageService) {
     'use strict';
     var rootkey = 'settings';
     function Settings() {
+      // Check if settings object exists in localstorage
+      if (localStorageService.get(rootkey) === null)
+        localStorageService.set(rootkey, {});
     }
     /**
      * Bind a variable to the localStorageService
@@ -32513,14 +32972,21 @@ angular.module('mopify.services.mopidy', ['mopify.services.settings']).factory('
     };
     return new Settings();
   }
-]);;angular.module('mopify.services.spotifylogin', ['spotify']).factory('SpotifyLogin', [
+]);;angular.module('mopify.services.spotifylogin', [
+  'spotify',
+  'mopify.services.servicemanager',
+  'LocalStorageModule'
+]).factory('SpotifyLogin', [
   '$q',
   '$rootScope',
   '$timeout',
   '$document',
+  '$http',
   'Spotify',
   '$interval',
-  function ($q, $rootScope, $timeout, $document, Spotify, $interval) {
+  'ServiceManager',
+  'localStorageService',
+  function ($q, $rootScope, $timeout, $document, $http, Spotify, $interval, ServiceManager, localStorageService) {
     'use strict';
     // Get body
     var body = $document.find('body').eq(0);
@@ -32537,25 +33003,47 @@ angular.module('mopify.services.mopidy', ['mopify.services.settings']).factory('
     }
     // Create communication frame for Spotify
     createFrame('spotify');
+    var tokenStorageKey = 'spotifytokens';
     function SpotifyLogin() {
-      this.accessToken = null;
       this.frame = frame;
       this.waitingline = [];
       this.connected = false;
       this.lastPositiveLoginCheck = 0;
-      // Run the login check on create and set the interval to check every two minutes
+      // Get tokens and info from storage
+      if (localStorageService.get(tokenStorageKey) !== null) {
+        this.refresh_token = localStorageService.get(tokenStorageKey).refresh_token;
+        this.expires = localStorageService.get(tokenStorageKey).expires_in;
+        this.access_token = localStorageService.get(tokenStorageKey).access_token;
+      } else {
+        this.refresh_token = null;
+        this.expires = null;
+        this.access_token = null;
+      }
+      // Get the login status from Spotify
       this.getLoginStatus().then(function (resp) {
         $rootScope.$broadcast('mopify:spotify:' + resp.status.replace(' ', ''));
       });
-      var that = this;
-      $interval(function () {
-        that.getLoginStatus().then(function (response) {
-          // Login if disconnected
-          if (response.status != 'connected')
-            that.login();
-        });
-      }, 120000);
+      // Start token checking
+      this.checkTokens();
     }
+    /**
+     * Check if the current tokens are still valid and refresh or login if needed
+     */
+    SpotifyLogin.prototype.checkTokens = function () {
+      var that = this;
+      // Check if expires equals null or expired
+      if ((this.expires === null || this.expires === undefined || Date.now() >= this.expires) && ServiceManager.isEnabled('spotify')) {
+        if (this.refresh_token !== null) {
+          this.refresh();
+        } else {
+          this.login();
+        }
+      }
+      // Run this check again after 10 seconds
+      $timeout(function () {
+        that.checkTokens();
+      }, 30000);
+    };
     /**
      * Get the current login status from Spotify and return 
      * if we're connected or not
@@ -32564,26 +33052,66 @@ angular.module('mopify.services.mopidy', ['mopify.services.settings']).factory('
     SpotifyLogin.prototype.getLoginStatus = function () {
       var that = this;
       var deferred = $q.defer();
-      // Check with last login check
-      if (Date.now() - that.lastPositiveLoginCheck > 600000) {
-        // Set the old token from the localstorage and check if that one still works
-        var oldToken = localStorage.getItem('spotify-token');
-        Spotify.setAuthToken(oldToken);
-        // Make the call to spotify to see if we are logged in
-        Spotify.getCurrentUser().then(function (data) {
-          deferred.resolve({ status: 'connected' });
-          that.connected = true;
-          // Set last login check
-          that.lastPositiveLoginCheck = Date.now();
-        }, function (errData) {
-          // If status equals 401 we have to reauthorize the user
-          if (errData.error.status == 401) {
-            that.connected = false;
-            deferred.resolve({ status: 'not connected' });
-          }
-        });
+      if (ServiceManager.isEnabled('spotify') !== true) {
+        deferred.reject();
       } else {
-        deferred.resolve({ status: 'connected' });
+        // Check with last login check
+        if (localStorageService.get(tokenStorageKey) === null) {
+          deferred.resolve({ status: 'not connected' });
+        } else if (Date.now() - that.lastPositiveLoginCheck > 600000) {
+          // Set the old token from the localstorage and check if that one still works
+          var oldToken = localStorageService.get(tokenStorageKey).access_token;
+          Spotify.setAuthToken(oldToken);
+          // Make the call to spotify to see if we are logged in
+          Spotify.getCurrentUser().then(function (data) {
+            deferred.resolve({ status: 'connected' });
+            that.connected = true;
+            // Set last login check
+            that.lastPositiveLoginCheck = Date.now();
+          }, function (errData) {
+            // If status equals 401 we have to reauthorize the user
+            if (errData.error.status == 401) {
+              that.connected = false;
+              deferred.resolve({ status: 'not connected' });
+            }
+          });
+        } else {
+          deferred.resolve({ status: 'connected' });
+        }
+      }
+      return deferred.promise;
+    };
+    /**
+     * Refresh the accesstoken using the refresh token
+     * Using this method we can refresh the accesstoken without showing the user a new prompt
+     */
+    SpotifyLogin.prototype.refresh = function () {
+      var deferred = $q.defer();
+      var that = this;
+      if (this.refresh_token === undefined) {
+        deferred.reject();
+      } else {
+        var postdata = {
+            refresh_token: this.refresh_token,
+            callback: 'JSON_CALLBACK'
+          };
+        $http({
+          method: 'JSONP',
+          url: 'http://mopify.bitlabs.nl/auth/spotify/refresh/',
+          params: postdata
+        }).success(function (result) {
+          that.access_token = result.access_token;
+          that.expires = Date.now() + result.expires_in * 1000;
+          // Set token in spotify
+          Spotify.setAuthToken(result.access_token);
+          // Save tokens
+          localStorageService.set(tokenStorageKey, {
+            access_token: that.access_token,
+            refresh_token: that.refresh_token,
+            expires_in: that.expires
+          });
+          deferred.resolve(result.response);
+        });
       }
       return deferred.promise;
     };
@@ -32596,17 +33124,34 @@ angular.module('mopify.services.mopidy', ['mopify.services.settings']).factory('
     SpotifyLogin.prototype.login = function () {
       var that = this;
       var deferred = $q.defer();
+      if (ServiceManager.isEnabled('spotify') !== true) {
+        deferred.reject();
+      }
       // Ask the spotify login window
       Spotify.login();
       // Start waiting for the spotify answer
       that.requestKey().then(function () {
-        if (that.accessToken !== null) {
+        if (that.access_token !== undefined) {
           // Set the auth token
-          Spotify.setAuthToken(that.accessToken);
-          that.connected = true;
-          // Save token
-          localStorage.setItem('spotify-token', that.accessToken);
-          deferred.resolve(that.accessToken);
+          Spotify.setAuthToken(that.access_token);
+          // Check if the auth token works
+          Spotify.getCurrentUser().then(function (data) {
+            that.connected = true;
+            var tokens = {
+                access_token: that.access_token,
+                refresh_token: that.refresh_token,
+                expires: that.expires
+              };
+            // Save token and resolve
+            localStorageService.set(tokenStorageKey, tokens);
+            deferred.resolve(that.access_token);
+          }, function (errData) {
+            // If status equals 401 we have to reauthorize the user
+            if (errData.error.status == 401) {
+              that.connected = false;
+              deferred.reject();
+            }
+          });
         } else {
           deferred.reject();
         }
@@ -32618,7 +33163,7 @@ angular.module('mopify.services.mopidy', ['mopify.services.settings']).factory('
      */
     SpotifyLogin.prototype.disconnect = function () {
       // Remove storage token
-      localStorage.removeItem('spotify-token');
+      localStorageService.remove(tokenStorageKey);
       // Clear Spotify auth token
       Spotify.setAuthToken('');
       // Set connected to false
@@ -32637,7 +33182,7 @@ angular.module('mopify.services.mopidy', ['mopify.services.settings']).factory('
       // Ask for the key
       frame.contentWindow.postMessage(JSON.stringify(postdata), '*');
       // Check if key has landed
-      if (that.accessToken !== null) {
+      if (that.access_token !== null) {
         deferred.resolve();
       } else {
         $timeout(function () {
@@ -32655,8 +33200,12 @@ angular.module('mopify.services.mopidy', ['mopify.services.settings']).factory('
       }
       var response = e.data;
       if (response.service == 'spotify') {
-        if (response.key !== null)
-          spotifyLogin.accessToken = response.key;
+        if (response.key !== null) {
+          var tokens = JSON.parse(response.key);
+          spotifyLogin.refresh_token = tokens.refresh_token;
+          spotifyLogin.access_token = tokens.access_token;
+          spotifyLogin.expires = Date.now() + 3600000;
+        }
       }
     });
     return spotifyLogin;
@@ -32671,6 +33220,7 @@ angular.module('mopify.services.station', [
   'mopify.services.mopidy',
   'mopify.services.util',
   'mopify.services.spotifylogin',
+  'mopify.services.tasteprofile',
   'spotify'
 ]).factory('stationservice', [
   '$rootScope',
@@ -32683,7 +33233,8 @@ angular.module('mopify.services.station', [
   'util',
   'SpotifyLogin',
   'notifier',
-  function ($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, util, SpotifyLogin, notifier) {
+  'TasteProfile',
+  function ($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, util, SpotifyLogin, notifier, TasteProfile) {
     'use strict';
     var stationPlaying = false;
     var echonestTracksQueue = [];
@@ -32697,7 +33248,6 @@ angular.module('mopify.services.station', [
       // This is done in batches to prevent mopidy from overloading
       if (echonestTracksQueue.length > 0) {
         generateMopidyTracks().then(function (tracks) {
-          console.log(tracks);
           mopidyservice.addToTracklist({ tracks: tracks }).then(function (response) {
             $timeout(processMopidyTracklist, 1000);
             deferred.resolve(response);
@@ -32764,6 +33314,11 @@ angular.module('mopify.services.station', [
       if (station.type == 'tracks') {
         parameters.type = 'song-radio';
         parameters.song_id = createTrackIdsList(station.tracks);
+        deferred.resolve(parameters);
+      }
+      if (station.type == 'taste') {
+        parameters.type = 'catalog-radio';
+        parameters.seed_catalog = TasteProfile.id;
         deferred.resolve(parameters);
       }
       return deferred.promise;
@@ -32888,6 +33443,21 @@ angular.module('mopify.services.station', [
         });
         return deferred.promise;
       },
+      startFromTaste: function () {
+        var station = {
+            type: 'taste',
+            spotify: null,
+            tracks: null,
+            name: 'Tasteprofile',
+            coverImage: './assets/images/tracklist-header.jpg',
+            started_at: Date.now()
+          };
+        // Save the new station
+        var allstations = localStorageService.get('stations') || [];
+        allstations.push(station);
+        localStorageService.set('stations', allstations);
+        createStation(station);
+      },
       startFromTracks: function (tracks) {
         var station = {
             type: 'tracks',
@@ -32898,7 +33468,7 @@ angular.module('mopify.services.station', [
             started_at: Date.now()
           };
         // Save the new station
-        var allstations = localStorageService.get('stations');
+        var allstations = localStorageService.get('stations') || [];
         allstations.push(station);
         localStorageService.set('stations', allstations);
         createStation(station);
@@ -32907,13 +33477,16 @@ angular.module('mopify.services.station', [
   }
 ]);;angular.module('mopify.services.tasteprofile', [
   'LocalStorageModule',
-  'llNotifier'
+  'llNotifier',
+  'mopify.services.servicemanager'
 ]).factory('TasteProfile', [
   '$http',
   '$q',
+  '$rootScope',
   'localStorageService',
   'notifier',
-  function ($http, $q, localStorageService, notifier) {
+  'ServiceManager',
+  function ($http, $q, $rootScope, localStorageService, notifier, ServiceManager) {
     'use strict';
     var apiUrl = 'http://developer.echonest.com/api/v4/';
     var apiKey = 'UVUDDM7M0S5MWNQFV';
@@ -32949,38 +33522,92 @@ angular.module('mopify.services.station', [
       return deferred.promise;
     };
     function TasteProfile() {
+      var that = this;
+      if (ServiceManager.isEnabled('tasteprofile')) {
+        that.getProfile();
+      }
+      $rootScope.$on('mopify:services:enabled', function (ev, data) {
+        if (data.name == 'Taste Profile') {
+          that.getProfile();
+        }
+      });
+    }
+    TasteProfile.prototype.getProfile = function () {
       var tasteprofile = localStorageService.get('tasteprofile');
       if (tasteprofile === null) {
+        var that = this;
         this.create().then(function (response) {
           tasteprofile = response;
           localStorageService.set('tasteprofile', response);
+          that.id = tasteprofile.id;
+          that.name = tasteprofile.name;
         });
       } else {
         this.id = tasteprofile.id;
         this.name = tasteprofile.name;
       }
-    }
+    };
     TasteProfile.prototype.create = function () {
       var deferred = $q.defer();
       post('tasteprofile/create', { name: 'mopify:' + Date.now() + Math.round((Math.random() + 1) * 1000) }).then(function (response) {
-        deferred.resolve(response);
+        if (response.status.code === 0)
+          deferred.resolve(response);
+        else
+          deferred.reject();
       });
       return deferred.promise;
     };
     TasteProfile.prototype.update = function (itemblock) {
       var deferred = $q.defer();
-      post('tasteprofile/update', {
-        id: this.id,
-        data: JSON.stringify(itemblock)
-      }).then(function (response) {
-        deferred.resolve(response);
-      });
+      if (ServiceManager.isEnabled('tasteprofile')) {
+        post('tasteprofile/update', {
+          id: this.id,
+          data: JSON.stringify(itemblock)
+        }).then(function (response) {
+          if (response.status.code === 0)
+            deferred.resolve(response);
+          else
+            deferred.reject();
+        });
+      } else {
+        deferred.reject();
+      }
       return deferred.promise;
     };
     TasteProfile.prototype.status = function (ticket) {
       var deferred = $q.defer();
       get('tasteprofile/status', { ticket: ticket }).then(function (response) {
-        deferred.resolve(response);
+        if (response.status.code === 0)
+          deferred.resolve(response);
+        else
+          deferred.reject();
+      });
+      return deferred.promise;
+    };
+    TasteProfile.prototype.read = function () {
+      var deferred = $q.defer();
+      get('tasteprofile/read', { id: this.id }).then(function (response) {
+        if (response.status.code === 0)
+          deferred.resolve(response);
+        else
+          deferred.reject();
+      });
+      return deferred.promise;
+    };
+    TasteProfile.prototype.deleteProfile = function () {
+      var deferred = $q.defer();
+      var that = this;
+      post('tasteprofile/delete', { id: that.id }).then(function (response) {
+        if (response.status.code === 0) {
+          // Reset data
+          that.id = null;
+          that.name = null;
+          // Remove from storage
+          localStorageService.remove('tasteprofile');
+          deferred.resolve(response);
+        } else {
+          deferred.reject();
+        }
       });
       return deferred.promise;
     };
@@ -33027,7 +33654,79 @@ angular.module('mopify').filter('reverse', function () {
     if (items !== null)
       return items.slice().reverse();
   };
-});;'use strict';
+});;angular.module('mopify.services.versionmanager', ['LocalStorageModule']).factory('VersionManager', [
+  '$window',
+  '$q',
+  '$http',
+  'localStorageService',
+  function ($window, $q, $http, localStorageService) {
+    'use strict';
+    function VersionManager() {
+      var that = this;
+      // Get current software version        
+      var currentversion = getMetaTag('version');
+      this.version = currentversion;
+      this.newVersion = false;
+      // Check if localstorage object exists
+      if (localStorageService.get('versionmanager') === null) {
+        localStorageService.set('versionmanager', {
+          lastversion: 0,
+          lastcheck: 0
+        });
+      }
+      // Check latest version from Github
+      this.checkVersion().then(function (lastversion) {
+        if (lastversion !== that.version)
+          that.newVersion = true;
+        that.lastversion = lastversion;
+      });
+    }
+    /**
+     * Get the last version from Github or the cache
+     * @return {$q.defer()} 
+     */
+    VersionManager.prototype.checkVersion = function () {
+      var deferred = $q.defer();
+      var that = this;
+      var versiondata = localStorageService.get('versionmanager');
+      if (Date.now() - versiondata.lastcheck > 3600000) {
+        // Get releases from github
+        $http.get('https://api.github.com/repos/dirkgroenen/mopidy-mopify/releases').success(function (data) {
+          if (data[0] !== undefined) {
+            var lastversion = data[0].tag_name;
+            // Update version data
+            versiondata.lastversion = lastversion;
+            versiondata.lastcheck = Date.now();
+            localStorageService.set('versionmanager', versiondata);
+            // Check if the returned version is different 
+            if (lastversion !== that.version)
+              that.newVersion = true;
+            // Resolve
+            deferred.resolve(lastversion);
+          }
+        });
+      } else {
+        deferred.resolve(versiondata.lastversion);
+      }
+      return deferred.promise;
+    };
+    /**
+     * Get the given meta tag's content
+     * @param  {string} tagname The meta tag's key
+     * @return {string}         The meta tag's content
+     */
+    function getMetaTag(tagname) {
+      var metas = $window.document.getElementsByTagName('meta');
+      for (var i = 0; i < metas.length; i++) {
+        if (metas[i].getAttribute('name') == tagname) {
+          return metas[i].getAttribute('content');
+        }
+      }
+      return '';
+    }
+    return new VersionManager();
+  }
+]);;'use strict';
 angular.module('mopify.widgets.directive.album', [
   'mopify.services.mopidy',
   'mopify.services.station'
@@ -33131,7 +33830,14 @@ angular.module('mopify.widgets.directive.browse', [
         scope.play = function () {
           mopidyservice.lookup(scope.spotifyuri).then(function (tracks) {
             var playtracks = tracks.splice(0, 50);
-            mopidyservice.playTrack(playtracks[0], playtracks);
+            var tracktoplay = playtracks[0];
+            if (scope.item.type == 'echonest') {
+              _.each(playtracks, function (track, index) {
+                if (track.name == scope.item.echonest.title)
+                  tracktoplay = playtracks[index];
+              });
+            }
+            mopidyservice.playTrack(tracktoplay, playtracks);
           });
         };
         // Start a station
@@ -33159,14 +33865,18 @@ angular.module('mopify.widgets.directive.playlist', []).directive('mopifyPlaylis
       link: function (scope, element, attrs) {
         scope.coverImage = defaultAlbumImageUrl;
         // Get image for the playlist
-        if (scope.playlist.__model__ == 'Playlist') {
+        if (scope.playlist.images !== undefined && scope.playlist.images.length > 0) {
+          scope.coverImage = scope.playlist.images[0].url;
+        } else if (scope.playlist.__model__ == 'Playlist') {
           Spotify.getTrack(scope.playlist.tracks[0].uri).then(function (data) {
             scope.coverImage = data.album.images[1].url;
           });
-        }
-        if (scope.playlist.__model__ === undefined) {
+        } else if (scope.playlist.__model__ === undefined) {
           Spotify.getPlaylist(scope.playlist.owner.id, scope.playlist.id).then(function (data) {
-            scope.coverImage = data.images[0] !== undefined ? data.images[0].url : data.tracks.items[0].track.album.images[0].url;
+            if (data.images[0] !== undefined)
+              scope.coverImage = data.images[0].url;
+            if (data.tracks.items.length > 0)
+              scope.coverImage = data.tracks.items[0].track.album.images[0].url;
           });
         }
         /**
@@ -33191,39 +33901,32 @@ angular.module('mopify.widgets.directive.playlist', []).directive('mopifyPlaylis
     };
   }
 ]);;'use strict';
-angular.module('mopify.widgets.directive.service', ['LocalStorageModule']).directive('mopifyService', [
+angular.module('mopify.widgets.directive.service', ['mopify.services.servicemanager']).directive('mopifyService', [
   '$rootScope',
-  'localStorageService',
-  function ($rootScope, localStorageService) {
+  'ServiceManager',
+  function ($rootScope, ServiceManager) {
     return {
       restrict: 'E',
       scope: { service: '=' },
       templateUrl: 'widgets/service.directive.tmpl.html',
       link: function (scope, element, attrs) {
-        var connectedServices = localStorageService.get('connectedServices');
+        /**
+             * Get the current service and extend it's connection state
+             */
+        scope.service.connected = ServiceManager.isEnabled(scope.service);
         /**
              * Connect the service with mopify
              */
         scope.connectService = function () {
-          var servicekey = scope.service.name.replace(' ', '').toLowerCase();
-          scope.service.connected = true;
-          connectedServices[servicekey] = true;
-          // Broadcast the service change
-          $rootScope.$broadcast('mopify:services:connected', scope.service);
-          // Save to storage
-          localStorageService.set('connectedServices', connectedServices);
+          ServiceManager.enableService(scope.service);
+          scope.service.connected = !scope.service.connected;
         };
         /**
              * Disconnect the service from mopify
              */
         scope.disconnectService = function () {
-          var servicekey = scope.service.name.replace(' ', '').toLowerCase();
-          scope.service.connected = false;
-          connectedServices[servicekey] = false;
-          // Broadcast the service change
-          $rootScope.$broadcast('mopify:services:disconnected', scope.service);
-          // Save to storage
-          localStorageService.set('connectedServices', connectedServices);
+          ServiceManager.disableService(scope.service);
+          scope.service.connected = !scope.service.connected;
         };
       }
     };
@@ -33263,19 +33966,17 @@ angular.module('mopify.widgets.directive.station', ['mopify.services.station']).
 angular.module('mopify.widgets.directive.track', [
   'mopify.services.mopidy',
   'mopify.services.station',
-  'mopify.services.spotifylogin',
   'mopify.services.util',
-  'spotify',
+  'mopify.services.playlistmanager',
   'llNotifier'
 ]).directive('mopifyTrack', [
   '$routeParams',
   'mopidyservice',
   'stationservice',
   'util',
-  'Spotify',
-  'SpotifyLogin',
   'notifier',
-  function ($routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, notifier) {
+  'PlaylistManager',
+  function ($routeParams, mopidyservice, stationservice, util, notifier, PlaylistManager) {
     return {
       restrict: 'E',
       scope: {
@@ -33343,56 +34044,56 @@ angular.module('mopify.widgets.directive.track', [
              */
         scope.removeFromPlaylist = function () {
           var playlistid = uri.split(':')[4];
-          var userid = uri.split(':')[2];
-          Spotify.removePlaylistTracks(userid, playlistid, scope.track.uri).then(function (response) {
+          // Remove track
+          PlaylistManager.removeTrack(playlistid, scope.track.uri).then(function (response) {
             scope.visible = false;
+            notifier.notify({
+              type: 'custom',
+              template: 'Track removed from playlist.',
+              delay: 3000
+            });
+          }, function () {
+            notifier.notify({
+              type: 'custom',
+              template: 'Can\'t remove track. Are you connected with Spotify and the owner if this playlist?',
+              delay: 5000
+            });
           });
         };
         /**
              * Load all user's playlists
              */
         scope.showPlaylists = function () {
-          if (SpotifyLogin.connected) {
-            scope.showplaylists = true;
-            scope.userplaylists = [{ name: 'loading...' }];
-            Spotify.getCurrentUser().then(function (user) {
-              mopidyservice.getPlaylists().then(function (data) {
-                var playlists = _.filter(data, function (playlist) {
-                    return playlist.uri.indexOf(user.id) > 0;
-                  });
-                scope.userplaylists = playlists;
-              });
-            });
-          } else {
-            notifier.notify({
-              type: 'custom',
-              template: 'Please connect with the Spotify service first.',
-              delay: 3000
-            });
-          }
+          scope.showplaylists = true;
+          scope.userplaylists = [{ name: 'loading...' }];
+          // Get filtered user playlists
+          PlaylistManager.getPlaylists({ useronly: true }).then(function (data) {
+            scope.userplaylists = data;
+          });
         };
         /**
              * Add the track to the playlist
              * @param {string} uri playlist uri
              */
         scope.addToPlaylist = function (uri) {
-          if (SpotifyLogin.connected) {
-            scope.showplaylists = false;
-            var splituri = uri.split(':');
-            Spotify.addPlaylistTracks(splituri[2], splituri[4], scope.track.uri).then(function (data) {
-              notifier.notify({
-                type: 'custom',
-                template: 'Track succesfully added to playlist.',
-                delay: 3000
-              });
-            });
-          } else {
+          // Hide playlists
+          scope.showplaylists = false;
+          // Get playlist id from uri
+          var playlistid = uri.split(':')[4];
+          // add track
+          PlaylistManager.addTrack(playlistid, scope.track.uri).then(function (response) {
             notifier.notify({
               type: 'custom',
-              template: 'Please connect with the Spotify service first.',
+              template: 'Track succesfully added to playlist.',
               delay: 3000
             });
-          }
+          }, function () {
+            notifier.notify({
+              type: 'custom',
+              template: 'Can\'t add track. Are you connected with Spotify and the owner if this playlist?',
+              delay: 5000
+            });
+          });
         };
       }
     };
@@ -33430,7 +34131,16 @@ W&&N.onwebkitanimationend!==W?(B="-webkit-",K="WebkitAnimation",V="webkitAnimati
 "-remove")+" "+q(b,"-add");if(f=S("setClass",a,b,f.from))return H(a,d),f;y();d()},beforeAddClass:function(a,b,c,d){d=d||{};if(b=S("addClass",a,q(b,"-add"),d.from))return H(a,c),b;y();c()},beforeRemoveClass:function(a,b,c,d){d=d||{};if(b=S("removeClass",a,q(b,"-remove"),d.from))return H(a,c),b;y();c()},setClass:function(a,b,c,d,f){f=f||{};c=q(c,"-remove");b=q(b,"-add");return T("setClass",a,c+" "+b,d,f.to)},addClass:function(a,b,c,d){d=d||{};return T("addClass",a,q(b,"-add"),c,d.to)},removeClass:function(a,
 b,c,d){d=d||{};return T("removeClass",a,q(b,"-remove"),c,d.to)}}}])}])})(window,window.angular);
 //# sourceMappingURL=angular-animate.min.js.map
-;/**
+;/*
+ * angular-ui-bootstrap
+ * http://angular-ui.github.io/bootstrap/
+
+ * Version: 0.11.2 - 2014-09-26
+ * License: MIT
+ */
+angular.module("ui.bootstrap",["ui.bootstrap.tpls","ui.bootstrap.transition","ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.dateparser","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdown","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]),angular.module("ui.bootstrap.tpls",["template/accordion/accordion-group.html","template/accordion/accordion.html","template/alert/alert.html","template/carousel/carousel.html","template/carousel/slide.html","template/datepicker/datepicker.html","template/datepicker/day.html","template/datepicker/month.html","template/datepicker/popup.html","template/datepicker/year.html","template/modal/backdrop.html","template/modal/window.html","template/pagination/pager.html","template/pagination/pagination.html","template/tooltip/tooltip-html-unsafe-popup.html","template/tooltip/tooltip-popup.html","template/popover/popover.html","template/progressbar/bar.html","template/progressbar/progress.html","template/progressbar/progressbar.html","template/rating/rating.html","template/tabs/tab.html","template/tabs/tabset.html","template/timepicker/timepicker.html","template/typeahead/typeahead-match.html","template/typeahead/typeahead-popup.html"]),angular.module("ui.bootstrap.transition",[]).factory("$transition",["$q","$timeout","$rootScope",function(a,b,c){function d(a){for(var b in a)if(void 0!==f.style[b])return a[b]}var e=function(d,f,g){g=g||{};var h=a.defer(),i=e[g.animation?"animationEndEventName":"transitionEndEventName"],j=function(){c.$apply(function(){d.unbind(i,j),h.resolve(d)})};return i&&d.bind(i,j),b(function(){angular.isString(f)?d.addClass(f):angular.isFunction(f)?f(d):angular.isObject(f)&&d.css(f),i||h.resolve(d)}),h.promise.cancel=function(){i&&d.unbind(i,j),h.reject("Transition cancelled")},h.promise},f=document.createElement("trans"),g={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd",transition:"transitionend"},h={WebkitTransition:"webkitAnimationEnd",MozTransition:"animationend",OTransition:"oAnimationEnd",transition:"animationend"};return e.transitionEndEventName=d(g),e.animationEndEventName=d(h),e}]),angular.module("ui.bootstrap.collapse",["ui.bootstrap.transition"]).directive("collapse",["$transition",function(a){return{link:function(b,c,d){function e(b){function d(){j===e&&(j=void 0)}var e=a(c,b);return j&&j.cancel(),j=e,e.then(d,d),e}function f(){k?(k=!1,g()):(c.removeClass("collapse").addClass("collapsing"),e({height:c[0].scrollHeight+"px"}).then(g))}function g(){c.removeClass("collapsing"),c.addClass("collapse in"),c.css({height:"auto"})}function h(){if(k)k=!1,i(),c.css({height:0});else{c.css({height:c[0].scrollHeight+"px"});{c[0].offsetWidth}c.removeClass("collapse in").addClass("collapsing"),e({height:0}).then(i)}}function i(){c.removeClass("collapsing"),c.addClass("collapse")}var j,k=!0;b.$watch(d.collapse,function(a){a?h():f()})}}}]),angular.module("ui.bootstrap.accordion",["ui.bootstrap.collapse"]).constant("accordionConfig",{closeOthers:!0}).controller("AccordionController",["$scope","$attrs","accordionConfig",function(a,b,c){this.groups=[],this.closeOthers=function(d){var e=angular.isDefined(b.closeOthers)?a.$eval(b.closeOthers):c.closeOthers;e&&angular.forEach(this.groups,function(a){a!==d&&(a.isOpen=!1)})},this.addGroup=function(a){var b=this;this.groups.push(a),a.$on("$destroy",function(){b.removeGroup(a)})},this.removeGroup=function(a){var b=this.groups.indexOf(a);-1!==b&&this.groups.splice(b,1)}}]).directive("accordion",function(){return{restrict:"EA",controller:"AccordionController",transclude:!0,replace:!1,templateUrl:"template/accordion/accordion.html"}}).directive("accordionGroup",function(){return{require:"^accordion",restrict:"EA",transclude:!0,replace:!0,templateUrl:"template/accordion/accordion-group.html",scope:{heading:"@",isOpen:"=?",isDisabled:"=?"},controller:function(){this.setHeading=function(a){this.heading=a}},link:function(a,b,c,d){d.addGroup(a),a.$watch("isOpen",function(b){b&&d.closeOthers(a)}),a.toggleOpen=function(){a.isDisabled||(a.isOpen=!a.isOpen)}}}}).directive("accordionHeading",function(){return{restrict:"EA",transclude:!0,template:"",replace:!0,require:"^accordionGroup",link:function(a,b,c,d,e){d.setHeading(e(a,function(){}))}}}).directive("accordionTransclude",function(){return{require:"^accordionGroup",link:function(a,b,c,d){a.$watch(function(){return d[c.accordionTransclude]},function(a){a&&(b.html(""),b.append(a))})}}}),angular.module("ui.bootstrap.alert",[]).controller("AlertController",["$scope","$attrs",function(a,b){a.closeable="close"in b}]).directive("alert",function(){return{restrict:"EA",controller:"AlertController",templateUrl:"template/alert/alert.html",transclude:!0,replace:!0,scope:{type:"@",close:"&"}}}),angular.module("ui.bootstrap.bindHtml",[]).directive("bindHtmlUnsafe",function(){return function(a,b,c){b.addClass("ng-binding").data("$binding",c.bindHtmlUnsafe),a.$watch(c.bindHtmlUnsafe,function(a){b.html(a||"")})}}),angular.module("ui.bootstrap.buttons",[]).constant("buttonConfig",{activeClass:"active",toggleEvent:"click"}).controller("ButtonsController",["buttonConfig",function(a){this.activeClass=a.activeClass||"active",this.toggleEvent=a.toggleEvent||"click"}]).directive("btnRadio",function(){return{require:["btnRadio","ngModel"],controller:"ButtonsController",link:function(a,b,c,d){var e=d[0],f=d[1];f.$render=function(){b.toggleClass(e.activeClass,angular.equals(f.$modelValue,a.$eval(c.btnRadio)))},b.bind(e.toggleEvent,function(){var d=b.hasClass(e.activeClass);(!d||angular.isDefined(c.uncheckable))&&a.$apply(function(){f.$setViewValue(d?null:a.$eval(c.btnRadio)),f.$render()})})}}}).directive("btnCheckbox",function(){return{require:["btnCheckbox","ngModel"],controller:"ButtonsController",link:function(a,b,c,d){function e(){return g(c.btnCheckboxTrue,!0)}function f(){return g(c.btnCheckboxFalse,!1)}function g(b,c){var d=a.$eval(b);return angular.isDefined(d)?d:c}var h=d[0],i=d[1];i.$render=function(){b.toggleClass(h.activeClass,angular.equals(i.$modelValue,e()))},b.bind(h.toggleEvent,function(){a.$apply(function(){i.$setViewValue(b.hasClass(h.activeClass)?f():e()),i.$render()})})}}}),angular.module("ui.bootstrap.carousel",["ui.bootstrap.transition"]).controller("CarouselController",["$scope","$timeout","$transition",function(a,b,c){function d(){e();var c=+a.interval;!isNaN(c)&&c>=0&&(g=b(f,c))}function e(){g&&(b.cancel(g),g=null)}function f(){h?(a.next(),d()):a.pause()}var g,h,i=this,j=i.slides=a.slides=[],k=-1;i.currentSlide=null;var l=!1;i.select=a.select=function(e,f){function g(){if(!l){if(i.currentSlide&&angular.isString(f)&&!a.noTransition&&e.$element){e.$element.addClass(f);{e.$element[0].offsetWidth}angular.forEach(j,function(a){angular.extend(a,{direction:"",entering:!1,leaving:!1,active:!1})}),angular.extend(e,{direction:f,active:!0,entering:!0}),angular.extend(i.currentSlide||{},{direction:f,leaving:!0}),a.$currentTransition=c(e.$element,{}),function(b,c){a.$currentTransition.then(function(){h(b,c)},function(){h(b,c)})}(e,i.currentSlide)}else h(e,i.currentSlide);i.currentSlide=e,k=m,d()}}function h(b,c){angular.extend(b,{direction:"",active:!0,leaving:!1,entering:!1}),angular.extend(c||{},{direction:"",active:!1,leaving:!1,entering:!1}),a.$currentTransition=null}var m=j.indexOf(e);void 0===f&&(f=m>k?"next":"prev"),e&&e!==i.currentSlide&&(a.$currentTransition?(a.$currentTransition.cancel(),b(g)):g())},a.$on("$destroy",function(){l=!0}),i.indexOfSlide=function(a){return j.indexOf(a)},a.next=function(){var b=(k+1)%j.length;return a.$currentTransition?void 0:i.select(j[b],"next")},a.prev=function(){var b=0>k-1?j.length-1:k-1;return a.$currentTransition?void 0:i.select(j[b],"prev")},a.isActive=function(a){return i.currentSlide===a},a.$watch("interval",d),a.$on("$destroy",e),a.play=function(){h||(h=!0,d())},a.pause=function(){a.noPause||(h=!1,e())},i.addSlide=function(b,c){b.$element=c,j.push(b),1===j.length||b.active?(i.select(j[j.length-1]),1==j.length&&a.play()):b.active=!1},i.removeSlide=function(a){var b=j.indexOf(a);j.splice(b,1),j.length>0&&a.active?i.select(b>=j.length?j[b-1]:j[b]):k>b&&k--}}]).directive("carousel",[function(){return{restrict:"EA",transclude:!0,replace:!0,controller:"CarouselController",require:"carousel",templateUrl:"template/carousel/carousel.html",scope:{interval:"=",noTransition:"=",noPause:"="}}}]).directive("slide",function(){return{require:"^carousel",restrict:"EA",transclude:!0,replace:!0,templateUrl:"template/carousel/slide.html",scope:{active:"=?"},link:function(a,b,c,d){d.addSlide(a,b),a.$on("$destroy",function(){d.removeSlide(a)}),a.$watch("active",function(b){b&&d.select(a)})}}}),angular.module("ui.bootstrap.dateparser",[]).service("dateParser",["$locale","orderByFilter",function(a,b){function c(a){var c=[],d=a.split("");return angular.forEach(e,function(b,e){var f=a.indexOf(e);if(f>-1){a=a.split(""),d[f]="("+b.regex+")",a[f]="$";for(var g=f+1,h=f+e.length;h>g;g++)d[g]="",a[g]="$";a=a.join(""),c.push({index:f,apply:b.apply})}}),{regex:new RegExp("^"+d.join("")+"$"),map:b(c,"index")}}function d(a,b,c){return 1===b&&c>28?29===c&&(a%4===0&&a%100!==0||a%400===0):3===b||5===b||8===b||10===b?31>c:!0}this.parsers={};var e={yyyy:{regex:"\\d{4}",apply:function(a){this.year=+a}},yy:{regex:"\\d{2}",apply:function(a){this.year=+a+2e3}},y:{regex:"\\d{1,4}",apply:function(a){this.year=+a}},MMMM:{regex:a.DATETIME_FORMATS.MONTH.join("|"),apply:function(b){this.month=a.DATETIME_FORMATS.MONTH.indexOf(b)}},MMM:{regex:a.DATETIME_FORMATS.SHORTMONTH.join("|"),apply:function(b){this.month=a.DATETIME_FORMATS.SHORTMONTH.indexOf(b)}},MM:{regex:"0[1-9]|1[0-2]",apply:function(a){this.month=a-1}},M:{regex:"[1-9]|1[0-2]",apply:function(a){this.month=a-1}},dd:{regex:"[0-2][0-9]{1}|3[0-1]{1}",apply:function(a){this.date=+a}},d:{regex:"[1-2]?[0-9]{1}|3[0-1]{1}",apply:function(a){this.date=+a}},EEEE:{regex:a.DATETIME_FORMATS.DAY.join("|")},EEE:{regex:a.DATETIME_FORMATS.SHORTDAY.join("|")}};this.parse=function(b,e){if(!angular.isString(b)||!e)return b;e=a.DATETIME_FORMATS[e]||e,this.parsers[e]||(this.parsers[e]=c(e));var f=this.parsers[e],g=f.regex,h=f.map,i=b.match(g);if(i&&i.length){for(var j,k={year:1900,month:0,date:1,hours:0},l=1,m=i.length;m>l;l++){var n=h[l-1];n.apply&&n.apply.call(k,i[l])}return d(k.year,k.month,k.date)&&(j=new Date(k.year,k.month,k.date,k.hours)),j}}}]),angular.module("ui.bootstrap.position",[]).factory("$position",["$document","$window",function(a,b){function c(a,c){return a.currentStyle?a.currentStyle[c]:b.getComputedStyle?b.getComputedStyle(a)[c]:a.style[c]}function d(a){return"static"===(c(a,"position")||"static")}var e=function(b){for(var c=a[0],e=b.offsetParent||c;e&&e!==c&&d(e);)e=e.offsetParent;return e||c};return{position:function(b){var c=this.offset(b),d={top:0,left:0},f=e(b[0]);f!=a[0]&&(d=this.offset(angular.element(f)),d.top+=f.clientTop-f.scrollTop,d.left+=f.clientLeft-f.scrollLeft);var g=b[0].getBoundingClientRect();return{width:g.width||b.prop("offsetWidth"),height:g.height||b.prop("offsetHeight"),top:c.top-d.top,left:c.left-d.left}},offset:function(c){var d=c[0].getBoundingClientRect();return{width:d.width||c.prop("offsetWidth"),height:d.height||c.prop("offsetHeight"),top:d.top+(b.pageYOffset||a[0].documentElement.scrollTop),left:d.left+(b.pageXOffset||a[0].documentElement.scrollLeft)}},positionElements:function(a,b,c,d){var e,f,g,h,i=c.split("-"),j=i[0],k=i[1]||"center";e=d?this.offset(a):this.position(a),f=b.prop("offsetWidth"),g=b.prop("offsetHeight");var l={center:function(){return e.left+e.width/2-f/2},left:function(){return e.left},right:function(){return e.left+e.width}},m={center:function(){return e.top+e.height/2-g/2},top:function(){return e.top},bottom:function(){return e.top+e.height}};switch(j){case"right":h={top:m[k](),left:l[j]()};break;case"left":h={top:m[k](),left:e.left-f};break;case"bottom":h={top:m[j](),left:l[k]()};break;default:h={top:e.top-g,left:l[k]()}}return h}}}]),angular.module("ui.bootstrap.datepicker",["ui.bootstrap.dateparser","ui.bootstrap.position"]).constant("datepickerConfig",{formatDay:"dd",formatMonth:"MMMM",formatYear:"yyyy",formatDayHeader:"EEE",formatDayTitle:"MMMM yyyy",formatMonthTitle:"yyyy",datepickerMode:"day",minMode:"day",maxMode:"year",showWeeks:!0,startingDay:0,yearRange:20,minDate:null,maxDate:null}).controller("DatepickerController",["$scope","$attrs","$parse","$interpolate","$timeout","$log","dateFilter","datepickerConfig",function(a,b,c,d,e,f,g,h){var i=this,j={$setViewValue:angular.noop};this.modes=["day","month","year"],angular.forEach(["formatDay","formatMonth","formatYear","formatDayHeader","formatDayTitle","formatMonthTitle","minMode","maxMode","showWeeks","startingDay","yearRange"],function(c,e){i[c]=angular.isDefined(b[c])?8>e?d(b[c])(a.$parent):a.$parent.$eval(b[c]):h[c]}),angular.forEach(["minDate","maxDate"],function(d){b[d]?a.$parent.$watch(c(b[d]),function(a){i[d]=a?new Date(a):null,i.refreshView()}):i[d]=h[d]?new Date(h[d]):null}),a.datepickerMode=a.datepickerMode||h.datepickerMode,a.uniqueId="datepicker-"+a.$id+"-"+Math.floor(1e4*Math.random()),this.activeDate=angular.isDefined(b.initDate)?a.$parent.$eval(b.initDate):new Date,a.isActive=function(b){return 0===i.compare(b.date,i.activeDate)?(a.activeDateId=b.uid,!0):!1},this.init=function(a){j=a,j.$render=function(){i.render()}},this.render=function(){if(j.$modelValue){var a=new Date(j.$modelValue),b=!isNaN(a);b?this.activeDate=a:f.error('Datepicker directive: "ng-model" value must be a Date object, a number of milliseconds since 01.01.1970 or a string representing an RFC2822 or ISO 8601 date.'),j.$setValidity("date",b)}this.refreshView()},this.refreshView=function(){if(this.element){this._refreshView();var a=j.$modelValue?new Date(j.$modelValue):null;j.$setValidity("date-disabled",!a||this.element&&!this.isDisabled(a))}},this.createDateObject=function(a,b){var c=j.$modelValue?new Date(j.$modelValue):null;return{date:a,label:g(a,b),selected:c&&0===this.compare(a,c),disabled:this.isDisabled(a),current:0===this.compare(a,new Date)}},this.isDisabled=function(c){return this.minDate&&this.compare(c,this.minDate)<0||this.maxDate&&this.compare(c,this.maxDate)>0||b.dateDisabled&&a.dateDisabled({date:c,mode:a.datepickerMode})},this.split=function(a,b){for(var c=[];a.length>0;)c.push(a.splice(0,b));return c},a.select=function(b){if(a.datepickerMode===i.minMode){var c=j.$modelValue?new Date(j.$modelValue):new Date(0,0,0,0,0,0,0);c.setFullYear(b.getFullYear(),b.getMonth(),b.getDate()),j.$setViewValue(c),j.$render()}else i.activeDate=b,a.datepickerMode=i.modes[i.modes.indexOf(a.datepickerMode)-1]},a.move=function(a){var b=i.activeDate.getFullYear()+a*(i.step.years||0),c=i.activeDate.getMonth()+a*(i.step.months||0);i.activeDate.setFullYear(b,c,1),i.refreshView()},a.toggleMode=function(b){b=b||1,a.datepickerMode===i.maxMode&&1===b||a.datepickerMode===i.minMode&&-1===b||(a.datepickerMode=i.modes[i.modes.indexOf(a.datepickerMode)+b])},a.keys={13:"enter",32:"space",33:"pageup",34:"pagedown",35:"end",36:"home",37:"left",38:"up",39:"right",40:"down"};var k=function(){e(function(){i.element[0].focus()},0,!1)};a.$on("datepicker.focus",k),a.keydown=function(b){var c=a.keys[b.which];if(c&&!b.shiftKey&&!b.altKey)if(b.preventDefault(),b.stopPropagation(),"enter"===c||"space"===c){if(i.isDisabled(i.activeDate))return;a.select(i.activeDate),k()}else!b.ctrlKey||"up"!==c&&"down"!==c?(i.handleKeyDown(c,b),i.refreshView()):(a.toggleMode("up"===c?1:-1),k())}}]).directive("datepicker",function(){return{restrict:"EA",replace:!0,templateUrl:"template/datepicker/datepicker.html",scope:{datepickerMode:"=?",dateDisabled:"&"},require:["datepicker","?^ngModel"],controller:"DatepickerController",link:function(a,b,c,d){var e=d[0],f=d[1];f&&e.init(f)}}}).directive("daypicker",["dateFilter",function(a){return{restrict:"EA",replace:!0,templateUrl:"template/datepicker/day.html",require:"^datepicker",link:function(b,c,d,e){function f(a,b){return 1!==b||a%4!==0||a%100===0&&a%400!==0?i[b]:29}function g(a,b){var c=new Array(b),d=new Date(a),e=0;for(d.setHours(12);b>e;)c[e++]=new Date(d),d.setDate(d.getDate()+1);return c}function h(a){var b=new Date(a);b.setDate(b.getDate()+4-(b.getDay()||7));var c=b.getTime();return b.setMonth(0),b.setDate(1),Math.floor(Math.round((c-b)/864e5)/7)+1}b.showWeeks=e.showWeeks,e.step={months:1},e.element=c;var i=[31,28,31,30,31,30,31,31,30,31,30,31];e._refreshView=function(){var c=e.activeDate.getFullYear(),d=e.activeDate.getMonth(),f=new Date(c,d,1),i=e.startingDay-f.getDay(),j=i>0?7-i:-i,k=new Date(f);j>0&&k.setDate(-j+1);for(var l=g(k,42),m=0;42>m;m++)l[m]=angular.extend(e.createDateObject(l[m],e.formatDay),{secondary:l[m].getMonth()!==d,uid:b.uniqueId+"-"+m});b.labels=new Array(7);for(var n=0;7>n;n++)b.labels[n]={abbr:a(l[n].date,e.formatDayHeader),full:a(l[n].date,"EEEE")};if(b.title=a(e.activeDate,e.formatDayTitle),b.rows=e.split(l,7),b.showWeeks){b.weekNumbers=[];for(var o=h(b.rows[0][0].date),p=b.rows.length;b.weekNumbers.push(o++)<p;);}},e.compare=function(a,b){return new Date(a.getFullYear(),a.getMonth(),a.getDate())-new Date(b.getFullYear(),b.getMonth(),b.getDate())},e.handleKeyDown=function(a){var b=e.activeDate.getDate();if("left"===a)b-=1;else if("up"===a)b-=7;else if("right"===a)b+=1;else if("down"===a)b+=7;else if("pageup"===a||"pagedown"===a){var c=e.activeDate.getMonth()+("pageup"===a?-1:1);e.activeDate.setMonth(c,1),b=Math.min(f(e.activeDate.getFullYear(),e.activeDate.getMonth()),b)}else"home"===a?b=1:"end"===a&&(b=f(e.activeDate.getFullYear(),e.activeDate.getMonth()));e.activeDate.setDate(b)},e.refreshView()}}}]).directive("monthpicker",["dateFilter",function(a){return{restrict:"EA",replace:!0,templateUrl:"template/datepicker/month.html",require:"^datepicker",link:function(b,c,d,e){e.step={years:1},e.element=c,e._refreshView=function(){for(var c=new Array(12),d=e.activeDate.getFullYear(),f=0;12>f;f++)c[f]=angular.extend(e.createDateObject(new Date(d,f,1),e.formatMonth),{uid:b.uniqueId+"-"+f});b.title=a(e.activeDate,e.formatMonthTitle),b.rows=e.split(c,3)},e.compare=function(a,b){return new Date(a.getFullYear(),a.getMonth())-new Date(b.getFullYear(),b.getMonth())},e.handleKeyDown=function(a){var b=e.activeDate.getMonth();if("left"===a)b-=1;else if("up"===a)b-=3;else if("right"===a)b+=1;else if("down"===a)b+=3;else if("pageup"===a||"pagedown"===a){var c=e.activeDate.getFullYear()+("pageup"===a?-1:1);e.activeDate.setFullYear(c)}else"home"===a?b=0:"end"===a&&(b=11);e.activeDate.setMonth(b)},e.refreshView()}}}]).directive("yearpicker",["dateFilter",function(){return{restrict:"EA",replace:!0,templateUrl:"template/datepicker/year.html",require:"^datepicker",link:function(a,b,c,d){function e(a){return parseInt((a-1)/f,10)*f+1}var f=d.yearRange;d.step={years:f},d.element=b,d._refreshView=function(){for(var b=new Array(f),c=0,g=e(d.activeDate.getFullYear());f>c;c++)b[c]=angular.extend(d.createDateObject(new Date(g+c,0,1),d.formatYear),{uid:a.uniqueId+"-"+c});a.title=[b[0].label,b[f-1].label].join(" - "),a.rows=d.split(b,5)},d.compare=function(a,b){return a.getFullYear()-b.getFullYear()},d.handleKeyDown=function(a){var b=d.activeDate.getFullYear();"left"===a?b-=1:"up"===a?b-=5:"right"===a?b+=1:"down"===a?b+=5:"pageup"===a||"pagedown"===a?b+=("pageup"===a?-1:1)*d.step.years:"home"===a?b=e(d.activeDate.getFullYear()):"end"===a&&(b=e(d.activeDate.getFullYear())+f-1),d.activeDate.setFullYear(b)},d.refreshView()}}}]).constant("datepickerPopupConfig",{datepickerPopup:"yyyy-MM-dd",currentText:"Today",clearText:"Clear",closeText:"Done",closeOnDateSelection:!0,appendToBody:!1,showButtonBar:!0}).directive("datepickerPopup",["$compile","$parse","$document","$position","dateFilter","dateParser","datepickerPopupConfig",function(a,b,c,d,e,f,g){return{restrict:"EA",require:"ngModel",scope:{isOpen:"=?",currentText:"@",clearText:"@",closeText:"@",dateDisabled:"&"},link:function(h,i,j,k){function l(a){return a.replace(/([A-Z])/g,function(a){return"-"+a.toLowerCase()})}function m(a){if(a){if(angular.isDate(a)&&!isNaN(a))return k.$setValidity("date",!0),a;if(angular.isString(a)){var b=f.parse(a,n)||new Date(a);return isNaN(b)?void k.$setValidity("date",!1):(k.$setValidity("date",!0),b)}return void k.$setValidity("date",!1)}return k.$setValidity("date",!0),null}var n,o=angular.isDefined(j.closeOnDateSelection)?h.$parent.$eval(j.closeOnDateSelection):g.closeOnDateSelection,p=angular.isDefined(j.datepickerAppendToBody)?h.$parent.$eval(j.datepickerAppendToBody):g.appendToBody;h.showButtonBar=angular.isDefined(j.showButtonBar)?h.$parent.$eval(j.showButtonBar):g.showButtonBar,h.getText=function(a){return h[a+"Text"]||g[a+"Text"]},j.$observe("datepickerPopup",function(a){n=a||g.datepickerPopup,k.$render()});var q=angular.element("<div datepicker-popup-wrap><div datepicker></div></div>");q.attr({"ng-model":"date","ng-change":"dateSelection()"});var r=angular.element(q.children()[0]);j.datepickerOptions&&angular.forEach(h.$parent.$eval(j.datepickerOptions),function(a,b){r.attr(l(b),a)}),h.watchData={},angular.forEach(["minDate","maxDate","datepickerMode"],function(a){if(j[a]){var c=b(j[a]);if(h.$parent.$watch(c,function(b){h.watchData[a]=b}),r.attr(l(a),"watchData."+a),"datepickerMode"===a){var d=c.assign;h.$watch("watchData."+a,function(a,b){a!==b&&d(h.$parent,a)})}}}),j.dateDisabled&&r.attr("date-disabled","dateDisabled({ date: date, mode: mode })"),k.$parsers.unshift(m),h.dateSelection=function(a){angular.isDefined(a)&&(h.date=a),k.$setViewValue(h.date),k.$render(),o&&(h.isOpen=!1,i[0].focus())},i.bind("input change keyup",function(){h.$apply(function(){h.date=k.$modelValue})}),k.$render=function(){var a=k.$viewValue?e(k.$viewValue,n):"";i.val(a),h.date=m(k.$modelValue)};var s=function(a){h.isOpen&&a.target!==i[0]&&h.$apply(function(){h.isOpen=!1})},t=function(a){h.keydown(a)};i.bind("keydown",t),h.keydown=function(a){27===a.which?(a.preventDefault(),a.stopPropagation(),h.close()):40!==a.which||h.isOpen||(h.isOpen=!0)},h.$watch("isOpen",function(a){a?(h.$broadcast("datepicker.focus"),h.position=p?d.offset(i):d.position(i),h.position.top=h.position.top+i.prop("offsetHeight"),c.bind("click",s)):c.unbind("click",s)}),h.select=function(a){if("today"===a){var b=new Date;angular.isDate(k.$modelValue)?(a=new Date(k.$modelValue),a.setFullYear(b.getFullYear(),b.getMonth(),b.getDate())):a=new Date(b.setHours(0,0,0,0))}h.dateSelection(a)},h.close=function(){h.isOpen=!1,i[0].focus()};var u=a(q)(h);q.remove(),p?c.find("body").append(u):i.after(u),h.$on("$destroy",function(){u.remove(),i.unbind("keydown",t),c.unbind("click",s)})}}}]).directive("datepickerPopupWrap",function(){return{restrict:"EA",replace:!0,transclude:!0,templateUrl:"template/datepicker/popup.html",link:function(a,b){b.bind("click",function(a){a.preventDefault(),a.stopPropagation()})}}}),angular.module("ui.bootstrap.dropdown",[]).constant("dropdownConfig",{openClass:"open"}).service("dropdownService",["$document",function(a){var b=null;this.open=function(e){b||(a.bind("click",c),a.bind("keydown",d)),b&&b!==e&&(b.isOpen=!1),b=e},this.close=function(e){b===e&&(b=null,a.unbind("click",c),a.unbind("keydown",d))};var c=function(a){var c=b.getToggleElement();a&&c&&c[0].contains(a.target)||b.$apply(function(){b.isOpen=!1})},d=function(a){27===a.which&&(b.focusToggleElement(),c())}}]).controller("DropdownController",["$scope","$attrs","$parse","dropdownConfig","dropdownService","$animate",function(a,b,c,d,e,f){var g,h=this,i=a.$new(),j=d.openClass,k=angular.noop,l=b.onToggle?c(b.onToggle):angular.noop;this.init=function(d){h.$element=d,b.isOpen&&(g=c(b.isOpen),k=g.assign,a.$watch(g,function(a){i.isOpen=!!a}))},this.toggle=function(a){return i.isOpen=arguments.length?!!a:!i.isOpen},this.isOpen=function(){return i.isOpen},i.getToggleElement=function(){return h.toggleElement},i.focusToggleElement=function(){h.toggleElement&&h.toggleElement[0].focus()},i.$watch("isOpen",function(b,c){f[b?"addClass":"removeClass"](h.$element,j),b?(i.focusToggleElement(),e.open(i)):e.close(i),k(a,b),angular.isDefined(b)&&b!==c&&l(a,{open:!!b})}),a.$on("$locationChangeSuccess",function(){i.isOpen=!1}),a.$on("$destroy",function(){i.$destroy()})}]).directive("dropdown",function(){return{restrict:"CA",controller:"DropdownController",link:function(a,b,c,d){d.init(b)}}}).directive("dropdownToggle",function(){return{restrict:"CA",require:"?^dropdown",link:function(a,b,c,d){if(d){d.toggleElement=b;var e=function(e){e.preventDefault(),b.hasClass("disabled")||c.disabled||a.$apply(function(){d.toggle()})};b.bind("click",e),b.attr({"aria-haspopup":!0,"aria-expanded":!1}),a.$watch(d.isOpen,function(a){b.attr("aria-expanded",!!a)}),a.$on("$destroy",function(){b.unbind("click",e)})}}}}),angular.module("ui.bootstrap.modal",["ui.bootstrap.transition"]).factory("$$stackedMap",function(){return{createNew:function(){var a=[];return{add:function(b,c){a.push({key:b,value:c})},get:function(b){for(var c=0;c<a.length;c++)if(b==a[c].key)return a[c]},keys:function(){for(var b=[],c=0;c<a.length;c++)b.push(a[c].key);return b},top:function(){return a[a.length-1]},remove:function(b){for(var c=-1,d=0;d<a.length;d++)if(b==a[d].key){c=d;break}return a.splice(c,1)[0]},removeTop:function(){return a.splice(a.length-1,1)[0]},length:function(){return a.length}}}}}).directive("modalBackdrop",["$timeout",function(a){return{restrict:"EA",replace:!0,templateUrl:"template/modal/backdrop.html",link:function(b,c,d){b.backdropClass=d.backdropClass||"",b.animate=!1,a(function(){b.animate=!0})}}}]).directive("modalWindow",["$modalStack","$timeout",function(a,b){return{restrict:"EA",scope:{index:"@",animate:"="},replace:!0,transclude:!0,templateUrl:function(a,b){return b.templateUrl||"template/modal/window.html"},link:function(c,d,e){d.addClass(e.windowClass||""),c.size=e.size,b(function(){c.animate=!0,d[0].querySelectorAll("[autofocus]").length||d[0].focus()}),c.close=function(b){var c=a.getTop();c&&c.value.backdrop&&"static"!=c.value.backdrop&&b.target===b.currentTarget&&(b.preventDefault(),b.stopPropagation(),a.dismiss(c.key,"backdrop click"))}}}}]).directive("modalTransclude",function(){return{link:function(a,b,c,d,e){e(a.$parent,function(a){b.empty(),b.append(a)})}}}).factory("$modalStack",["$transition","$timeout","$document","$compile","$rootScope","$$stackedMap",function(a,b,c,d,e,f){function g(){for(var a=-1,b=n.keys(),c=0;c<b.length;c++)n.get(b[c]).value.backdrop&&(a=c);return a}function h(a){var b=c.find("body").eq(0),d=n.get(a).value;n.remove(a),j(d.modalDomEl,d.modalScope,300,function(){d.modalScope.$destroy(),b.toggleClass(m,n.length()>0),i()})}function i(){if(k&&-1==g()){var a=l;j(k,l,150,function(){a.$destroy(),a=null}),k=void 0,l=void 0}}function j(c,d,e,f){function g(){g.done||(g.done=!0,c.remove(),f&&f())}d.animate=!1;var h=a.transitionEndEventName;if(h){var i=b(g,e);c.bind(h,function(){b.cancel(i),g(),d.$apply()})}else b(g)}var k,l,m="modal-open",n=f.createNew(),o={};return e.$watch(g,function(a){l&&(l.index=a)}),c.bind("keydown",function(a){var b;27===a.which&&(b=n.top(),b&&b.value.keyboard&&(a.preventDefault(),e.$apply(function(){o.dismiss(b.key,"escape key press")})))}),o.open=function(a,b){n.add(a,{deferred:b.deferred,modalScope:b.scope,backdrop:b.backdrop,keyboard:b.keyboard});var f=c.find("body").eq(0),h=g();if(h>=0&&!k){l=e.$new(!0),l.index=h;var i=angular.element("<div modal-backdrop></div>");i.attr("backdrop-class",b.backdropClass),k=d(i)(l),f.append(k)}var j=angular.element("<div modal-window></div>");j.attr({"template-url":b.windowTemplateUrl,"window-class":b.windowClass,size:b.size,index:n.length()-1,animate:"animate"}).html(b.content);var o=d(j)(b.scope);n.top().value.modalDomEl=o,f.append(o),f.addClass(m)},o.close=function(a,b){var c=n.get(a);c&&(c.value.deferred.resolve(b),h(a))},o.dismiss=function(a,b){var c=n.get(a);c&&(c.value.deferred.reject(b),h(a))},o.dismissAll=function(a){for(var b=this.getTop();b;)this.dismiss(b.key,a),b=this.getTop()},o.getTop=function(){return n.top()},o}]).provider("$modal",function(){var a={options:{backdrop:!0,keyboard:!0},$get:["$injector","$rootScope","$q","$http","$templateCache","$controller","$modalStack",function(b,c,d,e,f,g,h){function i(a){return a.template?d.when(a.template):e.get(angular.isFunction(a.templateUrl)?a.templateUrl():a.templateUrl,{cache:f}).then(function(a){return a.data})}function j(a){var c=[];return angular.forEach(a,function(a){(angular.isFunction(a)||angular.isArray(a))&&c.push(d.when(b.invoke(a)))}),c}var k={};return k.open=function(b){var e=d.defer(),f=d.defer(),k={result:e.promise,opened:f.promise,close:function(a){h.close(k,a)},dismiss:function(a){h.dismiss(k,a)}};if(b=angular.extend({},a.options,b),b.resolve=b.resolve||{},!b.template&&!b.templateUrl)throw new Error("One of template or templateUrl options is required.");var l=d.all([i(b)].concat(j(b.resolve)));return l.then(function(a){var d=(b.scope||c).$new();d.$close=k.close,d.$dismiss=k.dismiss;var f,i={},j=1;b.controller&&(i.$scope=d,i.$modalInstance=k,angular.forEach(b.resolve,function(b,c){i[c]=a[j++]}),f=g(b.controller,i),b.controllerAs&&(d[b.controllerAs]=f)),h.open(k,{scope:d,deferred:e,content:a[0],backdrop:b.backdrop,keyboard:b.keyboard,backdropClass:b.backdropClass,windowClass:b.windowClass,windowTemplateUrl:b.windowTemplateUrl,size:b.size})},function(a){e.reject(a)}),l.then(function(){f.resolve(!0)},function(){f.reject(!1)}),k},k}]};return a}),angular.module("ui.bootstrap.pagination",[]).controller("PaginationController",["$scope","$attrs","$parse",function(a,b,c){var d=this,e={$setViewValue:angular.noop},f=b.numPages?c(b.numPages).assign:angular.noop;this.init=function(f,g){e=f,this.config=g,e.$render=function(){d.render()},b.itemsPerPage?a.$parent.$watch(c(b.itemsPerPage),function(b){d.itemsPerPage=parseInt(b,10),a.totalPages=d.calculateTotalPages()}):this.itemsPerPage=g.itemsPerPage},this.calculateTotalPages=function(){var b=this.itemsPerPage<1?1:Math.ceil(a.totalItems/this.itemsPerPage);return Math.max(b||0,1)},this.render=function(){a.page=parseInt(e.$viewValue,10)||1},a.selectPage=function(b){a.page!==b&&b>0&&b<=a.totalPages&&(e.$setViewValue(b),e.$render())},a.getText=function(b){return a[b+"Text"]||d.config[b+"Text"]},a.noPrevious=function(){return 1===a.page},a.noNext=function(){return a.page===a.totalPages},a.$watch("totalItems",function(){a.totalPages=d.calculateTotalPages()}),a.$watch("totalPages",function(b){f(a.$parent,b),a.page>b?a.selectPage(b):e.$render()})}]).constant("paginationConfig",{itemsPerPage:10,boundaryLinks:!1,directionLinks:!0,firstText:"First",previousText:"Previous",nextText:"Next",lastText:"Last",rotate:!0}).directive("pagination",["$parse","paginationConfig",function(a,b){return{restrict:"EA",scope:{totalItems:"=",firstText:"@",previousText:"@",nextText:"@",lastText:"@"},require:["pagination","?ngModel"],controller:"PaginationController",templateUrl:"template/pagination/pagination.html",replace:!0,link:function(c,d,e,f){function g(a,b,c){return{number:a,text:b,active:c}}function h(a,b){var c=[],d=1,e=b,f=angular.isDefined(k)&&b>k;f&&(l?(d=Math.max(a-Math.floor(k/2),1),e=d+k-1,e>b&&(e=b,d=e-k+1)):(d=(Math.ceil(a/k)-1)*k+1,e=Math.min(d+k-1,b)));for(var h=d;e>=h;h++){var i=g(h,h,h===a);c.push(i)}if(f&&!l){if(d>1){var j=g(d-1,"...",!1);c.unshift(j)}if(b>e){var m=g(e+1,"...",!1);c.push(m)}}return c}var i=f[0],j=f[1];if(j){var k=angular.isDefined(e.maxSize)?c.$parent.$eval(e.maxSize):b.maxSize,l=angular.isDefined(e.rotate)?c.$parent.$eval(e.rotate):b.rotate;c.boundaryLinks=angular.isDefined(e.boundaryLinks)?c.$parent.$eval(e.boundaryLinks):b.boundaryLinks,c.directionLinks=angular.isDefined(e.directionLinks)?c.$parent.$eval(e.directionLinks):b.directionLinks,i.init(j,b),e.maxSize&&c.$parent.$watch(a(e.maxSize),function(a){k=parseInt(a,10),i.render()
+});var m=i.render;i.render=function(){m(),c.page>0&&c.page<=c.totalPages&&(c.pages=h(c.page,c.totalPages))}}}}}]).constant("pagerConfig",{itemsPerPage:10,previousText:"« Previous",nextText:"Next »",align:!0}).directive("pager",["pagerConfig",function(a){return{restrict:"EA",scope:{totalItems:"=",previousText:"@",nextText:"@"},require:["pager","?ngModel"],controller:"PaginationController",templateUrl:"template/pagination/pager.html",replace:!0,link:function(b,c,d,e){var f=e[0],g=e[1];g&&(b.align=angular.isDefined(d.align)?b.$parent.$eval(d.align):a.align,f.init(g,a))}}}]),angular.module("ui.bootstrap.tooltip",["ui.bootstrap.position","ui.bootstrap.bindHtml"]).provider("$tooltip",function(){function a(a){var b=/[A-Z]/g,c="-";return a.replace(b,function(a,b){return(b?c:"")+a.toLowerCase()})}var b={placement:"top",animation:!0,popupDelay:0},c={mouseenter:"mouseleave",click:"click",focus:"blur"},d={};this.options=function(a){angular.extend(d,a)},this.setTriggers=function(a){angular.extend(c,a)},this.$get=["$window","$compile","$timeout","$parse","$document","$position","$interpolate",function(e,f,g,h,i,j,k){return function(e,l,m){function n(a){var b=a||o.trigger||m,d=c[b]||b;return{show:b,hide:d}}var o=angular.extend({},b,d),p=a(e),q=k.startSymbol(),r=k.endSymbol(),s="<div "+p+'-popup title="'+q+"tt_title"+r+'" content="'+q+"tt_content"+r+'" placement="'+q+"tt_placement"+r+'" animation="tt_animation" is-open="tt_isOpen"></div>';return{restrict:"EA",scope:!0,compile:function(){var a=f(s);return function(b,c,d){function f(){b.tt_isOpen?m():k()}function k(){(!y||b.$eval(d[l+"Enable"]))&&(b.tt_popupDelay?v||(v=g(p,b.tt_popupDelay,!1),v.then(function(a){a()})):p()())}function m(){b.$apply(function(){q()})}function p(){return v=null,u&&(g.cancel(u),u=null),b.tt_content?(r(),t.css({top:0,left:0,display:"block"}),w?i.find("body").append(t):c.after(t),z(),b.tt_isOpen=!0,b.$digest(),z):angular.noop}function q(){b.tt_isOpen=!1,g.cancel(v),v=null,b.tt_animation?u||(u=g(s,500)):s()}function r(){t&&s(),t=a(b,function(){}),b.$digest()}function s(){u=null,t&&(t.remove(),t=null)}var t,u,v,w=angular.isDefined(o.appendToBody)?o.appendToBody:!1,x=n(void 0),y=angular.isDefined(d[l+"Enable"]),z=function(){var a=j.positionElements(c,t,b.tt_placement,w);a.top+="px",a.left+="px",t.css(a)};b.tt_isOpen=!1,d.$observe(e,function(a){b.tt_content=a,!a&&b.tt_isOpen&&q()}),d.$observe(l+"Title",function(a){b.tt_title=a}),d.$observe(l+"Placement",function(a){b.tt_placement=angular.isDefined(a)?a:o.placement}),d.$observe(l+"PopupDelay",function(a){var c=parseInt(a,10);b.tt_popupDelay=isNaN(c)?o.popupDelay:c});var A=function(){c.unbind(x.show,k),c.unbind(x.hide,m)};d.$observe(l+"Trigger",function(a){A(),x=n(a),x.show===x.hide?c.bind(x.show,f):(c.bind(x.show,k),c.bind(x.hide,m))});var B=b.$eval(d[l+"Animation"]);b.tt_animation=angular.isDefined(B)?!!B:o.animation,d.$observe(l+"AppendToBody",function(a){w=angular.isDefined(a)?h(a)(b):w}),w&&b.$on("$locationChangeSuccess",function(){b.tt_isOpen&&q()}),b.$on("$destroy",function(){g.cancel(u),g.cancel(v),A(),s()})}}}}}]}).directive("tooltipPopup",function(){return{restrict:"EA",replace:!0,scope:{content:"@",placement:"@",animation:"&",isOpen:"&"},templateUrl:"template/tooltip/tooltip-popup.html"}}).directive("tooltip",["$tooltip",function(a){return a("tooltip","tooltip","mouseenter")}]).directive("tooltipHtmlUnsafePopup",function(){return{restrict:"EA",replace:!0,scope:{content:"@",placement:"@",animation:"&",isOpen:"&"},templateUrl:"template/tooltip/tooltip-html-unsafe-popup.html"}}).directive("tooltipHtmlUnsafe",["$tooltip",function(a){return a("tooltipHtmlUnsafe","tooltip","mouseenter")}]),angular.module("ui.bootstrap.popover",["ui.bootstrap.tooltip"]).directive("popoverPopup",function(){return{restrict:"EA",replace:!0,scope:{title:"@",content:"@",placement:"@",animation:"&",isOpen:"&"},templateUrl:"template/popover/popover.html"}}).directive("popover",["$tooltip",function(a){return a("popover","popover","click")}]),angular.module("ui.bootstrap.progressbar",[]).constant("progressConfig",{animate:!0,max:100}).controller("ProgressController",["$scope","$attrs","progressConfig",function(a,b,c){var d=this,e=angular.isDefined(b.animate)?a.$parent.$eval(b.animate):c.animate;this.bars=[],a.max=angular.isDefined(b.max)?a.$parent.$eval(b.max):c.max,this.addBar=function(b,c){e||c.css({transition:"none"}),this.bars.push(b),b.$watch("value",function(c){b.percent=+(100*c/a.max).toFixed(2)}),b.$on("$destroy",function(){c=null,d.removeBar(b)})},this.removeBar=function(a){this.bars.splice(this.bars.indexOf(a),1)}}]).directive("progress",function(){return{restrict:"EA",replace:!0,transclude:!0,controller:"ProgressController",require:"progress",scope:{},templateUrl:"template/progressbar/progress.html"}}).directive("bar",function(){return{restrict:"EA",replace:!0,transclude:!0,require:"^progress",scope:{value:"=",type:"@"},templateUrl:"template/progressbar/bar.html",link:function(a,b,c,d){d.addBar(a,b)}}}).directive("progressbar",function(){return{restrict:"EA",replace:!0,transclude:!0,controller:"ProgressController",scope:{value:"=",type:"@"},templateUrl:"template/progressbar/progressbar.html",link:function(a,b,c,d){d.addBar(a,angular.element(b.children()[0]))}}}),angular.module("ui.bootstrap.rating",[]).constant("ratingConfig",{max:5,stateOn:null,stateOff:null}).controller("RatingController",["$scope","$attrs","ratingConfig",function(a,b,c){var d={$setViewValue:angular.noop};this.init=function(e){d=e,d.$render=this.render,this.stateOn=angular.isDefined(b.stateOn)?a.$parent.$eval(b.stateOn):c.stateOn,this.stateOff=angular.isDefined(b.stateOff)?a.$parent.$eval(b.stateOff):c.stateOff;var f=angular.isDefined(b.ratingStates)?a.$parent.$eval(b.ratingStates):new Array(angular.isDefined(b.max)?a.$parent.$eval(b.max):c.max);a.range=this.buildTemplateObjects(f)},this.buildTemplateObjects=function(a){for(var b=0,c=a.length;c>b;b++)a[b]=angular.extend({index:b},{stateOn:this.stateOn,stateOff:this.stateOff},a[b]);return a},a.rate=function(b){!a.readonly&&b>=0&&b<=a.range.length&&(d.$setViewValue(b),d.$render())},a.enter=function(b){a.readonly||(a.value=b),a.onHover({value:b})},a.reset=function(){a.value=d.$viewValue,a.onLeave()},a.onKeydown=function(b){/(37|38|39|40)/.test(b.which)&&(b.preventDefault(),b.stopPropagation(),a.rate(a.value+(38===b.which||39===b.which?1:-1)))},this.render=function(){a.value=d.$viewValue}}]).directive("rating",function(){return{restrict:"EA",require:["rating","ngModel"],scope:{readonly:"=?",onHover:"&",onLeave:"&"},controller:"RatingController",templateUrl:"template/rating/rating.html",replace:!0,link:function(a,b,c,d){var e=d[0],f=d[1];f&&e.init(f)}}}),angular.module("ui.bootstrap.tabs",[]).controller("TabsetController",["$scope",function(a){var b=this,c=b.tabs=a.tabs=[];b.select=function(a){angular.forEach(c,function(b){b.active&&b!==a&&(b.active=!1,b.onDeselect())}),a.active=!0,a.onSelect()},b.addTab=function(a){c.push(a),1===c.length?a.active=!0:a.active&&b.select(a)},b.removeTab=function(a){var d=c.indexOf(a);if(a.active&&c.length>1){var e=d==c.length-1?d-1:d+1;b.select(c[e])}c.splice(d,1)}}]).directive("tabset",function(){return{restrict:"EA",transclude:!0,replace:!0,scope:{type:"@"},controller:"TabsetController",templateUrl:"template/tabs/tabset.html",link:function(a,b,c){a.vertical=angular.isDefined(c.vertical)?a.$parent.$eval(c.vertical):!1,a.justified=angular.isDefined(c.justified)?a.$parent.$eval(c.justified):!1}}}).directive("tab",["$parse",function(a){return{require:"^tabset",restrict:"EA",replace:!0,templateUrl:"template/tabs/tab.html",transclude:!0,scope:{active:"=?",heading:"@",onSelect:"&select",onDeselect:"&deselect"},controller:function(){},compile:function(b,c,d){return function(b,c,e,f){b.$watch("active",function(a){a&&f.select(b)}),b.disabled=!1,e.disabled&&b.$parent.$watch(a(e.disabled),function(a){b.disabled=!!a}),b.select=function(){b.disabled||(b.active=!0)},f.addTab(b),b.$on("$destroy",function(){f.removeTab(b)}),b.$transcludeFn=d}}}}]).directive("tabHeadingTransclude",[function(){return{restrict:"A",require:"^tab",link:function(a,b){a.$watch("headingElement",function(a){a&&(b.html(""),b.append(a))})}}}]).directive("tabContentTransclude",function(){function a(a){return a.tagName&&(a.hasAttribute("tab-heading")||a.hasAttribute("data-tab-heading")||"tab-heading"===a.tagName.toLowerCase()||"data-tab-heading"===a.tagName.toLowerCase())}return{restrict:"A",require:"^tabset",link:function(b,c,d){var e=b.$eval(d.tabContentTransclude);e.$transcludeFn(e.$parent,function(b){angular.forEach(b,function(b){a(b)?e.headingElement=b:c.append(b)})})}}}),angular.module("ui.bootstrap.timepicker",[]).constant("timepickerConfig",{hourStep:1,minuteStep:1,showMeridian:!0,meridians:null,readonlyInput:!1,mousewheel:!0}).controller("TimepickerController",["$scope","$attrs","$parse","$log","$locale","timepickerConfig",function(a,b,c,d,e,f){function g(){var b=parseInt(a.hours,10),c=a.showMeridian?b>0&&13>b:b>=0&&24>b;return c?(a.showMeridian&&(12===b&&(b=0),a.meridian===p[1]&&(b+=12)),b):void 0}function h(){var b=parseInt(a.minutes,10);return b>=0&&60>b?b:void 0}function i(a){return angular.isDefined(a)&&a.toString().length<2?"0"+a:a}function j(a){k(),o.$setViewValue(new Date(n)),l(a)}function k(){o.$setValidity("time",!0),a.invalidHours=!1,a.invalidMinutes=!1}function l(b){var c=n.getHours(),d=n.getMinutes();a.showMeridian&&(c=0===c||12===c?12:c%12),a.hours="h"===b?c:i(c),a.minutes="m"===b?d:i(d),a.meridian=n.getHours()<12?p[0]:p[1]}function m(a){var b=new Date(n.getTime()+6e4*a);n.setHours(b.getHours(),b.getMinutes()),j()}var n=new Date,o={$setViewValue:angular.noop},p=angular.isDefined(b.meridians)?a.$parent.$eval(b.meridians):f.meridians||e.DATETIME_FORMATS.AMPMS;this.init=function(c,d){o=c,o.$render=this.render;var e=d.eq(0),g=d.eq(1),h=angular.isDefined(b.mousewheel)?a.$parent.$eval(b.mousewheel):f.mousewheel;h&&this.setupMousewheelEvents(e,g),a.readonlyInput=angular.isDefined(b.readonlyInput)?a.$parent.$eval(b.readonlyInput):f.readonlyInput,this.setupInputEvents(e,g)};var q=f.hourStep;b.hourStep&&a.$parent.$watch(c(b.hourStep),function(a){q=parseInt(a,10)});var r=f.minuteStep;b.minuteStep&&a.$parent.$watch(c(b.minuteStep),function(a){r=parseInt(a,10)}),a.showMeridian=f.showMeridian,b.showMeridian&&a.$parent.$watch(c(b.showMeridian),function(b){if(a.showMeridian=!!b,o.$error.time){var c=g(),d=h();angular.isDefined(c)&&angular.isDefined(d)&&(n.setHours(c),j())}else l()}),this.setupMousewheelEvents=function(b,c){var d=function(a){a.originalEvent&&(a=a.originalEvent);var b=a.wheelDelta?a.wheelDelta:-a.deltaY;return a.detail||b>0};b.bind("mousewheel wheel",function(b){a.$apply(d(b)?a.incrementHours():a.decrementHours()),b.preventDefault()}),c.bind("mousewheel wheel",function(b){a.$apply(d(b)?a.incrementMinutes():a.decrementMinutes()),b.preventDefault()})},this.setupInputEvents=function(b,c){if(a.readonlyInput)return a.updateHours=angular.noop,void(a.updateMinutes=angular.noop);var d=function(b,c){o.$setViewValue(null),o.$setValidity("time",!1),angular.isDefined(b)&&(a.invalidHours=b),angular.isDefined(c)&&(a.invalidMinutes=c)};a.updateHours=function(){var a=g();angular.isDefined(a)?(n.setHours(a),j("h")):d(!0)},b.bind("blur",function(){!a.invalidHours&&a.hours<10&&a.$apply(function(){a.hours=i(a.hours)})}),a.updateMinutes=function(){var a=h();angular.isDefined(a)?(n.setMinutes(a),j("m")):d(void 0,!0)},c.bind("blur",function(){!a.invalidMinutes&&a.minutes<10&&a.$apply(function(){a.minutes=i(a.minutes)})})},this.render=function(){var a=o.$modelValue?new Date(o.$modelValue):null;isNaN(a)?(o.$setValidity("time",!1),d.error('Timepicker directive: "ng-model" value must be a Date object, a number of milliseconds since 01.01.1970 or a string representing an RFC2822 or ISO 8601 date.')):(a&&(n=a),k(),l())},a.incrementHours=function(){m(60*q)},a.decrementHours=function(){m(60*-q)},a.incrementMinutes=function(){m(r)},a.decrementMinutes=function(){m(-r)},a.toggleMeridian=function(){m(720*(n.getHours()<12?1:-1))}}]).directive("timepicker",function(){return{restrict:"EA",require:["timepicker","?^ngModel"],controller:"TimepickerController",replace:!0,scope:{},templateUrl:"template/timepicker/timepicker.html",link:function(a,b,c,d){var e=d[0],f=d[1];f&&e.init(f,b.find("input"))}}}),angular.module("ui.bootstrap.typeahead",["ui.bootstrap.position","ui.bootstrap.bindHtml"]).factory("typeaheadParser",["$parse",function(a){var b=/^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w\d]*))\s+in\s+([\s\S]+?)$/;return{parse:function(c){var d=c.match(b);if(!d)throw new Error('Expected typeahead specification in form of "_modelValue_ (as _label_)? for _item_ in _collection_" but got "'+c+'".');return{itemName:d[3],source:a(d[4]),viewMapper:a(d[2]||d[1]),modelMapper:a(d[1])}}}}]).directive("typeahead",["$compile","$parse","$q","$timeout","$document","$position","typeaheadParser",function(a,b,c,d,e,f,g){var h=[9,13,27,38,40];return{require:"ngModel",link:function(i,j,k,l){var m,n=i.$eval(k.typeaheadMinLength)||1,o=i.$eval(k.typeaheadWaitMs)||0,p=i.$eval(k.typeaheadEditable)!==!1,q=b(k.typeaheadLoading).assign||angular.noop,r=b(k.typeaheadOnSelect),s=k.typeaheadInputFormatter?b(k.typeaheadInputFormatter):void 0,t=k.typeaheadAppendToBody?i.$eval(k.typeaheadAppendToBody):!1,u=b(k.ngModel).assign,v=g.parse(k.typeahead),w=i.$new();i.$on("$destroy",function(){w.$destroy()});var x="typeahead-"+w.$id+"-"+Math.floor(1e4*Math.random());j.attr({"aria-autocomplete":"list","aria-expanded":!1,"aria-owns":x});var y=angular.element("<div typeahead-popup></div>");y.attr({id:x,matches:"matches",active:"activeIdx",select:"select(activeIdx)",query:"query",position:"position"}),angular.isDefined(k.typeaheadTemplateUrl)&&y.attr("template-url",k.typeaheadTemplateUrl);var z=function(){w.matches=[],w.activeIdx=-1,j.attr("aria-expanded",!1)},A=function(a){return x+"-option-"+a};w.$watch("activeIdx",function(a){0>a?j.removeAttr("aria-activedescendant"):j.attr("aria-activedescendant",A(a))});var B=function(a){var b={$viewValue:a};q(i,!0),c.when(v.source(i,b)).then(function(c){var d=a===l.$viewValue;if(d&&m)if(c.length>0){w.activeIdx=0,w.matches.length=0;for(var e=0;e<c.length;e++)b[v.itemName]=c[e],w.matches.push({id:A(e),label:v.viewMapper(w,b),model:c[e]});w.query=a,w.position=t?f.offset(j):f.position(j),w.position.top=w.position.top+j.prop("offsetHeight"),j.attr("aria-expanded",!0)}else z();d&&q(i,!1)},function(){z(),q(i,!1)})};z(),w.query=void 0;var C,D=function(a){C=d(function(){B(a)},o)},E=function(){C&&d.cancel(C)};l.$parsers.unshift(function(a){return m=!0,a&&a.length>=n?o>0?(E(),D(a)):B(a):(q(i,!1),E(),z()),p?a:a?void l.$setValidity("editable",!1):(l.$setValidity("editable",!0),a)}),l.$formatters.push(function(a){var b,c,d={};return s?(d.$model=a,s(i,d)):(d[v.itemName]=a,b=v.viewMapper(i,d),d[v.itemName]=void 0,c=v.viewMapper(i,d),b!==c?b:a)}),w.select=function(a){var b,c,e={};e[v.itemName]=c=w.matches[a].model,b=v.modelMapper(i,e),u(i,b),l.$setValidity("editable",!0),r(i,{$item:c,$model:b,$label:v.viewMapper(i,e)}),z(),d(function(){j[0].focus()},0,!1)},j.bind("keydown",function(a){0!==w.matches.length&&-1!==h.indexOf(a.which)&&(a.preventDefault(),40===a.which?(w.activeIdx=(w.activeIdx+1)%w.matches.length,w.$digest()):38===a.which?(w.activeIdx=(w.activeIdx?w.activeIdx:w.matches.length)-1,w.$digest()):13===a.which||9===a.which?w.$apply(function(){w.select(w.activeIdx)}):27===a.which&&(a.stopPropagation(),z(),w.$digest()))}),j.bind("blur",function(){m=!1});var F=function(a){j[0]!==a.target&&(z(),w.$digest())};e.bind("click",F),i.$on("$destroy",function(){e.unbind("click",F)});var G=a(y)(w);t?e.find("body").append(G):j.after(G)}}}]).directive("typeaheadPopup",function(){return{restrict:"EA",scope:{matches:"=",query:"=",active:"=",position:"=",select:"&"},replace:!0,templateUrl:"template/typeahead/typeahead-popup.html",link:function(a,b,c){a.templateUrl=c.templateUrl,a.isOpen=function(){return a.matches.length>0},a.isActive=function(b){return a.active==b},a.selectActive=function(b){a.active=b},a.selectMatch=function(b){a.select({activeIdx:b})}}}}).directive("typeaheadMatch",["$http","$templateCache","$compile","$parse",function(a,b,c,d){return{restrict:"EA",scope:{index:"=",match:"=",query:"="},link:function(e,f,g){var h=d(g.templateUrl)(e.$parent)||"template/typeahead/typeahead-match.html";a.get(h,{cache:b}).success(function(a){f.replaceWith(c(a.trim())(e))})}}}]).filter("typeaheadHighlight",function(){function a(a){return a.replace(/([.?*+^$[\]\\(){}|-])/g,"\\$1")}return function(b,c){return c?(""+b).replace(new RegExp(a(c),"gi"),"<strong>$&</strong>"):b}}),angular.module("template/accordion/accordion-group.html",[]).run(["$templateCache",function(a){a.put("template/accordion/accordion-group.html",'<div class="panel panel-default">\n  <div class="panel-heading">\n    <h4 class="panel-title">\n      <a class="accordion-toggle" ng-click="toggleOpen()" accordion-transclude="heading"><span ng-class="{\'text-muted\': isDisabled}">{{heading}}</span></a>\n    </h4>\n  </div>\n  <div class="panel-collapse" collapse="!isOpen">\n	  <div class="panel-body" ng-transclude></div>\n  </div>\n</div>')}]),angular.module("template/accordion/accordion.html",[]).run(["$templateCache",function(a){a.put("template/accordion/accordion.html",'<div class="panel-group" ng-transclude></div>')}]),angular.module("template/alert/alert.html",[]).run(["$templateCache",function(a){a.put("template/alert/alert.html",'<div class="alert" ng-class="[\'alert-\' + (type || \'warning\'), closeable ? \'alert-dismissable\' : null]" role="alert">\n    <button ng-show="closeable" type="button" class="close" ng-click="close()">\n        <span aria-hidden="true">&times;</span>\n        <span class="sr-only">Close</span>\n    </button>\n    <div ng-transclude></div>\n</div>\n')}]),angular.module("template/carousel/carousel.html",[]).run(["$templateCache",function(a){a.put("template/carousel/carousel.html",'<div ng-mouseenter="pause()" ng-mouseleave="play()" class="carousel" ng-swipe-right="prev()" ng-swipe-left="next()">\n    <ol class="carousel-indicators" ng-show="slides.length > 1">\n        <li ng-repeat="slide in slides track by $index" ng-class="{active: isActive(slide)}" ng-click="select(slide)"></li>\n    </ol>\n    <div class="carousel-inner" ng-transclude></div>\n    <a class="left carousel-control" ng-click="prev()" ng-show="slides.length > 1"><span class="glyphicon glyphicon-chevron-left"></span></a>\n    <a class="right carousel-control" ng-click="next()" ng-show="slides.length > 1"><span class="glyphicon glyphicon-chevron-right"></span></a>\n</div>\n')}]),angular.module("template/carousel/slide.html",[]).run(["$templateCache",function(a){a.put("template/carousel/slide.html","<div ng-class=\"{\n    'active': leaving || (active && !entering),\n    'prev': (next || active) && direction=='prev',\n    'next': (next || active) && direction=='next',\n    'right': direction=='prev',\n    'left': direction=='next'\n  }\" class=\"item text-center\" ng-transclude></div>\n")}]),angular.module("template/datepicker/datepicker.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/datepicker.html",'<div ng-switch="datepickerMode" role="application" ng-keydown="keydown($event)">\n  <daypicker ng-switch-when="day" tabindex="0"></daypicker>\n  <monthpicker ng-switch-when="month" tabindex="0"></monthpicker>\n  <yearpicker ng-switch-when="year" tabindex="0"></yearpicker>\n</div>')}]),angular.module("template/datepicker/day.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/day.html",'<table role="grid" aria-labelledby="{{uniqueId}}-title" aria-activedescendant="{{activeDateId}}">\n  <thead>\n    <tr>\n      <th><button type="button" class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-left"></i></button></th>\n      <th colspan="{{5 + showWeeks}}"><button id="{{uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="btn btn-default btn-sm" ng-click="toggleMode()" tabindex="-1" style="width:100%;"><strong>{{title}}</strong></button></th>\n      <th><button type="button" class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-right"></i></button></th>\n    </tr>\n    <tr>\n      <th ng-show="showWeeks" class="text-center"></th>\n      <th ng-repeat="label in labels track by $index" class="text-center"><small aria-label="{{label.full}}">{{label.abbr}}</small></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat="row in rows track by $index">\n      <td ng-show="showWeeks" class="text-center h6"><em>{{ weekNumbers[$index] }}</em></td>\n      <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{dt.uid}}" aria-disabled="{{!!dt.disabled}}">\n        <button type="button" style="width:100%;" class="btn btn-default btn-sm" ng-class="{\'btn-info\': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="{\'text-muted\': dt.secondary, \'text-info\': dt.current}">{{dt.label}}</span></button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n')}]),angular.module("template/datepicker/month.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/month.html",'<table role="grid" aria-labelledby="{{uniqueId}}-title" aria-activedescendant="{{activeDateId}}">\n  <thead>\n    <tr>\n      <th><button type="button" class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-left"></i></button></th>\n      <th><button id="{{uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="btn btn-default btn-sm" ng-click="toggleMode()" tabindex="-1" style="width:100%;"><strong>{{title}}</strong></button></th>\n      <th><button type="button" class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-right"></i></button></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat="row in rows track by $index">\n      <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{dt.uid}}" aria-disabled="{{!!dt.disabled}}">\n        <button type="button" style="width:100%;" class="btn btn-default" ng-class="{\'btn-info\': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="{\'text-info\': dt.current}">{{dt.label}}</span></button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n')}]),angular.module("template/datepicker/popup.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/popup.html",'<ul class="dropdown-menu" ng-style="{display: (isOpen && \'block\') || \'none\', top: position.top+\'px\', left: position.left+\'px\'}" ng-keydown="keydown($event)">\n	<li ng-transclude></li>\n	<li ng-if="showButtonBar" style="padding:10px 9px 2px">\n		<span class="btn-group">\n			<button type="button" class="btn btn-sm btn-info" ng-click="select(\'today\')">{{ getText(\'current\') }}</button>\n			<button type="button" class="btn btn-sm btn-danger" ng-click="select(null)">{{ getText(\'clear\') }}</button>\n		</span>\n		<button type="button" class="btn btn-sm btn-success pull-right" ng-click="close()">{{ getText(\'close\') }}</button>\n	</li>\n</ul>\n')}]),angular.module("template/datepicker/year.html",[]).run(["$templateCache",function(a){a.put("template/datepicker/year.html",'<table role="grid" aria-labelledby="{{uniqueId}}-title" aria-activedescendant="{{activeDateId}}">\n  <thead>\n    <tr>\n      <th><button type="button" class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-left"></i></button></th>\n      <th colspan="3"><button id="{{uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="btn btn-default btn-sm" ng-click="toggleMode()" tabindex="-1" style="width:100%;"><strong>{{title}}</strong></button></th>\n      <th><button type="button" class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-right"></i></button></th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr ng-repeat="row in rows track by $index">\n      <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{dt.uid}}" aria-disabled="{{!!dt.disabled}}">\n        <button type="button" style="width:100%;" class="btn btn-default" ng-class="{\'btn-info\': dt.selected, active: isActive(dt)}" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="{\'text-info\': dt.current}">{{dt.label}}</span></button>\n      </td>\n    </tr>\n  </tbody>\n</table>\n')}]),angular.module("template/modal/backdrop.html",[]).run(["$templateCache",function(a){a.put("template/modal/backdrop.html",'<div class="modal-backdrop fade {{ backdropClass }}"\n     ng-class="{in: animate}"\n     ng-style="{\'z-index\': 1040 + (index && 1 || 0) + index*10}"\n></div>\n')}]),angular.module("template/modal/window.html",[]).run(["$templateCache",function(a){a.put("template/modal/window.html",'<div tabindex="-1" role="dialog" class="modal fade" ng-class="{in: animate}" ng-style="{\'z-index\': 1050 + index*10, display: \'block\'}" ng-click="close($event)">\n    <div class="modal-dialog" ng-class="{\'modal-sm\': size == \'sm\', \'modal-lg\': size == \'lg\'}"><div class="modal-content" modal-transclude></div></div>\n</div>')}]),angular.module("template/pagination/pager.html",[]).run(["$templateCache",function(a){a.put("template/pagination/pager.html",'<ul class="pager">\n  <li ng-class="{disabled: noPrevious(), previous: align}"><a href ng-click="selectPage(page - 1)">{{getText(\'previous\')}}</a></li>\n  <li ng-class="{disabled: noNext(), next: align}"><a href ng-click="selectPage(page + 1)">{{getText(\'next\')}}</a></li>\n</ul>')}]),angular.module("template/pagination/pagination.html",[]).run(["$templateCache",function(a){a.put("template/pagination/pagination.html",'<ul class="pagination">\n  <li ng-if="boundaryLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(1)">{{getText(\'first\')}}</a></li>\n  <li ng-if="directionLinks" ng-class="{disabled: noPrevious()}"><a href ng-click="selectPage(page - 1)">{{getText(\'previous\')}}</a></li>\n  <li ng-repeat="page in pages track by $index" ng-class="{active: page.active}"><a href ng-click="selectPage(page.number)">{{page.text}}</a></li>\n  <li ng-if="directionLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(page + 1)">{{getText(\'next\')}}</a></li>\n  <li ng-if="boundaryLinks" ng-class="{disabled: noNext()}"><a href ng-click="selectPage(totalPages)">{{getText(\'last\')}}</a></li>\n</ul>')}]),angular.module("template/tooltip/tooltip-html-unsafe-popup.html",[]).run(["$templateCache",function(a){a.put("template/tooltip/tooltip-html-unsafe-popup.html",'<div class="tooltip {{placement}}" ng-class="{ in: isOpen(), fade: animation() }">\n  <div class="tooltip-arrow"></div>\n  <div class="tooltip-inner" bind-html-unsafe="content"></div>\n</div>\n')}]),angular.module("template/tooltip/tooltip-popup.html",[]).run(["$templateCache",function(a){a.put("template/tooltip/tooltip-popup.html",'<div class="tooltip {{placement}}" ng-class="{ in: isOpen(), fade: animation() }">\n  <div class="tooltip-arrow"></div>\n  <div class="tooltip-inner" ng-bind="content"></div>\n</div>\n')}]),angular.module("template/popover/popover.html",[]).run(["$templateCache",function(a){a.put("template/popover/popover.html",'<div class="popover {{placement}}" ng-class="{ in: isOpen(), fade: animation() }">\n  <div class="arrow"></div>\n\n  <div class="popover-inner">\n      <h3 class="popover-title" ng-bind="title" ng-show="title"></h3>\n      <div class="popover-content" ng-bind="content"></div>\n  </div>\n</div>\n')}]),angular.module("template/progressbar/bar.html",[]).run(["$templateCache",function(a){a.put("template/progressbar/bar.html",'<div class="progress-bar" ng-class="type && \'progress-bar-\' + type" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="{{max}}" ng-style="{width: percent + \'%\'}" aria-valuetext="{{percent | number:0}}%" ng-transclude></div>')}]),angular.module("template/progressbar/progress.html",[]).run(["$templateCache",function(a){a.put("template/progressbar/progress.html",'<div class="progress" ng-transclude></div>')}]),angular.module("template/progressbar/progressbar.html",[]).run(["$templateCache",function(a){a.put("template/progressbar/progressbar.html",'<div class="progress">\n  <div class="progress-bar" ng-class="type && \'progress-bar-\' + type" role="progressbar" aria-valuenow="{{value}}" aria-valuemin="0" aria-valuemax="{{max}}" ng-style="{width: percent + \'%\'}" aria-valuetext="{{percent | number:0}}%" ng-transclude></div>\n</div>')}]),angular.module("template/rating/rating.html",[]).run(["$templateCache",function(a){a.put("template/rating/rating.html",'<span ng-mouseleave="reset()" ng-keydown="onKeydown($event)" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="{{range.length}}" aria-valuenow="{{value}}">\n    <i ng-repeat="r in range track by $index" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon" ng-class="$index < value && (r.stateOn || \'glyphicon-star\') || (r.stateOff || \'glyphicon-star-empty\')">\n        <span class="sr-only">({{ $index < value ? \'*\' : \' \' }})</span>\n    </i>\n</span>')}]),angular.module("template/tabs/tab.html",[]).run(["$templateCache",function(a){a.put("template/tabs/tab.html",'<li ng-class="{active: active, disabled: disabled}">\n  <a ng-click="select()" tab-heading-transclude>{{heading}}</a>\n</li>\n')}]),angular.module("template/tabs/tabset.html",[]).run(["$templateCache",function(a){a.put("template/tabs/tabset.html",'<div>\n  <ul class="nav nav-{{type || \'tabs\'}}" ng-class="{\'nav-stacked\': vertical, \'nav-justified\': justified}" ng-transclude></ul>\n  <div class="tab-content">\n    <div class="tab-pane" \n         ng-repeat="tab in tabs" \n         ng-class="{active: tab.active}"\n         tab-content-transclude="tab">\n    </div>\n  </div>\n</div>\n')}]),angular.module("template/timepicker/timepicker.html",[]).run(["$templateCache",function(a){a.put("template/timepicker/timepicker.html",'<table>\n	<tbody>\n		<tr class="text-center">\n			<td><a ng-click="incrementHours()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span></a></td>\n			<td>&nbsp;</td>\n			<td><a ng-click="incrementMinutes()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span></a></td>\n			<td ng-show="showMeridian"></td>\n		</tr>\n		<tr>\n			<td style="width:50px;" class="form-group" ng-class="{\'has-error\': invalidHours}">\n				<input type="text" ng-model="hours" ng-change="updateHours()" class="form-control text-center" ng-mousewheel="incrementHours()" ng-readonly="readonlyInput" maxlength="2">\n			</td>\n			<td>:</td>\n			<td style="width:50px;" class="form-group" ng-class="{\'has-error\': invalidMinutes}">\n				<input type="text" ng-model="minutes" ng-change="updateMinutes()" class="form-control text-center" ng-readonly="readonlyInput" maxlength="2">\n			</td>\n			<td ng-show="showMeridian"><button type="button" class="btn btn-default text-center" ng-click="toggleMeridian()">{{meridian}}</button></td>\n		</tr>\n		<tr class="text-center">\n			<td><a ng-click="decrementHours()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span></a></td>\n			<td>&nbsp;</td>\n			<td><a ng-click="decrementMinutes()" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span></a></td>\n			<td ng-show="showMeridian"></td>\n		</tr>\n	</tbody>\n</table>\n')}]),angular.module("template/typeahead/typeahead-match.html",[]).run(["$templateCache",function(a){a.put("template/typeahead/typeahead-match.html",'<a tabindex="-1" bind-html-unsafe="match.label | typeaheadHighlight:query"></a>')
+}]),angular.module("template/typeahead/typeahead-popup.html",[]).run(["$templateCache",function(a){a.put("template/typeahead/typeahead-popup.html",'<ul class="dropdown-menu" ng-show="isOpen()" ng-style="{top: position.top+\'px\', left: position.left+\'px\'}" style="display: block;" role="listbox" aria-hidden="{{!isOpen()}}">\n    <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{match.id}}">\n        <div typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>\n    </li>\n</ul>\n')}]);;/**
  * angular-echonest module
  * https://github.com/kraku/angular-echonest
  *
@@ -34478,7 +35188,7 @@ angularLocalStorage.provider('localStorageService', function() {
  * angular-notifier - v0.0.3
  * https://github.com/l-lin/angular-notifier
  */
-!function(){"use strict";angular.module("llNotifier",["ngAnimate"]).value("llNotificationsTemplateUrl","src/notifications.html").value("llNotificationTemplateUrl","src/notification.html").constant("llConstants",{DEFAULT_NOTIFICATION_TYPE:"default",DEFAULT_NOTIFICATION_POSITION:"top center",DEFAULT_DELAY:3e3,FADE_DELAY:1e3})}(),function(){"use strict";angular.module("llNotifier").factory("NotificationDecorator",function(){function a(){}return a.toObject=function(a){var b=a;return"object"!=typeof b&&(b={template:b}),b},a}).factory("Notification",["$compile","$timeout","llConstants","NotificationDecorator",function(a,b,c,d){function e(a){var b=d.toObject(a);this.template=b.template?b.template:"",this.type=b.type?b.type:c.DEFAULT_NOTIFICATION_TYPE,this.position=b.position?b.position:c.DEFAULT_NOTIFICATION_POSITION,this.hasDelay=angular.isUndefined(b.hasDelay)?!0:b.hasDelay===!0,this.delay=angular.isDefined(b.delay)?b.delay:c.DEFAULT_DELAY,this.scope=angular.isDefined(b.scope)?b.scope:{}}return e.prototype={timeout:function(a){this.hasDelay&&b(function(){a()},this.delay)}},e}])}(),function(){"use strict";angular.module("llNotifier").service("notifier",["$http","$rootScope","$templateCache","$compile","Notification","llNotificationsTemplateUrl",function(a,b,c,d,e,f){function g(b){a.get(f,{cache:c}).success(function(a){b(a)}).error(function(a){throw new Error("Template specified for llNotifier ("+f+") could not be loaded. "+a)})}function h(a,b){var c=d(a)(b),e=angular.element(document).find("body");e.append(c)}this.scope=b.$new(),this.scope.notifications=[],this.isFirstNotification=!0,this.notify=function(a){var b=this,c=new e(a);b.scope.notifications.push(c),b.isFirstNotification&&g(function(a){h(a,b.scope),b.isFirstNotification=!1})}}])}(),function(){"use strict";angular.module("llNotifier").directive("llNotification",["$timeout","llNotificationTemplateUrl","llConstants",function(a,b,c){return{scope:!0,restrict:"E",templateUrl:b,transclude:!0,link:function(b){var d=b.notification;d.isShown=!0;var e=function(){b.notification.isShown=!1,a(function(){for(var a=b.$parent.notifications,c=a.length-1;c>=0;c--)a[c].isShown||b.$parent.notifications.splice(c,1)},c.FADE_DELAY)};b.closeNotification=e,d.timeout(e),d.isCentered=-1!==d.position.indexOf("center")}}}]).directive("llNotificationContent",["$compile",function(a){function b(a){this.scope=a}function c(a){this.template=a}return b.prototype={populateWith:function(a){if("object"==typeof a)for(var b in a)this.scope[b]=a[b];return this.scope}},c.prototype={toTemplate:function(){return"<div>"+this.template+"</div>"}},{scope:!0,restrict:"E",transclude:!0,link:function(d,e){d=new b(d).populateWith(d.notification.scope),e.replaceWith(a(new c(d.notification.template).toTemplate())(d))}}}])}(),angular.module("llNotifier").run(["$templateCache",function(a){"use strict";a.put("src/notification.html",'<div class="notifier-msg {{notification.position}}" ng-show="notification.isShown" ng-cloak>\n	<div class="notifier-msg-content {{notification.type}}" ng-class="{center: notification.isCentered}">\n		<div ng-transclude></div>\n		<button class="notifier-button notifier-button-close" ng-click="closeNotification()">x</button>\n	</div>\n</div>\n'),a.put("src/notifications.html",'<ll-notification ng-repeat="notification in notifications" type="notification.type" position="notification.position" has-delay="notification.hasDelay" delay="notification.delay">\n	<ll-notification-content></ll-notification-content>\n</ll-notification>\n')}]);;/**
+!function(){"use strict";angular.module("llNotifier",["ngAnimate"]).value("llNotificationsTemplateUrl","src/notifications.html").value("llNotificationTemplateUrl","src/notification.html").constant("llConstants",{DEFAULT_NOTIFICATION_TYPE:"default",DEFAULT_NOTIFICATION_POSITION:"top center",DEFAULT_DELAY:3e3,FADE_DELAY:1e3})}(),function(){"use strict";angular.module("llNotifier").factory("NotificationDecorator",function(){function a(){}return a.toObject=function(a){var b=a;return"object"!=typeof b&&(b={template:b}),b},a}).factory("Notification",["$compile","$timeout","llConstants","NotificationDecorator",function(a,b,c,d){function e(a){var b=d.toObject(a);this.template=b.template?b.template:"",this.type=b.type?b.type:c.DEFAULT_NOTIFICATION_TYPE,this.position=b.position?b.position:c.DEFAULT_NOTIFICATION_POSITION,this.hasDelay=angular.isUndefined(b.hasDelay)?!0:b.hasDelay===!0,this.delay=angular.isDefined(b.delay)?b.delay:c.DEFAULT_DELAY,this.scope=angular.isDefined(b.scope)?b.scope:{}}return e.prototype={timeout:function(a){this.hasDelay&&b(function(){a()},this.delay)}},e}])}(),function(){"use strict";angular.module("llNotifier").service("notifier",["$http","$rootScope","$templateCache","$compile","Notification","llNotificationsTemplateUrl",function(a,b,c,d,e,f){function g(b){a.get(f,{cache:c}).success(function(a){b(a)}).error(function(a){throw new Error("Template specified for llNotifier ("+f+") could not be loaded. "+a)})}function h(a,b){var c=d(a)(b),e=angular.element(document).find("body");e.append(c)}this.scope=b.$new(),this.scope.notifications=[],this.isFirstNotification=!0,this.notify=function(a){var b=this,c=new e(a);b.scope.notifications.push(c),b.isFirstNotification&&g(function(a){h(a,b.scope),b.isFirstNotification=!1})}}])}(),function(){"use strict";angular.module("llNotifier").directive("llNotification",["$timeout","llNotificationTemplateUrl","llConstants",function(a,b,c){return{scope:!0,restrict:"E",templateUrl:b,transclude:!0,link:function(b){var d=b.notification;d.isShown=!0;var e=function(){b.notification.isShown=!1,a(function(){for(var a=b.$parent.notifications,c=a.length-1;c>=0;c--)a[c].isShown||b.$parent.notifications.splice(c,1)},c.FADE_DELAY)};b.closeNotification=e,d.timeout(e),d.isCentered=-1!==d.position.indexOf("center")}}}]).directive("llNotificationContent",["$compile",function(a){function b(a){this.scope=a}function c(a){this.template=a}return b.prototype={populateWith:function(a){if("object"==typeof a)for(var b in a)this.scope[b]=a[b];return this.scope}},c.prototype={toTemplate:function(){return"<div>"+this.template+"</div>"}},{scope:!0,restrict:"E",transclude:!0,link:function(d,e){d=new b(d).populateWith(d.notification.scope),e.replaceWith(a(new c(d.notification.template).toTemplate())(d))}}}])}(),angular.module("llNotifier").run(["$templateCache",function(a){"use strict";a.put("src/notification.html",'<div class="notifier-msg {{notification.position}}" ng-show="notification.isShown" ng-cloak>\n	<div class="notifier-msg-content {{notification.type}}" ng-class="{center: notification.isCentered}">\n		<div ng-transclude></div>\n		<button class="notifier-button notifier-button-close" ng-click="closeNotification()">x</button>\n	</div>\n</div>\n'),a.put("src/notifications.html",'<ll-notification ng-repeat="notification in notifications" type="notification.type" position="notification.position" has-delay="notification.hasDelay" delay="notification.delay">\n	<ll-notification-content></ll-notification-content>\n</ll-notification>\n')}]);;angular.module("cgPrompt",["ui.bootstrap"]),angular.module("cgPrompt").factory("prompt",["$modal","$q",function(a,b){var c=function(c){var d={title:"",message:"",input:!1,label:"",value:"",values:!1,buttons:[{label:"Cancel",cancel:!0},{label:"OK",primary:!0}]};void 0===c&&(c={});for(var e in d)void 0===c[e]&&(c[e]=d[e]);var f=b.defer();return a.open({templateUrl:"angular-prompt.html",controller:"cgPromptCtrl",resolve:{options:function(){return c}}}).result.then(function(a){f.resolve(c.input?a.input:a.button)},function(){f.reject()}),f.promise};return c}]),angular.module("cgPrompt").controller("cgPromptCtrl",["$scope","options","$timeout",function(a,b,c){a.input={name:b.value},a.options=b,a.buttonClicked=function(c){return c.cancel?void a.$dismiss():b.input&&angular.element(document.querySelector("#cgPromptForm")).scope().cgPromptForm.$invalid?void(a.changed=!0):void a.$close({button:c,input:a.input.name})},a.submit=function(){var b;angular.forEach(a.options.buttons,function(a){a.primary&&(b=a)}),b&&a.buttonClicked(b)},c(function(){var a=document.querySelector("#cgPromptInput");a&&(a.select&&a.select(),a.focus&&a.focus())},100)}]),angular.module("cgPrompt").run(["$templateCache",function(a){"use strict";a.put("angular-prompt.html",'<div>\n    <div class="modal-header">\n        <button type="button" class="close pull-right" ng-click="$dismiss()" aria-hidden="true">×</button>\n        <h4 class="modal-title">{{options.title}}</h4>\n    </div>\n    <div class="modal-body">\n\n        <p ng-if="options.message">\n            {{options.message}}\n        </p>\n\n        <form id="cgPromptForm" name="cgPromptForm" ng-if="options.input" ng-submit="submit()">\n            <div class="form-group" ng-class="{\'has-error\':cgPromptForm.$invalid && changed}">\n                <label for="cgPromptInput">{{options.label}}</label>\n                <input id="cgPromptInput" type="text" class="form-control"  placeholder="{{options.label}}" ng-model="input.name" required ng-change="changed=true" ng-if="!options.values || options.values.length === 0"/ autofocus="autofocus">\n                <div class="input-group" ng-if="options.values">\n                    <input id="cgPromptInput" type="text" class="form-control" placeholder="{{options.label}}" ng-model="input.name" required ng-change="changed=true" autofocus="autofocus"/>\n\n                    <div class="input-group-btn">\n                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>\n                        <ul class="dropdown-menu pull-right">\n                            <li ng-repeat="value in options.values"><a href="" ng-click="input.name = value">{{value}}</a></li>\n                        </ul>\n                    </div>\n                </div>\n            </div>\n         </form>\n\n    </div>\n    <div class="modal-footer">\n        <button ng-repeat="button in options.buttons track by button.label" class="btn btn-default {{button.style}}" ng-class="{\'btn-primary\':button.primary}" ng-click="buttonClicked(button)">{{button.label}}</button>\n    </div>\n</div>')}]);;/**
  * @license AngularJS v1.3.8
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
@@ -36534,7 +37244,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             client_id: this.clientId,
             redirect_uri: this.redirectUri,
             scope: this.scope || '',
-            response_type: 'token'
+            response_type: 'code'
           };
 
           var authWindow = window.open(
@@ -36542,7 +37252,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             'Spotify',
             'menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,width=' + w + ',height=' + h + ',top=' + top + ',left=' + left
           );
-
+          /*
+           * Checking the returned code is done in other servives and pages
+           * 
           function storageChanged (e) {
             if (e.key === 'spotify-token') {
               if (authWindow) {
@@ -36558,7 +37270,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           }
 
           $window.addEventListener('storage', storageChanged, false);
-
+          */
           return deferred.promise;
         };
 
