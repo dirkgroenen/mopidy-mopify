@@ -53,7 +53,16 @@ angular.module('mopify.widgets.directive.browse', [
             scope.play = function(){
                 mopidyservice.lookup(scope.spotifyuri).then(function(tracks){
                     var playtracks = tracks.splice(0, 50);
-                    mopidyservice.playTrack(playtracks[0], playtracks);
+                    var tracktoplay = playtracks[0];
+
+                    if(scope.item.type == "echonest"){
+                        _.each(playtracks, function(track, index){
+                            if(track.name == scope.item.echonest.title)
+                                tracktoplay = playtracks[index];
+                        });
+                    }
+
+                    mopidyservice.playTrack(tracktoplay, playtracks);
                 }); 
             };
 
