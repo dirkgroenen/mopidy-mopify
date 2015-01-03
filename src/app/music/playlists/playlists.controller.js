@@ -7,7 +7,8 @@ angular.module('mopify.music.playlists', [
     'mopify.services.playlistmanager',
     'angular-echonest',
     'mopify.widgets.directive.playlist',
-    'cgPrompt'
+    'cgPrompt',
+    'llNotifier'
 ])
 
 /**
@@ -23,7 +24,7 @@ angular.module('mopify.music.playlists', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlaylistsController", function PlaylistsController($scope, ServiceManager, PlaylistManager, mopidyservice, Echonest, prompt){
+.controller("PlaylistsController", function PlaylistsController($scope, ServiceManager, PlaylistManager, mopidyservice, Echonest, prompt, notifier){
     var groupedLists = {}, splitList = [];
 
     $scope.playlists = [];
@@ -46,22 +47,19 @@ angular.module('mopify.music.playlists', [
      * Create a new Playlist
      */
     $scope.createPlaylist = function(){
-        $scope.playlists.unshift({
-            __model__: "newplaylist",
-            type: "new",
-            name: "Enter name",
-            tracks: {total: 0}
-        });
-
         prompt({
-            title: 'Give me a name',
-            message: 'What would you like to name it?',
+            title: 'Playlist name',
+            message: 'Please enter the name for the new playlist.',
             input: true,
-            label: 'Name',
-            value: 'Current name',
-            values: ['other','possible','names']
+            label: 'Playlist name'
         }).then(function(name){
-            //the promise is resolved with the user input
+            // Create the playlist
+            PlaylistManager.createPlaylist(name).then(function(playlist){
+                // Notify
+                notifier.notify({type: "custom", template: "Playlist created.", delay: 3000});
+            }, function(){
+                notifier.notify({type: "custom", template: "Can't create playlist. Are you connected with Spotify?", delay: 5000});
+            });
         }); 
     };
 

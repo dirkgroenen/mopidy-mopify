@@ -1,4 +1,4 @@
-angular.module('cgPrompt');
+angular.module('cgPrompt',['ui.bootstrap']);
 
 angular.module('cgPrompt').factory('prompt',['$modal','$q',function($modal,$q){
 

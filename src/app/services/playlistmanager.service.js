@@ -73,6 +73,8 @@ angular.module("mopify.services.playlistmanager", [
      */
     PlaylistManager.prototype.loadPlaylists = function() {
         var that = this;
+        
+        this.loading = true;
 
         // Load the playlists from Spotify is the user is connected, otherwise load them from Mopidy
         if(ServiceManager.isEnabled("spotify")){
@@ -167,9 +169,32 @@ angular.module("mopify.services.playlistmanager", [
             deferred.reject();
         }
         
-
         return deferred.promise;
     };
+
+    PlaylistManager.prototype.createPlaylist = function(name){
+        var deferred = $q.defer();
+        var that = this;
+
+        if(ServiceManager.isEnabled("spotify")){
+            Spotify.createPlaylist(that.spotifyuserid, {
+                name: name
+            }).then(function(response){
+                deferred.resolve(response);
+
+                // Add playlist to playlists
+                that.playlists.push(response);
+                that.playlists = sortPlaylists(that.playlists);
+            });
+        }
+        else{
+            deferred.reject();
+        }
+        
+        return deferred.promise;
+    };
+
+    
 
     /**
      * Sort the playlist from A to Z
