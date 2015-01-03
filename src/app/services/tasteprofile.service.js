@@ -91,7 +91,10 @@ angular.module("mopify.services.tasteprofile", [
         post("tasteprofile/create", {
             name: "mopify:" + Date.now() + Math.round((Math.random() + 1) * 1000)
         }).then(function(response){
-            deferred.resolve(response);
+            if(response.status.code === 0)
+                deferred.resolve(response);
+            else
+                deferred.reject();
         });
 
         return deferred.promise;
@@ -105,7 +108,10 @@ angular.module("mopify.services.tasteprofile", [
                 id: this.id,
                 data: JSON.stringify(itemblock)
             }).then(function(response){
-                deferred.resolve(response);
+                if(response.status.code === 0)
+                    deferred.resolve(response);
+                else
+                    deferred.reject();
             });
         }
         else{
@@ -121,7 +127,10 @@ angular.module("mopify.services.tasteprofile", [
         get("tasteprofile/status", {
             ticket: ticket
         }).then(function(response){
-            deferred.resolve(response);
+            if(response.status.code === 0)
+                deferred.resolve(response);
+            else
+                deferred.reject();
         });
 
         return deferred.promise;  
@@ -133,7 +142,10 @@ angular.module("mopify.services.tasteprofile", [
         get("tasteprofile/read", {
             id: this.id
         }).then(function(response){
-            deferred.resolve(response);
+            if(response.status.code === 0)
+                deferred.resolve(response);
+            else
+                deferred.reject();
         });
 
         return deferred.promise;  
@@ -146,13 +158,19 @@ angular.module("mopify.services.tasteprofile", [
         post("tasteprofile/delete", {
             id: that.id
         }).then(function(response){
-            // Reset data
-            that.id = null;
-            that.name = null;
+            if(response.status.code === 0){
+                // Reset data
+                that.id = null;
+                that.name = null;
 
-            localStorageService.remove("tasteprofile");
+                // Remove from storage
+                localStorageService.remove("tasteprofile");
 
-            deferred.resolve(response);
+                deferred.resolve(response);
+            }
+            else{
+                deferred.reject();
+            }
         });
 
         return deferred.promise;  
