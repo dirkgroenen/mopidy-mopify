@@ -26,7 +26,8 @@ angular.module('mopify', [
     'mopify.discover.featured',
     'mopify.discover.newreleases',
     'templates-app',
-    'llNotifier'
+    'llNotifier',
+    'ErrorCatcher'
 ])
 
 .config(function($routeProvider, localStorageServiceProvider, EchonestProvider, SpotifyProvider){
@@ -82,7 +83,14 @@ angular.module('mopify', [
     });
 
     $scope.$on('$viewContentLoaded', function(event) {
+        // Send pageview
         $window.ga('send', 'pageview', { page: $location.path() });
+    });
+
+    // Set current app version
+    $window.ga('set', {
+        'appName': 'mopidy-mopify',
+        'appVersion': VersionManager.version
     });
 
     // Start the mopidy service
@@ -90,7 +98,7 @@ angular.module('mopify', [
 
     /**
      * Update the page title with the current playing track
-     * @param object track
+     * @param object track 
      */
     function updateTitle(track){
         if(track !== null && track !== undefined){

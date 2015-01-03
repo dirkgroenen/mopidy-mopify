@@ -2,7 +2,7 @@ angular.module("mopify.services.servicemanager", [
     "LocalStorageModule"
 ])
 
-.factory("ServiceManager", function($rootScope, localStorageService){
+.factory("ServiceManager", function($rootScope, $window, localStorageService){
     "use strict";
 
     var rootkey = "settings";
@@ -58,9 +58,14 @@ angular.module("mopify.services.servicemanager", [
 
         services[servicename] = true;
 
+        // Save to the localstorage
         localStorageService.set("services", services);
 
+        // Broadcast this change
         $rootScope.$broadcast("mopify:services:enabled", service);
+
+        // Send to GA
+        $window.ga('send', 'event', 'service', 'enabled', servicename);
     };
 
     ServiceManager.prototype.disableService = function(service) {
@@ -69,9 +74,14 @@ angular.module("mopify.services.servicemanager", [
 
         services[servicename] = false;
 
+        // Save to the localstorage
         localStorageService.set("services", services);
         
+        // Broadcast this change
         $rootScope.$broadcast("mopify:services:disabled", service);
+
+        // Send to GA
+        $window.ga('send', 'event', 'service', 'disabled', servicename);
     };    
 
     ServiceManager.prototype.isEnabled = function(service) {

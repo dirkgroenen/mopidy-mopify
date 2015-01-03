@@ -85,7 +85,7 @@
             <div class="label col-md-2">
                 <label>Author</label>
             </div>
-            <div class="description col-md-4">
+            <div class="description col-md-6">
                 <p><a href="https://github.com/dirkgroenen/mopidy-mopify" target="_blank">Mopify</a> is a project developed by <a href="http://github.com/dirkgroenen" target="_blank">Dirk Groenen</a>.</p>
             </div>
         </div>
@@ -93,7 +93,7 @@
             <div class="label col-md-2">
                 <label>License</label>
             </div>
-            <div class="description col-md-4">
+            <div class="description col-md-6">
                 <p>Licensed under the <a href="https://github.com/dirkgroenen/mopidy-mopify/blob/master/LICENSE.md" target="_blank">Apache 2 license</a>.</p>
             </div>
         </div>
@@ -102,9 +102,35 @@
             <div class="label col-md-2">
                 <label>Version</label>
             </div>
-            <div class="description col-md-4">
+            <div class="description col-md-6">
                 <p>Current version: {{ mopifyversion }}</p>
                 <p ng-if="newversion" style="font-weight: bold">A new version of Mopify is available ({{ newversionnumber }}). Read the <a href="https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md" target="_blank">Github readme</a> on how to update mopify.</p>
+            </div>
+        </div>
+
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Contact</label>
+            </div>
+            <div class="description col-md-6">
+                <p>Encounter problems or having questions while using Mopify? Please post them on <a href="https://github.com/mopidy/mopidy-spotify/issues" target="_blank">Mopify's Github page</a>.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Tracking <span class="sub">Mopify</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Data collecting</label>
+            </div>
+            <div class="description col-md-6">
+                <p>Mopify uses Google Analytics to collect usage information and errors. This data is all collected anonymously and isn't connected to your connected services.</p>
+                <p>This data is used to improve Mopify and make it an even better web client.</p>
             </div>
         </div>
     </div>
