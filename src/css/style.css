@@ -114,6 +114,20 @@ img[src=""] {
     padding: 10px 15px;
 }
 
+/* modal styling */
+.modal-dialog label{
+    display: none;
+}
+
+.modal-dialog input{
+    margin: 10px 0;
+    width: 100%;
+    background: white;
+    padding: 7px 12px;
+    border-radius: 5px;
+    border: 1px solid #c0c0c0;
+}
+
 /* Start app styles */
 #application{
     height: 100%;   

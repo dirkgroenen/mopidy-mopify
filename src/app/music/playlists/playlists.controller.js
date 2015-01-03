@@ -48,8 +48,8 @@ angular.module('mopify.music.playlists', [
      */
     $scope.createPlaylist = function(){
         prompt({
-            title: 'Playlist name',
-            message: 'Please enter the name for the new playlist.',
+            title: 'New Spotify playlist',
+            message: 'Please enter the name for the new playlist. This playlist will be added to your Spotify account.',
             input: true,
             label: 'Playlist name'
         }).then(function(name){
