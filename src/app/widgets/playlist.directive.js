@@ -18,12 +18,15 @@ angular.module('mopify.widgets.directive.playlist', [
             scope.coverImage = defaultAlbumImageUrl;
 
             // Get image for the playlist
-            if(scope.playlist.__model__ == "Playlist"){
+            if(scope.playlist.images !== undefined && scope.playlist.images.length > 0){
+                scope.coverImage = scope.playlist.images[0].url;
+            }
+            else if(scope.playlist.__model__ == "Playlist"){
                 Spotify.getTrack(scope.playlist.tracks[0].uri).then(function(data) {
                     scope.coverImage = data.album.images[1].url;
                 });
             }
-            if(scope.playlist.__model__ === undefined){
+            else if(scope.playlist.__model__ === undefined){
                 Spotify.getPlaylist(scope.playlist.owner.id, scope.playlist.id).then(function(data){
                     scope.coverImage = (data.images[0] !== undefined) ? data.images[0].url : data.tracks.items[0].track.album.images[0].url;
                 });

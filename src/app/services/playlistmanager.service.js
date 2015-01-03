@@ -1,10 +1,10 @@
 angular.module("mopify.services.playlistmanager", [
-    "mopify.services.spotifylogin",
     'mopify.services.mopidy',
+    'mopify.services.servicemanager',
     "spotify"
 ])
 
-.factory("PlaylistManager", function($rootScope, $q, $interval, SpotifyLogin, Spotify, mopidyservice){
+.factory("PlaylistManager", function($rootScope, $q, $interval, ServiceManager, Spotify, mopidyservice){
     "use strict";
 
     function PlaylistManager(){
@@ -21,20 +21,41 @@ angular.module("mopify.services.playlistmanager", [
         if(mopidyservice.isConnected){
             that.loadPlaylists();
         }
+
+        that.spotifyuserid = null;
     }
 
-    PlaylistManager.prototype.getPlaylists = function(){
+    PlaylistManager.prototype.getPlaylists = function(options){
         var deferred = $q.defer();
         var that = this;
 
+        options = options || {};
+
         if(!that.loading){
-            deferred.resolve(that.playlists);
+            var playlists = that.playlists;
+
+            if(options.useronly === true){
+                playlists = _.filter(that.playlists, function(playlist){
+                    return (playlist.uri.indexOf(that.spotifyuserid) > 0);
+                });
+            }
+            
+            deferred.resolve(playlists);
         }
         else{
             var loadinginterval = $interval(function(){
                 if(!that.loading){
                     $interval.cancel(loadinginterval);
-                    deferred.resolve(that.playlists);
+
+                    var playlists = that.playlists;
+
+                    if(options.useronly === true){
+                        playlists = _.filter(that.playlists, function(playlist){
+                            return (playlist.uri.indexOf(that.spotifyuserid) > 0);
+                        });
+                    }
+
+                    deferred.resolve(playlists);
                 }
             }, 300);
         }
@@ -46,8 +67,13 @@ angular.module("mopify.services.playlistmanager", [
         var that = this;
 
         // Load the playlists from Spotify is the user is connected, otherwise load them from Mopidy
-        if(SpotifyLogin.connected){
+        if(ServiceManager.isEnabled("spotify")){
             Spotify.getCurrentUser().then(function(user){
+
+                // Set spotify userid
+                that.spotifyuserid = user.id;
+
+                // Get user's playlists
                 Spotify.getUserPlaylists(user.id, { limit: 50 }).then(function(data){
                     that.playlists = data.items;
 

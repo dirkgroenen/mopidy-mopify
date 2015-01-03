@@ -107,13 +107,11 @@ angular.module('mopify.widgets.directive.track', [
                     scope.showplaylists = true;
                     scope.userplaylists = [{name: "loading..."}];
 
-                    Spotify.getCurrentUser().then(function(user){
-                        PlaylistManager.getPlaylists().then(function(data){
-                            // Filter the playlists so only the user's lists are shown
-                            scope.userplaylists = _.filter(data, function(playlist){
-                                return (playlist.uri.indexOf(user.id) > 0);
-                            });
-                        });
+                    // Get filtered user playlists
+                    PlaylistManager.getPlaylists({
+                        useronly: true
+                    }).then(function(data){
+                        scope.userplaylists = data;
                     });
                 }
                 else{
