@@ -1,0 +1,13 @@
+<section id="tasteprofile" class="account" ng-controller="TasteProfileMenuController">
+    <div class="profileimage">
+        <img src="./assets/images/echonest-menu-logo.jpg" />
+    </div>
+    <div class="content">
+        <span class="username" ng-hide="authorized">
+            {{ tasteprofile.id }}
+        </span>
+        <span class="status">
+            <div class="connection connected"></div>Connected - Taste Profile
+        </span>
+    </div>
+</section>

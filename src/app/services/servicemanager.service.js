@@ -12,8 +12,15 @@ angular.module("mopify.services.servicemanager", [
             {
                 name: "Spotify",
                 description: "Search and manage playlists and get the latests charts",
-                image: "http://icons.iconarchive.com/icons/danleech/simple/256/spotify-icon.png"
+                image: "http://icons.iconarchive.com/icons/danleech/simple/256/spotify-icon.png",
+                hasSettings: false
             },
+            {
+                name: "Taste Profile",
+                description: "Stores tracks anonymously in a so called TasteProfile which is used to feed the 'Browse' page with recommendations.",
+                image: "./assets/images/echonest-logo.jpg",
+                hasSettings: true
+            }
             /*{
                 name: "Facebook",
                 description: "Get more music based on your Facebook likes.",

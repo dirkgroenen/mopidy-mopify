@@ -55,6 +55,53 @@ img[src=""] {
     cursor: pointer;
 }
 
+.button{
+    font-size: 14px;
+}
+
+.button.white{
+    border: 1px solid #c0c0c0;
+    padding: 6px 15px 3px 15px;
+    text-transform: uppercase;
+    margin-left: 10px;
+    color: #c0c0c0;
+}
+
+.button.white.active,
+.button.white:hover{
+    background-color: #fafafa;
+    color: #777;
+}
+
+.button.white .text{
+    float: left;
+    margin: -1px 7px 0 0;
+}
+
+.button.dangerous.active,
+.button.dangerous:hover{
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.button.white .text{
+    float: left;
+    margin: -1px 7px 0 0;
+}
+
+.button.fullwidth{
+    width: 100%;
+    text-align: center;
+}
+
+.button.fullwidth .text{
+    float: none;
+}
+
+.button.fullwidth .ss-icon{
+    float: right;
+}
+
 .contextmenu{
     position: fixed;
     display: none;
@@ -793,27 +840,8 @@ img[src=""] {
 }
 
 #application #overview .pagetitle .button{
-    font-size: 14px;
-}
-
-#application #overview .pagetitle .button.white{
-    border: 1px solid #c0c0c0;
-    padding: 6px 15px 3px 15px;
-    text-transform: uppercase;
     float: right;
     margin-top: -12px;
-    margin-left: 10px;
-}
-
-#application #overview .pagetitle .button.white.active,
-#application #overview .pagetitle .button.white:hover{
-    background-color: #fafafa;
-    color: #777;
-}
-
-#application #overview .pagetitle .button.white .text{
-    float: left;
-    margin: -1px 7px 0 0;
 }
 
 #application #overview .pagecontent{

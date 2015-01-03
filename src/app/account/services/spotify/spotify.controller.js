@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module("mopify.account.spotify", [
+angular.module("mopify.account.services.spotify", [
     "spotify",
     "mopify.services.spotifylogin"
 ])

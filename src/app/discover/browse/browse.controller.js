@@ -5,7 +5,9 @@ angular.module("mopify.discover.browse", [
     'mopify.widgets.directive.browse',
     'mopify.services.discover',
     'mopify.services.station',
-    'infinite-scroll'
+    'mopify.services.servicemanager',
+    'infinite-scroll',
+    'llNotifier'
 ])
 
 .config(function($routeProvider) {
@@ -16,23 +18,28 @@ angular.module("mopify.discover.browse", [
 })
 
 
-.controller("DiscoverBrowseController", function DiscoverBrowseController($scope, Discover, stationservice){
+.controller("DiscoverBrowseController", function DiscoverBrowseController($scope, Discover, stationservice, ServiceManager, notifier){
     
     $scope.blocks = [];
     var builtblocks = [];
     var sliceloops = 0;
 
-    Discover.getBrowseBlocks().then(function(blocks){
-        builtblocks = blocks;
-        $scope.buildblocks();
-    });
+    if(ServiceManager.isEnabled("tasteprofile")){
+        Discover.getBrowseBlocks().then(function(blocks){
+            builtblocks = blocks;
+            $scope.buildblocks();
+        });
 
-    $scope.buildblocks = function(){
-        $scope.blocks = $scope.blocks.concat(builtblocks.slice(sliceloops * 12, (sliceloops * 12) + 12));
-        sliceloops++;
-    };
+        $scope.buildblocks = function(){
+            $scope.blocks = $scope.blocks.concat(builtblocks.slice(sliceloops * 12, (sliceloops * 12) + 12));
+            sliceloops++;
+        };
 
-    $scope.startStation = function(){
-        stationservice.startFromTaste();
-    };
+        $scope.startStation = function(){
+            stationservice.startFromTaste();
+        };
+    }
+    else{
+        notifier.notify({type: "custom", template: "You have to enabled the Taste Profile service if you wan't to use this feature.", delay: 7500});
+    }
 });

@@ -1,8 +1,11 @@
 <div class="tileart">
     <div class="hoverwrap">
         <div class="iconwrap">
-            <div class="icon">
+            <div class="icon" ng-class="(service.hasSettings && service.connected) ? 'col-md-6' : 'col-md-12'">
                 <i class="ss-icon " ng-class="!service.connected ? 'ss-contract' : 'ss-expand'" ng-click="!service.connected ? connectService() : disconnectService()"></i>
+            </div>
+            <div class="icon col-md-6" ng-if="(service.hasSettings && service.connected)">
+                <a href="#/account/services/{{ service.name.replace(' ', '').toLowerCase() }}"><i class="ss-icon ss-settings"></i></a>
             </div>
         </div>
     </div>

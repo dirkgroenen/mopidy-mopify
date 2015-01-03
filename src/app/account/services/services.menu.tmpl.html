@@ -3,6 +3,7 @@
 
     <ng-include ng-if="connectedServices.spotify" src="'account/services/spotify/menu.tmpl.html'"></ng-include>
     <ng-include ng-if="connectedServices.facebook" src="'account/services/facebook/menu.tmpl.html'"></ng-include>
+    <ng-include ng-if="connectedServices.tasteprofile" src="'account/services/tasteprofile/menu.tmpl.html'"></ng-include>
 
     <!-- connect left button -->
     <section id="addnew" class="account" ng-hide="connectedCount == totalServices || connectedCount == 0">

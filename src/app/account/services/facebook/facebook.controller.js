@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module("mopify.account.facebook", [
+angular.module("mopify.account.services.facebook", [
     "mopify.services.facebook"
 ])
 

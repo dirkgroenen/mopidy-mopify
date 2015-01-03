@@ -1,9 +1,10 @@
 angular.module("mopify.services.tasteprofile", [
     'LocalStorageModule',
-    'llNotifier'
+    'llNotifier',
+    'mopify.services.servicemanager'
 ])
 
-.factory("TasteProfile", function($http, $q, localStorageService, notifier){
+.factory("TasteProfile", function($http, $q, $rootScope, localStorageService, notifier, ServiceManager){
     "use strict";
 
     var apiUrl = "http://developer.echonest.com/api/v4/";
@@ -51,6 +52,20 @@ angular.module("mopify.services.tasteprofile", [
 
 
     function TasteProfile(){
+        var that = this;
+
+        if(ServiceManager.isEnabled("tasteprofile")){
+            that.getProfile();
+        }
+
+        $rootScope.$on("mopify:services:enabled", function(ev, data){
+            if(data.name == "Taste Profile"){
+                that.getProfile();
+            }
+        });
+    }
+
+    TasteProfile.prototype.getProfile = function(){
         var tasteprofile = localStorageService.get("tasteprofile");
 
         if(tasteprofile === null){
@@ -68,7 +83,7 @@ angular.module("mopify.services.tasteprofile", [
             this.id = tasteprofile.id;
             this.name = tasteprofile.name;
         }
-    }
+    };  
 
     TasteProfile.prototype.create = function() {
         var deferred = $q.defer();
@@ -85,12 +100,17 @@ angular.module("mopify.services.tasteprofile", [
     TasteProfile.prototype.update = function(itemblock){
         var deferred = $q.defer();
 
-        post("tasteprofile/update", {
-            id: this.id,
-            data: JSON.stringify(itemblock)
-        }).then(function(response){
-            deferred.resolve(response);
-        });
+        if(ServiceManager.isEnabled("tasteprofile")){
+            post("tasteprofile/update", {
+                id: this.id,
+                data: JSON.stringify(itemblock)
+            }).then(function(response){
+                deferred.resolve(response);
+            });
+        }
+        else{
+            deferred.reject();
+        }
 
         return deferred.promise;  
     };
@@ -101,6 +121,37 @@ angular.module("mopify.services.tasteprofile", [
         get("tasteprofile/status", {
             ticket: ticket
         }).then(function(response){
+            deferred.resolve(response);
+        });
+
+        return deferred.promise;  
+    };
+
+    TasteProfile.prototype.read = function(){
+        var deferred = $q.defer();
+
+        get("tasteprofile/read", {
+            id: this.id
+        }).then(function(response){
+            deferred.resolve(response);
+        });
+
+        return deferred.promise;  
+    };
+
+    TasteProfile.prototype.deleteProfile = function(){
+        var deferred = $q.defer();
+        var that = this;
+
+        post("tasteprofile/delete", {
+            id: that.id
+        }).then(function(response){
+            // Reset data
+            that.id = null;
+            that.name = null;
+
+            localStorageService.remove("tasteprofile");
+
             deferred.resolve(response);
         });
 
