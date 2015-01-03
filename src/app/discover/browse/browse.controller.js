@@ -4,6 +4,7 @@ angular.module("mopify.discover.browse", [
     'mopify.services.mopidy',
     'mopify.widgets.directive.browse',
     'mopify.services.discover',
+    'mopify.services.station',
     'infinite-scroll'
 ])
 
@@ -15,7 +16,7 @@ angular.module("mopify.discover.browse", [
 })
 
 
-.controller("DiscoverBrowseController", function DiscoverBrowseController($scope, Discover){
+.controller("DiscoverBrowseController", function DiscoverBrowseController($scope, Discover, stationservice){
     
     $scope.blocks = [];
     var builtblocks = [];
@@ -29,5 +30,9 @@ angular.module("mopify.discover.browse", [
     $scope.buildblocks = function(){
         $scope.blocks = $scope.blocks.concat(builtblocks.slice(sliceloops * 12, (sliceloops * 12) + 12));
         sliceloops++;
+    };
+
+    $scope.startStation = function(){
+        stationservice.startFromTaste();
     };
 });

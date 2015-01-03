@@ -9,9 +9,10 @@ angular.module('mopify.services.station', [
     'mopify.services.mopidy',
     'mopify.services.util',
     'mopify.services.spotifylogin',
+    'mopify.services.tasteprofile',
     "spotify"
 ])
-.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, util, SpotifyLogin, notifier){
+.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, util, SpotifyLogin, notifier, TasteProfile){
     'use strict';
 
     var stationPlaying = false;
@@ -28,8 +29,6 @@ angular.module('mopify.services.station', [
         // This is done in batches to prevent mopidy from overloading
         if(echonestTracksQueue.length > 0){
             generateMopidyTracks().then(function(tracks){
-                console.log(tracks);
-
                 mopidyservice.addToTracklist({ tracks: tracks }).then(function(response){
                     $timeout(processMopidyTracklist, 1000);
 
@@ -112,7 +111,13 @@ angular.module('mopify.services.station', [
 
             parameters.song_id = createTrackIdsList(station.tracks);
             deferred.resolve(parameters);
+        }
 
+        if(station.type == "taste"){
+            parameters.type = 'catalog-radio';
+            parameters.seed_catalog = TasteProfile.id;
+
+            deferred.resolve(parameters);
         }
 
         return deferred.promise;
@@ -254,6 +259,24 @@ angular.module('mopify.services.station', [
             return deferred.promise;
         },
 
+        startFromTaste: function(){
+            var station = {
+                type: "taste",
+                spotify: null,
+                tracks: null,
+                name: "Tasteprofile",
+                coverImage: "./assets/images/tracklist-header.jpg",
+                started_at: Date.now()
+            };
+
+            // Save the new station
+            var allstations = localStorageService.get("stations") || [];
+            allstations.push(station);
+            localStorageService.set("stations", allstations);
+
+            createStation(station);                
+        },
+
         startFromTracks: function(tracks){
             var station = {
                 type: "tracks",
@@ -265,7 +288,7 @@ angular.module('mopify.services.station', [
             };
             
             // Save the new station
-            var allstations = localStorageService.get("stations");
+            var allstations = localStorageService.get("stations") || [];
             allstations.push(station);
             localStorageService.set("stations", allstations);
 
