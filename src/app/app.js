@@ -42,7 +42,7 @@ angular.module('mopify', [
     });
 })
 
-.controller("AppController", function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier, VersionManager){
+.controller("AppController", function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier, VersionManager, localStorageService){
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
@@ -77,6 +77,7 @@ angular.module('mopify', [
     // Listen for messages
     $scope.$on('mopidy:state:offline', function() {
         $scope.connectionState = connectionStates.offline;
+        $scope.pageTitle = "No connection";
         $scope.$apply();
     });
 

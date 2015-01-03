@@ -58,9 +58,8 @@ angular.module("mopify.services.spotifylogin", [
 
     SpotifyLogin.prototype.checkTokens = function(){
         var that = this;
-
         // Check if expires equals null or expired
-        if(this.expires === null || Date.now() >= this.expires){
+        if((this.expires === null || Date.now() >= this.expires) && ServiceManager.isEnabled("spotify")){
             if(this.refresh_token !== null){
                 this.refresh();
             }   
@@ -86,40 +85,40 @@ angular.module("mopify.services.spotifylogin", [
 
         if(ServiceManager.isEnabled("spotify") !== true){
             deferred.reject();
-            return deferred.promise;
-        }
-
-        // Check with last login check
-        if(localStorageService.get(tokenStorageKey) === null){
-            deferred.resolve({ status: "not connected" });
-        }
-        else if(Date.now() - that.lastPositiveLoginCheck > 600000){
-            // Set the old token from the localstorage and check if that one still works
-            var oldToken = localStorageService.get(tokenStorageKey).access_token;
-
-            Spotify.setAuthToken(oldToken);
-
-            // Make the call to spotify to see if we are logged in
-            Spotify.getCurrentUser().then(function(data){
-                deferred.resolve({ status: "connected" });
-                that.connected = true;
-
-                // Set last login check
-                that.lastPositiveLoginCheck = Date.now();
-
-            }, function(errData){
-                // If status equals 401 we have to reauthorize the user
-                if(errData.error.status == 401){
-                    that.connected = false;
-                    deferred.resolve({ status: "not connected" });
-                }
-            });
-
         }
         else{
-            deferred.resolve({ status: "connected" });
+            // Check with last login check
+            if(localStorageService.get(tokenStorageKey) === null){
+                deferred.resolve({ status: "not connected" });
+            }
+            else if(Date.now() - that.lastPositiveLoginCheck > 600000){
+                // Set the old token from the localstorage and check if that one still works
+                var oldToken = localStorageService.get(tokenStorageKey).access_token;
+
+                Spotify.setAuthToken(oldToken);
+
+                // Make the call to spotify to see if we are logged in
+                Spotify.getCurrentUser().then(function(data){
+                    deferred.resolve({ status: "connected" });
+                    that.connected = true;
+
+                    // Set last login check
+                    that.lastPositiveLoginCheck = Date.now();
+
+                }, function(errData){
+                    // If status equals 401 we have to reauthorize the user
+                    if(errData.error.status == 401){
+                        that.connected = false;
+                        deferred.resolve({ status: "not connected" });
+                    }
+                });
+
+            }
+            else{
+                deferred.resolve({ status: "connected" });
+            }    
         }
-        
+
         return deferred.promise;
     };
 
