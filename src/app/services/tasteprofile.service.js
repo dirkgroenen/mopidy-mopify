@@ -54,9 +54,14 @@ angular.module("mopify.services.tasteprofile", [
         var tasteprofile = localStorageService.get("tasteprofile");
 
         if(tasteprofile === null){
+            var that = this;
+            
             this.create().then(function(response){
                 tasteprofile = response;
                 localStorageService.set("tasteprofile", response);
+
+                that.id = tasteprofile.id;
+                that.name = tasteprofile.name;
             });
         }
         else{
