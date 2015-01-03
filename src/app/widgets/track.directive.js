@@ -3,14 +3,12 @@
 angular.module('mopify.widgets.directive.track', [
     "mopify.services.mopidy",
     "mopify.services.station",
-    "mopify.services.spotifylogin",
     "mopify.services.util",
     "mopify.services.playlistmanager",
-    "spotify",
     "llNotifier"
 ])
 
-.directive('mopifyTrack', function($routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, notifier, PlaylistManager) {
+.directive('mopifyTrack', function($routeParams, mopidyservice, stationservice, util, notifier, PlaylistManager) {
 
     return {
         restrict: 'E',
@@ -92,10 +90,13 @@ angular.module('mopify.widgets.directive.track', [
              */
             scope.removeFromPlaylist = function(){
                 var playlistid = uri.split(":")[4];
-                var userid = uri.split(":")[2];
-
-                Spotify.removePlaylistTracks(userid, playlistid, scope.track.uri).then(function(response){
+                    
+                // Remove track
+                PlaylistManager.removeTrack(playlistid, scope.track.uri).then(function(response){
                     scope.visible = false;
+                    notifier.notify({type: "custom", template: "Track removed from playlist.", delay: 3000});
+                }, function(){
+                    notifier.notify({type: "custom", template: "Can't remove track. Are you connected with Spotify and the owner if this playlist?", delay: 5000});
                 });
             };
 
@@ -103,20 +104,15 @@ angular.module('mopify.widgets.directive.track', [
              * Load all user's playlists
              */
             scope.showPlaylists = function(){
-                if(SpotifyLogin.connected){
-                    scope.showplaylists = true;
-                    scope.userplaylists = [{name: "loading..."}];
+                scope.showplaylists = true;
+                scope.userplaylists = [{name: "loading..."}];
 
-                    // Get filtered user playlists
-                    PlaylistManager.getPlaylists({
-                        useronly: true
-                    }).then(function(data){
-                        scope.userplaylists = data;
-                    });
-                }
-                else{
-                    notifier.notify({type: "custom", template: "Please connect with the Spotify service first.", delay: 3000});
-                }
+                // Get filtered user playlists
+                PlaylistManager.getPlaylists({
+                    useronly: true
+                }).then(function(data){
+                    scope.userplaylists = data;
+                });
             };
 
             /**
@@ -124,17 +120,18 @@ angular.module('mopify.widgets.directive.track', [
              * @param {string} uri playlist uri
              */
             scope.addToPlaylist = function(uri){
-                if(SpotifyLogin.connected){
-                    scope.showplaylists = false;
+                // Hide playlists
+                scope.showplaylists = false;
 
-                    var splituri =  uri.split(":");
-                    Spotify.addPlaylistTracks(splituri[2], splituri[4], scope.track.uri).then(function(data){
-                        notifier.notify({type: "custom", template: "Track succesfully added to playlist.", delay: 3000});
-                    });
-                }
-                else{
-                    notifier.notify({type: "custom", template: "Please connect with the Spotify service first.", delay: 3000});
-                }
+                // Get playlist id from uri
+                var playlistid = uri.split(":")[4];
+
+                // add track
+                PlaylistManager.addTrack(playlistid, scope.track.uri).then(function(response){
+                    notifier.notify({type: "custom", template: "Track succesfully added to playlist.", delay: 3000});
+                }, function(){
+                    notifier.notify({type: "custom", template: "Can't add track. Are you connected with Spotify and the owner if this playlist?", delay: 5000});
+                });
             };
         }
     };

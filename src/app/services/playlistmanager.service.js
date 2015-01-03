@@ -25,6 +25,11 @@ angular.module("mopify.services.playlistmanager", [
         that.spotifyuserid = null;
     }
 
+    /**
+     * Return the previously loaded playlists
+     * @param  {object} options extra options for the returned object
+     * @return {array}         the playlists
+     */
     PlaylistManager.prototype.getPlaylists = function(options){
         var deferred = $q.defer();
         var that = this;
@@ -63,6 +68,9 @@ angular.module("mopify.services.playlistmanager", [
         return deferred.promise;
     };
 
+    /**
+     * Load the playlists from Spotify or Mopidy
+     */
     PlaylistManager.prototype.loadPlaylists = function() {
         var that = this;
 
@@ -99,6 +107,7 @@ angular.module("mopify.services.playlistmanager", [
     /**
      * Load more playlists 
      * This is used when spotify playlists are loaded and the next attribute is present
+     * @param {string} next The url of the next page
      */
     PlaylistManager.prototype.loadMorePlaylists = function(next){
         var that = this; 
@@ -116,6 +125,50 @@ angular.module("mopify.services.playlistmanager", [
                 that.loading = false;
             }
         });
+    };
+
+    /**
+     * Remove a track from a playlist
+     * @param  {string} playlistid The id of the spotify playlist
+     * @param  {string} trackuri   The spotify track URI
+     * @return {$q.defer}          
+     */
+    PlaylistManager.prototype.removeTrack = function(playlistid, trackuri){
+        var deferred = $q.defer();
+
+        if(ServiceManager.isEnabled("spotify")){
+            Spotify.removePlaylistTracks(this.spotifyuserid, playlistid, trackuri).then(function(response){
+                deferred.resolve(response);
+            });
+        }
+        else{
+            deferred.reject();
+        }
+        
+
+        return deferred.promise;
+    };
+
+    /**
+     * Add a track to a playlist
+     * @param  {string} playlistid The id of the spotify playlist
+     * @param  {string} trackuri   The spotify track URI
+     * @return {$q.defer}          
+     */
+    PlaylistManager.prototype.addTrack = function(playlistid, trackuri){
+        var deferred = $q.defer();
+
+        if(ServiceManager.isEnabled("spotify")){
+            Spotify.addPlaylistTracks(this.spotifyuserid, playlistid, trackuri).then(function(response){
+                deferred.resolve(response);
+            });
+        }
+        else{
+            deferred.reject();
+        }
+        
+
+        return deferred.promise;
     };
 
     /**
