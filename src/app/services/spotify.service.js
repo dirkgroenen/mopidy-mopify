@@ -56,10 +56,13 @@ angular.module("mopify.services.spotifylogin", [
         this.checkTokens();
     }
 
+    /**
+     * Check if the current tokens are still valid and refresh or login if needed
+     */
     SpotifyLogin.prototype.checkTokens = function(){
         var that = this;
         // Check if expires equals null or expired
-        if((this.expires === null || Date.now() >= this.expires) && ServiceManager.isEnabled("spotify")){
+        if((this.expires === null || this.expires === undefined || Date.now() >= this.expires) && ServiceManager.isEnabled("spotify")){
             if(this.refresh_token !== null){
                 this.refresh();
             }   
@@ -68,10 +71,10 @@ angular.module("mopify.services.spotifylogin", [
             } 
         }
 
-        // Run this check again after one minute
+        // Run this check again after 10 seconds
         $timeout(function(){
             that.checkTokens();
-        }, 60000);
+        }, 30000);
     };
 
     /**
@@ -112,7 +115,6 @@ angular.module("mopify.services.spotifylogin", [
                         deferred.resolve({ status: "not connected" });
                     }
                 });
-
             }
             else{
                 deferred.resolve({ status: "connected" });

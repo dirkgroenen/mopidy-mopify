@@ -6,6 +6,7 @@ angular.module('mopify.music.tracklist', [
     'mopify.services.util',
     'mopify.services.station',
     'mopify.services.spotifylogin',
+    'mopify.services.servicemanager',
     'spotify',
     'ngSanitize',
     'mopify.widgets.directive.track',
@@ -25,7 +26,7 @@ angular.module('mopify.music.tracklist', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("TracklistController", function TracklistController($scope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin){
+.controller("TracklistController", function TracklistController($scope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager){
     // Grab params in var
     var uri = $routeParams.uri;
 
@@ -131,16 +132,14 @@ angular.module('mopify.music.tracklist', [
         var userid = splitteduri[2];
         var playlistid = splitteduri[4];
 
-        SpotifyLogin.getLoginStatus().then(function(resp){
-            if(resp.status == "connected"){
-                Spotify.getPlaylist(userid, playlistid).then(function(data){
-                    $scope.name = data.name + " from " + data.owner.id;
-                });    
-            }
-            else{
-                $scope.name = "Playlist from " + userid;
-            }
-        });
+        if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
+            Spotify.getPlaylist(userid, playlistid).then(function(data){
+                $scope.name = data.name + " from " + data.owner.id;
+            });    
+        }
+        else{
+            $scope.name = "Playlist from " + userid;
+        }
     }
 
     /**
