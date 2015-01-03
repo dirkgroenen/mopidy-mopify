@@ -20,7 +20,14 @@ angular.module('mopify.player', [
     $scope.$on('mopidy:state:online', function(){
         // Get the current track
         mopidyservice.getCurrentTrack().then(function(track){
-            updatePlayerInformation(track);
+            if(track.name.indexOf("[loading]") > -1){
+                mopidyservice.lookup(track.uri).then(function(result){
+                    updatePlayerInformation(result[0]);
+                });
+            }
+            else{
+                updatePlayerInformation(track);    
+            }
         });
 
         // Get playback state
@@ -36,8 +43,15 @@ angular.module('mopify.player', [
         // Update information on a new track 
         $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
             if(data.tl_track !== undefined){
-                updatePlayerInformation(data.tl_track.track);
-            }            
+                if(data.tl_track.track.name.indexOf("[loading]") > -1){
+                    mopidyservice.lookup(data.tl_track.track.uri).then(function(result){
+                        updatePlayerInformation(result[0]);
+                    });
+                }
+                else{
+                    updatePlayerInformation(data.tl_track.track);
+                }
+            }
         });
 
     });

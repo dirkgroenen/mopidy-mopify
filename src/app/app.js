@@ -93,7 +93,15 @@ angular.module('mopify', [
      * @param object track
      */
     function updateTitle(track){
-        if(track !== null && track !== undefined)
-            $scope.pageTitle = track.name + " - " + track.artists[0].name + " | " + defaultPageTitle;
+        if(track !== null && track !== undefined){
+            if(track.name.indexOf("[loading]") > -1){
+                mopidyservice.lookup(track.uri).then(function(result){
+                    $scope.pageTitle = result[0].name + " - " + result[0].artists[0].name + " | " + defaultPageTitle;
+                });
+            }
+            else{
+                $scope.pageTitle = track.name + " - " + track.artists[0].name + " | " + defaultPageTitle;
+            }
+        }
     }
 });
