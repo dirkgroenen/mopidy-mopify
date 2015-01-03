@@ -5,11 +5,12 @@ angular.module('mopify.widgets.directive.track', [
     "mopify.services.station",
     "mopify.services.spotifylogin",
     "mopify.services.util",
+    "mopify.services.playlistmanager",
     "spotify",
     "llNotifier"
 ])
 
-.directive('mopifyTrack', function($routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, notifier) {
+.directive('mopifyTrack', function($routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, notifier, PlaylistManager) {
 
     return {
         restrict: 'E',
@@ -107,12 +108,11 @@ angular.module('mopify.widgets.directive.track', [
                     scope.userplaylists = [{name: "loading..."}];
 
                     Spotify.getCurrentUser().then(function(user){
-                        mopidyservice.getPlaylists().then(function(data){
-                            var playlists = _.filter(data, function(playlist){
+                        PlaylistManager.getPlaylists().then(function(data){
+                            // Filter the playlists so only the user's lists are shown
+                            scope.userplaylists = _.filter(data, function(playlist){
                                 return (playlist.uri.indexOf(user.id) > 0);
                             });
-
-                            scope.userplaylists = playlists;
                         });
                     });
                 }
