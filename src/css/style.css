@@ -1014,6 +1014,7 @@ img[src=""] {
     position: absolute;
     bottom: 10px;
     right: 25px;
+    z-index: 50;
     cursor: pointer;
 }
 
