@@ -349,6 +349,7 @@ img[src=""] {
 
 #application #leftside #accounts .account .profileimage img{
     width: 45px;
+    vertical-align: top;
 }
 
 #application #leftside #accounts .account .profileimage.icon{
@@ -386,6 +387,29 @@ img[src=""] {
 #application #overview .pagecontent #tileview .service .status .connection.disconnected,
 #application #leftside #accounts .account .content .status .connection.disconnected{
     background: #c0392b;
+}
+
+#application #leftside #accounts.small .account{
+    margin: 5px 0 5px 0;
+    overflow: hidden;
+    height: 25px;
+}
+
+#application #leftside #accounts.small .account .profileimage{
+    width: 20px;
+    height: 20px;
+}
+
+#application #leftside #accounts.small .account .profileimage img{
+    width: 20px;
+}
+
+#application #leftside #accounts.small .account .content{
+    padding-left: 30px;
+}
+
+#application #leftside #accounts.small .account .content .username{
+    display: none;
 }
 
 #application #header{
