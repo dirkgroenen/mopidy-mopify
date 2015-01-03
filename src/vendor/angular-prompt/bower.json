@@ -1,0 +1,29 @@
+{
+  "name": "angular-prompt",
+  "description": "Angular service to easily display prompt and confirmation modals.",
+  "version": "1.1.0",
+  "main": [
+    "dist/angular-prompt.js"
+  ],
+  "dependencies": {
+    "angular": "~1.2.16",
+    "angular-bootstrap": "~0.11.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "temp",
+    "demo",
+    "lib",
+    "angular-prompt.html",
+    "./angular-prompt.js",
+    "Gruntfile.js",
+    "package.json",
+    "README.md"
+  ],
+  "devDependencies": {
+    "underscore": "~1.6.0"
+  }
+}

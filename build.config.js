@@ -62,7 +62,8 @@ module.exports = {
             'src/vendor/angular-notifier/dist/angular-notifier.min.js',
             'src/vendor/angular-spotify/src/angular-spotify.js',
             'src/vendor/underscore/underscore-min.js',
-            'src/vendor/ngInfiniteScroll/build/ng-infinite-scroll.min.js'
+            'src/vendor/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
+            'src/vendor/angular-prompt/angular-prompt.js'
         ],
         css: [
             'src/vendor/html5-boilerplate/css/normalize.css',
