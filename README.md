@@ -19,6 +19,7 @@ At the moment Mopify is developed to work in combination with Mopidy-Spotify onl
 * [Istallation](#installation)
  * [Updating](#updating)
 * [Getting started](#getting-started)
+* [TODO](#todo)
 * [Screenshots](#screenshots)
 * [Developing](#developing)
 
@@ -42,6 +43,13 @@ sudo pip install --upgrade Mopidy-Mopify
 To get started with Mopify, check out the [Wiki](https://github.com/dirkgroenen/mopidy-mopify/wiki).
 
 After you installed the Mopidy client you can use a modern browser (like Firefox or Chrome) to open it (Using your server IP and Mopidy port. For example: http://192.168.1.2:6680/mopify/. 
+
+##TODO
+Things that need to be done:
+- Changing the header images on the artist page to better quality ones
+- Changing the artist's biography page
+- Write tests
+- Make response/Test on screens smaller than 1680 pixels
 
 ##Screenshots
 ![http://i.imgur.com/BTlAGEf.jpg](http://i.imgur.com/BTlAGEf.jpg)
