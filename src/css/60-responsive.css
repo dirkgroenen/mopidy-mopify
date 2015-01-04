@@ -23,13 +23,9 @@
     }
 }
 
-@media all and (max-height: 750px){
+@media all and (max-height: 780px){
     #application #leftside #menu .block{
         margin: 0 0 20px 0;
-    }
-
-    #application #leftside #accounts{
-        margin-bottom: 20px;
     }
 
     #application #leftside #accounts .account{
@@ -53,7 +49,7 @@
     }
 }
 
-@media all and (max-height: 670px){
+@media all and (max-height: 700px){
 
     #application #leftside #accounts .account,
     #application #leftside #accounts .account a,
@@ -72,23 +68,6 @@
     #application #leftside #menu .block .content ul li {
         padding: 2px 0 2px 0;
     }
-
-    #application #leftside #accounts .account{
-        margin: 10px 0 0 0;
-    }
-
-    #application #leftside #accounts .account .profileimage{
-        margin-top: 4px;
-    }
-
-    #application #leftside #accounts .account .profileimage,
-    #application #leftside #accounts .account .profileimage img{
-        height: 35px;
-        width: 35px;
-    }
-}
-
-@media all and (max-height: 600px){
 
     #application #leftside #accounts .account{
         margin: 5px 0 0px 0;
@@ -110,6 +89,13 @@
     }
 
     #application #leftside #accounts .account .content .username{
+        display: none;
+    }
+}
+
+@media all and (max-height: 600px){
+
+    #application #leftside #accounts{
         display: none;
     }
 
