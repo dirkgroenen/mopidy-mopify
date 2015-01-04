@@ -3,10 +3,10 @@
 </div>
 
 <div class="row">
-    <div class="col-md-2 controlwrap left" ng-controller="PlayerControlsController">
+    <div class="controlwrap column left" ng-controller="PlayerControlsController">
         <ng-include src="'player/controls/controls.left.tmpl.html'"></ng-include>
     </div>
-    <div class="col-md-8" id="seekbar">
+    <div class="seekwrap column" id="seekbar">
         <div class="trackname">
             <span class="title">{{ trackTitle }}</span> <span class="delimiter">-</span> <span class="artist">{{ trackArtist }}</span>
         </div>
@@ -14,7 +14,8 @@
             <ng-include src="'player/seekbar/seekbar.tmpl.html'"></ng-include>
         </div>
     </div>
-    <div class="col-md-2 controlwrap right" ng-controller="PlayerControlsController">
+    <div class="controlwrap column right" ng-controller="PlayerControlsController">
         <ng-include src="'player/controls/controls.right.tmpl.html'"></ng-include>
     </div>
+    <div class="clearfix"></div>
 </div>

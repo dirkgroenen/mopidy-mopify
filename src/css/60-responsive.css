@@ -1,0 +1,116 @@
+@media all and (max-width: 1600px){
+    #application #leftside{
+        width: 250px;
+    }
+
+    #application #leftside #accounts,
+    #application #leftside #menu{
+        padding: 20px;
+    }
+
+    #application #mainwrap{
+        margin-left: 250px;
+    }
+}
+
+@media all and (max-width: 1200px){
+    #application #leftside{
+        width: 200px;
+    }
+
+    #application #mainwrap{
+        margin-left: 200px;
+    }
+}
+
+@media all and (max-height: 750px){
+    #application #leftside #menu .block{
+        margin: 0 0 20px 0;
+    }
+
+    #application #leftside #accounts{
+        margin-bottom: 20px;
+    }
+
+    #application #leftside #accounts .account{
+        margin: 15px 0 0px 0;
+    }
+
+    #application #header.small {
+       height: 150px;
+    }
+
+    #application #header.small .lefttext{
+        padding-top: 90px;
+    }
+
+    #application #player .controlwrap {
+        padding: 40px 53px 5px 50px;
+    }
+
+    #application #player #seekbar .trackname{
+        margin-top: 12px;
+    }
+}
+
+@media all and (max-height: 670px){
+
+    #application #leftside #accounts .account,
+    #application #leftside #accounts .account a,
+    #application #leftside #menu .block .content#search input,
+    #application #leftside #menu .block .content, 
+    #application #leftside #menu .block .content a{
+        font-size: 16px;
+    }
+
+    #application #leftside #menu .block .content#search .ss-icon,
+    #application #leftside #accounts .title, 
+    #application #leftside #menu .block .title{
+        font-size: 14px;
+    }
+
+    #application #leftside #menu .block .content ul li {
+        padding: 2px 0 2px 0;
+    }
+
+    #application #leftside #accounts .account{
+        margin: 10px 0 0 0;
+    }
+
+    #application #leftside #accounts .account .profileimage{
+        margin-top: 4px;
+    }
+
+    #application #leftside #accounts .account .profileimage,
+    #application #leftside #accounts .account .profileimage img{
+        height: 35px;
+        width: 35px;
+    }
+}
+
+@media all and (max-height: 600px){
+
+    #application #leftside #accounts .account{
+        margin: 5px 0 0px 0;
+        overflow: hidden;
+        height: 25px;
+    }
+
+    #application #leftside #accounts .account .profileimage{
+        width: 20px;
+        height: 20px;
+    }
+
+    #application #leftside #accounts .account .profileimage img{
+        width: 20px;
+    }
+
+    #application #leftside #accounts .account .content{
+        padding-left: 10px;
+    }
+
+    #application #leftside #accounts .account .content .username{
+        display: none;
+    }
+
+}

@@ -210,7 +210,7 @@ img[src=""] {
     position: fixed;
     top: 0;
     left: 0;
-    width: 16.66666667%;
+    width: 300px;
     bottom: 0;
 }
 
@@ -328,12 +328,15 @@ img[src=""] {
     padding: 35px;
     position: absolute;
     bottom: 65px;
+    left: 0;
+    right: 0;
 }
 
 #application #leftside #accounts .account{
     margin: 5px 0 30px 0;
-    overflow: hidden;
     height: 45px;
+    width: 100%;
+    font-size: 17px;
 }
 
 #application #leftside #accounts .account .profileimage{
@@ -358,13 +361,19 @@ img[src=""] {
 }
 
 #application #leftside #accounts .account .content{
-    padding-left: 60px;
+    padding-left: 15px;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
 }
 
 #application #leftside #accounts .account .content .status{
-    font-size: 13px;
+    font-size: 12px;
     color: #a2a2a2;
     display: block;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
 }
 
 #application #overview .pagecontent #tileview .service .status .connection,
@@ -410,6 +419,10 @@ img[src=""] {
 
 #application #leftside #accounts.small .account .content .username{
     display: none;
+}
+
+#application #mainwrap{
+    margin-left: 300px;
 }
 
 #application #header{
@@ -1203,8 +1216,13 @@ img[src=""] {
     margin-top: -20%;
 }
 
+#application #player .column{
+    float: left;
+}
+
 #application #player .controlwrap{
     padding: 53px 53px 20px 50px;
+    width: 300px;
 }
 
 #application #player .controlwrap .iconwrap{
@@ -1244,6 +1262,10 @@ img[src=""] {
     height: 100%;
     background-color: white;
     position: relative;
+}
+
+#application #player #seekbar{
+    width: calc(100% - 600px);
 }
 
 #application #player #seekbar .trackname{
