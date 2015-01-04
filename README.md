@@ -104,6 +104,11 @@ When you want to deploy you're changed version you have to run ```grunt package`
 
 ##Changelog
 
+v1.0.2 (2015-01-04)
+-------------------
+
+- Fixed the 'Connect to Spotify' message in the Station search when Spotify is connected
+
 v1.0.1 (2015-01-04)
 -------------------
 
