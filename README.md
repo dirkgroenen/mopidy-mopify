@@ -55,7 +55,7 @@ Things that need to be done:
 - Changing the header images on the artist page to better quality ones
 - Changing the artist's biography page
 - Write tests
-- Make response/Test on screens smaller than 1680 pixels
+- Make responsive and test on screens smaller than 1680 pixels
 
 ##Screenshots
 ![http://i.imgur.com/BTlAGEf.jpg](http://i.imgur.com/BTlAGEf.jpg)
