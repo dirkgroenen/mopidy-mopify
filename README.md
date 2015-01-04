@@ -22,6 +22,7 @@ At the moment Mopify is developed to work in combination with Mopidy-Spotify onl
 * [TODO](#todo)
 * [Screenshots](#screenshots)
 * [Developing](#developing)
+* [Changelog](#changelog)
 
 ---------
 
@@ -100,3 +101,18 @@ When you change the files in the ```/src/``` directory grunt will automatically 
 
 ###Deploy
 When you want to deploy you're changed version you have to run ```grunt package```. This will create the new Mopidy-Mopify web extension package.
+
+##Changelog
+
+v1.0.1 (2015-01-04)
+-------------------
+
+- Fixed ```playlists undefined``` bug which occurred when less than 50 Spotify playlists were loaded.
+
+- Added source map for minified javascript file
+
+
+v1.0.0 (2015-01-04)
+-------------------
+
+- Released beta version of the completely renewed Mopify.

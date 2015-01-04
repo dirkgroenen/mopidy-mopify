@@ -1,7 +1,7 @@
 {
   "name": "mopidy-mopify",
   "description": "Webclient for Mopidy",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/dirkgroenen/mopidy-mopify",
   "license": "apache",
   "private": true,

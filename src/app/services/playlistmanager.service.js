@@ -92,7 +92,7 @@ angular.module("mopify.services.playlistmanager", [
                         that.loadMorePlaylists(data.next);
                     }
                     else{
-                        that.playlists = sortPlaylists(playlists);
+                        that.playlists = sortPlaylists(that.playlists);
                         that.loading = false;
                     }
                 });
