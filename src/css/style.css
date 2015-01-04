@@ -1025,7 +1025,7 @@ img[src=""] {
 }
 
 #application #overview .pagecontent #tracklist .track .nowplaying{
-    background-image: url("../assets/images/ani_equalizer_black.gif");
+    background-image: url("../images/ani_equalizer_black.gif");
     background-repeat: no-repeat;
     background-position: right -7px;
 }
