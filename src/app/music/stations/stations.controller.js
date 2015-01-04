@@ -6,7 +6,7 @@ angular.module('mopify.music.stations', [
     'llNotifier',
     'mopify.services.station',
     'mopify.services.util',
-    'mopify.services.spotifylogin',
+    'mopify.services.servicemanager',
     'mopify.widgets.directive.station'
 ])
 
@@ -23,7 +23,7 @@ angular.module('mopify.music.stations', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("StationsController", function StationsController($scope, $timeout, localStorageService, Spotify, stationservice, util, SpotifyLogin, notifier){
+.controller("StationsController", function StationsController($scope, $timeout, localStorageService, Spotify, stationservice, util, ServiceManager, notifier){
     
     // Bind the localstorage to the $scope so we always have the latest stations
     $scope.stations = localStorageService.get("stations");
@@ -40,7 +40,7 @@ angular.module('mopify.music.stations', [
     $scope.headerSize = "small";
     $scope.wrapclass = "";
     $scope.searchResults = {};
-    $scope.spotifyConnected = SpotifyLogin.connected;
+    $scope.spotifyConnected = ServiceManager.isEnabled("spotify");
 
     $scope.buildArtistString = function(artists){
         return util.artistsToString(artists);
@@ -69,7 +69,7 @@ angular.module('mopify.music.stations', [
         if($scope.searchQuery.length > 1){
             typingTimeout = $timeout(function(){
                 $scope.wrapclass = "dropdownvisible";
-                var searchableItems = (!SpotifyLogin.connected) ? "album,artist,track" : "album,artist,track,playlist";
+                var searchableItems = (!ServiceManager.isEnabled("spotify")) ? "album,artist,track" : "album,artist,track,playlist";
 
                 Spotify.search($scope.searchQuery, searchableItems, {
                     market: "NL",
