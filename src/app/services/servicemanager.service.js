@@ -13,7 +13,7 @@ angular.module("mopify.services.servicemanager", [
                 name: "Spotify",
                 description: "Search and manage playlists and get the latests charts",
                 image: "http://icons.iconarchive.com/icons/danleech/simple/256/spotify-icon.png",
-                hasSettings: false
+                hasSettings: true
             },
             {
                 name: "Taste Profile",

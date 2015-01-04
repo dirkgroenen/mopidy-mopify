@@ -1,0 +1,61 @@
+<div id="header" class="small row" style="background-image: url('./assets/images/settings-header.jpg');">
+    <div class="col-md-10 lefttext">
+        <div class="inner"><i class="ss-icon ss-settings"></i>  Settings</div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Service <span class="sub">Spotify</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Description</label>
+            </div>
+            <div class="description col-md-8">
+                <p>The Spotify service adds extra features like Featured Playlists, New Releases and managing playlists.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Settings <span class="sub">Spotify</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Use Spotify as playlist source</label>
+            </div>
+            <div class="input col-md-4">
+                <toggle-switch ng-model="settings.spotify.loadspotifyplaylists"><toggle-switch>
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>When enabled playlists will be loaded from your connected Spotify account instead of Mopidy. The playlist folder structure won't be visible when this option is enabled.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Account <span class="sub">Spotify</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Profile name</label>
+            </div>
+            <div class="input col-md-4">
+                <input type="text" value="{{ profile.display_name }}" readonly="readonly">
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>The profile name of the current logged in Spotfiy user.</p>
+            </div>
+        </div>
+    </div>
+</div>

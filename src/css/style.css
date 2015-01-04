@@ -102,6 +102,10 @@ img[src=""] {
     float: right;
 }
 
+.toggle-switch{
+    border-color: #bbb;
+}
+
 .contextmenu{
     position: fixed;
     display: none;

@@ -2,8 +2,35 @@
 
 angular.module("mopify.account.services.spotify", [
     "spotify",
-    "mopify.services.spotifylogin"
+    'mopify.services.servicemanager',
+    "mopify.services.spotifylogin",
+    "mopify.services.settings",
+    'toggle-switch'
 ])
+
+.config(function($routeProvider) {
+    $routeProvider.when("/account/services/spotify", {
+        templateUrl: "account/services/spotify/spotify.tmpl.html",
+        controller: "SpotifyServiceController"
+    }); 
+})
+
+
+.controller("SpotifyServiceController", function SpotifyServiceController($scope, $location, ServiceManager, Settings, Spotify){
+    if(!ServiceManager.isEnabled("spotify")){
+        $location.path("/account/services");
+        return;
+    }
+
+    // Bind settings to the scope
+    Settings.bind($scope);
+
+    // Get current user
+    Spotify.getCurrentUser().then(function(data){
+        $scope.profile = data;
+    });
+
+})
 
 .controller("SpotifyMenuController", function SpotifyMenuController($q, $scope, Spotify, SpotifyLogin){
 

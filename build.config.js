@@ -64,13 +64,15 @@ module.exports = {
             'src/vendor/underscore/underscore-min.js',
             'src/vendor/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
             'src/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            'src/vendor/angular-prompt/dist/angular-prompt.min.js'
+            'src/vendor/angular-prompt/dist/angular-prompt.min.js',
+            'src/vendor/angular-toggle-switch/angular-toggle-switch.min.js'
         ],
         css: [
             'src/vendor/html5-boilerplate/css/normalize.css',
             'src/vendor/html5-boilerplate/css/main.css',
             'src/vendor/angular-loading-bar/src/loading-bar.css',
-            'src/vendor/angular-notifier/dist/angular-notifier.css'
+            'src/vendor/angular-notifier/dist/angular-notifier.css',
+            'src/vendor/angular-toggle-switch/angular-toggle-switch.css'
         ],
         assets: [
         ],
