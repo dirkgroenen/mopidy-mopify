@@ -104,6 +104,15 @@ When you want to deploy you're changed version you have to run ```grunt package`
 
 ##Changelog
 
+v1.1.0 (2015-01-04)
+-------------------
+
+- Added basic responsive support. Still in need for finetune and support for mobile devices.
+
+- Added playlist folder browsing (one level depth at the moment)
+
+- Added options to Spotify to enable or disable the use of Spotify as playlist source
+
 v1.0.2 (2015-01-04)
 -------------------
 
