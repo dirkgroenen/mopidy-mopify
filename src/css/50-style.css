@@ -219,7 +219,10 @@ img[src=""] {
 }
 
 #application #leftside #menu{
-    padding: 35px;
+    padding: 35px 35px 0 35px;
+    background-color: #f8f8f8;
+    position: relative;
+    z-index: 3;
 }
 
 #application #leftside #menu .block{
@@ -376,6 +379,7 @@ img[src=""] {
     bottom: 65px;
     left: 0;
     right: 0;
+    z-index: 1;
 }
 
 #application #leftside #accounts .account{
