@@ -69,13 +69,8 @@ angular.module('mopify.music.artist', [
 
         // Get images from artist
         artist.getImages().then(function(data){
-            // Search for an image that is bigger than 100
-            var sortedImages = _.sortBy(data.images, function(image){
-                return image.width;
-            });
-
-            $scope.artist.coverimage = sortedImages[0].url;
-
+            var random = Math.floor(Math.random() * data.images.length);
+            $scope.artist.coverimage = data.images[random].url;
         });
 
         artist.getBiographies().then(function(data){
