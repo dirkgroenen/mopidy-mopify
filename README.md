@@ -81,7 +81,7 @@ You're now ready to start developing. To start the build, watch process and a we
 grunt watch
 ```
 This will start a webserver on port ```:8000```
-```
+
 When you change the files in the ```/src/``` directory grunt will automatically rebuild and lint the project.
 
 ###Deploy
