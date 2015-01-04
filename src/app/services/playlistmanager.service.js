@@ -10,6 +10,7 @@ angular.module("mopify.services.playlistmanager", [
     function PlaylistManager(){
         var that = this;
 
+        this.source = "";
         this.playlists = [];
         this.loading = true;
 
@@ -78,8 +79,11 @@ angular.module("mopify.services.playlistmanager", [
 
         // Load the playlists from Spotify is the user is connected, otherwise load them from Mopidy
         if(ServiceManager.isEnabled("spotify")){
-            Spotify.getCurrentUser().then(function(user){
+            // Set source to spotify
+            this.source = "spotify";
 
+            // Get current user
+            Spotify.getCurrentUser().then(function(user){
                 // Set spotify userid
                 that.spotifyuserid = user.id;
 
@@ -99,6 +103,9 @@ angular.module("mopify.services.playlistmanager", [
             });
         }
         else{
+            // Set source to mopidy
+            this.source = "mopidy";
+
             mopidyservice.getPlaylists().then(function(playlists){
                 that.playlists = sortPlaylists(playlists);
                 that.loading = false;
