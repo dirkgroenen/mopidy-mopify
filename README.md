@@ -104,6 +104,11 @@ When you want to deploy you're changed version you have to run ```grunt package`
 
 ##Changelog
 
+v1.1.1 (2015-01-04)
+-------------------
+
+- Fixed undefined error which occurred duo the new service settings
+
 v1.1.0 (2015-01-04)
 -------------------
 
