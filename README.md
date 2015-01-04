@@ -15,11 +15,13 @@ At the moment Mopify is developed to work in combination with Mopidy-Spotify onl
 ![http://i.imgur.com/BTlAGEf.jpg](http://i.imgur.com/BTlAGEf.jpg)
 
 ---------
+
 * [Istallation](#installation)
  * [Updating](#updating)
 * [Getting started](#getting-started)
 * [Screenshots](#screenshots)
 * [Developing](#developing)
+
 ---------
 
 ##Installation
