@@ -372,10 +372,17 @@ module.exports = function ( grunt ) {
           * directory as it's root
           */
         connect: {
-            server: {
+            development: {
                 options: {
                     port: 8000,
                     base: 'build',
+                    hostname: '*'
+                }
+            },
+            test: {
+                options: {
+                    port: 8000,
+                    base: 'dist',
                     hostname: '*'
                 }
             }
@@ -431,7 +438,7 @@ module.exports = function ( grunt ) {
       * before watching for changes.
       */
     grunt.renameTask( 'watch', 'delta' );
-    grunt.registerTask( 'watch', [ 'build', 'connect', 'delta' ] );
+    grunt.registerTask( 'watch', [ 'build', 'connect:development', 'delta' ] );
 
     /**
       * The `build` task gets your app ready to run for development and testing.
@@ -447,13 +454,18 @@ module.exports = function ( grunt ) {
      * Register the tasks for Grunt
      */
     grunt.registerTask( 'compile', [
-        'clean:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'concat:compile_css', 'cssmin:combine', 'index:compile' // , 'uglify' >> TODO: Uglify creates js errors
+        'clean:compile', 'copy:compile_assets', 'ngmin', 'concat:compile_js', 'concat:compile_css', 'cssmin:combine', 'index:compile', 'uglify'
     ]);
 
      /**
       * The `build-mopidy-extension` task builds Mopidy extension package
       */
     grunt.registerTask( 'package', [ 'clean:mopidy', 'build', 'compile', 'copy:build_for_mopidy', 'mopidypackageversion' ] );
+
+    /**
+     * Task to start a webserver on the dist directory
+     */
+    grunt.registerTask( 'run', [ 'build', 'compile', 'connect:test:keepalive' ] );
 
     /**
      * The default tasks to run.
