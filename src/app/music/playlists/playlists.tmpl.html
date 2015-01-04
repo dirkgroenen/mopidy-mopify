@@ -7,7 +7,7 @@
 <div id="overview" class="row">
     <div class="pagetitle row">
         <div class="col-md-3">
-            Your Music <span class="sub">Playlists</span>
+            Your Music <span class="sub">Playlists <span ng-if="foldername">></span> {{ foldername }}</span>
         </div>
         <div class="col-md-6 col-md-offset-3 alignright">
             <div class="button white" ng-click="createPlaylist()" ng-show="spotifyplaylists">

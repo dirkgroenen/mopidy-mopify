@@ -13,6 +13,7 @@ angular.module("mopify.services.playlistmanager", [
 
         this.source = "";
         this.playlists = [];
+        this.orderedPlaylists = {};
         this.loading = true;
 
         // Load when mopidy is online
@@ -41,7 +42,10 @@ angular.module("mopify.services.playlistmanager", [
         if(!that.loading){
             var playlists = that.playlists;
 
-            if(options.useronly === true){
+            if(options.ordered === true)
+                playlists = that.orderedPlaylists;
+
+            if(options.useronly === true && options.ordered === false){
                 playlists = _.filter(that.playlists, function(playlist){
                     return (playlist.uri.indexOf(that.spotifyuserid) > 0);
                 });
@@ -56,7 +60,10 @@ angular.module("mopify.services.playlistmanager", [
 
                     var playlists = that.playlists;
 
-                    if(options.useronly === true){
+                    if(options.ordered === true)
+                        playlists = that.orderedPlaylists;
+
+                    if(options.useronly === true && options.ordered === false){
                         playlists = _.filter(that.playlists, function(playlist){
                             return (playlist.uri.indexOf(that.spotifyuserid) > 0);
                         });
@@ -83,7 +90,7 @@ angular.module("mopify.services.playlistmanager", [
         var loadspotifyplaylists = Settings.get("spotify").loadspotifyplaylists;
 
         // Load the playlists from Spotify is the user is connected, otherwise load them from Mopidy
-        if(ServiceManager.isEnabled("spotify") && loadspotifyplaylists){
+        if(ServiceManager.isEnabled("spotify") && loadspotifyplaylists === true){
             // Set source to spotify
             this.source = "spotify";
 
@@ -113,6 +120,7 @@ angular.module("mopify.services.playlistmanager", [
 
             mopidyservice.getPlaylists().then(function(playlists){
                 that.playlists = sortPlaylists(playlists);
+                that.orderedPlaylists = orderPlaylists(playlists);
                 that.loading = false;
             });
         }
@@ -159,7 +167,6 @@ angular.module("mopify.services.playlistmanager", [
             deferred.reject();
         }
         
-
         return deferred.promise;
     };
 
@@ -206,7 +213,38 @@ angular.module("mopify.services.playlistmanager", [
         return deferred.promise;
     };
 
-    
+    /**
+     * Create an array containing all the folders
+     * //TODO: Add support for multi dimmension folders
+     * 
+     * @param {array} playlists array containing playlists
+     * @return {object}          object containing folders and playlists
+     */
+    function orderPlaylists(playlists){
+        var resultfolders = {rest: []};
+        
+        _.each(playlists, function(playlist){
+            // Check if we have to create the folder
+            var splittedname = playlist.name.split("/", 2);
+            var foldername = splittedname[0];
+
+            if(splittedname.length > 1){
+                // Override the playlist name
+                playlist.name = splittedname[1];
+                
+                // Create a folder and add the playlist, or add it to the existing folder
+                if(resultfolders[foldername] === undefined)
+                    resultfolders[foldername] = [playlist];
+                else
+                    resultfolders[foldername].push(playlist);
+            }
+            else{
+                resultfolders.rest.push(playlist);
+            }
+        });
+
+        return resultfolders;
+    }
 
     /**
      * Sort the playlist from A to Z

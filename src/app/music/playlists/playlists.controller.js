@@ -15,7 +15,7 @@ angular.module('mopify.music.playlists', [
  * Every controller start with defining its own routes.
  */
 .config(function($routeProvider) {
-    $routeProvider.when("/music/playlists", {
+    $routeProvider.when("/music/playlists/:folder?", {
         templateUrl: "music/playlists/playlists.tmpl.html",
         controller: "PlaylistsController"
     });
@@ -24,10 +24,11 @@ angular.module('mopify.music.playlists', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlaylistsController", function PlaylistsController($scope, ServiceManager, PlaylistManager, mopidyservice, Echonest, prompt, notifier){
+.controller("PlaylistsController", function PlaylistsController($scope, $routeParams, ServiceManager, PlaylistManager, mopidyservice, Echonest, prompt, notifier){
     var groupedLists = {}, splitList = [];
 
     $scope.playlists = [];
+    $scope.foldername = $routeParams.folder;
 
     if(ServiceManager.isEnabled("spotify")){
         $scope.spotifyplaylists = true;
@@ -67,8 +68,32 @@ angular.module('mopify.music.playlists', [
      * Load playlists into the scope
      */
     function loadPlaylists(){
-        PlaylistManager.getPlaylists().then(function(playlists){
-            $scope.playlists = playlists;
+        PlaylistManager.getPlaylists({ ordered: true }).then(function(playlists){
+            if($routeParams.folder !== undefined){
+                $scope.playlists = playlists[$routeParams.folder];
+            }
+            else{
+                $scope.playlists = PlaylistManager.playlists;
+            }
         });
     }
+})
+
+.controller("PlaylistsMenuController", function PlaylistsMenuController($scope, PlaylistManager){
+    $scope.playlists = {};
+    $scope.hide = true;
+
+    PlaylistManager.getPlaylists({ ordered: true }).then(function(playlists){
+        $scope.playlists = playlists;
+
+        $scope.numberoffolders = Object.keys($scope.playlists).length;
+    });
+
+    $scope.showPlaylists = function(){
+        $scope.hide = false;
+    };
+
+    $scope.hidePlaylists = function(){
+        $scope.hide = true;
+    };
 });

@@ -1,8 +1,14 @@
-<div class="block row" id="yourmusic">
+<div class="block row" id="yourmusic" ng-controller="PlaylistsMenuController">
     <div class="title">Your music</div>
     <div class="content">
         <ul>
-            <li><a href="#/music/playlists">Playlists</a></li>
+            <li>
+                <a href="#/music/playlists">Playlists</a>
+                <ul class="submenu playlists" ng-if="numberoffolders > 0" ng-class="{ small: hide }" ng-mouseenter="showPlaylists()" ng-mouseleave="hidePlaylists()">
+                    <li ng-repeat="(key, value) in playlists"><a href="#/music/playlists/{{ key }}">{{ key }}</a></li>
+                    <div class="shadow"></div>
+                </ul>
+            </li>
             <li><a href="#/music/stations">Stations</a></li>
         </ul>
     </div>
