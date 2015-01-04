@@ -1,5 +1,5 @@
 /**
- * mopidy-mopify - v1.0.0 - 2015-01-03
+ * mopidy-mopify - v1.0.0 - 2015-01-04
  * 
  *
  * Copyright (c) 2015 Dirk Groenen
