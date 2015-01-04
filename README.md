@@ -16,7 +16,7 @@ At the moment Mopify is developed to work in combination with Mopidy-Spotify onl
 
 ---------
 
-* [Istallation](#installation)
+* [Installation](#installation)
  * [Updating](#updating)
 * [Getting started](#getting-started)
 * [TODO](#todo)
