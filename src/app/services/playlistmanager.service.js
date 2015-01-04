@@ -87,7 +87,10 @@ angular.module("mopify.services.playlistmanager", [
         this.loading = true;
 
         // Get the spotify loadplaylists setting
-        var loadspotifyplaylists = Settings.get("spotify").loadspotifyplaylists;
+        var loadspotifyplaylists = false;
+
+        if(Settings.get("spotify") !== undefined)
+            loadspotifyplaylists = Settings.get("spotify").loadspotifyplaylists;
 
         // Load the playlists from Spotify is the user is connected, otherwise load them from Mopidy
         if(ServiceManager.isEnabled("spotify") && loadspotifyplaylists === true){
