@@ -33,6 +33,12 @@ Install using PIP:
 sudo pip install Mopidy-Mopify
 ```
 
+After installing Mopify you can enable it by adding the following options to your Mopidy config file:
+```
+[mopify]
+enabled = true
+```
+
 ###Updating
 Mopify will notifie you when a new version is available. To update Mopify to it's new version using pip you have to run:
 ```
