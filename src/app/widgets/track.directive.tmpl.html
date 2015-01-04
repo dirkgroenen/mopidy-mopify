@@ -5,16 +5,16 @@
     ng-show="visible">
 
     <div class="row" ng-class="{'nowplaying': ($parent.currentPlayingTrack.uri == track.uri)}">
-        <div class="col-md-4 name">
+        <div class="col-sm-4 col-xs-12 name">
             {{ track.name }} 
         </div>
-        <div class="col-md-3 artists">
+        <div class="col-sm-3 col-xs-6 artists">
             <span ng-bind-html="artistsString()"></span>
         </div>
-        <div class="col-md-4 album">
+        <div class="col-sm-4 col-xs-6 album">
             <a href="#/music/tracklist/{{ track.album.uri }}/{{ track.album.name }}">{{ track.album.name }}</a>
         </div>
-        <div class="col-md-1 length">
+        <div class="col-sm-1 visible-lg-block visible-md-block visible-sm-blocklength">
             {{ lengthHuman() }}
         </div>
     </div>
@@ -24,28 +24,28 @@
         Close
     </div>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-4 col-sm-6">
             <ul class="playlists" role="menu">
                 <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 0" ng-click="addToPlaylist(playlist.uri)">
                     {{ playlist.name }}
                 </li>
             </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-4 col-sm-6">
             <ul class="dropdown-menu" role="menu">
                 <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 1" ng-click="addToPlaylist(playlist.uri)">
                     {{ playlist.name }}
                 </li>
             </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-4 col-sm-6">
             <ul class="dropdown-menu" role="menu">
                 <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 2" ng-click="addToPlaylist(playlist.uri)">
                     {{ playlist.name }}
                 </li>
             </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-4 col-sm-6">
             <ul class="dropdown-menu" role="menu">
                 <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 3" ng-click="addToPlaylist(playlist.uri)">
                     {{ playlist.name }}

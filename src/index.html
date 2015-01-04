@@ -24,20 +24,18 @@
         <div id="application" class="fullheight">
             <div class="container-fluid fullheight">
                 <div class="row fullheight">
-                    <div class="col-md-2 fullheight">
-                        <div id="leftside" class="fullheight">
-                            <div id="menu">
-                                <ng-include src="'search/menu.tmpl.html'"></ng-include>
-                                <ng-include src="'discover/menu.tmpl.html'"></ng-include>
-                                <ng-include src="'music/menu.tmpl.html'"></ng-include>
-                                <ng-include src="'account/menu.tmpl.html'"></ng-include>
-                            </div>
-                            
-                            <ng-include src="'account/services/services.menu.tmpl.html'"></ng-include>
+                    <div id="leftside" class="fullheight">
+                        <div id="menu">
+                            <ng-include src="'search/menu.tmpl.html'"></ng-include>
+                            <ng-include src="'discover/menu.tmpl.html'"></ng-include>
+                            <ng-include src="'music/menu.tmpl.html'"></ng-include>
+                            <ng-include src="'account/menu.tmpl.html'"></ng-include>
                         </div>
+                        
+                        <ng-include src="'account/services/services.menu.tmpl.html'"></ng-include>
                     </div>
 
-                    <div id="mainwrap" class="col-md-10 fullheight">
+                    <div id="mainwrap" class="fullheight">
                         <div class="container-fluid fullheight" ng-view></div>
                     </div>
                 </div>
