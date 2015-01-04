@@ -1,0 +1,137 @@
+<div id="header" class="small row" style="background-image: url('./assets/images/settings-header.jpg');">
+    <div class="col-md-10 lefttext">
+        <div class="inner"><i class="ss-icon ss-settings"></i>  Settings</div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Settings <span class="sub">Mopidy</span>
+        </div>
+
+        <div class="col-md-3 col-md-offset-6 alignright">
+            <div class="button white" ng-class="{ active: buttonactive }">
+                <span class="text">Saved automatically</span>
+                <i class="ss-icon ss-sync"></i> 
+            </div>
+        </div>
+    </div>
+
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label for="mopidyip">Mopidy IP address</label>
+            </div>
+            <div class="input col-md-4">
+                <input name="mopidyip" placeholder="For example: 192.168.1.1 or localhost" ng-model="settings.mopidyip" ng-blur="highlightSaveButton()" class="field"/>
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>Change this IP address if Mopidy is running on an other computer than Mopify. Normally you don't have to change this IP address</p>
+                <p><i>New Mopidy connection settings will be applied after a page refresh.</i></p>
+            </div>
+        </div>
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label for="mopidyport">Mopidy port</label>
+            </div>
+            <div class="input col-md-4">
+                <input name="mopidyport" placeholder="For example: 6680" ng-model="settings.mopidyport" ng-blur="highlightSaveButton()" class="field"/>
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>Change this port if Mopidy is running on an other port than 6680. Normally you don't have to change this port.</p>
+                 <p><i>New Mopidy connection settings will be applied after a page refresh.</i></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Settings <span class="sub">Localization</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label for="mopidyip">Language code</label>
+            </div>
+            <div class="input col-md-4">
+                <input name="locale" placeholder="For example: nl_NL" ng-model="settings.locale" ng-blur="highlightSaveButton()" class="field"/>
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>The desired language, consisting of a lowercase <a href="http://en.wikipedia.org/wiki/ISO_639" target="_blank">ISO 639</a> language code and an uppercase <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha-2</a> country code, joined by an underscore. </p>
+                <p>This language code is used for services like Spotify or Echonest to provide better content.</p>
+            </div>
+        </div>
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label for="mopidyip">Country code</label>
+            </div>
+            <div class="input col-md-4">
+                <input name="locale" placeholder="For example: NL" ng-model="settings.country" ng-blur="highlightSaveButton()" class="field"/>
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>An <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">ISO 3166-1 alpha-2</a> country code which is used to localize services like Spotify.</p>
+            </div>
+        </div>
+    </div>
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            About <span class="sub">Mopify</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Author</label>
+            </div>
+            <div class="description col-md-6">
+                <p><a href="https://github.com/dirkgroenen/mopidy-mopify" target="_blank">Mopify</a> is a project developed by <a href="http://github.com/dirkgroenen" target="_blank">Dirk Groenen</a>.</p>
+            </div>
+        </div>
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>License</label>
+            </div>
+            <div class="description col-md-6">
+                <p>Licensed under the <a href="https://github.com/dirkgroenen/mopidy-mopify/blob/master/LICENSE.md" target="_blank">Apache 2 license</a>.</p>
+            </div>
+        </div>
+
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Version</label>
+            </div>
+            <div class="description col-md-6">
+                <p>Current version: {{ mopifyversion }}</p>
+                <p ng-if="newversion" style="font-weight: bold">A new version of Mopify is available ({{ newversionnumber }}). Read the <a href="https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md" target="_blank">Github readme</a> on how to update mopify.</p>
+            </div>
+        </div>
+
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Contact</label>
+            </div>
+            <div class="description col-md-6">
+                <p>Encounter problems or having questions while using Mopify? Please post them on <a href="https://github.com/dirkgroenen/mopidy-mopify/issues" target="_blank">Mopify's Github page</a>.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Tracking <span class="sub">Mopify</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Data collecting</label>
+            </div>
+            <div class="description col-md-6">
+                <p>Mopify uses Google Analytics to collect usage information and errors. This data is all collected anonymously and isn't connected to your connected services.</p>
+                <p>This data is used to improve Mopify and make it an even better web client.</p>
+            </div>
+        </div>
+    </div>
+</div>

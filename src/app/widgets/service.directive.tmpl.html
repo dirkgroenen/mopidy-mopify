@@ -1,0 +1,17 @@
+<div class="tileart">
+    <div class="hoverwrap">
+        <div class="iconwrap">
+            <div class="icon" ng-class="(service.hasSettings && service.connected) ? 'col-md-6' : 'col-md-12'">
+                <i class="ss-icon " ng-class="!service.connected ? 'ss-contract' : 'ss-expand'" ng-click="!service.connected ? connectService() : disconnectService()"></i>
+            </div>
+            <div class="icon col-md-6" ng-if="(service.hasSettings && service.connected)">
+                <a href="#/account/services/{{ service.name.replace(' ', '').toLowerCase() }}"><i class="ss-icon ss-settings"></i></a>
+            </div>
+        </div>
+    </div>
+    <img ng-src="{{ service.image }}"/>
+</div>
+<div class="tileinfo">
+    <span class="name">{{ service.name }} <div class="status"><div class="connection" ng-class="service.connected ? 'connected' : 'disconnected'"></div></div></span>
+    <span class="year">{{ service.description }}</span>
+</div>

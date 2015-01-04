@@ -1,0 +1,374 @@
+body, html{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    color: #404040;
+    min-height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+*{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.container-fluid{
+    margin: 0;
+    padding: 0;
+}
+
+.fullheight{
+    height: 100%;
+}
+
+.alignright{
+    text-align: right;
+}
+    
+.button{
+    padding: 10px 15px;
+    text-transform: none;
+    font-size: 15px;
+    -webkit-border: 1px solid white;
+    -moz-border: 1px solid white;
+    border-radius: 25px;
+    display: inline-block;
+    -webkit-transition: background-color .3s ease;
+    -moztransition: background-color .3s ease;
+    transition: background-color .3s ease;
+    cursor: pointer;
+}
+
+#application{
+    height: 100%;   
+    width: 100%;
+    overflow: hidden;
+}
+
+#application #leftside{
+    background-color: #f8f8f8;
+    border-right: 1px solid #e4e6e8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 16.66666667%;
+    bottom: 0;
+}
+
+#application #leftside #menu{
+    padding: 35px;
+}
+
+#application #leftside #menu .block{
+    margin: 0 0 40px 0;
+}
+
+#application #leftside #menu .block .title{
+    text-transform: uppercase;
+    font-size: 15px;
+    color: #b2b2b2;
+    padding-bottom: 2px;
+    font-weight: 300;
+}
+
+#application #leftside #menu .block .content,
+#application #leftside #menu .block .content a{
+    font-size: 18px;
+    color: #777;
+    text-transform: uppercase;
+    -webkit-transition: color .2s ease;
+    -moz-transition: color .2s ease;
+    transition: color .2s ease;
+    font-weight: 300;
+}
+
+#application #leftside #menu .block .content a.active,
+#application #leftside #menu .block .content a:hover{
+    color: #333;
+    text-decoration: none;
+}
+
+#application #leftside #menu .block .content ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#application #leftside #menu .block .content ul li{
+    margin: 0;
+    padding: 3px 0 4px 0;
+}
+
+#application #leftside #menu .block .content#search span{
+    margin: 5px;
+}
+
+#application #header{
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+}
+
+#application #header.small{
+    height: 200px;
+}
+
+#application #header a{
+    position: relative;
+    color: white;
+    text-decoration: none;
+}
+
+#application #header a::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background-color: white;
+    -webkit-transition: all .3s ease;
+    -moztransition: all .3s ease;
+    transition: all .3s ease;
+}
+
+#application #header a.active::after,
+#application #header a:hover::after{
+    width: 100%;
+}
+
+#application #header.small .lefttext{
+    color: white;
+    font-size: 21px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding: 130px 0 0 50px;
+    text-shadow: 0 0 2px rgba(0,0,0,.3);
+}
+
+#application #header.small .lefttext i{
+    margin: 4px 9px 0 0;
+    float: left;    
+}
+
+#application #header.small .centertext{
+    color: white;
+    padding: 140px 0 0 0;
+    text-shadow: 0 0 2px rgba(0,0,0,.3);   
+    text-align: center;
+    font-weight: bold;
+}
+
+#application #header.small .centertext .bigtitle{
+    font-size: 35px;
+    text-align: center;
+    margin-top: -50px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+#application #header.small .righttext{
+    padding: 125px 50px 0 0;
+    text-align: right;
+}
+
+#application #header.small .righttext .button{
+    color: white;
+    border: 1px solid white;
+}
+
+#application #header.small .righttext .button:hover{
+    background-color: rgba(255,255,255,.15);
+}
+
+#application #overview{
+    padding: 35px 50px;
+}
+
+#application #overview .pagetitle{
+    color: #c0c0c0;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+#application #overview .pagetitle .sub{
+    padding-left: 5px;
+    color: #777;
+}
+
+#application #overview .pagetitle .button.createnew{
+    border: 1px solid #ccc;
+    padding: 6px 15px 3px 15px;
+    text-transform: uppercase;
+    font-size: 14px;
+    float: right;
+    margin-top: -12px;
+}
+
+#application #overview .pagetitle .button.createnew:hover{
+    background-color: #fafafa;
+}
+
+#application #overview .pagetitle .button.createnew .text{
+    float: left;
+    margin: -1px 7px 0 0;
+}
+
+#application #overview .pagecontent{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#application #overview .pagecontent #albumview{
+    margin-left: -25px;
+    margin-right: -25px;
+}
+
+#application #overview .pagecontent #albumview .single-album{
+    padding: 0 25px 50px 25px;
+    
+}
+
+#application #overview .pagecontent #albumview .single-album .albumart{
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+}
+
+#application #overview .pagecontent #albumview .single-album .albumart::after{
+    content: '';
+    display: block;
+    margin-top: 100%;
+}
+    
+#application #overview .pagecontent #albumview .single-album .albumart img{
+    min-height: 100%;
+    min-width: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#application #overview .pagecontent #albumview .single-album .albuminfo{
+    padding-top: 5px;
+}
+
+#application #overview .pagecontent #albumview .single-album .albuminfo span.year{
+    font-size: 14px;
+    color: #bbb;
+    display: block;
+}
+
+#application #player{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 500;
+    background-color: rgba(0,0,0,.9);
+}
+
+#application #player .bgimage{
+    width: 100%;
+    height: 100%;
+    opacity: .3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+#application #player .bgimage img{
+    width: 100%;
+    min-height: 100%;
+    margin-top: -20%;
+    filter: url('./svg/resources.svg#blur');
+    -webkit-filter: blur(15px);
+}
+
+#application #player .controlwrap{
+    padding: 53px 53px 20px 50px;
+}
+
+#application #player .controlwrap .iconwrap{
+    width: 230px;
+}
+
+#application #player .controlwrap .iconwrap i{
+    color: #aaa;
+    cursor: pointer;
+    -webkit-transition: color .2s ease;
+    -moz-transition: color .2s ease;
+    transition: color .2s ease;
+}
+
+#application #player .controlwrap .iconwrap i:hover{
+    color: #eee;
+}
+
+#application #player #seekbar {
+    padding: 0 50px;
+}
+
+#application #player #seekbar .trackname{
+    text-align: center;
+    color: #fff;
+    margin-top: 25px;
+    padding-bottom: 5px;
+}
+
+#application #player #seekbar .trackname .title{
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+#application #player #seekbar .trackname .artist{
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 14px;
+}
+
+#application #player #seekbar .barwrap{
+    width: 100%;
+    position: relative;
+}
+
+#application #player #seekbar .barwrap .time{
+    display: inline-block;
+    color: #fff;
+    width: 40px;
+    font-size: 14px;
+}
+
+#application #player #seekbar .barwrap .time#total{
+    text-align: right;
+    color: #aaa;
+    width: calc(100% - 55px);
+}
+
+#application #player #seekbar .barwrap .outerbar{
+    display: inline-block;
+    width: calc(100% - 100px);
+    height: 2px;
+    background-color: rgba(255,255,255,.5);
+    position: absolute;
+    top: 12px;
+}
+
+#application #player #seekbar .barwrap .outerbar .innerbar{
+    height: 100%;
+    width: 23%;
+    background-color: white;
+}

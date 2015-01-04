@@ -1,0 +1,16 @@
+<div class="tileart">
+    <div class="hoverwrap">
+        <div class="iconwrap">
+            <div class="icon">
+                <i class="ss-icon ss-wifi" ng-click="startStation()"></i>
+            </div>
+        </div>
+    </div>
+    <img ng-src="{{ station.coverImage }}"/>
+</div>
+<div class="tileinfo">
+    <a href="{{ getStationUrl() }}">
+        <span class="name">{{ station.name }}</span>
+        <span class="year">Radio type: {{ station.type }}</span>
+    </a>
+</div>

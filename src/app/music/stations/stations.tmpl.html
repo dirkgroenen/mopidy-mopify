@@ -1,0 +1,80 @@
+<div id="header" class="row" ng-class="headerSize" style="background-image: url('./assets/images/stations-header.jpg');">
+    <div class="col-md-4 lefttext" ng-hide="creatingRadio">
+        <div class="inner"><i class="ss-icon ss-wifi"></i>  Stations</div>
+    </div>
+    <div ng-show="creatingRadio" id="radiosearch" ng-class="wrapclass">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="title">
+                Sit back, relax and enjoy
+            </div>
+            <div class="inputwrap">
+                <input type="text" ng-model="searchQuery" ng-keyup="search($event)" placeholder="Search for an artist, album or song"/>
+            </div>
+            <div class="resultswrap">
+                <ul>
+                    <li class="divider">Albums</li>
+                    <li class="result" ng-repeat="result in searchResults.albums.items" ng-click="startFromNew('album', result)">
+                        <div class="thumb">
+                            <img ng-src="{{ result.images[0].url }}" />
+                        </div>
+                        <div class="text">
+                            {{ result.name }}
+                        </div>
+                    </li>
+                    <li class="divider">Artists</li>
+                    <li class="result" ng-repeat="result in searchResults.artists.items" ng-click="startFromNew('artist', result)">
+                        <div class="thumb">
+                            <img ng-src="{{ result.images[0].url }}" />
+                        </div>
+                        <div class="text">
+                            {{ result.name }}
+                        </div>
+                    </li>
+                    <li class="divider">Tracks</li>
+                    <li class="result" ng-repeat="result in searchResults.tracks.items" ng-click="startFromNew('track', result)">
+                        <div class="thumb">
+                            <img ng-src="{{ result.album.images[0].url }}" />
+                        </div>
+                        <div class="text">
+                            {{ result.name }} - {{ buildArtistString(result.artists) }}
+                        </div>
+                    </li>
+                    <li class="divider">Playlists</li>
+                    <li class="result" ng-if="spotifyConnected" ng-repeat="result in searchResults.playlists.items" ng-click="startFromNew('track', result)">
+                        <div class="text">
+                            {{ result.name }} - {{ result.owner.id }}
+                        </div>
+                    </li>
+                    <li class="result" ng-if="!spotifyConnected">
+                        <div class="text">
+                            If you want to search through Spotify playlists you first have to connect with Spotify
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Stations <span class="sub">Recently played</span>
+        </div>
+        <div class="col-md-3 col-md-offset-6 alignright">
+            <div class="button white" ng-click="create()">
+                <span class="text">Create new</span>
+                <i class="ss-icon ss-wifi"></i> 
+            </div>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div id="tileview">
+            <div class="row">
+                <div ng-repeat="station in stations | reverse">
+                    <mopify-station station="station" class="col-md-2 single-tile"></mopify-station>
+                    <div ng-if="($index + 1) % 6 == 0" class="row"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

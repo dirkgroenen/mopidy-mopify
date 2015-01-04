@@ -9,7 +9,6 @@ MANIFEST
 build/
 cover/
 coverage.xml
-dist/
 docs/_build/
 mopidy.log*
 node_modules/

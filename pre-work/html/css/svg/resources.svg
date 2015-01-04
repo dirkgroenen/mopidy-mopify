@@ -1,0 +1,8 @@
+<svg height="0" xmlns="http://www.w3.org/2000/svg">
+  <filter id="blur" x="-5%" y="-5%" width="110%" height="110%">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="15"/>
+  </filter>
+  <filter id="maxBlur" x="-5%" y="-5%" width="110%" height="110%">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="15"/>
+  </filter>
+</svg>

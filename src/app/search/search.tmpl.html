@@ -1,0 +1,102 @@
+<div id="header" ng-class="{ small: topresult.type == 'tracks', big: topresult.type != 'tracks' }" style="background-image: url('./assets/images/discover-header.jpg');">
+    <div id="featured">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="title" ng-hide="topresult.item.name === undefined">
+                    Top result: {{ topresult.item.name }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="playlist col-md-4 col-md-offset-4">
+                <div class="cover" ng-hide="topresult.item.images === undefined">
+                    <img ng-src="{{ topresult.item.images[0].url }}" />
+                </div>
+                <div class="details" ng-class="{ 'fullwidth': topresult.item.images === undefined }">
+                    <div class="tracklist">
+                        <div class="row track" ng-repeat="track in topresult.item.tracks" ng-if="topresult.item.tracks" >
+                            <div class="col-md-7 name">
+                                {{ track.name }}    
+                            </div>
+                            <div class="col-md-5 artist">
+                                {{ track.artiststring }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hoverwrap">
+                    <div class="iconwrap row">
+                        <div class="icon small col-md-4">
+                            <a href="#/music/tracklist/{{ topresult.item.uri }}"><i class="ss-icon ss-list"></i></a>
+                        </div>
+                        <div class="icon col-md-4">
+                            <i class="ss-icon ss-play" ng-click="playTopItem()"></i>
+                        </div>
+                        <div class="icon small col-md-4">
+                            <i class="ss-icon ss-wifi" ng-click="startTopItemStation()"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    
+    <div class="pagetitle row" ng-show="results.artists.items.length > 0">
+        <div class="col-md-3">
+            Artists <span class="sub">{{ query }}</span>
+        </div>
+    </div>
+    <div class="pagecontent row" id="searchresults" ng-show="results.artists.items.length > 0">
+        <div id="tileview" class="row">
+            <div ng-repeat="artist in results.artists.items">
+                <mopify-artist artist="artist" class="col-md-2 single-tile"></mopify-artist>
+                <div ng-if="($index + 1) % 6 == 0" class="row"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagetitle row" ng-show="results.albums.items.length > 0">
+        <div class="col-md-3">
+            Albums <span class="sub">{{ query }}</span>
+        </div>
+    </div>
+    <div class="pagecontent row" id="searchresults" ng-show="results.albums.items.length > 0">
+        <div id="tileview" class="row">
+            <div ng-repeat="album in results.albums.items">
+                <mopify-album album="album" class="col-md-2 single-tile"></mopify-album>
+                <div ng-if="($index + 1) % 6 == 0" class="row"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagetitle row" ng-show="results.tracks.length > 0">
+        <div class="col-md-3">
+            Tracks <span class="sub">{{ query }}</span>
+        </div>
+    </div>
+    <div class="pagecontent row" id="searchresults" ng-show="results.tracks.length > 0">
+        <div id="tracklist" class="row">
+            <div ng-repeat="track in results.tracks">
+                <mopify-track track="track" surrounding="results.tracks"> </mopify-track>
+                <div ng-if="($index + 1) % 6 == 0" class="row"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagetitle row" ng-show="results.playlists.items.length > 0">
+        <div class="col-md-3">
+            Playlists <span class="sub">{{ query }}</span>
+        </div>
+    </div>
+    <div class="pagecontent row" id="searchresults" ng-show="results.playlists.items.length > 0">
+        <div id="tileview" class="row">
+            <div ng-repeat="playlist in results.playlists.items">
+                <mopify-playlist playlist="playlist" play="play(playlist)" class="col-md-2 single-tile"></mopify-playlist>
+                <div ng-if="($index + 1) % 6 == 0" class="row"></div>
+            </div>
+        </div>
+    </div>
+</div>

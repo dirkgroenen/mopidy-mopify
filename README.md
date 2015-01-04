@@ -1,61 +1,96 @@
-Mopify - Alpha
+Mopify - Web client (BETA)
 ======
 ![badge](https://img.shields.io/pypi/v/mopidy-mopify.svg?style=flat) ![badge](https://img.shields.io/pypi/dm/mopidy-mopify.svg)
 
-**[2014-11-24] After a period of having almost no free time I can finnaly resume developing mopify. First starting with a complete redesign. Please check the [v1.0 branch](https://github.com/dirkgroenen/mopidy-mopify/tree/v1.0) for the progress and a document with ideas. ** 
+Mopify is a web client for [Mopidy](https://github.com/mopidy/mopidy). Instead of most other Mopidy web client Mopify aims on providing a 'complete' music experience. 
 
-A mopidy webclient based on the Spotify webbased interface. If you use Mopidy in combination with local music this client probably won't work.
-This client uses the Spotify and EchoNest API to speed up searching and artist/ablum lookup.
+Some of the features that are included in Mopify:
+- Discover the newest releases and featured playlists.
+- Get music recommendations based on the music you've listened to.
+- **Create and edit Spotify playlists**.
+- Start music stations from artists, albums, tracks, playlists or your personal tasteprofile.
 
-Features
---------
-- Search and album/artist lookup using the Spotify API (Results in faster searching)
-- Album cover caching
-- Simple and fast user interface based on the (old) [Spotfiy web player](http://play.spotify.com)
-- Use of the EchoNest API to get related artists (currently working on a Radio function to discover new music)
+At the moment Mopify is developed to work in combination with Mopidy-Spotify only. Based on Mopify's popularity this may change in the future.
 
+![http://i.imgur.com/BTlAGEf.jpg](http://i.imgur.com/BTlAGEf.jpg)
 
-Installation
-------------
+---------
 
-Install by running::
+* [Istallation](#installation)
+ * [Updating](#updating)
+* [Getting started](#getting-started)
+* [TODO](#todo)
+* [Screenshots](#screenshots)
+* [Developing](#developing)
 
-    pip install Mopidy-Mopify
+---------
 
+##Installation
+Installing Mopify is easy. Make sure you have installed Mopidy 0.19 and Mopidy-Spotify 1.2 (or higher) and enabled the [HTTP Extension](https://docs.mopidy.com/en/latest/ext/http/).
 
-Alternatively, clone the repository and run ``sudo python setup.py install`` from within the project directory. e.g. ::
+Install using PIP:
+```
+sudo pip install Mopidy-Mopify
+```
 
-    $ git clone https://github.com/dirkgroenen/mopidy-mopify
-    $ cd mopidy-mopify
-    $ sudo python setup.py install
+###Updating
+Mopify will notifie you when a new version is available. To update Mopify to it's new version using pip you have to run:
+```
+sudo pip install --upgrade Mopidy-Mopify
+```
 
+##Getting started
+To get started with Mopify, check out the [Wiki](https://github.com/dirkgroenen/mopidy-mopify/wiki).
 
-Usage
------
+After you installed the Mopidy client you can use a modern browser (like Firefox or Chrome) to open it (Using your server IP and Mopidy port. For example: http://192.168.1.2:6680/mopify/. 
 
-After you installed the Mopidy client you can use a modern browser (like Firefox or Chrome) to open it (Using your server IP and Mopidy port. For example: [http://192.168.1.2:6680/mopify/](http://192.168.1.2:6680/mopify/). The first time you start the client it will ask for a [two-letter language code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). We need this code to provide better search results, since we are using the Spotify API.
+##TODO
+Things that need to be done:
+- Changing the header images on the artist page to better quality ones
+- Changing the artist's biography page
+- Write tests
+- Make response/Test on screens smaller than 1680 pixels
 
+##Screenshots
+![http://i.imgur.com/BTlAGEf.jpg](http://i.imgur.com/BTlAGEf.jpg)
 
-Screenshots
------------
+![http://i.imgur.com/jGCzHao.jpg](http://i.imgur.com/jGCzHao.jpg)
 
-![ScreenShot](https://raw.githubusercontent.com/dirkgroenen/mopidy-mopify/master/screenshots/albumlookup.png) 
-![ScreenShot](https://raw.githubusercontent.com/dirkgroenen/mopidy-mopify/master/screenshots/artistlookup.png)
-![ScreenShot](https://raw.githubusercontent.com/dirkgroenen/mopidy-mopify/master/screenshots/playlists.png) 
-![ScreenShot](https://raw.githubusercontent.com/dirkgroenen/mopidy-mopify/master/screenshots/search.png)
+![http://i.imgur.com/PDQC2JC.jpg](http://i.imgur.com/PDQC2JC.jpg)
 
+![http://i.imgur.com/xGrZeAL.png](http://i.imgur.com/xGrZeAL.png)
 
-Security
---------
+![http://i.imgur.com/PYCHFGv.png](http://i.imgur.com/PYCHFGv.png)
 
-(Note from Mopidy:) Note that the HTTP frontend does not feature any form of user authentication or authorization. Anyone able to access the web server can use the full core API of Mopidy. Thus, you probably only want to make the web server available from your local network or place it behind a web proxy which takes care or user authentication. You have been warned.
+![http://i.imgur.com/7NYObgx.png](http://i.imgur.com/7NYObgx.png)
 
-Known bugs/TODO
----------------
+##Developing
+Mopify uses Nodejs, grunt and bower when developing. Make sure you've installed those programs when developing on Mopify. 
 
-- Right click to add tracks to the current tracklist
-- Create/Modify playlists
-- Finish keyboard support
-- Code cleanup (The code became a bit messy during developing)
-- Something like a Chrome extension that replaces Spotify links on websites (like Facebook) so you can directly open them in Mopidy.
-- Improve the tracklist drag 'n drop
+###Howto develop
+Before you can start developing you have to install some programs and clone the repo to your local machine.
+
+1. Install Nodejs
+2. Intall grunt-cli and bower
+```
+npm install -g grunt-cli bower
+```
+3. Clone the repository 
+```
+git clone git@github.com:dirkgroenen/mopidy-mopify.git
+```
+4. Install dependencies:
+```
+npm instsall && bower install
+```
+
+You're now ready to start developing. To start the build, watch process and a webserver run:
+```
+grunt watch
+```
+This will start a webserver on port ```:8000```
+
+When you change the files in the ```/src/``` directory grunt will automatically rebuild and lint the project.
+
+###Deploy
+When you want to deploy you're changed version you have to run ```grunt package```. This will create the new Mopidy-Mopify web extension package.

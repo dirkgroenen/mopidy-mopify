@@ -1,0 +1,32 @@
+<div id="header" class="small row" style="background-image: url('./assets/images/services-header.jpg');">
+    <div class="col-md-10 lefttext">
+        <div class="inner"><i class="ss-icon ss-merge"></i>  Services</div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            services </span>
+        </div>
+        <div class="col-md-6 col-md-offset-3 alignright">
+        </div>
+    </div>
+
+    <div class="row note">
+        <div class="col-md-10">
+            <p>Note: browsers are likely to block the login popups. Please enable popups from this domain to prevent the browser from blocking the login popups.</p>
+        </div>
+    </div>
+
+    <div class="pagecontent row">
+        <div id="tileview">
+            <div class="row">
+                <div ng-repeat="service in availableServices"> 
+                    <mopify-service service="service" class="col-md-2 single-tile service"></mopify-service>
+                    <div ng-if="($index + 1) % 6 == 0" class="row"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

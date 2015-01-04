@@ -4,7 +4,7 @@ import os
 
 from mopidy import config, ext
 
-__version__ = '0.1.6'
+__version__ = '1.0.0'
 
 class MopifyExtension(ext.Extension):
     dist_name = 'Mopidy-Mopify'

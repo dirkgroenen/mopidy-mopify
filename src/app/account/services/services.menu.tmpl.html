@@ -1,0 +1,28 @@
+<div id="accounts" ng-controller="AccountServicesMenuController">
+    <div class="title"><a href="#/account/services">Connected services</a></div>
+
+    <ng-include ng-if="connectedServices.spotify" src="'account/services/spotify/menu.tmpl.html'"></ng-include>
+    <ng-include ng-if="connectedServices.facebook" src="'account/services/facebook/menu.tmpl.html'"></ng-include>
+    <ng-include ng-if="connectedServices.tasteprofile" src="'account/services/tasteprofile/menu.tmpl.html'"></ng-include>
+
+    <!-- connect left button -->
+    <section id="addnew" class="account" ng-hide="connectedCount == totalServices || connectedCount == 0">
+        <a href="#/account/services">
+            <div class="profileimage icon">
+                <i class="ss-icon ss-plus"></i>
+            </div>
+            <div class="content">
+                <span class="username">
+                    Connect another
+                </span>
+                <span class="status">
+                    {{ totalServices - connectedCount }} service<span ng-show="totalServices - connectedCount != 1">s</span> not connected
+                </span>
+            </div>
+        </a>
+    </section>
+
+    <div ng-if="!hasServicesConnected">
+        <div class="notify"><a href="#/account/services">You have no connected services. Click here to connect a service.</a></div>
+    </div>
+</div>

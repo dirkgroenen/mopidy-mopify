@@ -1,0 +1,46 @@
+<div id="header" class="small row" style="background-image: url('./assets/images/discover-header.jpg');">
+    <div class="col-md-4 lefttext">
+        <div class="inner"><i class="ss-icon ss-list"></i>  Browse</div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Discover <span class="sub">Browse</span>
+        </div>
+        <div class="col-md-6 col-md-offset-3 alignright">
+            <div class="button white" ng-click="startStation()">
+                <span class="text">Start station</span>
+                <i class="ss-icon ss-wifi"></i> 
+            </div>
+        </div>
+    </div>
+
+    <div class="pagecontent row">
+        <div id="browsewrap" infinite-scroll="buildblocks()" infinite-scroll-distance="1">
+            <div class="row">
+                <div class="col-md-3">
+                     <div ng-repeat="item in blocks" ng-if="$index % 4 == 0">
+                        <mopify-browse item="item"></mopify-browse>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div ng-repeat="item in blocks" ng-if="$index % 4 == 1">
+                        <mopify-browse item="item"></mopify-browse>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div ng-repeat="item in blocks" ng-if="$index % 4 == 2">
+                        <mopify-browse item="item"></mopify-browse>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div ng-repeat="item in blocks" ng-if="$index % 4 == 3">
+                        <mopify-browse item="item"></mopify-browse>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
