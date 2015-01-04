@@ -33166,6 +33166,8 @@ angular.module('mopify.services.mopidy', [
       localStorageService.remove(tokenStorageKey);
       // Clear Spotify auth token
       Spotify.setAuthToken('');
+      // Remove token in iframe
+      frame.contentWindow.postMessage(JSON.stringify({ method: 'remove' }), '*');
       // Set connected to false
       this.connected = false;
     };
@@ -33201,10 +33203,14 @@ angular.module('mopify.services.mopidy', [
       var response = e.data;
       if (response.service == 'spotify') {
         if (response.key !== null) {
+          // Parse json
           var tokens = JSON.parse(response.key);
+          // Set tokens
           spotifyLogin.refresh_token = tokens.refresh_token;
           spotifyLogin.access_token = tokens.access_token;
           spotifyLogin.expires = Date.now() + 3600000;
+          // Remove token in iframe
+          frame.contentWindow.postMessage(JSON.stringify({ method: 'remove' }), '*');
         }
       }
     });
