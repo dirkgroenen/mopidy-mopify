@@ -1,10 +1,11 @@
 angular.module("mopify.services.playlistmanager", [
     'mopify.services.mopidy',
     'mopify.services.servicemanager',
+    'mopify.services.settings',
     "spotify"
 ])
 
-.factory("PlaylistManager", function($rootScope, $q, $interval, ServiceManager, Spotify, mopidyservice){
+.factory("PlaylistManager", function($rootScope, $q, $interval, ServiceManager, Spotify, mopidyservice, Settings){
     "use strict";
 
     function PlaylistManager(){
@@ -75,10 +76,14 @@ angular.module("mopify.services.playlistmanager", [
     PlaylistManager.prototype.loadPlaylists = function() {
         var that = this;
         
+        // Set loading
         this.loading = true;
 
+        // Get the spotify loadplaylists setting
+        var loadspotifyplaylists = Settings.get("spotify").loadspotifyplaylists;
+
         // Load the playlists from Spotify is the user is connected, otherwise load them from Mopidy
-        if(ServiceManager.isEnabled("spotify")){
+        if(ServiceManager.isEnabled("spotify") && loadspotifyplaylists){
             // Set source to spotify
             this.source = "spotify";
 
