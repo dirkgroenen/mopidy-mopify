@@ -16,3 +16,4 @@ nosetests.xml
 .project
 *.pbxproj
 *.egg-info
+Mopidy_Mopify.egg-info/
