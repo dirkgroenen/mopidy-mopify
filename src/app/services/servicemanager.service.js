@@ -1,8 +1,9 @@
 angular.module("mopify.services.servicemanager", [
-    "LocalStorageModule"
+    "LocalStorageModule",
+    "mopify.services.settings"
 ])
 
-.factory("ServiceManager", function($rootScope, $window, localStorageService){
+.factory("ServiceManager", function($rootScope, $window, localStorageService, Settings){
     "use strict";
 
     var rootkey = "settings";
@@ -13,7 +14,10 @@ angular.module("mopify.services.servicemanager", [
                 name: "Spotify",
                 description: "Search and manage playlists and get the latests charts",
                 image: "http://icons.iconarchive.com/icons/danleech/simple/256/spotify-icon.png",
-                hasSettings: true
+                hasSettings: true,
+                defaultSettings: {
+                    loadspotifyplaylists: true
+                }
             },
             {
                 name: "Taste Profile",
@@ -70,6 +74,11 @@ angular.module("mopify.services.servicemanager", [
 
         // Broadcast this change
         $rootScope.$broadcast("mopify:services:enabled", service);
+
+        // Set default settings if defined
+        if(service.defaultSettings !== undefined){
+            Settings.set(servicename, service.defaultSettings);
+        }
 
         // Send to GA
         $window.ga('send', 'event', 'service', 'enabled', servicename);

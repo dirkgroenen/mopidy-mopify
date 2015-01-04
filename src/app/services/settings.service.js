@@ -35,9 +35,13 @@ angular.module("mopify.services.settings", [
      * @param  {string} key   
      * @param  {string} value 
      */
-    Settings.prototype.put = function(key, value){
-        //TODO
-        //localStorageService.set("rootkey." + key, value);
+    Settings.prototype.set = function(key, value){
+        // Set settings and set new key and value
+        var settings = localStorageService.get(rootkey);
+        settings[key] = value;
+
+        // Save settings
+        localStorageService.set(rootkey, settings);
     };
 
 
