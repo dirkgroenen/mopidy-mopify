@@ -14,7 +14,15 @@ At the moment Mopify is developed to work in combination with Mopidy-Spotify onl
 
 ![http://i.imgur.com/BTlAGEf.jpg](http://i.imgur.com/BTlAGEf.jpg)
 
-#Installation
+---------
+* [Istallation](#installation)
+ * [Updating](#updating)
+* [Getting started](#getting-started)
+* [Screenshots](#screenshots)
+* [Developing](#developing)
+---------
+
+##Installation
 Installing Mopify is easy. Make sure you have installed Mopidy 0.19 and Mopidy-Spotify 1.2 (or higher) and enabled the [HTTP Extension](https://docs.mopidy.com/en/latest/ext/http/).
 
 Install using PIP:
@@ -22,18 +30,18 @@ Install using PIP:
 sudo pip install Mopidy-Mopify
 ```
 
-##Updating
+###Updating
 Mopify will notifie you when a new version is available. To update Mopify to it's new version using pip you have to run:
 ```
 sudo pip install --upgrade Mopidy-Mopify
 ```
 
-#Getting started
+##Getting started
 To get started with Mopify, check out the [Wiki](https://github.com/dirkgroenen/mopidy-mopify/wiki).
 
 After you installed the Mopidy client you can use a modern browser (like Firefox or Chrome) to open it (Using your server IP and Mopidy port. For example: http://192.168.1.2:6680/mopify/. 
 
-#Screenshots
+##Screenshots
 ![http://i.imgur.com/BTlAGEf.jpg](http://i.imgur.com/BTlAGEf.jpg)
 
 ![http://i.imgur.com/jGCzHao.jpg](http://i.imgur.com/jGCzHao.jpg)
@@ -45,3 +53,34 @@ After you installed the Mopidy client you can use a modern browser (like Firefox
 ![http://i.imgur.com/PYCHFGv.png](http://i.imgur.com/PYCHFGv.png)
 
 ![http://i.imgur.com/7NYObgx.png](http://i.imgur.com/7NYObgx.png)
+
+##Developing
+Mopify uses Nodejs, grunt and bower when developing. Make sure you've installed those programs when developing on Mopify. 
+
+###Howto develop
+Before you can start developing you have to install some programs and clone the repo to your local machine.
+
+1. Install Nodejs
+2. Intall grunt-cli and bower
+```
+npm install -g grunt-cli bower
+```
+3. Clone the repository 
+```
+git clone git@github.com:dirkgroenen/mopidy-mopify.git
+```
+4. Install dependencies:
+```
+npm instsall && bower install
+```
+
+You're now ready to start developing. To start the build, watch process and a webserver run:
+```
+grunt watch
+```
+This will start a webserver on port ```:8000
+```
+When you change the files in the ```/src/``` directory grunt will automatically rebuild and lint the project.
+
+###Deploy
+When you want to deploy you're changed version you have to run ```grunt package```. This will create the new Mopidy-Mopify web extension package.
