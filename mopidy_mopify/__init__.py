@@ -19,4 +19,18 @@ class MopifyExtension(ext.Extension):
         registry.add('http:static', {
             'name': self.ext_name,
             'path': os.path.join(os.path.dirname(__file__), 'static'),
+            'factory': mopify_app_factory,
         })   
+
+class WebMopifySelfUpdateHandler(tornado.web.RequestHandler):
+
+    def initialize(self, core):
+        self.core = core
+
+    def post(self):
+        str("Post request")
+
+def mopify_app_factory(config, core):
+    return [
+        ('/update', WebMopifySelfUpdateHandler, {'core': core}),
+    ]
