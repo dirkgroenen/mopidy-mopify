@@ -40,6 +40,6 @@ angular.module("mopify.discover.browse", [
         };
     }
     else{
-        notifier.notify({type: "custom", template: "You have to enabled the Taste Profile service if you wan't to use this feature.", delay: 7500});
+        notifier.notify({type: "custom", template: "Enable the Taste Profile service if you want to use this feature.", delay: 7500});
     }
 });
