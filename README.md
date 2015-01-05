@@ -1,4 +1,4 @@
-Mopify - Web client (BETA)
+Mopify - Web client
 ======
 ![badge](https://img.shields.io/pypi/v/mopidy-mopify.svg?style=flat) ![badge](https://img.shields.io/pypi/dm/mopidy-mopify.svg)
 
@@ -10,7 +10,7 @@ Some of the features that are included in Mopify:
 - **Create and edit Spotify playlists**.
 - Start music stations from artists, albums, tracks, playlists or your personal tasteprofile.
 
-At the moment Mopify is developed to work in combination with Mopidy-Spotify only. Based on Mopify's popularity this may change in the future.
+At the moment Mopify is developed to work in combination with Mopidy-Spotify only. Depending on Mopify's popularity this may change in the future.
 
 ![http://i.imgur.com/BTlAGEf.jpg](http://i.imgur.com/BTlAGEf.jpg)
 
@@ -41,7 +41,7 @@ enabled = true
 ```
 
 ###Updating
-Mopify will notifie you when a new version is available. To update Mopify to it's new version using pip you have to run:
+Mopify will notify you when a new version is available. To update Mopify to it's new version you can use the following command:
 ```
 sudo pip install --upgrade Mopidy-Mopify
 ```
