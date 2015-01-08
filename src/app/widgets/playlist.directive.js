@@ -31,8 +31,10 @@ angular.module('mopify.widgets.directive.playlist', [
                         if(data.images[0] !== undefined)
                             scope.coverImage = data.images[0].url;
 
-                        if(data.tracks.items.length > 0)
-                            scope.coverImage = data.tracks.items[0].track.album.images[0].url;
+                        if(data.tracks.items.length > 0){
+                            if(data.tracks.items[0].track.album.images[0] !== undefined)
+                                scope.coverImage = data.tracks.items[0].track.album.images[0].url;
+                        }
                 });
             }
 
