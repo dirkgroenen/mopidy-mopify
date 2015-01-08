@@ -143,18 +143,41 @@ angular.module('mopify.search', [
             });
         });
 
+        // Lookup and place
+        lookupFeaturedResult(resultitem);
+    }
+
+    /**
+     * Lookup the filtered result and place it in the header
+     * @param {object} resultitem   The best result item
+     */
+    function lookupFeaturedResult(resultitem){
         mopidyservice.lookup(resultitem.item.uri).then(function(results){
+            var tracksloaded = true;
+
             var filtered = _.filter(_.shuffle(results), function(item){
                 return item.name.indexOf("unplayable") < 0;
             });
 
-            resultitem.item.tracks = filtered.splice(0, 7);
+            _.each(filtered, function(track){
+                if(track.name.indexOf("loading") > -1)
+                    tracksloaded = false;
+            });
 
-            if(resultitem.type == "tracks")
-                resultitem.item.tracks[0].artiststring = util.artistsToString(resultitem.item.tracks[0].artists);
+            if(tracksloaded){
+                resultitem.item.tracks = filtered.splice(0, 7);
 
-            // Set the resultitem as $scope.topresult
-            $scope.topresult = resultitem;
+                if(resultitem.type == "tracks")
+                    resultitem.item.tracks[0].artiststring = util.artistsToString(resultitem.item.tracks[0].artists);
+
+                // Set the resultitem as $scope.topresult
+                $scope.topresult = resultitem;
+            }
+            else{
+                $timeout(function(){
+                    lookupFeaturedResult(resultitem);
+                }, 1000);
+            }
         });
     }
 

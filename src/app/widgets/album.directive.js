@@ -27,8 +27,18 @@ angular.module('mopify.widgets.directive.album', [
                 }); 
             };
             
+            /**
+             * Start a new station from the album's URI
+             */
             scope.startStation = function(){
                 stationservice.startFromSpotifyUri(scope.album.uri);
+            };
+
+            /**
+             * Add album to queue
+             */
+            scope.addToQueue = function(){
+                mopidyservice.addToTracklist({ uri: scope.album.uri });    
             };
         }
     };

@@ -104,6 +104,21 @@ When you want to deploy you're changed version you have to run ```grunt package`
 
 ##Changelog
 
+v1.1.2 (2015-01-08)
+------------------
+
+- Changed how playlists are filtered to make sure you only see your own playlists when managing.
+
+- Default Mopidy IP setting is changed to the user's host
+
+- Iplemented 'Add album to queue'
+
+- Wait until all featured search result track are loaded before showing
+
+- Undefined bug when a playlists doesn't have an image
+
+- Some text changes and improvements
+
 v1.1.1 (2015-01-04)
 -------------------
 

@@ -26,6 +26,15 @@ angular.module("mopify.services.playlistmanager", [
         }
 
         that.spotifyuserid = null;
+
+        if(ServiceManager.isEnabled("spotify")){
+            // Load when mopidy is online
+            $rootScope.$on("mopify:spotify:connected", function(){
+                Spotify.getCurrentUser().then(function(user){
+                    that.spotifyuserid = user.id;
+                });
+            });
+        }
     }
 
     /**
@@ -38,14 +47,14 @@ angular.module("mopify.services.playlistmanager", [
         var that = this;
 
         options = options || {};
-
+        
         if(!that.loading){
             var playlists = that.playlists;
 
             if(options.ordered === true)
                 playlists = that.orderedPlaylists;
 
-            if(options.useronly === true && options.ordered === false){
+            if(options.useronly === true && options.ordered !== true){
                 playlists = _.filter(that.playlists, function(playlist){
                     return (playlist.uri.indexOf(that.spotifyuserid) > 0);
                 });
@@ -63,7 +72,7 @@ angular.module("mopify.services.playlistmanager", [
                     if(options.ordered === true)
                         playlists = that.orderedPlaylists;
 
-                    if(options.useronly === true && options.ordered === false){
+                    if(options.useronly === true && options.ordered !== true){
                         playlists = _.filter(that.playlists, function(playlist){
                             return (playlist.uri.indexOf(that.spotifyuserid) > 0);
                         });
@@ -97,24 +106,18 @@ angular.module("mopify.services.playlistmanager", [
             // Set source to spotify
             this.source = "spotify";
 
-            // Get current user
-            Spotify.getCurrentUser().then(function(user){
-                // Set spotify userid
-                that.spotifyuserid = user.id;
+            // Get user's playlists
+            Spotify.getUserPlaylists(that.spotifyuserid, { limit: 50 }).then(function(data){
+                that.playlists = data.items;
 
-                // Get user's playlists
-                Spotify.getUserPlaylists(user.id, { limit: 50 }).then(function(data){
-                    that.playlists = data.items;
-
-                    // Starts loading more playlists if needed
-                    if(data.next !== null){
-                        that.loadMorePlaylists(data.next);
-                    }
-                    else{
-                        that.playlists = sortPlaylists(that.playlists);
-                        that.loading = false;
-                    }
-                });
+                // Starts loading more playlists if needed
+                if(data.next !== null){
+                    that.loadMorePlaylists(data.next);
+                }
+                else{
+                    that.playlists = sortPlaylists(that.playlists);
+                    that.loading = false;
+                }
             });
         }
         else{

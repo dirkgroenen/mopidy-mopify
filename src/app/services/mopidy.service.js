@@ -9,7 +9,7 @@ angular.module('mopify.services.mopidy', [
     'llNotifier'
 ])
 
-.factory("mopidyservice", function($q, $rootScope, $cacheFactory, Settings, notifier){
+.factory("mopidyservice", function($q, $rootScope, $cacheFactory, $location, Settings, notifier){
 	// Create consolelog object for Mopidy to log it's logs on
     var consoleError = console.error.bind(console);
 
@@ -84,9 +84,9 @@ angular.module('mopify.services.mopidy', [
 			$rootScope.$broadcast("mopify:startingmopidy");
 
             // Get mopidy ip and port from settigns
-            var mopidyip = Settings.get("mopidyip", "localhost");
+            var mopidyip = Settings.get("mopidyip", $location.host());
             var mopidyport = Settings.get("mopidyport", "6680");
-
+            
 			// Initialize mopidy
             try{
     			this.mopidy = new Mopidy({
