@@ -27,6 +27,9 @@ angular.module('mopify.widgets.directive.album', [
                 }); 
             };
             
+            /**
+             * Start a new station from the album's URI
+             */
             scope.startStation = function(){
                 stationservice.startFromSpotifyUri(scope.album.uri);
             };
