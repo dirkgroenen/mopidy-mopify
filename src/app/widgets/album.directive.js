@@ -30,6 +30,13 @@ angular.module('mopify.widgets.directive.album', [
             scope.startStation = function(){
                 stationservice.startFromSpotifyUri(scope.album.uri);
             };
+
+            /**
+             * Add album to queue
+             */
+            scope.addToQueue = function(){
+                mopidyservice.addToTracklist({ uri: scope.album.uri });    
+            };
         }
     };
 
