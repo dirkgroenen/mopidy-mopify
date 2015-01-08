@@ -4,11 +4,10 @@ import os
 
 from mopidy import config, ext
 
-__version__ = '1.1.1'
-__dist_name__ = 'Mopidy-Mopify'
+__version__ = '1.1.2'
 
 class MopifyExtension(ext.Extension):
-    dist_name = __dist_name__
+    dist_name = 'Mopidy-Mopify'
     ext_name = 'mopify'
     version = __version__
 
@@ -19,5 +18,5 @@ class MopifyExtension(ext.Extension):
     def setup(self, registry):
         registry.add('http:static', {
             'name': self.ext_name,
-            'path': os.path.join(os.path.dirname(__file__), 'static')
-        })
+            'path': os.path.join(os.path.dirname(__file__), 'static'),
+        })   
