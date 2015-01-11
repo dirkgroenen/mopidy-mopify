@@ -34,7 +34,7 @@ Install using PIP:
 sudo pip install Mopidy-Mopify
 ```
 
-After installing Mopify you can enable it by adding the following options to your Mopidy config file:
+After installing Mopify you can enable it by adding the following options to your Mopidy config file (optional):
 ```
 [mopify]
 enabled = true
