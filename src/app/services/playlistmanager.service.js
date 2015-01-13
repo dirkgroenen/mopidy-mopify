@@ -15,25 +15,31 @@ angular.module("mopify.services.playlistmanager", [
         this.playlists = [];
         this.orderedPlaylists = {};
         this.loading = true;
-
-        // Load when mopidy is online
-        $rootScope.$on("mopidy:state:online", function(){
-            that.loadPlaylists();
-        });
-
-        if(mopidyservice.isConnected){
-            that.loadPlaylists();
-        }
-
         that.spotifyuserid = null;
 
-        if(ServiceManager.isEnabled("spotify")){
+        // Load playlists via Spotify or Mopidy depending on the settings
+        var loadspotifyplaylists = false;
+        
+        if(Settings.get("spotify") !== undefined)
+            loadspotifyplaylists = Settings.get("spotify").loadspotifyplaylists;
+
+        if(ServiceManager.isEnabled("spotify") && loadspotifyplaylists === true){
             // Load when mopidy is online
             $rootScope.$on("mopify:spotify:connected", function(){
                 Spotify.getCurrentUser().then(function(user){
                     that.spotifyuserid = user.id;
+                    that.loadPlaylists();
                 });
             });
+        }
+        else{
+            $rootScope.$on("mopidy:state:online", function(){
+                that.loadPlaylists();
+            });
+
+            if(mopidyservice.isConnected){
+                that.loadPlaylists();
+            }
         }
     }
 
