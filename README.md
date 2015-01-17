@@ -104,6 +104,10 @@ When you want to deploy you're changed version you have to run ```grunt package`
 
 ##Changelog
 
+v1.1.4 (2015-01-17)
+------------------
+- Added 'Delete' option to the station's context menu. [#26](https://github.com/dirkgroenen/mopidy-mopify/issues/26)
+
 v1.1.3 (2015-01-08)
 ------------------
 - Fixed loading Spotify playlists from user 'null' when connecting to early. [#24](https://github.com/dirkgroenen/mopidy-mopify/issues/24)
