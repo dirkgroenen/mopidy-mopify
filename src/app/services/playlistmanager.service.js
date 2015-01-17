@@ -32,6 +32,7 @@ angular.module("mopify.services.playlistmanager", [
             $rootScope.$on("mopify:spotify:connected", function(){
                 Spotify.getCurrentUser().then(function(user){
                     that.spotifyuserid = user.id;
+                    that.loadPlaylists();
                 });
             });
         }
