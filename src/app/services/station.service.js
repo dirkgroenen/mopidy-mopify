@@ -10,9 +10,10 @@ angular.module('mopify.services.station', [
     'mopify.services.util',
     'mopify.services.spotifylogin',
     'mopify.services.tasteprofile',
+    'mopify.services.servicemanager',
     "spotify"
 ])
-.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, util, SpotifyLogin, notifier, TasteProfile){
+.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, util, SpotifyLogin, notifier, TasteProfile, ServiceManager){
     'use strict';
 
     var stationPlaying = false;
@@ -193,7 +194,7 @@ angular.module('mopify.services.station', [
                 });
                 break;
             case "user":
-                if(SpotifyLogin.connected){
+                if(ServiceManager.isEnabled("spotify")){
                     Spotify.getPlaylist(urisplitted[2], urisplitted[4]).then(function(data) {
                         var image = "";
 
@@ -237,8 +238,6 @@ angular.module('mopify.services.station', [
                     image = data.images[1].url;
                 else if(data.images[0] !== undefined)
                     image = data.images[0].url;
-                else
-                    image = "./assets/images/tracklist-header.jpg";
 
                 var station = {
                     type: urisplitted[1],
@@ -262,21 +261,26 @@ angular.module('mopify.services.station', [
         },
 
         startFromTaste: function(){
-            var station = {
-                type: "taste",
-                spotify: null,
-                tracks: null,
-                name: "Tasteprofile",
-                coverImage: "./assets/images/tracklist-header.jpg",
-                started_at: Date.now()
-            };
+            if(ServiceManager.isEnabled("tasteprofile")){
+                var station = {
+                    type: "taste",
+                    spotify: null,
+                    tracks: null,
+                    name: "Tasteprofile",
+                    coverImage: "./assets/images/tracklist-header.jpg",
+                    started_at: Date.now()
+                };
 
-            // Save the new station
-            var allstations = localStorageService.get("stations") || [];
-            allstations.push(station);
-            localStorageService.set("stations", allstations);
+                // Save the new station
+                var allstations = localStorageService.get("stations") || [];
+                allstations.push(station);
+                localStorageService.set("stations", allstations);
 
-            createStation(station);                
+                createStation(station);                
+            }
+            else{
+                notifier.notify({type: "custom", template: "Please enable the TasteProfile service first.", delay: 7500});
+            }
         },
 
         startFromTracks: function(tracks){
