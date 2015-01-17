@@ -36,30 +36,24 @@ angular.module("mopify.discover.featured", [
     /**
      * Load all the data for the featured playlists page
      */
-    function loadFeaturedPlaylists(){
-        // Check if we are logged in to spotify 
-        if(SpotifyLogin.connected){
-            var locale = Settings.get("locale", "en_US");
-            var country = Settings.get("country", "US");
+function loadFeaturedPlaylists(){
+        var locale = Settings.get("locale", "en_US");
+        var country = Settings.get("country", "US");
 
-            // Get the featured playlists from spotify
-            Spotify.getFeaturedPlaylists({
-                locale: locale,
-                country: country,
-                limit: 12
-            }).then(function(data){
-                // Set the message and items
-                $scope.titletext = data.message;
-                $scope.featuredplaylists = data.playlists.items;
-                $scope.headerplaylist = data.playlists.items[Math.floor(Math.random() * data.playlists.items.length)];
+        // Get the featured playlists from spotify
+        Spotify.getFeaturedPlaylists({
+            locale: locale,
+            country: country,
+            limit: 12
+        }).then(function(data){
+            // Set the message and items
+            $scope.titletext = data.message;
+            $scope.featuredplaylists = data.playlists.items;
+            $scope.headerplaylist = data.playlists.items[Math.floor(Math.random() * data.playlists.items.length)];
 
-                // Load the tracks for the featured header playlist
-                loadHeaderPlaylistTracks();
-            });
-        }
-        else{
-            $scope.titletext = "Please connect to Spotify";
-        }
+            // Load the tracks for the featured header playlist
+            loadHeaderPlaylistTracks();
+        });
     }
 
     function loadHeaderPlaylistTracks(){
