@@ -237,6 +237,8 @@ angular.module('mopify.services.station', [
                     image = data.images[1].url;
                 else if(data.images[0] !== undefined)
                     image = data.images[0].url;
+                else
+                    image = "./assets/images/tracklist-header.jpg";
 
                 var station = {
                     type: urisplitted[1],
