@@ -4,6 +4,7 @@ angular.module('mopify.music.stations', [
     'ngRoute',
     'spotify',
     'llNotifier',
+    'LocalStorageModule',
     'mopify.services.station',
     'mopify.services.util',
     'mopify.services.servicemanager',

@@ -24,6 +24,10 @@ angular.module("mopify.discover.browse", [
     var builtblocks = [];
     var sliceloops = 0;
 
+    $scope.startStation = function(){
+        stationservice.startFromTaste();
+    };
+
     if(ServiceManager.isEnabled("tasteprofile")){
         Discover.getBrowseBlocks().then(function(blocks){
             builtblocks = blocks;
@@ -33,10 +37,6 @@ angular.module("mopify.discover.browse", [
         $scope.buildblocks = function(){
             $scope.blocks = $scope.blocks.concat(builtblocks.slice(sliceloops * 12, (sliceloops * 12) + 12));
             sliceloops++;
-        };
-
-        $scope.startStation = function(){
-            stationservice.startFromTaste();
         };
     }
     else{
