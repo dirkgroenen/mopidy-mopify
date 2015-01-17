@@ -1,16 +1,31 @@
-<div class="tileart">
-    <div class="hoverwrap">
-        <div class="iconwrap">
-            <div class="icon">
-                <i class="ss-icon ss-wifi" ng-click="startStation()"></i>
+<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 single-tile" ng-show="visible">
+    <div class="tileart" context-menu
+         data-target="menu-{{ index }}"
+         ng-class="{ 'highlight': highlight, 'expanded' : expanded }">>
+        <div class="hoverwrap">
+            <div class="iconwrap">
+                <div class="icon">
+                    <i class="ss-icon ss-wifi" ng-click="start()"></i>
+                </div>
             </div>
         </div>
+        <img ng-src="{{ station.coverImage }}"/>
     </div>
-    <img ng-src="{{ station.coverImage }}"/>
-</div>
-<div class="tileinfo">
-    <a href="{{ getStationUrl() }}">
-        <span class="name">{{ station.name }}</span>
-        <span class="year">Radio type: {{ station.type }}</span>
-    </a>
+    <div class="tileinfo">
+        <a href="{{ getStationUrl() }}">
+            <span class="name">{{ station.name }}</span>
+            <span class="year">Radio type: {{ station.type }}</span>
+        </a>
+    </div>
+    <div class="contextmenu position-fixed" id="menu-{{ index }}">
+        <ul class="dropdown-menu" role="menu">
+            <li ng-click="start()">
+                Start
+            </li>
+            <li class="divider"></li>
+            <li ng-click="delete()">
+                Delete
+            </li>
+        </ul>
+    </div>
 </div>
