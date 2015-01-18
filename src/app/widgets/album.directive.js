@@ -40,6 +40,13 @@ angular.module('mopify.widgets.directive.album', [
             scope.addToQueue = function(){
                 mopidyservice.addToTracklist({ uri: scope.album.uri });    
             };
+
+            /**
+             * Show the available playlists
+             */
+            scope.showPlaylists = function(){
+
+            };
         }
     };
 
