@@ -1,6 +1,7 @@
 Mopify - Web client
 ======
 ![badge](https://img.shields.io/pypi/v/mopidy-mopify.svg?style=flat) ![badge](https://img.shields.io/pypi/dm/mopidy-mopify.svg)
+[![Help me with a cup of coffee ](https://pledgie.com/campaigns/28130.png?skin_name=chrome)](https://pledgie.com/campaigns/28130)
 
 Mopify is a web client for [Mopidy](https://github.com/mopidy/mopidy). Instead of most other Mopidy web client Mopify aims on providing a 'complete' music experience. 
 
