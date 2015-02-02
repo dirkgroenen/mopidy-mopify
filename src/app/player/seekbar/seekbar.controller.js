@@ -35,10 +35,12 @@ angular.module('mopify.player.seekbar', [
         checkTimePosition();
 
         // Check if we have to stop or start the timer
-        if(data.new_state == "playing")
+        if(data.new_state == "playing"){
             startIncreaser();
-        else
+        }
+        else{
             $interval.cancel(increaseCurrentTimeInterval);
+        }
     });
 
     $scope.$on('mopidy:state:offline', function() {
@@ -62,6 +64,10 @@ angular.module('mopify.player.seekbar', [
      * Start timePositionMS increaser
      */
     function startIncreaser(){
+        // Clear previous interval
+        $interval.cancel(increaseCurrentTimeInterval);
+
+        // Start interval for every second
         increaseCurrentTimeInterval = $interval(function(){
             // Increate timePosition with 1 second
             timePositionMS += 1000; 
