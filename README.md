@@ -106,6 +106,7 @@ When you want to deploy you're changed version you have to run ```grunt package`
 ##Changelog
 
 v1.1.6 (2015-02-3)
+------------------
 
 - Fixed auto starting timer on ```mopidy:state:online``` [#44](https://github.com/dirkgroenen/mopidy-mopify/issues/44)
 
