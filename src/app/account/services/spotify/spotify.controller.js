@@ -16,7 +16,7 @@ angular.module("mopify.account.services.spotify", [
 })
 
 
-.controller("SpotifyServiceController", function SpotifyServiceController($scope, $location, ServiceManager, Settings, Spotify){
+.controller("SpotifyServiceController", function SpotifyServiceController($scope, $location, ServiceManager, Settings, Spotify, SpotifyLogin){
     if(!ServiceManager.isEnabled("spotify")){
         $location.path("/account/services");
         return;
@@ -30,6 +30,14 @@ angular.module("mopify.account.services.spotify", [
         $scope.profile = data;
     });
 
+    /**
+     * Disconnect and connect with Spotify
+     * @return {[type]} [description]
+     */
+    $scope.reconnect = function(){
+        SpotifyLogin.disconnect();
+        SpotifyLogin.login();
+    };
 })
 
 .controller("SpotifyMenuController", function SpotifyMenuController($q, $scope, Spotify, SpotifyLogin){

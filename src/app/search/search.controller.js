@@ -24,7 +24,7 @@ angular.module('mopify.search', [
     });
 })
 
-.controller("SearchController", function SearchController($scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, stationservice, util){
+.controller("SearchController", function SearchController($scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, stationservice, util, Settings){
     
     $scope.query = $routeParams.query;
     var typingTimeout = null;
@@ -37,6 +37,13 @@ angular.module('mopify.search', [
         playlists: []
     };
 
+    $scope.searchLimits = {
+        artists: 12,
+        albums: 12,
+        tracks: 10,
+        playlists: 12
+    };
+
     $scope.topresult = {};
 
     /*
@@ -47,8 +54,8 @@ angular.module('mopify.search', [
         var resultsloaded = 0;
 
         Spotify.search($scope.query, searchableItems, {
-            market: "NL",
-            limit: "12"
+            market: Settings.get("country", "US"),
+            limit: "50"
         }).then(function(data){
             $scope.results.artists = data.artists;
             $scope.results.albums = data.albums;
@@ -61,7 +68,7 @@ angular.module('mopify.search', [
 
         mopidyservice.search($scope.query).then(function(data){
             if(data[0].tracks !== undefined){
-                $scope.results.tracks = data[0].tracks.splice(0,10);
+                $scope.results.tracks = data[0].tracks.splice(0,100);
             }
 
             // Check if all data is loaded and if it is; calculate the topresult
@@ -94,6 +101,18 @@ angular.module('mopify.search', [
      */
     $scope.startTopItemStation = function(){
         stationservice.startFromSpotifyUri($scope.topresult.item.uri);
+    };
+
+    /**
+     * Toggle the number of results that should be shown
+     * @param  {string} item category: artists, albums, tracks, playlists
+     * @return {[type]}      [description]
+     */
+    $scope.searchLimitsToggle = function(item){
+        if($scope.searchLimits[item] == 50)
+            $scope.searchLimits[item] = 12;
+        else
+            $scope.searchLimits[item] = 50;
     };
 
     /**

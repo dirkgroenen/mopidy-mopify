@@ -1,10 +1,10 @@
 <div class="tileart">
     <div class="hoverwrap">
         <div class="iconwrap">
-            <div class="icon" ng-class="(service.hasSettings && service.connected) ? 'col-xs-6' : 'col-xs-12'">
+            <div class="icon" ng-class="(service.hasSettings && service.connected) ? 'col-xs-6' : 'col-xs-12'" title="Connect/Disconnect service">
                 <i class="ss-icon " ng-class="!service.connected ? 'ss-contract' : 'ss-expand'" ng-click="!service.connected ? connectService() : disconnectService()"></i>
             </div>
-            <div class="icon col-xs-6" ng-if="(service.hasSettings && service.connected)">
+            <div class="icon col-xs-6" ng-if="(service.hasSettings && service.connected)" title="Open service's settings">
                 <a href="#/account/services/{{ service.name.replace(' ', '').toLowerCase() }}"><i class="ss-icon ss-settings"></i></a>
             </div>
         </div>

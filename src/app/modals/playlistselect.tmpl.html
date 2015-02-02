@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h4 class="modal-title ng-binding">Select playlist</h4>
+</div>
+
+<div class="selectplaylist row">
+    <div class="col-sm-6">
+        <ul class="playlists" role="menu">
+            <li ng-repeat="playlist in userplaylists" ng-if="$index % 2 == 0" ng-click="addToPlaylist(playlist.uri)">
+                {{ playlist.name }}
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-6">
+        <ul class="dropdown-menu" role="menu">
+            <li ng-repeat="playlist in userplaylists" ng-if="$index % 2 == 1" ng-click="addToPlaylist(playlist.uri)">
+                {{ playlist.name }}
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

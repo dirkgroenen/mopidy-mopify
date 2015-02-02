@@ -19,41 +19,6 @@
         </div>
     </div>
 </div>
-<div class="selectplaylist" ng-show='showplaylists'>
-    <div class="close" ng-click="showplaylists = false">
-        Close
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <ul class="playlists" role="menu">
-                <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 0" ng-click="addToPlaylist(playlist.uri)">
-                    {{ playlist.name }}
-                </li>
-            </ul>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <ul class="dropdown-menu" role="menu">
-                <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 1" ng-click="addToPlaylist(playlist.uri)">
-                    {{ playlist.name }}
-                </li>
-            </ul>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <ul class="dropdown-menu" role="menu">
-                <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 2" ng-click="addToPlaylist(playlist.uri)">
-                    {{ playlist.name }}
-                </li>
-            </ul>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
-            <ul class="dropdown-menu" role="menu">
-                <li ng-repeat="playlist in userplaylists" ng-if="$index % 4 == 3" ng-click="addToPlaylist(playlist.uri)">
-                    {{ playlist.name }}
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
 
 <div class="contextmenu position-fixed" id="{{ track.uri || track.tlid }}">
     <ul class="dropdown-menu" role="menu">

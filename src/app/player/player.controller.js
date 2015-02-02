@@ -39,21 +39,20 @@ angular.module('mopify.player', [
         mopidyservice.getRandom().then(function(random){
             $scope.isRandom = (random === true);
         });
+    });
 
-        // Update information on a new track 
-        $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
-            if(data.tl_track !== undefined){
-                if(data.tl_track.track.name.indexOf("[loading]") > -1){
-                    mopidyservice.lookup(data.tl_track.track.uri).then(function(result){
-                        updatePlayerInformation(result[0]);
-                    });
-                }
-                else{
-                    updatePlayerInformation(data.tl_track.track);
-                }
+    // Update information on a new track 
+    $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
+        if(data.tl_track !== undefined){
+            if(data.tl_track.track.name.indexOf("[loading]") > -1){
+                mopidyservice.lookup(data.tl_track.track.uri).then(function(result){
+                    updatePlayerInformation(result[0]);
+                });
             }
-        });
-
+            else{
+                updatePlayerInformation(data.tl_track.track);
+            }
+        }
     });
 
     // Listen for messages
