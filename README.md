@@ -107,6 +107,8 @@ When you want to deploy you're changed version you have to run ```grunt package`
 v1.1.5 (2015-02-2)
 ------------------
 
+- Added favicon. BTW: I'm still in need for some visual identity (like a logo) for Mopify... [#42](https://github.com/dirkgroenen/mopidy-mopify/issues/42)
+
 - Added button which displays more search results. [#40](https://github.com/dirkgroenen/mopidy-mopify/issues/40)
 
 - Context menu now lays above the player controlers [#39](https://github.com/dirkgroenen/mopidy-mopify/issues/39)
