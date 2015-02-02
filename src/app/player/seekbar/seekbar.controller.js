@@ -22,7 +22,11 @@ angular.module('mopify.player.seekbar', [
 
     $scope.$on('mopidy:state:online', function() {
         getTrackLength();
-        startIncreaser();
+
+        mopidyservice.getState().then(function (state) {
+            if (state === 'playing')
+                startIncreaser();                
+        });
     });
 
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
@@ -84,17 +88,12 @@ angular.module('mopify.player.seekbar', [
                 trackLength = track.length;
                 $scope.timeTotal = util.timeFromMilliSeconds(trackLength);
 
-                mopidyservice.getState().then(function (state) {
-                    if (state === 'playing') {
-                        // Check the time
-                        checkTimePosition();
+                checkTimePosition();
 
-                        // Start interval
-                        checkPositionInterval = $interval(function() {
-                            checkTimePosition();
-                        }, 10000);                
-                    }
-                });
+                // Start interval
+                checkPositionInterval = $interval(function() {
+                    checkTimePosition();
+                }, 10000);                
             }
         });
     }
