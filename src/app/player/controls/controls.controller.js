@@ -17,7 +17,12 @@ angular.module('mopify.player.controls', [
 
     // Check for messages about the current playbackstate
     $scope.$on('mopidy:event:playbackStateChanged', function(event, data) {
+        $scope.stateIcon = (data.new_state === 'playing') ? 'ss-pause' : "ss-play";
         $scope.isPlaying = (data.new_state === 'playing');
+    });
+
+    $scope.$on('mopidy:event:volumeChanged', function(event, data){
+        $scope.volume = data.volume;
     });
 
     // If Mopidy is online we collect the init data about playback, volume and shuffle mode
@@ -37,7 +42,7 @@ angular.module('mopify.player.controls', [
         // Get playback state
         mopidyservice.getState().then(function(state){
             $scope.isPlaying = (state === 'playing');
-            $scope.stateIcon = "ss-pause";
+            $scope.stateIcon = (state === 'playing') ? 'ss-pause' : "ss-play";
         });
 
         // Get shuffle
