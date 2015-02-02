@@ -48,10 +48,18 @@
         <div class="col-md-3">
             Artists <span class="sub">{{ query }}</span>
         </div>
+        <div class="col-md-6 col-md-offset-3 alignright">
+            <div class="button white" ng-click="searchLimitsToggle('artists')">
+                <span class="text" ng-show="searchLimits.artists != 50">Show more artists</span>
+                <span class="text" ng-show="searchLimits.artists == 50">Show less artists</span>
+                <i class="ss-icon ss-plus" ng-show="searchLimits.artists != 50"></i>
+                <i class="ss-icon ss-hyphen" ng-show="searchLimits.artists == 50"></i>
+            </div>
+        </div>
     </div>
     <div class="pagecontent row" id="searchresults" ng-show="results.artists.items.length > 0">
         <div id="tileview" class="row">
-            <div ng-repeat="artist in results.artists.items">
+            <div ng-repeat="artist in results.artists.items | limitTo:searchLimits.artists">
                 <mopify-artist artist="artist" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 single-tile"></mopify-artist>
                 <div ng-if="($index + 1) % 6 == 0" class="clearfix visible-lg-block"></div>
                 <div ng-if="($index + 1) % 4 == 0" class="clearfix visible-md-block"></div>
@@ -64,10 +72,18 @@
         <div class="col-md-3">
             Albums <span class="sub">{{ query }}</span>
         </div>
+        <div class="col-md-6 col-md-offset-3 alignright">
+            <div class="button white" ng-click="searchLimitsToggle('albums')">
+                <span class="text" ng-show="searchLimits.albums != 50">Show more albums</span>
+                <span class="text" ng-show="searchLimits.albums == 50">Show less albums</span>
+                <i class="ss-icon ss-plus" ng-show="searchLimits.albums != 50"></i>
+                <i class="ss-icon ss-hyphen" ng-show="searchLimits.albums == 50"></i>
+            </div>
+        </div>
     </div>
     <div class="pagecontent row" id="searchresults" ng-show="results.albums.items.length > 0">
         <div id="tileview" class="row">
-            <div ng-repeat="album in results.albums.items">
+            <div ng-repeat="album in results.albums.items | limitTo:searchLimits.albums">
                 <mopify-album album="album" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 single-tile"></mopify-album>
                 <div ng-if="($index + 1) % 6 == 0" class="clearfix visible-lg-block"></div>
                 <div ng-if="($index + 1) % 4 == 0" class="clearfix visible-md-block"></div>
@@ -80,10 +96,18 @@
         <div class="col-md-3">
             Tracks <span class="sub">{{ query }}</span>
         </div>
+        <div class="col-md-6 col-md-offset-3 alignright">
+            <div class="button white" ng-click="searchLimitsToggle('tracks')">
+                <span class="text" ng-show="searchLimits.tracks != 50">Show more tracks</span>
+                <span class="text" ng-show="searchLimits.tracks == 50">Show less tracks</span>
+                <i class="ss-icon ss-plus" ng-show="searchLimits.tracks != 50"></i>
+                <i class="ss-icon ss-hyphen" ng-show="searchLimits.tracks == 50"></i>
+            </div>
+        </div>
     </div>
     <div class="pagecontent row" id="searchresults" ng-show="results.tracks.length > 0">
         <div id="tracklist" class="row">
-            <div ng-repeat="track in results.tracks">
+            <div ng-repeat="track in results.tracks | limitTo:searchLimits.tracks">
                 <mopify-track track="track" surrounding="results.tracks"> </mopify-track>
                 <div ng-if="($index + 1) % 6 == 0" class="clearfix visible-lg-block"></div>
                 <div ng-if="($index + 1) % 4 == 0" class="clearfix visible-md-block"></div>
@@ -96,10 +120,18 @@
         <div class="col-md-3">
             Playlists <span class="sub">{{ query }}</span>
         </div>
+        <div class="col-md-6 col-md-offset-3 alignright">
+            <div class="button white" ng-click="searchLimitsToggle('playlists')">
+                <span class="text" ng-show="searchLimits.playlists != 50">Show more playlists</span>
+                <span class="text" ng-show="searchLimits.playlists == 50">Show less playlists</span>
+                <i class="ss-icon ss-plus" ng-show="searchLimits.playlists != 50"></i>
+                <i class="ss-icon ss-hyphen" ng-show="searchLimits.playlists == 50"></i>
+            </div>
+        </div>
     </div>
     <div class="pagecontent row" id="searchresults" ng-show="results.playlists.items.length > 0">
         <div id="tileview" class="row">
-            <div ng-repeat="playlist in results.playlists.items">
+            <div ng-repeat="playlist in results.playlists.items | limitTo:searchLimits.playlists">
                 <mopify-playlist playlist="playlist" play="play(playlist)" class="col-lg-2 col-md-3 col-sm-4 col-xs-6 single-tile"></mopify-playlist>
                 <div ng-if="($index + 1) % 6 == 0" class="clearfix visible-lg-block"></div>
                 <div ng-if="($index + 1) % 4 == 0" class="clearfix visible-md-block"></div>
