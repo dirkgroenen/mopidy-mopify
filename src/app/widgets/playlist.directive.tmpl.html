@@ -3,13 +3,13 @@
      ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
     <div class="hoverwrap">
         <div class="iconwrap row">
-            <div class="icon small col-xs-4">
+            <div class="icon small col-xs-4" title="Show playlist's tracks">
                 <a href="{{ tracklistUrl }}"><i class="ss-icon ss-list"></i></a>
             </div>
-            <div class="icon col-xs-4">
+            <div class="icon col-xs-4" title="Play playlist">
                 <i class="ss-icon ss-play" ng-click="play()"></i>
             </div>
-            <div class="icon small col-xs-4">
+            <div class="icon small col-xs-4" title="Start new station for: {{ playlist.name }}">
                 <i class="ss-icon ss-wifi" ng-click="startStation()"></i>
             </div>
         </div>
