@@ -5,10 +5,11 @@ angular.module('mopify.widgets.directive.track', [
     "mopify.services.station",
     "mopify.services.util",
     "mopify.services.playlistmanager",
+    "ui.bootstrap",
     "llNotifier"
 ])
 
-.directive('mopifyTrack', function($routeParams, mopidyservice, stationservice, util, notifier, PlaylistManager) {
+.directive('mopifyTrack', function($routeParams, $modal, mopidyservice, stationservice, util, notifier, PlaylistManager) {
 
     return {
         restrict: 'E',
@@ -28,7 +29,6 @@ angular.module('mopify.widgets.directive.track', [
             var surrounding = angular.copy(scope.surrounding);
 
             scope.visible = true;
-            scope.showplaylists = false;
 
             scope.artistsString = function(){
                 return util.artistsToString(scope.track.artists, true);
@@ -101,38 +101,30 @@ angular.module('mopify.widgets.directive.track', [
             };
 
             /**
-             * Load all user's playlists
+             * Show the select playlist modal
              */
             scope.showPlaylists = function(){
-                scope.showplaylists = true;
-                scope.userplaylists = [{name: "loading..."}];
+                // Open the playlist select modal
+                var modalInstance = $modal.open({
+                    templateUrl: 'modals/playlistselect.tmpl.html',
+                    controller: 'PlaylistSelectModalController',
+                    size: 'lg'
+                });
 
-                // Get filtered user playlists
-                PlaylistManager.getPlaylists({
-                    useronly: true
-                }).then(function(data){
-                    scope.userplaylists = data;
+                // Add to playlist on result
+                modalInstance.result.then(function (selectedplaylist) {
+                    // Get playlist id from uri
+                    var playlistid = selectedplaylist.split(":")[4];
+
+                    // add track
+                    PlaylistManager.addTrack(playlistid, scope.track.uri).then(function(response){
+                        notifier.notify({type: "custom", template: "Track succesfully added to playlist.", delay: 3000});
+                    }, function(){
+                        notifier.notify({type: "custom", template: "Can't add track. Are you connected with Spotify and the owner if this playlist?", delay: 5000});
+                    });
                 });
             };
 
-            /**
-             * Add the track to the playlist
-             * @param {string} uri playlist uri
-             */
-            scope.addToPlaylist = function(uri){
-                // Hide playlists
-                scope.showplaylists = false;
-
-                // Get playlist id from uri
-                var playlistid = uri.split(":")[4];
-
-                // add track
-                PlaylistManager.addTrack(playlistid, scope.track.uri).then(function(response){
-                    notifier.notify({type: "custom", template: "Track succesfully added to playlist.", delay: 3000});
-                }, function(){
-                    notifier.notify({type: "custom", template: "Can't add track. Are you connected with Spotify and the owner if this playlist?", delay: 5000});
-                });
-            };
         }
     };
 

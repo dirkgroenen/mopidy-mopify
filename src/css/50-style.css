@@ -1116,30 +1116,31 @@ img[src=""] {
     color: #777;
 }
 
-#application #overview .pagecontent #tracklist .selectplaylist{
+.selectplaylist{
     box-shadow: inset 0 0 1px rgba(0,0,0,0.25);
     background: #fafafa;
     margin: 25px 0;
     position: relative;
 }
 
-#application #overview .pagecontent #tracklist .selectplaylist ul{
+.selectplaylist ul{
     list-style-type: none;
     margin: 0;
     padding: 25px;
 }
 
-#application #overview .pagecontent #tracklist .selectplaylist ul li{
+.selectplaylist ul li{
     padding: 7px 0;
     border-top: 1px solid #ccc;
     cursor: pointer;
+    font-size: 14px;
 }
 
-#application #overview .pagecontent #tracklist .selectplaylist ul li:hover{
+.selectplaylist ul li:hover{
     background-color: white;
 }
 
-#application #overview .pagecontent #tracklist .selectplaylist .close{
+.selectplaylist .close{
     position: absolute;
     bottom: 10px;
     right: 25px;
@@ -1147,7 +1148,7 @@ img[src=""] {
     cursor: pointer;
 }
 
-#application #overview .pagecontent #tracklist .selectplaylist .close:hover{
+.selectplaylist .close:hover{
     text-decoration: underline;
 }
 

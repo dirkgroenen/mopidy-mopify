@@ -203,6 +203,37 @@ angular.module("mopify.services.playlistmanager", [
         return deferred.promise;
     };
 
+    /**
+     * Add a album to the playlist
+     * @param  {string} playlistid The id of the spotify playlist
+     * @param  {string} albumuri   The spotify album URI
+     * @return {$q.defer}          
+     */
+    PlaylistManager.prototype.addAlbum = function(playlistid, albumuri){
+        var deferred = $q.defer();
+        var that = this;
+
+        if(ServiceManager.isEnabled("spotify")){
+            Spotify.getAlbumTracks(albumuri, {
+                limit: 50
+            }).then(function(data){
+                var trackuris = _.map(data.items, function(item){
+                    return item.uri;
+                });
+
+                Spotify.addPlaylistTracks(that.spotifyuserid, playlistid, trackuris).then(function(response){
+                    deferred.resolve(response);
+                });
+            });
+            
+        }
+        else{
+            deferred.reject();
+        }
+        
+        return deferred.promise;
+    };
+
     PlaylistManager.prototype.createPlaylist = function(name){
         var deferred = $q.defer();
         var that = this;
