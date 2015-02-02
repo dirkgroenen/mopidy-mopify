@@ -109,7 +109,7 @@ img[src=""] {
 .contextmenu{
     position: fixed;
     display: none;
-    z-index: 500;
+    z-index: 1000;
     border: 1px solid #c0c0c0;
     box-shadow: 0 0 5px rgba(0,0,0,.15);
     background-color: white;
