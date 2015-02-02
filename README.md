@@ -104,6 +104,27 @@ When you want to deploy you're changed version you have to run ```grunt package`
 
 ##Changelog
 
+v1.1.5 (2015-02-2)
+------------------
+
+- Added button which displays more search results. [#40](https://github.com/dirkgroenen/mopidy-mopify/issues/40)
+
+- Context menu now lays above the player controlers [#39](https://github.com/dirkgroenen/mopidy-mopify/issues/39)
+
+- Song updater removed out of ```mopidy:online``` event [#37](https://github.com/dirkgroenen/mopidy-mopify/issues/37)
+
+- Added interval which adds a second to the current time which will give Mopidy more rest [#37](https://github.com/dirkgroenen/mopidy-mopify/issues/37)
+
+- Add tooltips to directive icons [#36](https://github.com/dirkgroenen/mopidy-mopify/issues/36)
+
+- Replaced hard-coded country codes for user provided country code [#35](https://github.com/dirkgroenen/mopidy-mopify/issues/35)
+
+- Update volume and pause/play status after external changes [#34](https://github.com/dirkgroenen/mopidy-mopify/issues/34)
+
+- Created modal for adding tracks to a playlist [#33](https://github.com/dirkgroenen/mopidy-mopify/issues/33)
+
+- Added option to add an entire album to a playlist [#33](https://github.com/dirkgroenen/mopidy-mopify/issues/33)
+
 v1.1.4 (2015-01-17)
 ------------------
 - Added 'Delete' option to the station's context menu. [#26](https://github.com/dirkgroenen/mopidy-mopify/issues/26)
