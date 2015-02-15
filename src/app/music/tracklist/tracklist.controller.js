@@ -9,6 +9,7 @@ angular.module('mopify.music.tracklist', [
     'mopify.services.servicemanager',
     'spotify',
     'ngSanitize',
+    'llNotifier',
     'mopify.widgets.directive.track',
     'infinite-scroll'
 ])
@@ -26,7 +27,7 @@ angular.module('mopify.music.tracklist', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("TracklistController", function TracklistController($scope, $rootScope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager){
+.controller("TracklistController", function TracklistController($scope, $rootScope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager, notifier){
     // Grab params in var
     var uri = $routeParams.uri;
 
@@ -43,12 +44,36 @@ angular.module('mopify.music.tracklist', [
         loadCurrentTrack();
     }
 
+    var albumtracks = [];
+
     // Define the type from the uri parameter
     if(uri.indexOf(":playlist:") > -1)
         $scope.type = "Playlist";
 
-    if(uri.indexOf(":album:") > -1)
+    if(uri.indexOf(":album:") > -1){
         $scope.type = "Album";    
+
+        $scope.albumAlreadySaved = false;
+
+        if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
+            // First get the album's tracks
+            Spotify.getAlbumTracks(uri, {limit: 50}).then(function(response){
+                albumtracks = _.map(response.items, function(track){
+                    return track.id;
+                });
+
+                // Check if the user is already following the tracks
+                Spotify.userTracksContains(albumtracks).then(function (following) {
+                    $scope.albumAlreadySaved = following[0];
+                });
+            });
+
+            $scope.showSaveAlbum = true;
+        }
+        else{
+            $scope.showSaveAlbum = false;
+        }
+    }
 
     if(uri.indexOf("mopidy:current") > -1){
         $scope.type = "tracklist";    
@@ -223,6 +248,39 @@ angular.module('mopify.music.tracklist', [
             $scope.coverImage = data.album.images[0].url;
         });
     }
+
+    /**
+     * Remove the album from the user's library
+     */
+    $scope.toggleSaveAlbum = function(){
+        if($scope.type == "Album"){
+            if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
+
+                if($scope.albumAlreadySaved){
+                    // Remove
+                    Spotify.removeUserTracks(albumtracks).then(function (data) {
+                        notifier.notify({type: "custom", template: "Album succesfully removed.", delay: 5000});   
+                        $scope.albumAlreadySaved = false;
+                    }, function(data){
+                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                    });
+                }
+                else{
+                    // Save
+                    Spotify.saveUserTracks(albumtracks).then(function (data) {
+                        notifier.notify({type: "custom", template: "Album succesfully saved.", delay: 5000});   
+                        $scope.albumAlreadySaved = true;
+                    }, function(data){
+                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                    });   
+                }
+
+            }
+            else{
+                notifier.notify({type: "custom", template: "Can't add album. Are you connected with Spotify?", delay: 5000});   
+            }
+        }
+    };
 
     /**
      * Add the current tracks to the tracklist, shuffle them and play
