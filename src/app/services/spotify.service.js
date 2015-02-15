@@ -1,10 +1,12 @@
 angular.module("mopify.services.spotifylogin", [
     'spotify',
     'mopify.services.servicemanager',
-    'LocalStorageModule'
+    'mopify.services.versionmanager',
+    'LocalStorageModule',
+    'mopify.services.util'
 ])
 
-.factory("SpotifyLogin", function($q, $rootScope, $timeout, $document, $http, Spotify, $interval, ServiceManager, localStorageService){
+.factory("SpotifyLogin", function($q, $rootScope, $timeout, $document, $http, Spotify, $interval, ServiceManager, localStorageService, VersionManager, util){
     "use strict";
 
     // Get body
@@ -40,11 +42,13 @@ angular.module("mopify.services.spotifylogin", [
             this.refresh_token = localStorageService.get(tokenStorageKey).refresh_token;
             this.expires = localStorageService.get(tokenStorageKey).expires_in;
             this.access_token = localStorageService.get(tokenStorageKey).access_token;
+            this.mopifyversion = localStorageService.get(tokenStorageKey).mopifyversion;
         }
         else{
             this.refresh_token = null;
             this.expires = null;
             this.access_token = null;
+            this.mopifyversion = VersionManager.version;
         }
 
         // Get the login status from Spotify
@@ -54,6 +58,10 @@ angular.module("mopify.services.spotifylogin", [
 
         // Start token checking
         this.checkTokens();
+
+        // Check if old token which needs refresh after installing a new version
+        // This makes sure the new scopes are added to the toke
+        this.checkOldToken();
     }
 
     /**
@@ -157,7 +165,8 @@ angular.module("mopify.services.spotifylogin", [
                 localStorageService.set(tokenStorageKey, {
                     access_token: that.access_token,
                     refresh_token: that.refresh_token,
-                    expires_in: that.expires
+                    expires_in: that.expires,
+                    mopifyversion: VersionManager.version
                 });
 
                 deferred.resolve(result.response);
@@ -166,6 +175,23 @@ angular.module("mopify.services.spotifylogin", [
         }
 
         return deferred.promise;
+    };
+
+    /**
+     * Check if the current user's token passes the min software version
+     * This can be used when new scopes are added and the user has to give
+     * permisions for these scopes
+     */
+    SpotifyLogin.prototype.checkOldToken = function(){
+        var minversion = '1.2.0';
+        var compare = util.versionCompare(minversion, this.mopifyversion);
+        
+        // If the minversion is greater than the token's version
+        // we refresh the token
+        if(compare === 1 || compare === false){
+            this.disconnect();
+            this.login();
+        }
     };
 
     /**
