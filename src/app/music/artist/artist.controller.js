@@ -2,6 +2,9 @@
 
 angular.module('mopify.music.artist', [
     'ngRoute',
+    'mopify.services.spotifylogin',
+    'mopify.services.servicemanager',
+    'llNotifier',
     'spotify',
     'angular-echonest',
     'mopify.services.mopidy',
@@ -22,7 +25,7 @@ angular.module('mopify.music.artist', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("ArtistController", function ArtistController($scope, $routeParams, mopidyservice, Echonest, Spotify, stationservice){
+.controller("ArtistController", function ArtistController($scope, $routeParams, mopidyservice, Echonest, stationservice, notifier, Spotify, SpotifyLogin, ServiceManager){
 
     $scope.artistId = $routeParams.artistId;
 
@@ -31,6 +34,8 @@ angular.module('mopify.music.artist', [
         id: 'music',
         name: "Music"
     };
+
+    $scope.followingArtist = false;
 
     // Define the view
     $scope.setView = function(name){
@@ -55,6 +60,13 @@ angular.module('mopify.music.artist', [
                 break;
         }
     };
+
+    if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
+        // First get the album's tracks
+        Spotify.userFollowingContains('artist', $scope.artistId.replace('spotify:artist:', '')).then(function(response){
+            $scope.followingArtist = response[0];
+        });
+    }
     
     // Load artist data
     $scope.artist = {};
@@ -114,6 +126,38 @@ angular.module('mopify.music.artist', [
      */
     $scope.startStation = function(){
         stationservice.startFromSpotifyUri($scope.artistId);
+    };
+
+
+    /**
+     * Follow or unfollow the current artist on Spotify
+     */
+   $scope.toggleFollowArtist = function(){
+        if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
+
+            if($scope.followingArtist){
+                // unfollow
+                Spotify.unfollow('artist', $scope.artistId.replace('spotify:artist:', '')).then(function (data) {
+                    notifier.notify({type: "custom", template: "Artist succesfully unfollowed.", delay: 5000});
+                    $scope.followingArtist = false;
+                }, function(data){
+                    notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                });
+            }
+            else{
+                // follow
+                Spotify.follow('artist', $scope.artistId.replace('spotify:artist:', '')).then(function (data) {
+                    notifier.notify({type: "custom", template: "Artist succesfully followed.", delay: 5000});
+                    $scope.followingArtist = true;   
+                }, function(data){
+                    notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                });   
+            }
+
+        }
+        else{
+            notifier.notify({type: "custom", template: "Can't follow/unfollow artist. Are you connected with Spotify?", delay: 5000});   
+        }
     };
 
 

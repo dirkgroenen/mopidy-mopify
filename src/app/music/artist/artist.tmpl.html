@@ -20,6 +20,11 @@
                 <span class="text">Start station</span>
                 <i class="ss-icon ss-wifi"></i> 
             </div>
+            <div class="button white" ng-click="toggleFollowArtist()">
+                <span class="text">{{ (followingArtist) ? 'Unfollow' : 'follow' }} artist</span>
+                <i class="ss-icon ss-check" ng-show="!followingArtist"></i> 
+                <i class="ss-icon ss-delete" ng-show="followingArtist"></i> 
+            </div>
         </div>
     </div>
 

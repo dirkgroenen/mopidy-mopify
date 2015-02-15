@@ -1,4 +1,4 @@
-<div class="tileart" context-menu
+<div class="tileart" context-menu="onContextShow()"
      data-target="menu-{{ artist.uri }}"
      ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
     <div class="hoverwrap">
@@ -34,6 +34,10 @@
         <li class="divider"></li>
         <li ng-click="startStation()">
             Start station
+        </li>
+        <li class="divider"></li>
+        <li ng-click="toggleFollowArtist()" ng-show='showFollowArtist'>
+            {{ (followingArtist) ? 'Unfollow artist' : 'Follow artist' }}
         </li>
     </ul>
 </div>
