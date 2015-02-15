@@ -1,43 +1,49 @@
-<div class="tileart" context-menu
-     data-target="menu-{{ album.uri }}"
-     ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
-    <div class="hoverwrap">
-        <div class="iconwrap row">
-            <div class="icon small col-xs-4" title="Show album's tracks">
-                <a href="{{ tracklistUrl }}"><i class="ss-icon ss-list"></i></a>
-            </div>
-            <div class="icon col-xs-4" title="Play album">
-                <i class="ss-icon ss-play" ng-click="play()"></i>
-            </div>
-            <div class="icon small col-xs-4" title="Start new station for: {{ album.name }}">
-                <i class="ss-icon ss-wifi" ng-click="startStation()"></i>
+<div ng-show="visible">
+    <div class="tileart" context-menu="onContextShow()"
+         data-target="menu-{{ album.uri }}"
+         ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
+        <div class="hoverwrap">
+            <div class="iconwrap row">
+                <div class="icon small col-xs-4" title="Show album's tracks">
+                    <a href="{{ tracklistUrl }}"><i class="ss-icon ss-list"></i></a>
+                </div>
+                <div class="icon col-xs-4" title="Play album">
+                    <i class="ss-icon ss-play" ng-click="play()"></i>
+                </div>
+                <div class="icon small col-xs-4" title="Start new station for: {{ album.name }}">
+                    <i class="ss-icon ss-wifi" ng-click="startStation()"></i>
+                </div>
             </div>
         </div>
+
+        <img ng-src="{{ album.images[1].url }}" />
+    </div>
+    <div class="tileinfo clickable">
+        <a href="{{ tracklistUrl }}">
+            <span class="name">{{ album.name}}</span>
+        </a>
     </div>
 
-    <img ng-src="{{ album.images[1].url }}" />
-</div>
-<div class="tileinfo clickable">
-    <a href="{{ tracklistUrl }}">
-        <span class="name">{{ album.name}}</span>
-    </a>
-</div>
-
-<div class="contextmenu position-fixed" id="menu-{{ album.uri }}">
-    <ul class="dropdown-menu" role="menu">
-        <li ng-click="play()">
-            Play
-        </li>
-        <li ng-click="addToQueue()">
-            Add to queue
-        </li>
-        <li class="divider"></li>
-        <li ng-click="showPlaylists()">
-            Add to playlist
-        </li>
-        <li class="divider"></li>
-        <li ng-click="startStation()">
-            Start station
-        </li>
-    </ul>
+    <div class="contextmenu position-fixed" id="menu-{{ album.uri }}">
+        <ul class="dropdown-menu" role="menu">
+            <li ng-click="play()">
+                Play
+            </li>
+            <li ng-click="addToQueue()">
+                Add to queue
+            </li>
+            <li class="divider"></li>
+            <li ng-click="showPlaylists()">
+                Add to playlist
+            </li>
+            <li class="divider"></li>
+            <li ng-click="startStation()">
+                Start station
+            </li>
+            <li class="divider"></li>
+            <li ng-click="toggleSaveAlbum()" ng-show='showSaveAlbum'>
+                {{ (albumAlreadySaved) ? 'Remove album' : 'Save album' }}
+            </li>
+        </ul>
+    </div>
 </div>

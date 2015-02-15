@@ -1,4 +1,4 @@
-<div class="track" context-menu
+<div class="track" context-menu="onContextShow()"
     data-target="{{ track.uri || track.tlid }}"
     ng-class="{ 'highlight': highlight, 'expanded' : expanded, 'loading': track.loading }"
     ng-dblclick="play()"
@@ -42,6 +42,10 @@
         </li>
         <li ng-if="$parent.isowner" ng-click="removeFromPlaylist()">
             Remove from playlist
+        </li>
+        <li class="divider"></li>
+        <li ng-click="toggleSaveTrack()" ng-show='showSaveTrack'>
+            {{ (trackAlreadySaved) ? 'Remove track' : 'Save track' }}
         </li>
     </ul>
 </div>

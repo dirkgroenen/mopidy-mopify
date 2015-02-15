@@ -16,7 +16,7 @@ angular.module('mopify.music.playlists', [
  */
 .config(function($routeProvider) {
     $routeProvider.when("/music/playlists/:folder?", {
-        templateUrl: "music/playlists/playlists.tmpl.html",
+        templateUrl: "music/library/playlists/playlists.tmpl.html",
         controller: "PlaylistsController"
     });
 })

@@ -6,10 +6,13 @@ angular.module('mopify.widgets.directive.track', [
     "mopify.services.util",
     "mopify.services.playlistmanager",
     "ui.bootstrap",
+    "spotify",
+    'mopify.services.spotifylogin',
+    'mopify.services.servicemanager',
     "llNotifier"
 ])
 
-.directive('mopifyTrack', function($routeParams, $modal, mopidyservice, stationservice, util, notifier, PlaylistManager) {
+.directive('mopifyTrack', function mopifyTrack($routeParams, $modal, mopidyservice, stationservice, util, notifier, PlaylistManager, Spotify, SpotifyLogin, ServiceManager) {
 
     return {
         restrict: 'E',
@@ -22,6 +25,7 @@ angular.module('mopify.widgets.directive.track', [
         transclude: true,
         templateUrl: 'widgets/track.directive.tmpl.html',
         link: function(scope, element, attrs) {
+
             var uri = $routeParams.uri;
 
             // Copy so we have raw tracks again (otherwise mopidy will crash)
@@ -29,6 +33,9 @@ angular.module('mopify.widgets.directive.track', [
             var surrounding = angular.copy(scope.surrounding);
 
             scope.visible = true;
+
+            scope.showSaveTrack = false;
+            scope.trackAlreadySaved = false;
 
             scope.artistsString = function(){
                 return util.artistsToString(scope.track.artists, true);
@@ -123,6 +130,54 @@ angular.module('mopify.widgets.directive.track', [
                         notifier.notify({type: "custom", template: "Can't add track. Are you connected with Spotify and the owner if this playlist?", delay: 5000});
                     });
                 });
+            };
+
+            /*
+             * Save or remove the track to/from the user's library
+             */
+            scope.toggleSaveTrack = function(){
+                if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
+
+                    if(scope.trackAlreadySaved){
+                        // Remove
+                        Spotify.removeUserTracks(scope.track.uri).then(function (data) {
+                            notifier.notify({type: "custom", template: "Track succesfully removed.", delay: 5000});   
+                            scope.visible = false;
+
+                        }, function(data){
+                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                        });
+                    }
+                    else{
+                        // Save
+                        Spotify.saveUserTracks(scope.track.uri).then(function (data) {
+                            notifier.notify({type: "custom", template: "Track succesfully saved.", delay: 5000});   
+                        }, function(data){
+                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                        });   
+                    }
+
+                }
+                else{
+                    notifier.notify({type: "custom", template: "Can't add track. Are you connected with Spotify?", delay: 5000});   
+                }
+            };
+
+            /**
+             * On context show callback checks if the user is following the current track
+             * @return {[type]} [description]
+             */
+            scope.onContextShow = function(){
+                if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
+                    Spotify.userTracksContains(scope.track.uri).then(function (following) {
+                        scope.trackAlreadySaved = following[0];
+                    });
+
+                    scope.showSaveTrack = true;
+                }
+                else{
+                    scope.showSaveTrack = false;
+                }
             };
 
         }

@@ -26,7 +26,7 @@ angular.module('mopify.music.tracklist', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("TracklistController", function TracklistController($scope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager){
+.controller("TracklistController", function TracklistController($scope, $rootScope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager){
     // Grab params in var
     var uri = $routeParams.uri;
 
@@ -55,6 +55,11 @@ angular.module('mopify.music.tracklist', [
         $scope.coverImage = "./assets/images/tracklist-header.jpg";
     }
 
+    if(uri.indexOf("spotify:library:songs") > -1){
+        $scope.type = "My Music - Songs";    
+        $scope.coverImage = "./assets/images/tracklist-header.jpg";
+    }
+
     // Check if this is a playlist from the loggedin Spotify user
     if($scope.type == "Playlist"){
         $scope.isowner = false;
@@ -62,12 +67,21 @@ angular.module('mopify.music.tracklist', [
 
         Spotify.getCurrentUser().then(function(data){
             if(ownerid == data.id){
-                $scope.isowner = true;            }
+                $scope.isowner = true;            
+            }
         });
     }
 
     // Check if a name has been defined
-    $scope.name = ($routeParams.name !== undefined) ? $routeParams.name : ((uri.indexOf("mopidy:") > -1) ? "Current tracklist" : "");
+    if($routeParams.name !== undefined)
+        $scope.name = $routeParams.name;
+    else if(uri.indexOf("mopidy:") > -1)
+        $scope.name = "Current tracklist";
+    else if(uri.indexOf("spotify:library:songs") > -1)
+        $scope.name = "Your music: Songs";
+    else
+        $scope.name = "";
+
     $scope.tracks = [];
     $scope.currentPlayingTrack = {};
 
@@ -75,6 +89,16 @@ angular.module('mopify.music.tracklist', [
 
     if($scope.type == "Playlist"){
         loadSpotifyInfo();
+    }
+
+    // Load the user's library tracks is the type equals songs
+    if($scope.type == "My Music - Songs"){
+        
+        $rootScope.$on("mopify:spotify:connected", function(){
+            loadSpotifyLibraryTracks();
+        });
+
+        loadSpotifyLibraryTracks();
     }
 
     /**
@@ -159,6 +183,35 @@ angular.module('mopify.music.tracklist', [
             if(data.tl_track !== undefined)
                 $scope.currentPlayingTrack = data.tl_track.track;
         });
+    }
+
+    /**
+     * Load the user's Spotify Library tracks
+     * @param {int} offset the offset to load the track, will be zero if not defined
+     */
+    function loadSpotifyLibraryTracks(offset){
+        if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
+
+            if(offset === undefined)
+                offset = 0;
+
+            Spotify.getSavedUserTracks({
+                limit: 50,
+                offset: offset
+            }).then(function(response){
+
+                // Map all track from the response's items array
+                var tracks = _.map(response.items, function(item){
+                    return item.track;
+                });
+
+                // Concat with previous tracks
+                $scope.tracks = $scope.tracks.concat(tracks);
+
+                if(response.next !== null)
+                    loadSpotifyLibraryTracks(offset + 50);
+            });
+        }
     }
 
     /**

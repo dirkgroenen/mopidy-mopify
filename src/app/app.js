@@ -12,6 +12,8 @@ angular.module('mopify', [
     'mopify.music.artist',
     'mopify.music.playlists',
     'mopify.music.stations',
+    'mopify.music.library.albums',
+    'mopify.music.library.artists',
     'mopify.player',
     'mopify.player.controls',
     'mopify.player.seekbar',
@@ -37,7 +39,7 @@ angular.module('mopify', [
 
     SpotifyProvider.setClientId('b6b699a5595b406d9bfba11bee303aa4');
     SpotifyProvider.setRedirectUri('http://mopify.bitlabs.nl/auth/spotify/callback/');
-    SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
+    SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public user-library-read user-library-modify');
 
     $routeProvider.otherwise({
         redirectTo: '/discover/featured'
