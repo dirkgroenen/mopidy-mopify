@@ -359,6 +359,42 @@
         };
 
         /**
+          ====================== Following =====================
+         */
+        NgSpotify.prototype.follow = function (type, ids) {
+          return this.api('/me/following', 'PUT', { type: type, ids: ids }, null, {
+            'Authorization': 'Bearer ' + this.authToken
+          });
+        };
+
+        NgSpotify.prototype.unfollow = function (type, ids) {
+          return this.api('/me/following', 'DELETE', { type: type, ids: ids }, null, {
+            'Authorization': 'Bearer ' + this.authToken
+          });
+        };
+
+        NgSpotify.prototype.userFollowingContains = function (type, ids) {
+          return this.api('/me/following/contains', 'GET', { type: type, ids: ids }, null, {
+            'Authorization': 'Bearer ' + this.authToken
+          });
+        };
+
+        NgSpotify.prototype.followPlaylist = function (userId, playlistId, isPublic) {
+          return this.api('/users/' + userId + '/playlists/' + playlistId + '/followers', 'PUT', null, {
+            public: isPublic || null
+          }, {
+            'Authorization': 'Bearer ' + this.authToken,
+            'Content-Type': 'application/json'
+          });
+        };
+
+        NgSpotify.prototype.unfollowPlaylist = function (userId, playlistId) {
+          return this.api('/users/' + userId + '/playlists/' + playlistId + '/followers', 'DELETE', null, null, {
+            'Authorization': 'Bearer ' + this.authToken
+          });
+        };
+
+        /**
           ====================== Login =====================
          */
         NgSpotify.prototype.setAuthToken = function (authToken) {

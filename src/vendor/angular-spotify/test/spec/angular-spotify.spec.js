@@ -219,6 +219,26 @@ describe('angular-spotify', function () {
       expect(Spotify.getNewReleases).toBeDefined();
     });
 
+    it('should have a method follow()', function () {
+      expect(Spotify.follow).toBeDefined();
+    });
+
+    it('should have a method unfollow()', function () {
+      expect(Spotify.unfollow).toBeDefined();
+    });
+
+    it('should have a method userFollowingContains()', function () {
+      expect(Spotify.userFollowingContains).toBeDefined();
+    });
+
+    it('should have a method followPlaylist()', function () {
+      expect(Spotify.followPlaylist).toBeDefined();
+    });
+
+    it('should have a method unfollowPlaylist()', function () {
+      expect(Spotify.unfollowPlaylist).toBeDefined();
+    });
+
 
     describe('Spotify.api', function () {
       var $httpBackend;
@@ -1453,6 +1473,151 @@ describe('angular-spotify', function () {
           expect(result.albums).toBeDefined();
         });
 
+      });
+    });
+
+    describe('Follow', function () {
+      var $httpBackend;
+      var Spotify;
+
+      beforeEach(inject(function(_Spotify_, _$httpBackend_) {
+        Spotify = _Spotify_;
+        $httpBackend = _$httpBackend_;
+      }));
+
+      describe('Spotify.follow', function () {
+        it('should call the correct URL', function () {
+          spyOn(Spotify, 'api');
+
+          Spotify.setAuthToken('TESTING');
+
+          Spotify.follow('user', 'exampleuser01');
+
+          expect(Spotify.api).toHaveBeenCalled();
+          expect(Spotify.api).toHaveBeenCalledWith('/me/following', 'PUT', {
+            type: 'user',
+            ids: 'exampleuser01'
+          }, null, {
+            'Authorization': 'Bearer TESTING'
+          });
+        });
+
+        it('should call with multiple ids', function() {
+          spyOn(Spotify, 'api');
+
+          Spotify.setAuthToken('TESTING');
+
+          Spotify.follow('artist', '74ASZWbe4lXaubB36ztrGX,08td7MxkoHQkXnWAYD8d6Q');
+
+          expect(Spotify.api).toHaveBeenCalled();
+          expect(Spotify.api).toHaveBeenCalledWith('/me/following', 'PUT', {
+            type: 'artist',
+            ids: '74ASZWbe4lXaubB36ztrGX,08td7MxkoHQkXnWAYD8d6Q'
+          }, null, {
+            'Authorization': 'Bearer TESTING'
+          });
+        });
+      });
+
+      describe('Spotify.unfollow', function () {
+        it('should call the correct URL', function () {
+          spyOn(Spotify, 'api');
+
+          Spotify.setAuthToken('TESTING');
+
+          Spotify.unfollow('user', 'exampleuser01');
+
+          expect(Spotify.api).toHaveBeenCalled();
+          expect(Spotify.api).toHaveBeenCalledWith('/me/following', 'DELETE', {
+            type: 'user',
+            ids: 'exampleuser01'
+          }, null, {
+            'Authorization': 'Bearer TESTING'
+          });
+        });
+
+        it('should call with multiple ids', function() {
+          spyOn(Spotify, 'api');
+
+          Spotify.setAuthToken('TESTING');
+
+          Spotify.unfollow('artist', '74ASZWbe4lXaubB36ztrGX,08td7MxkoHQkXnWAYD8d6Q');
+
+          expect(Spotify.api).toHaveBeenCalled();
+          expect(Spotify.api).toHaveBeenCalledWith('/me/following', 'DELETE', {
+            type: 'artist',
+            ids: '74ASZWbe4lXaubB36ztrGX,08td7MxkoHQkXnWAYD8d6Q'
+          }, null, {
+            'Authorization': 'Bearer TESTING'
+          });
+        });
+      });
+
+      describe('Spotify.userFollowingContains', function() {
+        it('should call the correct URL', function () {
+          spyOn(Spotify, 'api');
+
+          Spotify.setAuthToken('TESTING');
+
+          Spotify.userFollowingContains('user', 'exampleuser01');
+
+          expect(Spotify.api).toHaveBeenCalled();
+          expect(Spotify.api).toHaveBeenCalledWith('/me/following/contains', 'GET', {
+            type: 'user',
+            ids: 'exampleuser01'
+          }, null, {
+            'Authorization': 'Bearer TESTING'
+          });
+        });
+      });
+
+      describe('Spotify.followPlaylist', function () {
+        it ('should call the correct URL', function () {
+          spyOn(Spotify, 'api');
+
+          Spotify.setAuthToken('TESTING');
+
+          Spotify.followPlaylist('jmperezperez', '2v3iNvBX8Ay1Gt2uXtUKUT');
+
+          expect(Spotify.api).toHaveBeenCalled();
+          expect(Spotify.api).toHaveBeenCalledWith('/users/jmperezperez/playlists/2v3iNvBX8Ay1Gt2uXtUKUT/followers', 'PUT', null, {
+            public: null
+          }, {
+            'Authorization': 'Bearer TESTING',
+            'Content-Type': 'application/json'
+          });
+        });
+
+        it('should be able to follow and set to public', function () {
+          spyOn(Spotify, 'api');
+
+          Spotify.setAuthToken('TESTING');
+
+          Spotify.followPlaylist('jmperezperez', '2v3iNvBX8Ay1Gt2uXtUKUT', true);
+
+          expect(Spotify.api).toHaveBeenCalled();
+          expect(Spotify.api).toHaveBeenCalledWith('/users/jmperezperez/playlists/2v3iNvBX8Ay1Gt2uXtUKUT/followers', 'PUT', null, {
+            public: true
+          }, {
+            'Authorization': 'Bearer TESTING',
+            'Content-Type': 'application/json'
+          });
+        });
+      });
+
+      describe('Spotify.unfollowPlaylist', function () {
+        it ('should call the correct URL', function () {
+          spyOn(Spotify, 'api');
+
+          Spotify.setAuthToken('TESTING');
+
+          Spotify.unfollowPlaylist('jmperezperez', '2v3iNvBX8Ay1Gt2uXtUKUT');
+
+          expect(Spotify.api).toHaveBeenCalled();
+          expect(Spotify.api).toHaveBeenCalledWith('/users/jmperezperez/playlists/2v3iNvBX8Ay1Gt2uXtUKUT/followers', 'DELETE', null, null, {
+            'Authorization': 'Bearer TESTING'
+          });
+        });
       });
     });
 

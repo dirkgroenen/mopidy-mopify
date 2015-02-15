@@ -1,5 +1,7 @@
 # angular-spotify [![Build Status](https://travis-ci.org/eddiemoore/angular-spotify.svg?branch=master)](https://travis-ci.org/eddiemoore/angular-spotify) [![Coverage Status](https://img.shields.io/coveralls/eddiemoore/angular-spotify.svg)](https://coveralls.io/r/eddiemoore/angular-spotify) [![devDependency Status](https://david-dm.org/eddiemoore/angular-spotify/dev-status.svg)](https://david-dm.org/eddiemoore/angular-spotify#info=devDependencies) [![Code Climate](https://codeclimate.com/github/eddiemoore/angular-spotify/badges/gpa.svg)](https://codeclimate.com/github/eddiemoore/angular-spotify)
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/eddiemoore/angular-spotify?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 angular service to connect to the [Spotify Web API](https://developer.spotify.com/web-api/)
 
 angular-spotify makes heavy use of promises throughout the service
@@ -48,7 +50,7 @@ Get Spotify catalog information about artists, albums, or tracks that match a ke
 ```javascript
 Spotify.search('Search Query', 'type', options);
 ```
-type - Required. A comma-separated list of item types to search across. Valid types are: album, artist, and track.
+type - Required. A comma-separated list of item types to search across. Valid types are: album, artist, playlist, and track.
 
 #####Options Object (Optional)
  - limit - Optional. The maximum number of objects to return. Default: 20. Minimum: 1. Maximum: 50. 
@@ -379,6 +381,77 @@ Spotify.getNewReleases({ country: "NL" }).then(function (data) {
 });
 ```
 
+###Follow
+These endpoints allow you manage the list of artists and users that a logged in user follows. Following and unfollowing requires the ```user-follow-modify``` scope. Check if Current User Follows requires the ```user-follow-read``` scope.
+
+####Follow Artists or Users
+Add the current user as a follower of one or more artists or other Spotify users.
+```javascript
+Spotify.follow('type', 'ids');
+```
+type: Required. either ```artist``` or ```user```
+Example:
+```javascript
+Spotify.follow('user', 'exampleuser01').then(function (data) {
+  console.log(data);
+});
+```
+
+####Unfollow Artists or Users
+Remove the current user as a follower of one or more artists or other Spotify users.
+```javascript
+Spotify.unfollow('type', 'ids');
+```
+type: Required. either ```artist``` or ```user```
+Example:
+```javascript
+Spotify.unfollow('user', 'exampleuser01').then(function (data) {
+  console.log(data);
+});
+```
+
+####Check if Current User Follows
+Check to see if the current user is following one or more artists or other Spotify users.
+```javascript
+Spotify.userFollowingContains('type', 'ids');
+```
+type: Required. either ```artist``` or ```user```
+ids: Required. comma-separated list.
+Example:
+```javascript
+Spotify.userFollowingContains('user', 'exampleuser01').then(function (data) {
+  console.log(data);
+});
+```
+
+####Follow a Playlist
+Add the current user as a follower of a playlist. Requires ```playlist-modify-public``` or ```playlist-modify-private``` scope to work.
+```javascript
+Spotify.followPlaylist('owner_id', 'playlist_id', isPublic);
+```
+owner_id: The Spotify user ID of the person who owns the playlist.
+playlist_id: The Spotify ID of the playlist. Any playlist can be followed, regardless of its public/private status, as long as you know its playlist ID.
+isPublic: Boolean (Optional), default true. If true the playlist will be included in user's public playlists, if false it will remain private.
+Example:
+```javascript
+Spotify.followPlaylist('jmperezperez', '2v3iNvBX8Ay1Gt2uXtUKUT', false).then(function (data) {
+  console.log(data);
+});
+```
+
+####Unfollow a Playlist
+Remove the current user as a follower of a playlist. Requires ```playlist-modify-public``` or ```playlist-modify-private``` scope to work.
+```javascript
+Spotify.unfollowPlaylist('owner_id', 'playlist_id', isPublic);
+```
+owner_id: The Spotify user ID of the person who owns the playlist.
+playlist_id: The Spotify ID of the playlist that is to be no longer followed.
+Example:
+```javascript
+Spotify.unfollowPlaylist('jmperezperez', '2v3iNvBX8Ay1Gt2uXtUKUT').then(function (data) {
+  console.log(data);
+});
+```
 
 ###User Profiles
 User needs to be logged in to gain access to user profiles
