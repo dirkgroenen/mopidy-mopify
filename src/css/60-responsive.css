@@ -134,6 +134,8 @@
         z-index: 1000;
         top: 0;
         left: -300px;
+        height: 100%;
+        overflow: auto;
         -webkit-transition: left .25s ease;
         -moz-transition: left .25s ease;
         -ms-transition: left .25s ease;
@@ -168,10 +170,15 @@
 
     #application #header.big{
         height: auto;
+        min-height: 50px;
     }
 
     #application #header.small{
         height: 50px;
+    }
+
+    #application #header.small .centertext{
+        display: none;
     }
 
     #application #header #featured .title{

@@ -2,6 +2,7 @@
     data-target="{{ track.uri || track.tlid }}"
     ng-class="{ 'highlight': highlight, 'expanded' : expanded, 'loading': track.loading }"
     ng-dblclick="play()"
+    hm-doubletap="play()"
     ng-show="visible">
 
     <div class="row" ng-class="{'nowplaying': ($parent.currentPlayingTrack.uri == track.uri)}">

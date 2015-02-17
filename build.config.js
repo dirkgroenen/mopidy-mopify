@@ -65,7 +65,9 @@ module.exports = {
             'src/vendor/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
             'src/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'src/vendor/angular-prompt/dist/angular-prompt.min.js',
-            'src/vendor/angular-toggle-switch/angular-toggle-switch.min.js'
+            'src/vendor/angular-toggle-switch/angular-toggle-switch.min.js',
+            'src/vendor/hammerjs/hammer.js',
+            'src/vendor/ryanmullins-angular-hammer/angular.hammer.js'
         ],
         css: [
             'src/vendor/html5-boilerplate/css/normalize.css',

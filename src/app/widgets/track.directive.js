@@ -7,9 +7,10 @@ angular.module('mopify.widgets.directive.track', [
     "mopify.services.playlistmanager",
     "ui.bootstrap",
     "spotify",
-    'mopify.services.spotifylogin',
-    'mopify.services.servicemanager',
-    "llNotifier"
+    "mopify.services.spotifylogin",
+    "mopify.services.servicemanager",
+    "llNotifier",
+    "hmTouchEvents"
 ])
 
 .directive('mopifyTrack', function mopifyTrack($routeParams, $modal, mopidyservice, stationservice, util, notifier, PlaylistManager, Spotify, SpotifyLogin, ServiceManager) {
