@@ -54,6 +54,12 @@ angular.module('mopify', [
 
     var defaultPageTitle = 'Mopify';
 
+    $scope.showmobilemenu = false;
+
+    $rootScope.$on("$routeChangeStart", function (event, next, current) {
+        $scope.showmobilemenu = false;
+    });
+
     // Set version in the rootscope
     $rootScope.mopifyversion = VersionManager.version;
 

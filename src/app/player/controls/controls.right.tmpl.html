@@ -1,12 +1,12 @@
 <div class="row">
     <div class="iconwrap">
-        <div class="col-xs-2">
+        <div class="col-sm-2 col-xs-6">
             <i class="ss-icon ss-shuffle" ng-class="{ 'active': isRandom }" ng-click="toggleShuffle();"></i>
         </div>
-        <div class="col-xs-2">
+        <div class="col-sm-2 col-xs-6">
             <i class="ss-icon ss-repeat" ng-class="{ 'active': isRepeat }" ng-click="toggleRepeat();"></i>
         </div>
-        <div class="col-xs-8">
+        <div class="col-sm-8 hidden-xs">
             <i class="ss-icon {{ volumeIcon }}"></i>
             <div class="volumebar" ng-click="volumebarMouseClick($event)" ng-mousedown="volumebarMouseDown($event)" ng-mouseup="volumebarMouseUp($event)" ng-mousemove="volumebarMouseMove($event)">
                 <div class="outer">
