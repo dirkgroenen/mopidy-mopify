@@ -110,11 +110,19 @@
 
 @media all and (max-width: 1023px){
     #application #player #seekbar{
-        display: none;
+        display: block;
+        width: 100%;
+        text-align: center;
+        float: none;
+        padding: 5px 0 0 0;
     }   
 
+    #application #player #seekbar .barwrap{
+        display: none;
+    }
+
     #application #player .controlwrap{
-        padding: 20px 20px 9px 20px;
+        padding: 10px 20px 9px 20px;
     }
 
     #application #player .controlwrap.left{

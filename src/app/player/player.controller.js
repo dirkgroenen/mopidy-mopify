@@ -9,10 +9,12 @@ angular.module('mopify.player', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerController", function PlayerController($scope, $timeout, Spotify, mopidyservice, History){
+.controller("PlayerController", function PlayerController($scope, $timeout, $window, Spotify, mopidyservice, History){
     $scope.trackTitle = "";
     $scope.trackArtist= "";
     $scope.playerBackground = "";
+
+    $scope.mobiledisplay = ($window.innerWidth < 1024) ? true : false;
 
     var historyaddtimeout = null;
 
