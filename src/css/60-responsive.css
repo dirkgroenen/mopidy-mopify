@@ -2,7 +2,7 @@
 /**
  * Responsive heights
  */
-@media all and (max-height: 780px){
+@media all and (max-height: 900px){
     #application #leftside #menu .block{
         margin: 0 0 20px 0;
     }
@@ -26,9 +26,14 @@
     #application #player #seekbar .trackname{
         margin-top: 12px;
     }
+    
+    #application #leftside #menu{
+        max-height: calc(100% - 180px);
+        overflow-y: auto;
+    }
 }
 
-@media all and (max-height: 700px){
+@media all and (max-height: 800px){
 
     #application #leftside #accounts .account,
     #application #leftside #accounts .account a,

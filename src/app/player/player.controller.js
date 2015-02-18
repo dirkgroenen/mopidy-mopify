@@ -22,13 +22,15 @@ angular.module('mopify.player', [
     $scope.$on('mopidy:state:online', function(){
         // Get the current track
         mopidyservice.getCurrentTrack().then(function(track){
-            if(track.name.indexOf("[loading]") > -1){
-                mopidyservice.lookup(track.uri).then(function(result){
-                    updatePlayerInformation(result[0]);
-                });
-            }
-            else{
-                updatePlayerInformation(track);    
+            if(track !== null && track !== undefined){
+                if(track.name.indexOf("[loading]") > -1){
+                    mopidyservice.lookup(track.uri).then(function(result){
+                        updatePlayerInformation(result[0]);
+                    });
+                }
+                else{
+                    updatePlayerInformation(track);    
+                }
             }
         });
 
@@ -45,7 +47,7 @@ angular.module('mopify.player', [
 
     // Update information on a new track 
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
-        if(data.tl_track !== undefined){
+        if(data.tl_track !== undefined && data.tl_track !== null){
             if(data.tl_track.track.name.indexOf("[loading]") > -1){
                 mopidyservice.lookup(data.tl_track.track.uri).then(function(result){
                     updatePlayerInformation(result[0]);
