@@ -8,19 +8,18 @@ Mopify is a web client for [Mopidy](https://github.com/mopidy/mopidy). Instead o
 Some of the features that are included in Mopify:
 - Discover the newest releases and featured playlists.
 - Get music recommendations based on the music you've listened to.
-- **Create and edit Spotify playlists**.
+- **Manage your Spotify Library (playlists, artists, albums, songs)***
 - Start music stations from artists, albums, tracks, playlists or your personal tasteprofile.
 
 At the moment Mopify is developed to work in combination with Mopidy-Spotify only. Depending on Mopify's popularity this may change in the future.
 
-![http://i.imgur.com/BTlAGEf.jpg](http://i.imgur.com/BTlAGEf.jpg)
+![http://i.imgur.com/lLTKjiQ.jpg](http://i.imgur.com/lLTKjiQ.jpg)
 
 ---------
 
 * [Installation](#installation)
  * [Updating](#updating)
 * [Getting started](#getting-started)
-* [TODO](#todo)
 * [Screenshots](#screenshots)
 * [Developing](#developing)
 * [Changelog](#changelog)
@@ -52,25 +51,16 @@ To get started with Mopify, check out the [Wiki](https://github.com/dirkgroenen/
 
 After you installed the Mopidy client you can use a modern browser (like Firefox or Chrome) to open it (Using your server IP and Mopidy port. For example: http://192.168.1.2:6680/mopify/. 
 
-##TODO
-Things that need to be done:
-- Changing the header images on the artist page to better quality ones
-- Changing the artist's biography page
-- Write tests
-- Make responsive and test on screens smaller than 1680 pixels
-
 ##Screenshots
-![http://i.imgur.com/BTlAGEf.jpg](http://i.imgur.com/BTlAGEf.jpg)
+![http://i.imgur.com/lLTKjiQ.jpg](http://i.imgur.com/lLTKjiQ.jpg)
 
-![http://i.imgur.com/jGCzHao.jpg](http://i.imgur.com/jGCzHao.jpg)
+![http://i.imgur.com/AQIJBbr.jpg](http://i.imgur.com/AQIJBbr.jpg)
+![http://i.imgur.com/t1PevJf.jpg](http://i.imgur.com/t1PevJf.jpg)
+![http://i.imgur.com/RyoV1Is.png](http://i.imgur.com/RyoV1Is.png)
+![http://i.imgur.com/U8iv9W4.png](http://i.imgur.com/U8iv9W4.png)
 
-![http://i.imgur.com/PDQC2JC.jpg](http://i.imgur.com/PDQC2JC.jpg)
-
-![http://i.imgur.com/xGrZeAL.png](http://i.imgur.com/xGrZeAL.png)
-
-![http://i.imgur.com/PYCHFGv.png](http://i.imgur.com/PYCHFGv.png)
-
-![http://i.imgur.com/7NYObgx.png](http://i.imgur.com/7NYObgx.png)
+![http://i.imgur.com/EvsM4Aa.png](http://i.imgur.com/EvsM4Aa.png)
+![http://i.imgur.com/w7GeZNv.png](http://i.imgur.com/w7GeZNv.png)
 
 ##Developing
 Mopify uses Nodejs, grunt and bower when developing. Make sure you've installed those programs when developing on Mopify. 
@@ -104,6 +94,19 @@ When you change the files in the ```/src/``` directory grunt will automatically 
 When you want to deploy you're changed version you have to run ```grunt package```. This will create the new Mopidy-Mopify web extension package.
 
 ##Changelog
+
+v1.2.0 (2015-02-18)
+------------------
+
+- Added first responsive pages (BETA). At the moment only focused and tested on Nexus 5
+
+- Added Spotify Library managing (Songs, Artists, Albums, Playlists)
+
+- Support for selecting multiple tracks
+
+- Some little bug fixes
+
+- Added Spotify token refresh button
 
 v1.1.6 (2015-02-3)
 ------------------
