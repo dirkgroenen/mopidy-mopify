@@ -237,6 +237,9 @@ angular.module('mopify.music.tracklist', [
                     loadSpotifyLibraryTracks(offset + 50);
             });
         }
+        else if(!ServiceManager.isEnabled("spotify")){
+            notifier.notify({type: "custom", template: "Please connect with the Spotify service first.", delay: 3000});
+        }
     }
 
     /**

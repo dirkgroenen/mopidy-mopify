@@ -188,7 +188,7 @@ angular.module("mopify.services.spotifylogin", [
         
         // If the minversion is greater than the token's version
         // we refresh the token
-        if(compare === 1 || compare === false){
+        if((compare === 1 || compare === false) && ServiceManager.isEnabled("spotify")){
             this.disconnect();
             this.login();
         }

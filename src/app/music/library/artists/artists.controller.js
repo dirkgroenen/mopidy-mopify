@@ -38,6 +38,9 @@ angular.module('mopify.music.library.artists', [
             loadSpotifyLibraryTracks();
         }
     }
+    else{
+        notifier.notify({type: "custom", template: "Please connect with the Spotify service first.", delay: 3000});
+    }
 
     /**
      * Load the user's Spotify Library tracks
