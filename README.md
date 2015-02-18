@@ -62,6 +62,7 @@ After you installed the Mopidy client you can use a modern browser (like Firefox
 ![http://i.imgur.com/ti0vQ2C.png](http://i.imgur.com/ti0vQ2C.png)
 ![http://i.imgur.com/Aj4fWNV.png](http://i.imgur.com/Aj4fWNV.png)
 ![http://i.imgur.com/GKkACG3.png](http://i.imgur.com/GKkACG3.png)
+![http://i.imgur.com/r665qFT.png](http://i.imgur.com/r665qFT.png)
 
 ##Developing
 Mopify uses Nodejs, grunt and bower when developing. Make sure you've installed those programs when developing on Mopify. 
