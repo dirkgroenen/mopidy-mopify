@@ -162,8 +162,12 @@ angular.module('mopify.widgets.directive.track', [
              * @param  {track} track
              */
             scope.removeFromQueue = function(){
+                var uris = _.map($rootScope.selectedtracks, function(track){
+                    return track.uri;
+                });
+                
                 // Remove from tracklist
-                mopidyservice.removeFromTracklist({'uri': [track.uri]});
+                mopidyservice.removeFromTracklist({'uri': uris});
             };
 
             /*
