@@ -35,6 +35,5 @@
   },
   "_source": "git://github.com/cgross/angular-prompt.git",
   "_target": "~1.1.0",
-  "_originalSource": "angular-prompt",
-  "_direct": true
+  "_originalSource": "angular-prompt"
 }
