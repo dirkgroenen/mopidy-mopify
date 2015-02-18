@@ -13,7 +13,7 @@ angular.module('mopify.widgets.directive.track', [
     "hmTouchEvents"
 ])
 
-.directive('mopifyTrack', function mopifyTrack($routeParams, $modal, mopidyservice, stationservice, util, notifier, PlaylistManager, Spotify, SpotifyLogin, ServiceManager) {
+.directive('mopifyTrack', function mopifyTrack($routeParams, $rootScope, $modal, mopidyservice, stationservice, util, notifier, PlaylistManager, Spotify, SpotifyLogin, ServiceManager) {
 
     return {
         restrict: 'E',
@@ -35,6 +35,9 @@ angular.module('mopify.widgets.directive.track', [
 
             scope.visible = true;
 
+            scope.selected = false;
+            scope.multipleselected = true;
+
             scope.showSaveTrack = false;
             scope.trackAlreadySaved = false;
 
@@ -46,34 +49,104 @@ angular.module('mopify.widgets.directive.track', [
                 return util.timeFromMilliSeconds(scope.track.length || scope.track.duration_ms);
             };
 
-            /*
-             * Play the album            
+            /**
+             * Select the current track
              */
-            scope.play = function(){
-                if(track.__model__ == "Track"){
-                    mopidyservice.playTrack(track, surrounding);    
+            scope.selectTrack = function(event){
+                if(event.ctrlKey === true){
+                    if(scope.selected){
+                        $rootScope.selectedtracks = _.without($rootScope.selectedtracks, _.findWhere($rootScope.selectedtracks, { uri: track.uri }));
+                    }
+                    else{
+                        $rootScope.selectedtracks.push(track);    
+                    }
+                    
                 }
                 else{
-                    var clickedindex = 0;
-
-                    _.each(surrounding, function(iTrack, index){
-                        if(track.uri == iTrack.uri){
-                            clickedindex = index;
-                            return;
-                        }
-                    });
-
-                    // Convert spotify tracks to mopidy tracks
-                    var surroundinguris = _.map(surrounding, function(track){
-                        return track.uri;
-                    });
-
-                    // Get a list of all the urls and play it
-                    mopidyservice.findExact({ uri: surroundinguris }).then(function(data){
-                        var tracks = data[0].tracks;
-                        mopidyservice.playTrack(tracks[clickedindex], tracks);
-                    });
+                    $rootScope.selectedtracks = [track];
                 }
+            };
+
+            /**
+             * Watch the rootscope.selectedtracks for changes
+             * and check if the current track is still selected
+             */
+            scope.$watch(function() {
+                return $rootScope.selectedtracks;
+            }, function() {
+                var found = _.findWhere($rootScope.selectedtracks, { uri: track.uri });
+                
+                if(found !== undefined)
+                    scope.selected = true;
+                else 
+                    scope.selected = false;
+            }, true);
+
+            /*
+             * Play the track            
+             */
+            scope.play = function(){
+                var clickedindex = 0;
+                var surroundinguris = [];
+
+                /**
+                 * Check if this is the only selected track and play it
+                 */
+                if($rootScope.selectedtracks.length === 1){
+                    if(track.__model__ == "Track"){
+                        mopidyservice.playTrack(track, surrounding);    
+                    }
+                    else{
+                        _.each(surrounding, function(iTrack, index){
+                            if(track.uri == iTrack.uri){
+                                clickedindex = index;
+                                return;
+                            }
+                        });
+
+                        // Convert spotify tracks to mopidy tracks
+                        surroundinguris = _.map(surrounding, function(track){
+                            return track.uri;
+                        });
+
+                        // Get a list of all the urls and play it
+                        mopidyservice.findExact({ uri: surroundinguris }).then(function(data){
+                            var tracks = data[0].tracks;
+                            mopidyservice.playTrack(tracks[clickedindex], tracks);
+                        });
+                    }    
+                }
+                else{
+                    // Check if all the tracks are Mopidy tracks
+                    var reject = _.reject($rootScope.selectedtracks, function(track){
+                        return track.__model__ == "Track";
+                    });
+
+                    // If the reject array is empty we can directly parse the tracks to mopidy
+                    // Otherwise we have to convert them to Mopidy tracks and parse them
+                    if(reject.length === 0){
+                        mopidyservice.playTrack(track, $rootScope.selectedtracks);
+                    }
+                    else{
+                        _.each($rootScope.selectedtracks, function(iTrack, index){
+                            if(track.uri == iTrack.uri){
+                                clickedindex = index;
+                                return;
+                            }
+                        });
+
+                        // Convert spotify tracks to mopidy tracks
+                        surroundinguris = _.map($rootScope.selectedtracks, function(track){
+                            return track.uri;
+                        });
+
+                        // Get a list of all the urls and play it
+                        mopidyservice.findExact({ uri: surroundinguris }).then(function(data){
+                            var tracks = data[0].tracks;
+                            mopidyservice.playTrack(tracks[clickedindex], tracks);
+                        });
+                    }
+                }                
             };
             
             scope.startStation = function(){
@@ -81,7 +154,7 @@ angular.module('mopify.widgets.directive.track', [
             };
 
             scope.addToQueue = function(){
-                mopidyservice.addToTracklist({ uri: scope.track.uri });
+                mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks });
             };
 
             /**
@@ -179,6 +252,26 @@ angular.module('mopify.widgets.directive.track', [
                 else{
                     scope.showSaveTrack = false;
                 }
+
+                /**
+                 * Check if the current scope is already selected, otherwise clear the previous selected tracks
+                 */
+                if(!scope.selected){
+                    $rootScope.selectedtracks = [track];
+                }
+
+                if($rootScope.selectedtracks.length > 1)
+                    scope.multipleselected = true;
+                else
+                    scope.multipleselected = false;
+            };
+
+            /**
+             * Remove selected on context menu close
+             */
+            scope.onContextClose = function(){
+                if($rootScope.selectedtracks.length === 1)
+                    scope.selected = false;
             };
 
         }

@@ -1083,6 +1083,7 @@ img[src=""] {
     background-color: white !important;
 }
 
+#application #overview .pagecontent #tracklist .track.selected,
 #application #overview .pagecontent #tracklist .track:hover{
     background-color: #f2f2f2;
 }

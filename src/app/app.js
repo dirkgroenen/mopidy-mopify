@@ -56,8 +56,12 @@ angular.module('mopify', [
 
     $scope.showmobilemenu = false;
 
+    $rootScope.selectedtracks = []; 
+
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         $scope.showmobilemenu = false;
+
+        $rootScope.selectedtracks = []; 
     });
 
     // Set version in the rootscope

@@ -1,8 +1,8 @@
-<div class="track" context-menu="onContextShow()"
+<div class="track" context-menu="onContextShow()" context-menu-close="onContextClose()"
     data-target="{{ track.uri || track.tlid }}"
-    ng-class="{ 'highlight': highlight, 'expanded' : expanded, 'loading': track.loading }"
-    ng-dblclick="play()"
+    ng-class="{ 'highlight': highlight, 'expanded' : expanded, 'loading': track.loading, 'selected': selected }"
     hm-doubletap="play()"
+    ng-click="selectTrack($event)"
     ng-show="visible">
 
     <div class="row" ng-class="{'nowplaying': ($parent.currentPlayingTrack.uri == track.uri)}">
@@ -24,11 +24,11 @@
 <div class="contextmenu position-fixed" id="{{ track.uri || track.tlid }}">
     <ul class="dropdown-menu" role="menu">
         <li ng-click="play()">
-            Play
+            Play track<span ng-show="multipleselected">s</span>
         </li>
         <li class="divider"></li>
         <li ng-click="addToQueue()">
-            Add to queue
+            Add track<span ng-show="multipleselected">s</span> to queue
         </li>
         <li ng-show="$parent.type == 'tracklist'" ng-click="removeFromQueue()">
             Remove from queue
