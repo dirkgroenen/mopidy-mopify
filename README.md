@@ -60,6 +60,7 @@ After you installed the Mopidy client you can use a modern browser (like Firefox
 ![http://i.imgur.com/U8iv9W4.png](http://i.imgur.com/U8iv9W4.png)
 
 ![http://i.imgur.com/EvsM4Aa.png](http://i.imgur.com/EvsM4Aa.png)
+
 ![http://i.imgur.com/w7GeZNv.png](http://i.imgur.com/w7GeZNv.png)
 
 ##Developing
