@@ -117,6 +117,11 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
+v1.2.2 (2015-02-19)
+------------------
+
+- Set consume mode on true by default
+
 v1.2.1 (2015-02-19)
 ------------------
 
