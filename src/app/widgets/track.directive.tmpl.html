@@ -26,6 +26,9 @@
         <li ng-click="play()">
             Play track<span ng-show="multipleselected">s</span>
         </li>
+        <li ng-click="addToQueue({ next: true })">
+            Play track<span ng-show="multipleselected">s</span> next
+        </li>
         <li class="divider"></li>
         <li ng-click="addToQueue()">
             Add track<span ng-show="multipleselected">s</span> to queue
@@ -45,8 +48,8 @@
             Remove from playlist
         </li>
         <li class="divider"></li>
-        <li ng-click="toggleSaveTrack()" ng-show='showSaveTrack'>
-            {{ (trackAlreadySaved) ? 'Remove track' : 'Save track' }}
+        <li ng-click="toggleSaveTrack()" ng-show='showSaveTrack && !multipleselected'>
+            {{ (trackAlreadySaved) ? 'Remove track from library' : 'Save track in library' }}
         </li>
     </ul>
 </div>

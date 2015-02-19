@@ -153,8 +153,24 @@ angular.module('mopify.widgets.directive.track', [
                 stationservice.startFromSpotifyUri(scope.track.uri);
             };
 
-            scope.addToQueue = function(){
-                mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks });
+            /**
+             * Add selected tracks in the queue
+             * @param {object} options object
+             */
+            scope.addToQueue = function(useroptions){
+                var options = {
+                    next: false
+                };
+                angular.extend(options, useroptions);
+                
+                // Check the position where to add the tracks
+                if(options.next){
+                    mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks, at_position: 1 });
+                }
+                else{
+                    mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks });    
+                }
+                
             };
 
             /**
@@ -168,6 +184,9 @@ angular.module('mopify.widgets.directive.track', [
                 
                 // Remove from tracklist
                 mopidyservice.removeFromTracklist({'uri': uris});
+
+                // Hide tracks
+                scope.visible = false;
             };
 
             /*
