@@ -165,12 +165,19 @@ angular.module('mopify.widgets.directive.track', [
                 
                 // Check the position where to add the tracks
                 if(options.next){
-                    mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks, at_position: 1 });
+                    mopidyservice.setRandom(false);
+
+                    mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks, at_position: 1 }).then(function(){
+                        // Broadcast event
+                        $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
+                    });
                 }
                 else{
-                    mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks });    
+                    mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks }).then(function(){
+                        // Broadcast event
+                        $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
+                    });
                 }
-                
             };
 
             /**
@@ -183,10 +190,13 @@ angular.module('mopify.widgets.directive.track', [
                 });
                 
                 // Remove from tracklist
-                mopidyservice.removeFromTracklist({'uri': uris});
+                mopidyservice.removeFromTracklist({ tracks: $rootScope.selectedtracks });
 
                 // Hide tracks
                 scope.visible = false;
+
+                // Broadcast event
+                $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
             };
 
             /*
