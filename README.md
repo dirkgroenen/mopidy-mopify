@@ -122,6 +122,8 @@ v1.2.1 (2015-02-19)
 
 - Fixed double albums in library [#47](https://github.com/dirkgroenen/mopidy-mopify/issues/47)
 
+- Added 'Add next in queue' option [#49](https://github.com/dirkgroenen/mopidy-mopify/issues/49)
+
 v1.2.0 (2015-02-18)
 ------------------
 
