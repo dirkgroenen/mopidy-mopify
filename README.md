@@ -117,6 +117,11 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
+v1.2.1 (2015-02-19)
+------------------
+
+- Fixed double albums in library [#47](https://github.com/dirkgroenen/mopidy-mopify/issues/47)
+
 v1.2.0 (2015-02-18)
 ------------------
 
