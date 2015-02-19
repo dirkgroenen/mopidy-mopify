@@ -317,6 +317,10 @@ angular.module('mopify.services.mopidy', [
             return wrapMopidyFunc("mopidy.playback.next", this)();
         },
 
+        setConsume: function(){
+            return wrapMopidyFunc("mopidy.tracklist.setConsume", this)([ true ]);
+        },
+
         getRandom: function () {
             return wrapMopidyFunc("mopidy.tracklist.getRandom", this)();
         },
