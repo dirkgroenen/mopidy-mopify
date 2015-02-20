@@ -33,7 +33,7 @@ angular.module('mopify', [
     'ErrorCatcher'
 ])
 
-.config(function($routeProvider, localStorageServiceProvider, EchonestProvider, SpotifyProvider){
+.config(function($routeProvider, $httpProvider, localStorageServiceProvider, EchonestProvider, SpotifyProvider){
     localStorageServiceProvider.setPrefix("mopify");
     EchonestProvider.setApiKey("UVUDDM7M0S5MWNQFV");
 
@@ -44,6 +44,8 @@ angular.module('mopify', [
     $routeProvider.otherwise({
         redirectTo: '/discover/featured'
     });
+
+    $httpProvider.interceptors.push('SpotifyAuthenticationIntercepter');
 })
 
 .controller("AppController", function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier, VersionManager, localStorageService){

@@ -72,4 +72,11 @@ angular.module("mopify.account.services.spotify", [
             SpotifyLogin.disconnect();
         }
     });
+
+    /**
+     * Collect user data on spotify:connected message
+     */
+    $scope.$on("mopify:spotify:connected", function(){
+        collectdata();
+    });
 });

@@ -324,4 +324,42 @@ angular.module("mopify.services.spotifylogin", [
     });
 
     return spotifyLogin;
+})
+
+/*
+ * Authentication Intercepter which checks spotify's requests results for a 401 error
+ */
+.factory('SpotifyAuthenticationIntercepter', function SpotifyAuthenticationIntercepter($q, $rootScope, $injector) { 
+    "use strict";
+    var spotifyErrors = 0;
+    var retrystarted = false;
+
+    var responseInterceptor = {
+        responseError: function(response) {
+            if(response.status === 401 && response.config.url == "https://api.spotify.com/v1/me"){
+                spotifyErrors++;
+                
+                if(spotifyErrors >= 3 && !retrystarted){
+                    retrystarted = true;
+
+                    /**
+                     * Disconnect from Spotify, login, check the status and return the original response
+                     * and broadcast the spotify:connected event
+                     */
+                    $injector.get('SpotifyLogin').disconnect();
+                    $injector.get('SpotifyLogin').login().then(function(){
+                        $injector.get('SpotifyLogin').getLoginStatus().then(function(resp){
+                            $rootScope.$broadcast("mopify:spotify:connected");
+                            return response;
+                        }); 
+                    });
+                }
+
+                return $q.reject(response);
+            }
+        }
+    };
+
+    return responseInterceptor;
 });
+
