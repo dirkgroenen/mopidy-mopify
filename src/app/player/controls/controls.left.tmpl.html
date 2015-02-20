@@ -4,13 +4,13 @@
             <a href="#/music/tracklist/mopidy:current"><i class="ss-icon ss-list"></i></a>
         </div>
         <div class="col-xs-3">
-            <i class="ss-icon ss-navigateleft" ng-click="prev();"></i>
+            <i class="ss-icon ss-navigateleft" ng-click="prev();" hotkey="{'ctrl+left': prev}"></i>
         </div>
         <div class="col-xs-3">
-            <i class="ss-icon {{ stateIcon }}" ng-click="playpause();"></i>
+            <i class="ss-icon {{ stateIcon }}" ng-click="playpause();" hotkey="{space: playpause}"></i>
         </div>
         <div class="col-xs-3">
-            <i class="ss-icon ss-navigateright" ng-click="next();"></i>
+            <i class="ss-icon ss-navigateright" ng-click="next();" hotkey="{'ctrl+right': next}"></i>
         </div>
     </div>
 </div>

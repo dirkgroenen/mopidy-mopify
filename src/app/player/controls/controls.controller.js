@@ -8,7 +8,7 @@ angular.module('mopify.player.controls', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerControlsController", function PlayerControlsController($scope, mopidyservice, stationservice){
+.controller("PlayerControlsController", function PlayerControlsController($scope, $rootScope, mopidyservice, stationservice){
     $scope.volume = 0;
     $scope.isRandom = false;
     $scope.isPlaying = false;
@@ -57,14 +57,21 @@ angular.module('mopify.player.controls', [
     });
 
     $scope.next = function(){
-        mopidyservice.next();
+        mopidyservice.next().then(function(data){
+            $rootScope.$broadcast("mopify:player:updatePlayerInformation");  
+        });
     };
 
     $scope.prev = function(){
-        mopidyservice.previous();
+        mopidyservice.previous().then(function(data){
+            $rootScope.$broadcast("mopify:player:updatePlayerInformation");  
+        });
     };
 
-    $scope.playpause = function(){
+    $scope.playpause = function(event){
+        if(event !== undefined)
+            event.preventDefault();
+
         mopidyservice.getState().then(function(state){
             if(state === 'playing'){
                 mopidyservice.pause();
@@ -112,6 +119,16 @@ angular.module('mopify.player.controls', [
             $scope.volume = volume;
             mopidyservice.setVolume(volume);
         }
+    };
+
+    $scope.raiseVolume = function(event){
+        event.preventDefault();
+        $scope.volume = ($scope.volume + 5 <= 95) ? $scope.volume + 5 : 100;
+    };
+
+    $scope.lowerVolume = function(event){
+        event.preventDefault();
+        $scope.volume = ($scope.volume - 5 >= 5) ? $scope.volume - 5 : 0;
     };
 
     $scope.toggleShuffle = function(){

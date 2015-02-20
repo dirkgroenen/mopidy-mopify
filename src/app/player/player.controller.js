@@ -9,7 +9,7 @@ angular.module('mopify.player', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerController", function PlayerController($scope, $timeout, $interval, $window, Spotify, mopidyservice, History){
+.controller("PlayerController", function PlayerController($scope, $rootScope, $timeout, $interval, $window, Spotify, mopidyservice, History){
     $scope.trackTitle = "";
     $scope.trackArtist= "";
     $scope.playerBackground = "";
@@ -47,19 +47,7 @@ angular.module('mopify.player', [
         // Start an interval which checks the current playing track every
         // 15 seconds
         $interval(function(){
-            mopidyservice.getCurrentTrack().then(function(track){
-                console.log(track);
-                if(track !== null && track !== undefined){
-                    if(track.name.indexOf("[loading]") > -1){
-                        mopidyservice.lookup(track.uri).then(function(result){
-                            updatePlayerInformation(result[0]);
-                        });
-                    }
-                    else{
-                        updatePlayerInformation(track);    
-                    }
-                }
-            });
+            $rootScope.$broadcast('mopify:player:updatePlayerInformation');  
         }, 15000);
     });
 
@@ -75,6 +63,24 @@ angular.module('mopify.player', [
                 updatePlayerInformation(data.tl_track.track);
             }
         }
+    });
+
+    // Update the player's track information by fetching the track
+    // from mopidy
+    $scope.$on('mopify:player:updatePlayerInformation', function() {
+        console.log("fupdate");
+        mopidyservice.getCurrentTrack().then(function(track){
+            if(track !== null && track !== undefined){
+                if(track.name.indexOf("[loading]") > -1){
+                    mopidyservice.lookup(track.uri).then(function(result){
+                        updatePlayerInformation(result[0]);
+                    });
+                }
+                else{
+                    updatePlayerInformation(track);    
+                }
+            }
+        });
     });
 
     // Listen for messages
