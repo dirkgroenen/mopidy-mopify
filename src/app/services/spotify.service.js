@@ -357,6 +357,8 @@ angular.module("mopify.services.spotifylogin", [
 
                 return $q.reject(response);
             }
+
+            return response;
         }
     };
 

@@ -74,7 +74,7 @@ angular.module("mopify.services.servicemanager", [
 
         // Broadcast this change
         $rootScope.$broadcast("mopify:services:enabled", service);
-
+        
         // Set default settings if defined
         if(service.defaultSettings !== undefined){
             Settings.set(servicename, service.defaultSettings);
