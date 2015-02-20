@@ -69,10 +69,7 @@ angular.module('mopify.player.controls', [
         });
     };
 
-    $scope.playpause = function(event){
-        if(event !== undefined)
-            event.preventDefault();
-
+    $scope.playpause = function(){
         mopidyservice.getState().then(function(state){
             if(state === 'playing'){
                 mopidyservice.pause();
@@ -122,13 +119,11 @@ angular.module('mopify.player.controls', [
         }
     };
 
-    $scope.raiseVolume = function(event){
-        event.preventDefault();
+    $scope.raiseVolume = function(){
         $scope.volume = ($scope.volume + 5 <= 95) ? $scope.volume + 5 : 100;
     };
 
-    $scope.lowerVolume = function(event){
-        event.preventDefault();
+    $scope.lowerVolume = function(){
         $scope.volume = ($scope.volume - 5 >= 5) ? $scope.volume - 5 : 0;
     };
 
