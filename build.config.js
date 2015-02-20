@@ -67,14 +67,16 @@ module.exports = {
             'src/vendor/angular-prompt/dist/angular-prompt.min.js',
             'src/vendor/angular-toggle-switch/angular-toggle-switch.min.js',
             'src/vendor/hammerjs/hammer.js',
-            'src/vendor/ryanmullins-angular-hammer/angular.hammer.js'
+            'src/vendor/ryanmullins-angular-hammer/angular.hammer.js',
+            'src/vendor/angular-hotkeys/build/hotkeys.js'
         ],
         css: [
             'src/vendor/html5-boilerplate/css/normalize.css',
             'src/vendor/html5-boilerplate/css/main.css',
             'src/vendor/angular-loading-bar/src/loading-bar.css',
             'src/vendor/angular-notifier/dist/angular-notifier.css',
-            'src/vendor/angular-toggle-switch/angular-toggle-switch.css'
+            'src/vendor/angular-toggle-switch/angular-toggle-switch.css',
+            'src/vendor/angular-hotkeys/build/hotkeys.css'
         ],
         assets: [
         ],

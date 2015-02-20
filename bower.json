@@ -20,6 +20,7 @@
     "ngInfiniteScroll": "~1.2.0",
     "angular-prompt": "~1.1.0",
     "angular-toggle-switch": "~1.0.0",
-    "ryanmullins-angular-hammer": "~2.1.10"
+    "ryanmullins-angular-hammer": "~2.1.10",
+    "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.5"
   }
 }
