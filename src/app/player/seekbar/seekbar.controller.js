@@ -8,7 +8,7 @@ angular.module('mopify.player.seekbar', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerSeekbarController", function PlayerSeekbarController($scope, $interval, mopidyservice, util){
+.controller("PlayerSeekbarController", function PlayerSeekbarController($scope, $interval, $q, mopidyservice, util){
     // Private vars
     var isSeeking = false;
     var checkPositionInterval;
@@ -87,20 +87,44 @@ angular.module('mopify.player.seekbar', [
         }, 1000);
     }
 
+    /**
+     * Get the length from the track
+     */
     function getTrackLength(){
+        getCurrentTrack().then(function(track){
+            trackLength = track.length;
+            $scope.timeTotal = util.timeFromMilliSeconds(trackLength);
+
+            checkTimePosition();
+
+            // Start interval
+            $interval.cancel(checkPositionInterval);
+            checkPositionInterval = $interval(function() {
+                checkTimePosition();
+            }, 10000);                
+        });
+    }
+
+    /**
+     * Get the current track or lookup the track if it's loading
+     */
+    function getCurrentTrack(){
+        var deferred = $q.defer();
+
         mopidyservice.getCurrentTrack().then(function(track){
             if(track !== null){
-                trackLength = track.length;
-                $scope.timeTotal = util.timeFromMilliSeconds(trackLength);
-
-                checkTimePosition();
-
-                // Start interval
-                checkPositionInterval = $interval(function() {
-                    checkTimePosition();
-                }, 10000);                
+                if(track.name.indexOf("[loading]") > -1){
+                    mopidyservice.lookup(track.uri).then(function(resp){
+                        return deferred.resolve(resp[0]);
+                    });
+                }
+                else{
+                    return deferred.resolve(track);
+                }
             }
         });
+
+        return deferred.promise;
     }
 
     $scope.seekbarMouseClick = function(event){

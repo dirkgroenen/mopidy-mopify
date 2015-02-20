@@ -17,6 +17,7 @@ angular.module('mopify.player', [
     $scope.mobiledisplay = ($window.innerWidth < 1024) ? true : false;
 
     var historyaddtimeout = null;
+    var previousTrackUri = null;
 
     // If Mopidy is online we collect the init data about playback, volume and shuffle mode
     $scope.$on('mopidy:state:online', function(){
@@ -94,21 +95,28 @@ angular.module('mopify.player', [
      */
     function updatePlayerInformation(track){
         if(track !== undefined && track !== null){
-            $scope.trackArtist = track.artists[0].name;
-            $scope.trackTitle = track.name;
+            if(track.uri !== previousTrackUri){
+                $scope.trackArtist = track.artists[0].name;
+                $scope.trackTitle = track.name;
 
-            // Get the background image from Spotify
-            Spotify.getTrack(track.uri).then(function (data) {
-                $scope.playerBackground = data.album.images[0].url;
+                console.log("call");
 
-                // Clear previous timeout and start new timer
-                // When timeout clears the current track is added to the history
-                $timeout.cancel(historyaddtimeout);
-                historyaddtimeout = $timeout(function(){
-                    // Add to history
-                    addToHistory(track, data.album.images);
-                }, 10000);
-            });
+                // Get the background image from Spotify
+                Spotify.getTrack(track.uri).then(function (data) {
+                    $scope.playerBackground = data.album.images[0].url;
+
+                    // Clear previous timeout and start new timer
+                    // When timeout clears the current track is added to the history
+                    $timeout.cancel(historyaddtimeout);
+                    historyaddtimeout = $timeout(function(){
+                        // Add to history
+                        addToHistory(track, data.album.images);
+                    }, 10000);
+                });
+
+                // Set uri
+                previousTrackUri = track.uri;
+            }
         }
     }
 
