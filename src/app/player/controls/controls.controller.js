@@ -2,13 +2,14 @@
 
 angular.module('mopify.player.controls', [
     'mopify.services.mopidy',
-    'mopify.services.station'
+    'mopify.services.station',
+    'cfp.hotkeys'
 ])
 
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerControlsController", function PlayerControlsController($scope, $rootScope, mopidyservice, stationservice){
+.controller("PlayerControlsController", function PlayerControlsController($scope, $rootScope, mopidyservice, stationservice, hotkeys){
     $scope.volume = 0;
     $scope.isRandom = false;
     $scope.isPlaying = false;
@@ -140,5 +141,65 @@ angular.module('mopify.player.controls', [
         $scope.isRepeat = !$scope.isRepeat;
         mopidyservice.setRepeat($scope.isRepeat);
     };
+
+    /**
+     * Bind the shortcuts
+     */
+    hotkeys.add({
+        combo: 'ctrl+left',
+        description: 'Play previous track',
+        callback: function(event, hotkey) {
+            event.preventDefault();
+            $scope.prev();
+        }
+    });
+    hotkeys.add({
+        combo: 'ctrl+right',
+        description: 'Play the next track',
+        callback: function(event, hotkey) {
+            event.preventDefault();
+            $scope.next();
+        }
+    });
+    hotkeys.add({
+        combo: 'space',
+        description: 'Play/Pause',
+        callback: function(event, hotkey) {
+            event.preventDefault();
+            $scope.playpause();
+        }
+    });
+    hotkeys.add({
+        combo: 'ctrl+up',
+        description: 'Raise volume',
+        callback: function(event, hotkey) {
+            event.preventDefault();
+            $scope.raiseVolume();
+        }
+    });
+    hotkeys.add({
+        combo: 'ctrl+down',
+        description: 'Lower volume',
+        callback: function(event, hotkey) {
+            event.preventDefault();
+            $scope.lowerVolume();
+        }
+    });
+    hotkeys.add({
+        combo: 's',
+        description: 'Toggle shuffle mode',
+        callback: function(event, hotkey) {
+            event.preventDefault();
+            $scope.toggleShuffle();
+        }
+    });
+    hotkeys.add({
+        combo: 'r',
+        description: 'Toggle repeat mode',
+        callback: function(event, hotkey) {
+            event.preventDefault();
+            $scope.toggleRepeat();
+        }
+    });
 
 });

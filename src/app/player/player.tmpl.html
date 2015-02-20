@@ -2,8 +2,8 @@
     <img ng-src="{{ playerBackground }}">
 </div>
 
-<div class="row">
-    <div class="controlwrap column left" ng-controller="PlayerControlsController" ng-if="!mobiledisplay">
+<div class="row" ng-controller="PlayerControlsController">
+    <div class="controlwrap column left"  ng-if="!mobiledisplay">
         <ng-include src="'player/controls/controls.left.tmpl.html'"></ng-include>
     </div>
     <div class="seekwrap column" id="seekbar">
@@ -14,10 +14,10 @@
             <ng-include src="'player/seekbar/seekbar.tmpl.html'"></ng-include>
         </div>
     </div>
-    <div class="controlwrap column left" ng-controller="PlayerControlsController" ng-if="mobiledisplay">
+    <div class="controlwrap column left" ng-if="mobiledisplay">
         <ng-include src="'player/controls/controls.left.tmpl.html'"></ng-include>
     </div>
-    <div class="controlwrap column right" ng-controller="PlayerControlsController">
+    <div class="controlwrap column right">
         <ng-include src="'player/controls/controls.right.tmpl.html'"></ng-include>
     </div>
     <div class="clearfix"></div>

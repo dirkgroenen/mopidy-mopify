@@ -30,8 +30,7 @@ angular.module('mopify', [
     'mopify.discover.newreleases',
     'templates-app',
     'llNotifier',
-    'ErrorCatcher',
-    'cfp.hotkeys'
+    'ErrorCatcher'
 ])
 
 .config(function($routeProvider, localStorageServiceProvider, EchonestProvider, SpotifyProvider){

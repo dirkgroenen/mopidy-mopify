@@ -68,7 +68,6 @@ angular.module('mopify.player', [
     // Update the player's track information by fetching the track
     // from mopidy
     $scope.$on('mopify:player:updatePlayerInformation', function() {
-        console.log("fupdate");
         mopidyservice.getCurrentTrack().then(function(track){
             if(track !== null && track !== undefined){
                 if(track.name.indexOf("[loading]") > -1){
