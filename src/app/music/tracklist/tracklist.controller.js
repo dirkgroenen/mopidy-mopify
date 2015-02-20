@@ -314,7 +314,7 @@ angular.module('mopify.music.tracklist', [
             stationservice.startFromTracks($scope.tracks);
     };
 
-    var tracksPerCall = 50;
+    var tracksPerCall = 20;
 
     /*
      * Add {trackspercall} tracks to the scope
