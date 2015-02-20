@@ -99,8 +99,6 @@ angular.module('mopify.player', [
                 $scope.trackArtist = track.artists[0].name;
                 $scope.trackTitle = track.name;
 
-                console.log("call");
-
                 // Get the background image from Spotify
                 Spotify.getTrack(track.uri).then(function (data) {
                     $scope.playerBackground = data.album.images[0].url;
