@@ -9,7 +9,7 @@ angular.module('mopify.player', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerController", function PlayerController($scope, $timeout, $window, Spotify, mopidyservice, History){
+.controller("PlayerController", function PlayerController($scope, $timeout, $interval, $window, Spotify, mopidyservice, History){
     $scope.trackTitle = "";
     $scope.trackArtist= "";
     $scope.playerBackground = "";
@@ -43,6 +43,24 @@ angular.module('mopify.player', [
         mopidyservice.getRandom().then(function(random){
             $scope.isRandom = (random === true);
         });
+
+        // Start an interval which checks the current playing track every
+        // 15 seconds
+        $interval(function(){
+            mopidyservice.getCurrentTrack().then(function(track){
+                console.log(track);
+                if(track !== null && track !== undefined){
+                    if(track.name.indexOf("[loading]") > -1){
+                        mopidyservice.lookup(track.uri).then(function(result){
+                            updatePlayerInformation(result[0]);
+                        });
+                    }
+                    else{
+                        updatePlayerInformation(track);    
+                    }
+                }
+            });
+        }, 15000);
     });
 
     // Update information on a new track 
