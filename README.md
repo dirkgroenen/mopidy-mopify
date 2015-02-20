@@ -117,6 +117,21 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
+v1.2.3 (Not released)
+------------------
+
+- Added shortcuts to control the player (Use ```?``` to open cheatsheet) [#50](https://github.com/dirkgroenen/mopidy-mopify/issues/50)
+
+- Load less tracks when scrolling through tracklist to prevent freeze [#29](https://github.com/dirkgroenen/mopidy-mopify/issues/29)
+
+- Improved Spotify service authentication handling 
+
+- Added interval which checks the current playing track
+
+- Update current track on next/prev action (event when Mopidy doesn't fire its event)
+
+- Some other bug fixes
+
 v1.2.2 (2015-02-19)
 ------------------
 
