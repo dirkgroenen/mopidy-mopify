@@ -24,6 +24,7 @@ angular.module('mopify.player.controls', [
 
     $scope.$on('mopidy:event:volumeChanged', function(event, data){
         $scope.volume = data.volume;
+        mopidyservice.setVolume($scope.volume);
     });
 
     // If Mopidy is online we collect the init data about playback, volume and shuffle mode
@@ -121,10 +122,12 @@ angular.module('mopify.player.controls', [
 
     $scope.raiseVolume = function(){
         $scope.volume = ($scope.volume + 5 <= 95) ? $scope.volume + 5 : 100;
+        mopidyservice.setVolume($scope.volume);
     };
 
     $scope.lowerVolume = function(){
         $scope.volume = ($scope.volume - 5 >= 5) ? $scope.volume - 5 : 0;
+        mopidyservice.setVolume($scope.volume);
     };
 
     $scope.toggleShuffle = function(){
