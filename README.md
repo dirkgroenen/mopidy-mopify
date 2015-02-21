@@ -80,6 +80,8 @@ Problems or ideas? Please submit a new [issue](https://github.com/dirkgroenen/mo
 ![http://i.imgur.com/t1PevJf.jpg](http://i.imgur.com/t1PevJf.jpg)
 ![http://i.imgur.com/RyoV1Is.png](http://i.imgur.com/RyoV1Is.png)
 ![http://i.imgur.com/U8iv9W4.png](http://i.imgur.com/U8iv9W4.png)
+![http://i.imgur.com/JtUfVSV.png](http://i.imgur.com/JtUfVSV.png)
+
 ![http://i.imgur.com/ti0vQ2C.png](http://i.imgur.com/ti0vQ2C.png)
 ![http://i.imgur.com/Aj4fWNV.png](http://i.imgur.com/Aj4fWNV.png)
 ![http://i.imgur.com/GKkACG3.png](http://i.imgur.com/GKkACG3.png)
@@ -119,7 +121,11 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
-v1.2.3 (Not released)
+v2.0.0 (UNRELEASED, expected in March/April)
+
+- Add support for multiple library sources (Local, SoundCloud, Google Play)
+
+v1.2.3 (22-02-2015)
 ------------------
 
 - Added shortcuts to control the player (Use ```?``` to open cheatsheet) [#50](https://github.com/dirkgroenen/mopidy-mopify/issues/50)
