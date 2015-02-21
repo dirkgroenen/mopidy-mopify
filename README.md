@@ -71,6 +71,8 @@ After installing the Mopidy client, you can use a modern browser (like Firefox
 or Chrome) to access it using your server IP and Mopidy web port. For example:
 `http://192.168.1.2:6680/mopify/`.
 
+Problems or ideas? Please submit a new [issue](https://github.com/dirkgroenen/mopidy-mopify/issues) so I can improve Mopify!
+
 ## Screenshots
 
 ![http://i.imgur.com/lLTKjiQ.jpg](http://i.imgur.com/lLTKjiQ.jpg)

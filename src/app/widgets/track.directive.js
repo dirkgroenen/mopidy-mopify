@@ -155,20 +155,9 @@ angular.module('mopify.widgets.directive.track', [
 
             /**
              * Add selected tracks in the queue
-             * @param {object} options object
              */
-            scope.addToQueue = function(useroptions){
-                var options = {
-                    next: false
-                };
-                angular.extend(options, useroptions);
-
+            scope.addToQueue = function(){
                 mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks }).then(function(response){
-                    // check if track has to play next
-                    if(options.next){
-                        mopidyservice.playNext(response[0]);
-                    }
-                    
                     // Broadcast event
                     $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
                 });
@@ -277,6 +266,11 @@ angular.module('mopify.widgets.directive.track', [
              * @return {[type]} [description]
              */
             scope.onContextShow = function(){
+                if($rootScope.selectedtracks.length > 1){
+                    $rootScope.showSaveTrack = false;
+                    return;
+                }
+
                 if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
                     Spotify.userTracksContains(scope.track.uri).then(function (following) {
                         scope.trackAlreadySaved = following[0];

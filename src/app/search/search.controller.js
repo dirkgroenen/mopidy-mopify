@@ -92,7 +92,7 @@ angular.module('mopify.search', [
      */
     $scope.playTopItem = function(){
         mopidyservice.lookup($scope.topresult.item.uri).then(function(tracks){
-            mopidyservice.playTrack(tracks[0], tracks.splice(0, 100));
+            mopidyservice.playTrack(tracks[0], tracks.splice(0, 10));
         });
     };
 
