@@ -1,8 +1,9 @@
 angular.module("mopify.services.versionmanager", [
-    "LocalStorageModule"
+    "LocalStorageModule",
+    "mopify.services.util"
 ])
 
-.factory("VersionManager", function($window, $q, $http, localStorageService){
+.factory("VersionManager", function($window, $q, $http, util, localStorageService){
     "use strict";
 
     function VersionManager(){
@@ -23,7 +24,7 @@ angular.module("mopify.services.versionmanager", [
 
         // Check latest version from Github
         this.checkVersion().then(function(lastversion){
-            if(lastversion !== that.version)
+            if(util.versionCompare(lastversion, that.version) > 0)
                 that.newVersion = true;
 
             that.lastversion = lastversion;
@@ -53,7 +54,7 @@ angular.module("mopify.services.versionmanager", [
                     localStorageService.set("versionmanager", versiondata);
 
                     // Check if the returned version is different 
-                    if(lastversion !== that.version)
+                    if(util.versionCompare(lastversion, that.version) > 0)
                         that.newVersion = true;
 
                     // Resolve
