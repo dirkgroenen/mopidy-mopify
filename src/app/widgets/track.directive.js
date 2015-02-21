@@ -162,22 +162,16 @@ angular.module('mopify.widgets.directive.track', [
                     next: false
                 };
                 angular.extend(options, useroptions);
-                
-                // Check the position where to add the tracks
-                if(options.next){
-                    mopidyservice.setRandom(false);
 
-                    mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks, at_position: 1 }).then(function(){
-                        // Broadcast event
-                        $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
-                    });
-                }
-                else{
-                    mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks }).then(function(){
-                        // Broadcast event
-                        $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
-                    });
-                }
+                mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks }).then(function(response){
+                    // check if track has to play next
+                    if(options.next){
+                        mopidyservice.playNext(response[0]);
+                    }
+                    
+                    // Broadcast event
+                    $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
+                });
             };
 
             /**
@@ -188,9 +182,9 @@ angular.module('mopify.widgets.directive.track', [
                 var uris = _.map($rootScope.selectedtracks, function(track){
                     return track.uri;
                 });
-                
+
                 // Remove from tracklist
-                mopidyservice.removeFromTracklist({ tracks: $rootScope.selectedtracks });
+                mopidyservice.removeFromTracklist({ uri: uris });
 
                 // Hide tracks
                 scope.visible = false;
@@ -205,8 +199,12 @@ angular.module('mopify.widgets.directive.track', [
             scope.removeFromPlaylist = function(){
                 var playlistid = uri.split(":")[4];
                     
+                var uris = _.map($rootScope.selectedtracks, function(track){
+                    return track.uri;
+                });
+
                 // Remove track
-                PlaylistManager.removeTrack(playlistid, scope.track.uri).then(function(response){
+                PlaylistManager.removeTrack(playlistid, uris).then(function(response){
                     scope.visible = false;
                     notifier.notify({type: "custom", template: "Track removed from playlist.", delay: 3000});
                 }, function(){
@@ -230,11 +228,15 @@ angular.module('mopify.widgets.directive.track', [
                     // Get playlist id from uri
                     var playlistid = selectedplaylist.split(":")[4];
 
+                    var uris = _.map($rootScope.selectedtracks, function(track){
+                        return track.uri;
+                    });
+
                     // add track
-                    PlaylistManager.addTrack(playlistid, scope.track.uri).then(function(response){
-                        notifier.notify({type: "custom", template: "Track succesfully added to playlist.", delay: 3000});
+                    PlaylistManager.addTrack(playlistid, uris).then(function(response){
+                        notifier.notify({type: "custom", template: "Track(s) succesfully added to playlist.", delay: 3000});
                     }, function(){
-                        notifier.notify({type: "custom", template: "Can't add track. Are you connected with Spotify and the owner if this playlist?", delay: 5000});
+                        notifier.notify({type: "custom", template: "Can't add track(s). Are you connected with Spotify and the owner if this playlist?", delay: 5000});
                     });
                 });
             };

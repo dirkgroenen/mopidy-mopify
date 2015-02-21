@@ -26,8 +26,8 @@
         <li ng-click="play()">
             Play track<span ng-show="multipleselected">s</span>
         </li>
-        <li ng-click="addToQueue({ next: true })">
-            Play track<span ng-show="multipleselected">s</span> next
+        <li ng-click="addToQueue({ next: true })" ng-show="!multipleselected">
+            Play track next
         </li>
         <li class="divider"></li>
         <li ng-click="addToQueue()">
