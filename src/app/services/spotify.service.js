@@ -33,7 +33,6 @@ angular.module("mopify.services.spotifylogin", [
 
     function SpotifyLogin(){
         this.frame = frame;
-        this.waitingline = [];
         this.connected = false;
         this.lastPositiveLoginCheck = 0;
 
