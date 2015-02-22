@@ -24,6 +24,12 @@ angular.module("mopify.services.servicemanager", [
                 description: "Stores tracks anonymously in a so called TasteProfile which is used to feed the 'Browse' page with recommendations.",
                 image: "./assets/images/echonest-logo.jpg",
                 hasSettings: true
+            },
+            {
+                name: "Sync",
+                description: "Sync the settings and authorization tokens with every Mopify client within your network.",
+                image: "./assets/images/sync-icon.png",
+                hasSettings: true
             }
             /*{
                 name: "Facebook",

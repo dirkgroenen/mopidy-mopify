@@ -23,6 +23,7 @@ angular.module('mopify', [
     'mopify.account.services.menu',
     'mopify.account.services.spotify',
     'mopify.account.services.facebook',
+    'mopify.account.services.sync',
     'mopify.music.tracklist',
     'ng-context-menu',
     'mopify.discover.browse',
