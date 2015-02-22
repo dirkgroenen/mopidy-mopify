@@ -184,10 +184,11 @@ angular.module("mopify.services.spotifylogin", [
     SpotifyLogin.prototype.checkOldToken = function(){
         var minversion = '1.2.0';
         var compare = util.versionCompare(minversion, this.mopifyversion);
-        
+
         // If the minversion is greater than the token's version
         // we refresh the token
         if((compare === 1 || compare === false) && ServiceManager.isEnabled("spotify")){
+            console.log("version");
             this.disconnect();
             this.login();
         }
@@ -202,7 +203,7 @@ angular.module("mopify.services.spotifylogin", [
     SpotifyLogin.prototype.login = function(){
         var that = this;
         var deferred = $q.defer();
-
+        console.log("Login called");
         if(ServiceManager.isEnabled("spotify") !== true){
             deferred.reject();
         }
@@ -223,7 +224,8 @@ angular.module("mopify.services.spotifylogin", [
                     var tokens = {
                         access_token: that.access_token,
                         refresh_token: that.refresh_token,
-                        expires: that.expires
+                        expires: that.expires,
+                        mopifyversion: VersionManager.version
                     };  
 
                     // Save token and resolve
