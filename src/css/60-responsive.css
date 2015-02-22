@@ -171,14 +171,15 @@
     }
 
     #application #leftside #accounts{
-        display: none;
+        display: block;
+        position: static;
     }
 
-
     #application #leftside #menu{
-        max-height: 100%;
-        height: 100%;
+        max-height: none;
+        height: auto;
         overflow-y: auto;
+        padding-bottom: 0;
     }
 
     #application #mainwrap {
