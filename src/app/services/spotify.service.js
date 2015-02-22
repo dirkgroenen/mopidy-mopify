@@ -203,7 +203,7 @@ angular.module("mopify.services.spotifylogin", [
     SpotifyLogin.prototype.login = function(){
         var that = this;
         var deferred = $q.defer();
-        console.log("Login called");
+
         if(ServiceManager.isEnabled("spotify") !== true){
             deferred.reject();
         }

@@ -16,34 +16,56 @@
                 <label>Description</label>
             </div>
             <div class="description col-md-8">
-                <p>The Sync service extends Mopify with the possibility to synchronize the settings and credentials of other services (like Spotify) with other Mopify clients in your network.</p>
-                <p>There is no difference between a master or slave. Which means that every 'client' can override the settings.</p>
+                <p>The Sync service extends Mopify with the possibility to synchronize the settings and credentials of other services (like Spotify) with other Mopify clients in your network. There is no difference between a master or slave. Which means that every 'client' can override the settings.</p>
             </div>
         </div>
     </div>
 
     <div class="pagetitle row">
         <div class="col-md-3">
-            Settings <span class="sub">Sync</span>
+            Synchronize <span class="sub">Sync</span>
         </div>
     </div>
     <div class="pagecontent row">
         <div class="settingwrap row">
             <div class="label col-md-2">
-                <label></label>
+                <label>Spotify credentials</label>
+            </div>
+            <div class="input col-md-1">
+                <toggle-switch ng-model="settings.sync.spotify" ng-click="spotifyToggle()"></toggle-switch>
+            </div>
+            <div class="col-sm-1">
+                <div class="button white fullwidth" ng-click="sendCurrentSpotifyTokens()" ng-show="settings.sync.spotify">
+                    <span class="text">Use mine</span>
+                    <i class="ss-icon ss-upload"></i> 
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <div class="button white fullwidth" ng-click="getSyncSpotifyTokens()" ng-show="settings.sync.spotify">
+                    <span class="text">Use sync's</span>
+                    <i class="ss-icon ss-download"></i> 
+                </div>
+            </div>
+            <div class="description col-md-4 col-md-offset-2">
+                <p>When enabled every client that has Sync enabled will use the same Spotify credentials.</p>
+            </div>
+        </div>
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>TasteProfile ID</label>
             </div>
             <div class="input col-md-4">
-                
+                <toggle-switch ng-model="settings.sync.tasteprofile"><toggle-switch>
             </div>
             <div class="description col-md-4 col-md-offset-1">
-                <p></p>
+                <p>When enabled every client that has Sync enabled will use the same TasteProfile.</p>
             </div>
         </div>
     </div>
 
     <div class="pagetitle row">
         <div class="col-md-3">
-            Account <span class="sub">Spotify</span>
+            Client <span class="sub">Sync</span>
         </div>
     </div>
     <div class="pagecontent row">
@@ -52,7 +74,7 @@
                 <label>Client name</label>
             </div>
             <div class="input col-md-4">
-                <input type="text" value="{{ client.id }}">
+                <input type="text" value="{{ client.id }}" readonly="readonly">
             </div>
             <div class="description col-md-4 col-md-offset-1">
                 <p>The name of this client which will be used to identify this client with the others.</p>

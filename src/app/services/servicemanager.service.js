@@ -70,6 +70,9 @@ angular.module("mopify.services.servicemanager", [
     };
 
     ServiceManager.prototype.enableService = function(service) {
+        if(typeof service ===  "string")
+            service = _.findWhere(this.availableServices, {name: service});
+
         var servicename = service.name.replace(" ", "").toLowerCase();
         var services = localStorageService.get("services");
 

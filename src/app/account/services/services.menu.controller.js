@@ -19,8 +19,6 @@ angular.module("mopify.account.services.menu", [
         $scope.totalServices = ServiceManager.getAvailableServices().length;
         $scope.connectedCount = enabled.length;
 
-        console.log($scope.connectedCount);
-
         if($scope.connectedCount === 0)
             $scope.hasServicesConnected = false;
         else
