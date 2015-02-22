@@ -125,6 +125,12 @@ v2.0.0 (UNRELEASED, expected in March/April)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
+v1.2.4 (UNRELEASED)
+
+- Fixed showing Spotify login window while logged in
+
+- Show connected servives in mobile menu
+
 v1.2.3 (22-02-2015)
 ------------------
 
