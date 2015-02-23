@@ -40,6 +40,7 @@ class RootRequestHandler(tornado.web.RequestHandler):
     def get(self):
         self.write("This extension is part of Mopidy-Mopify and is used to create the Sync service.")
 
+
 class SpotifyRequestHandler(tornado.web.RequestHandler):
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
@@ -85,6 +86,49 @@ class SpotifyRequestHandler(tornado.web.RequestHandler):
         self.write(json_encode({'response': resp}))
         
 
+class TasteProfileRequestHandler(tornado.web.RequestHandler):
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        
+    def initialize(self, core, config):
+        self.core = core
+        self.sync_file = os.path.join(os.path.dirname(__file__), 'sync.ini')
+
+    def get(self):
+        resp = ''
+
+        #read config file
+        try:
+            syncini = ConfigObj(self.sync_file, encoding='UTF8')
+        except (ConfigObjError, IOError), e:
+            resp = 'Could not load sync file! %s %s %s' % (e, ConfigObjError, IOError)
+
+        if resp == '':
+            resp = syncini['tasteprofile']
+
+        self.write(json_encode({'response': resp}))
+
+    def post(self):
+        resp = ''
+
+        try:
+            syncini = ConfigObj(self.sync_file, encoding='UTF8')
+        except (ConfigObjError, IOError), e:
+            resp = 'Could not load sync.ini file!'
+
+        if resp == '':
+            # Create the section
+            syncini['tasteprofile'] = {
+                'id': self.get_argument('id', default=''),
+                'client_id': self.get_argument('client_id', default='')
+            }
+
+            # Write to ini file
+            syncini.write()
+            resp = syncini['tasteprofile']
+
+        self.write(json_encode({'response': resp}))
+
 class ClientsRequestHandler(tornado.web.RequestHandler):
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
@@ -118,18 +162,20 @@ class ClientsRequestHandler(tornado.web.RequestHandler):
 
         if resp == '':
             # Get the previous clients as list and add client
-            clients = syncini["accounts"].as_list("clients")
+            try:
+                accounts = syncini["accounts"]
+            except KeyError:
+                accounts = {}
 
             try:
-                clients.index(self.get_argument("client_id"))
-            except ValueError:
+                client = accounts[self.get_argument("client_id")]
+            except KeyError:
+                accounts[self.get_argument("client_id")] = {}
                 exists = False
 
             if exists == False:
-                clients.append(self.get_argument("client_id"))
-
-                syncini["accounts"] = {
-                    'clients': clients
+                accounts[self.get_argument("client_id")] = {
+                    'master': self.get_argument("master", default=False)
                 }
                 syncini.write()
 
@@ -140,10 +186,15 @@ class ClientsRequestHandler(tornado.web.RequestHandler):
 
         self.write(json_encode({'response': resp}))
 
+    def put(self, clientid):
+        resp = clientid
+        self.write(json_encode({'response': resp}))
+
 
 def mopify_sync_factory(config, core):
     return [
         ('/', RootRequestHandler, {'core': core, 'config': config}),
         ('/spotify', SpotifyRequestHandler, {'core': core, 'config': config}),
+        ('/tasteprofile', TasteProfileRequestHandler, {'core': core, 'config': config}),
         ('/clients', ClientsRequestHandler, {'core': core, 'config': config})
     ]
