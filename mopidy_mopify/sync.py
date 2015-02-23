@@ -34,8 +34,11 @@ class SpotifyRequestHandler(tornado.web.RequestHandler):
         resp = ''
 
         if resp == '':
-            spotify = self.syncini['spotify']
-            spotify['client'] = self.syncini['accounts'][spotify['client_id']]
+            try:
+                spotify = self.syncini['spotify']
+                spotify['client'] = self.syncini['accounts'][spotify['client_id']]
+            except KeyError:
+                resp = "No data available"
 
             resp = spotify
 
@@ -78,8 +81,11 @@ class TasteProfileRequestHandler(tornado.web.RequestHandler):
         resp = ''
 
         if resp == '':
-            tasteprofile = self.syncini['tasteprofile']
-            tasteprofile['client'] = self.syncini['accounts'][tasteprofile['client_id']]
+            try:
+                tasteprofile = self.syncini['tasteprofile']
+                tasteprofile['client'] = self.syncini['accounts'][tasteprofile['client_id']]
+            except KeyError:
+                resp = "No data available"
 
             resp = tasteprofile
 

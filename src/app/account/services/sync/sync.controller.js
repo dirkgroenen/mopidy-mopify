@@ -32,7 +32,7 @@ angular.module("mopify.account.services.sync", [
     $scope.spotifyclient = null;
 
     // Get client from remote
-    if($scope.settings.sync.spotify === true){
+    if($scope.settings.sync !== undefined && $scope.settings.sync.spotify === true){
         Sync.getSpotify().then(function(data){
             if(data !== undefined)
                 $scope.spotifyclient = data.client;
@@ -40,7 +40,7 @@ angular.module("mopify.account.services.sync", [
     }
 
     // Get client from remote
-    if($scope.settings.sync.tasteprofile === true){
+    if($scope.settings.sync !== undefined && $scope.settings.sync.tasteprofile === true){
         Sync.getTasteProfile().then(function(data){
             if(data !== undefined)
                 $scope.tasteprofileclient = data.client;
