@@ -74,7 +74,7 @@ angular.module("mopify.services.spotifylogin", [
                 this.refresh();
             }   
             else{
-                this.login();
+                this.login(true);
             } 
         }
 
@@ -138,7 +138,7 @@ angular.module("mopify.services.spotifylogin", [
     SpotifyLogin.prototype.refresh = function() {
         var deferred = $q.defer();
         var that = this;
-        
+
         if(this.refresh_token === undefined){
             deferred.reject();
         }
@@ -188,9 +188,8 @@ angular.module("mopify.services.spotifylogin", [
         // If the minversion is greater than the token's version
         // we refresh the token
         if((compare === 1 || compare === false) && ServiceManager.isEnabled("spotify")){
-            console.log("version");
             this.disconnect();
-            this.login();
+            this.login(true); // User needs to reauthenticate because scopes have been changed
         }
     };
 
@@ -198,9 +197,11 @@ angular.module("mopify.services.spotifylogin", [
      * Open the Spotify login screen and start asking for the key
      * The key will be saved on the bitlabs.nl localstorage which can be accessed
      * through the created iframe
+     *
+     * @param {boolean} force Force showing the login window. Otherwise first try refresh tokens
      * @return {$q.defer().promise}
      */
-    SpotifyLogin.prototype.login = function(){
+    SpotifyLogin.prototype.login = function(force){
         var that = this;
         var deferred = $q.defer();
 
@@ -208,43 +209,60 @@ angular.module("mopify.services.spotifylogin", [
             deferred.reject();
         }
 
-        // Ask the spotify login window
-        Spotify.login();
-
-        // Start waiting for the spotify answer
-        that.requestKey().then(function(){
-            if(that.access_token !== undefined){
-                // Set the auth token
-                Spotify.setAuthToken(that.access_token);
-                    
-                // Check if the auth token works
+        if(force !== true){
+            // Refresh tokens
+            this.refresh().then(function(){
+                // Check if refreshing the tokens resulted in a working connection
                 Spotify.getCurrentUser().then(function(data){
                     that.connected = true;
+                    $rootScope.$broadcast("mopify:spotify:connected");
 
-                    var tokens = {
-                        access_token: that.access_token,
-                        refresh_token: that.refresh_token,
-                        expires: that.expires,
-                        mopifyversion: VersionManager.version
-                    };  
-
-                    // Save token and resolve
-                    localStorageService.set(tokenStorageKey, tokens);
-                    deferred.resolve(that.access_token);
-
-                }, function(errData){
-                    // If status equals 401 we have to reauthorize the user
-                    if(errData.error.status == 401){
-                        that.connected = false;
-                        deferred.reject();
-                    }
+                }, function(){
+                    // If refreshing failed getcurrentuser() returns a reject
+                    // try to login again, but this time force the window
+                    that.login(true);
                 });
+            });
+        }
+        else{
+            // Ask the spotify login window
+            Spotify.login();
 
-            }
-            else{
-                deferred.reject();
-            }
-        });
+            // Start waiting for the spotify answer
+            that.requestKey().then(function(){
+                if(that.access_token !== undefined){
+                    // Set the auth token
+                    Spotify.setAuthToken(that.access_token);
+                        
+                    // Check if the auth token works
+                    Spotify.getCurrentUser().then(function(data){
+                        that.connected = true;
+
+                        var tokens = {
+                            access_token: that.access_token,
+                            refresh_token: that.refresh_token,
+                            expires: that.expires,
+                            mopifyversion: VersionManager.version
+                        };  
+
+                        // Save token and resolve
+                        localStorageService.set(tokenStorageKey, tokens);
+                        deferred.resolve(that.access_token);
+
+                    }, function(errData){
+                        // If status equals 401 we have to reauthorize the user
+                        if(errData.error.status == 401){
+                            that.connected = false;
+                            deferred.reject();
+                        }
+                    });
+
+                }
+                else{
+                    deferred.reject();
+                }
+            });
+        }
 
         return deferred.promise;
     };
@@ -340,14 +358,13 @@ angular.module("mopify.services.spotifylogin", [
             if(response.status === 401 && response.config.url == "https://api.spotify.com/v1/me"){
                 spotifyErrors++;
                 
-                if(spotifyErrors >= 3 && !retrystarted){
+                if(spotifyErrors >= 2 && !retrystarted){
                     retrystarted = true;
 
                     /**
                      * Disconnect from Spotify, login, check the status and return the original response
                      * and broadcast the spotify:connected event
                      */
-                    $injector.get('SpotifyLogin').disconnect();
                     $injector.get('SpotifyLogin').login().then(function(){
                         $injector.get('SpotifyLogin').getLoginStatus().then(function(resp){
                             $rootScope.$broadcast("mopify:spotify:connected");
