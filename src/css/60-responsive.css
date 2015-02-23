@@ -129,6 +129,11 @@
         padding: 5px 0 0 0;
     }   
 
+    #application #player #seekbar .trackname .title,
+    #application #player #seekbar .trackname .artist{
+        font-size: 13px;
+    }
+
     #application #player #seekbar .barwrap{
         display: none;
     }
