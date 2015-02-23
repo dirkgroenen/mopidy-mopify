@@ -142,6 +142,8 @@ v1.3.0 (UNRELEASED)
 
 - Changed tracklist's Shuffle button action [#57](https://github.com/dirkgroenen/mopidy-mopify/issues/57)
 
+- Link current playing track to album [#59](https://github.com/dirkgroenen/mopidy-mopify/issues/59)
+
 v1.2.3 (22-02-2015)
 ------------------
 
