@@ -78,9 +78,9 @@ class TasteProfileRequestHandler(tornado.web.RequestHandler):
         resp = ''
 
         if resp == '':
-            tasteprofile = self.syncini['spotify']
+            tasteprofile = self.syncini['tasteprofile']
             tasteprofile['client'] = self.syncini['accounts'][tasteprofile['client_id']]
-            
+
             resp = tasteprofile
 
         self.write(json_encode({'response': resp}))
