@@ -1,14 +1,18 @@
 from __future__ import unicode_literals
 
 import os
+import tornado.web
 
 from mopidy import config, ext
 
+from sync import mopify_sync_factory
+
 __version__ = '<%= version %>'
+__ext_name__ = 'mopify'
 
 class MopifyExtension(ext.Extension):
     dist_name = 'Mopidy-Mopify'
-    ext_name = 'mopify'
+    ext_name = __ext_name__
     version = __version__
 
     def get_default_config(self):
@@ -19,4 +23,9 @@ class MopifyExtension(ext.Extension):
         registry.add('http:static', {
             'name': self.ext_name,
             'path': os.path.join(os.path.dirname(__file__), 'static'),
-        })   
+        })
+
+        registry.add('http:app', {
+            'name': self.ext_name + '-sync',
+            'factory': mopify_sync_factory,
+        })

@@ -1325,6 +1325,13 @@ img[src=""] {
     color: #fff;
     margin-top: 25px;
     padding-bottom: 5px;
+    display: block;
+    position: relative;
+    z-index: 10;
+}
+
+#application #player #seekbar .trackname:hover{
+    text-decoration: none;
 }
 
 #application #player #seekbar .trackname .title{

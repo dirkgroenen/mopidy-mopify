@@ -275,7 +275,7 @@ module.exports = function ( grunt ) {
             },
             build: [ '<%= build_dir %>' ],
             compile: [ '<%= compile_dir %>' ],
-            mopidy: [ '<%= mopidy_package_dir %>' ]
+            mopidy: [ '<%= mopidy_package_dir %>/static', '<%= mopidy_package_dir %>/__init__.py', '<%= mopidy_package_dir %>/ext.conf' ]
         },
 
         /**

@@ -17,3 +17,4 @@ nosetests.xml
 *.pbxproj
 *.egg-info
 Mopidy_Mopify.egg-info/
+mopidy_mopify/sync.ini

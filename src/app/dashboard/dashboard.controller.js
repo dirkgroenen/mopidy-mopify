@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('mopify.dashboard', [
-    'ngRoute'
+    'ngRoute',
+    'mopify.services.settings'
 ])
 
 /**
@@ -17,6 +18,7 @@ angular.module('mopify.dashboard', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("DashboardController", function DashboardController($scope){
-
+.controller("DashboardController", function DashboardController($scope, $location, Settings){
+    var startpage = Settings.get("startpage", "/discover/featured");
+    $location.path(startpage.replace("#", ""));
 });

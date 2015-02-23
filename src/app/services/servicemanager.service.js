@@ -13,7 +13,7 @@ angular.module("mopify.services.servicemanager", [
             {
                 name: "Spotify",
                 description: "Search and manage playlists and get the latests charts",
-                image: "http://icons.iconarchive.com/icons/danleech/simple/256/spotify-icon.png",
+                image: "./assets/images/spotify-icon.png",
                 hasSettings: true,
                 defaultSettings: {
                     loadspotifyplaylists: true
@@ -23,6 +23,12 @@ angular.module("mopify.services.servicemanager", [
                 name: "Taste Profile",
                 description: "Stores tracks anonymously in a so called TasteProfile which is used to feed the 'Browse' page with recommendations.",
                 image: "./assets/images/echonest-logo.jpg",
+                hasSettings: true
+            },
+            {
+                name: "Sync",
+                description: "Sync the settings and authorization tokens with every Mopify client within your network.",
+                image: "./assets/images/sync-icon.png",
                 hasSettings: true
             }
             /*{
@@ -64,6 +70,9 @@ angular.module("mopify.services.servicemanager", [
     };
 
     ServiceManager.prototype.enableService = function(service) {
+        if(typeof service ===  "string")
+            service = _.findWhere(this.availableServices, {name: service});
+
         var servicename = service.name.replace(" ", "").toLowerCase();
         var services = localStorageService.get("services");
 

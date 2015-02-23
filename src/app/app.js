@@ -8,6 +8,7 @@ angular.module('mopify', [
     'mopify.services.mopidy',
     'mopify.services.versionmanager',
     'spotify',
+    'mopify.dashboard',
     'mopify.search',
     'mopify.music.artist',
     'mopify.music.playlists',
@@ -23,6 +24,7 @@ angular.module('mopify', [
     'mopify.account.services.menu',
     'mopify.account.services.spotify',
     'mopify.account.services.facebook',
+    'mopify.account.services.sync',
     'mopify.music.tracklist',
     'ng-context-menu',
     'mopify.discover.browse',
@@ -33,7 +35,7 @@ angular.module('mopify', [
     'ErrorCatcher'
 ])
 
-.config(function($routeProvider, $httpProvider, localStorageServiceProvider, EchonestProvider, SpotifyProvider){
+.config(function($routeProvider, $httpProvider, localStorageServiceProvider, EchonestProvider, SpotifyProvider, $injector){
     localStorageServiceProvider.setPrefix("mopify");
     EchonestProvider.setApiKey("UVUDDM7M0S5MWNQFV");
 
@@ -42,7 +44,7 @@ angular.module('mopify', [
     SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public user-library-read user-library-modify user-follow-modify user-follow-read');
 
     $routeProvider.otherwise({
-        redirectTo: '/discover/featured'
+        redirectTo: "/"
     });
 
     $httpProvider.interceptors.push('SpotifyAuthenticationIntercepter');

@@ -125,6 +125,25 @@ v2.0.0 (UNRELEASED, expected in March/April)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
+v1.3.0 (UNRELEASED)
+------------------
+
+- Fixed showing Spotify login window while logged in
+
+- Improved Spotify's use of ```refresh_token```
+
+- Show connected servives in mobile menu
+
+- Added [Sync service](https://github.com/dirkgroenen/mopidy-mopify/wiki/Services#sync)
+
+- Fixed huge memory drain when loading many tracks [#29](https://github.com/dirkgroenen/mopidy-mopify/issues/29) [#56](https://github.com/dirkgroenen/mopidy-mopify/issues/56)
+
+- Lowered current track's font-size in responsive view
+
+- Changed tracklist's Shuffle button action [#57](https://github.com/dirkgroenen/mopidy-mopify/issues/57)
+
+- Link current playing track to album [#59](https://github.com/dirkgroenen/mopidy-mopify/issues/59)
+
 v1.2.3 (22-02-2015)
 ------------------
 

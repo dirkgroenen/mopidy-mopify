@@ -231,10 +231,12 @@ angular.module('mopify.music.tracklist', [
                 });
 
                 // Concat with previous tracks
-                $scope.tracks = $scope.tracks.concat(tracks);
+                loadedTracks = loadedTracks.concat(tracks);
 
                 if(response.next !== null)
                     loadSpotifyLibraryTracks(offset + 50);
+                else
+                    $scope.getMoreTracks();
             });
         }
         else if(!ServiceManager.isEnabled("spotify")){
@@ -290,11 +292,17 @@ angular.module('mopify.music.tracklist', [
      */
     $scope.shuffle = function(){
         if(mopidyservice.isConnected){
+            // Clear tracklist
             mopidyservice.clearTracklist().then(function(){
+                // Add track to tracklist
+                mopidyservice.addToTracklist({ uri: uri }).then(function(tltacks){
+                    // Set random to true
+                    mopidyservice.setRandom(true).then(function(){
+                        // Start with random track
+                        mopidyservice.play(tltacks[Math.floor(Math.random() * tltacks.length)]);
 
-                mopidyservice.addToTracklist({ uri: uri }).then(function(){
-                    mopidyservice.shuffleTracklist().then(function(){
-                        mopidyservice.play();    
+                        // Broadcast control change
+                        $rootScope.$broadcast("mopify:playercontrols:changed");
                     });
                 });
 

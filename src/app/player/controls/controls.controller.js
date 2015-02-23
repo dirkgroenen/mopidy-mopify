@@ -57,6 +57,21 @@ angular.module('mopify.player.controls', [
         });
     });
 
+    /*
+     * Set correct states on controls change
+     */
+    $scope.$on("mopify:playercontrols:changed", function(){
+        // Get shuffle
+        mopidyservice.getRandom().then(function(random){
+            $scope.isRandom = (random === true);
+        });
+
+        // Get repeat
+        mopidyservice.getRepeat().then(function(repeat){
+            $scope.isRepeat = (repeat === true);
+        });
+    });
+
     $scope.next = function(){
         mopidyservice.next().then(function(data){
             $rootScope.$broadcast("mopify:player:updatePlayerInformation");  
