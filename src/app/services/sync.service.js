@@ -54,7 +54,7 @@ angular.module("mopify.services.sync", [
 
         // Check if the client already exists in localstorage
         if(client === null){
-            var clientid = (Date.now() * Math.floor(Math.random() * 50));
+            var clientid = (Date.now() * Math.floor(Math.random() * 50) + 1);
 
             this.client = {
                 id: clientid,

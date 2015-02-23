@@ -277,6 +277,9 @@ angular.module("mopify.services.spotifylogin", [
         // Clear Spotify auth token
         Spotify.setAuthToken("");
 
+        this.access_token = null;
+        this.refresh_token = null;
+
         // Remove token in iframe
         frame.contentWindow.postMessage(JSON.stringify({ method: "remove" }), "*");
 
