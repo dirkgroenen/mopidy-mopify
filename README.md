@@ -15,6 +15,7 @@ Some of the features that are included in Mopify:
 - **Manage your Spotify Library (playlists, artists, albums, songs)**
 - Start music stations from artists, albums, tracks, playlists or your personal
   taste profile.
+- [Synchronize](https://github.com/dirkgroenen/mopidy-mopify/wiki/Services#sync) with other Mopify clients in your network
 
 At the moment, Mopify only works with
 [mopidy-spotify](https://github.com/mopidy/mopidy-spotify). This may change in
