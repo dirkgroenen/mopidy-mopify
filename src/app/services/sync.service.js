@@ -10,7 +10,7 @@ angular.module("mopify.services.sync", [
     var apiUrl = "http://localhost:6680/mopify-sync/";
 
     /**
-     * Do a get request to the sync server
+     * Do a post request to the sync server
      * @param  {string} url  
      * @param  {object} data 
      */
@@ -57,11 +57,11 @@ angular.module("mopify.services.sync", [
             var clientid = (Date.now() * Math.floor(Math.random() * 50));
 
             this.client = {
-                id: clientid
+                id: clientid,
+                name: clientid
             };
 
             localStorageService.set("syncclient", this.client);
-
             // Register the client
             this.registerClient();
         }
@@ -71,11 +71,26 @@ angular.module("mopify.services.sync", [
     }
 
     /**
+     * Update the current client
+     */
+    Sync.prototype.updateClient = function(client){
+        this.client = angular.extend(client, this.client);
+
+        post("clients", {
+            client_id: this.client.id,
+            name: this.client.name
+        });
+
+        localStorageService.set("syncclient", this.client);
+    };
+
+    /**
      * Register the client
      */
     Sync.prototype.registerClient = function() {
         return post("clients", {
-            client_id: this.client.id
+            client_id: this.client.id,
+            name: this.client.name
         });
     };
 

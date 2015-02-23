@@ -54,7 +54,7 @@
             <div class="description col-md-4 col-md-offset-1">
                 <p>When enabled every client that has Sync enabled will use the same Spotify credentials.</p>
                 <p><b>GET:</b> Retrieve the credentials from the Sync server<br/><b>PUSH:</b> Push your current credentials to the sync server</p>
-                <p ng-show="settings.sync.spotify">Currently using credentials from device: <i>{{ spotifyclient }} <span ng-show="spotifyclient == client.id">(That's you)</span></i></p>
+                <p ng-show="settings.sync.spotify">Currently using credentials from device: <i>{{ spotifyclient.name }} <span ng-show="spotifyclient.id == client.id">(That's you)</span></i></p>
             </div>
         </div>
         <div class="settingwrap row">
@@ -84,7 +84,7 @@
             <div class="description col-md-4 col-md-offset-1">
                 <p>When enabled every client that has Sync enabled will use the same TasteProfile.</p>
                 <p><b>GET:</b> Retrieve the credentials from the Sync server<br/><b>PUSH:</b> Push your current credentials to the sync server</p>
-                <p ng-show="settings.sync.tasteprofile">Currently using credentials from device: <i>{{ tasteprofileclient }} <span ng-show="tasteprofileclient == client.id">(That's you)</span></i></p>
+                <p ng-show="settings.sync.tasteprofile">Currently using credentials from device: <i>{{ tasteprofileclient.name }} <span ng-show="tasteprofileclient.id == client.id">(That's you)</span></i></p>
             </div>
         </div>
     </div>
@@ -100,7 +100,7 @@
                 <label>Client name</label>
             </div>
             <div class="input col-md-4">
-                <input type="text" value="{{ client.id }}" readonly="readonly">
+                <input type="text" ng-model="client.name" ng-blur="updateClient()">
             </div>
             <div class="description col-md-4 col-md-offset-1">
                 <p>The name of this client which will be used to identify this client with the others.</p>

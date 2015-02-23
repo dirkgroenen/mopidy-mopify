@@ -33,14 +33,21 @@ angular.module("mopify.account.services.sync", [
 
     // Get client from remote
     Sync.getSpotify().then(function(data){
-        $scope.spotifyclient = data.client_id;
+        $scope.spotifyclient = data.client;
     });
 
     // Get client from remote
     Sync.getTasteProfile().then(function(data){
-        $scope.tasteprofileclient = data.client_id;
+        $scope.tasteprofileclient = data.client;
     });
     
+    /*
+     * Update the client in Sync
+     */
+    $scope.updateClient = function(){
+        Sync.updateClient($scope.client);
+    };
+
     /**
      * Get TasteProfile ID and set as current ID
      */
@@ -48,9 +55,14 @@ angular.module("mopify.account.services.sync", [
         var deferred = $q.defer();
 
         Sync.getTasteProfile().then(function(data){
-            if(data.id !== ""){
+            if(data.id === "" || data.id === undefined){
+                notifier.notify({type: "custom", template: "No synchronized data available. Press PUSH to push your current credentails.", delay: 5000});
+
+                deferred.reject();
+            }
+            else{
                 // Set data
-                $scope.tasteprofileclient = data.client_id;
+                $scope.tasteprofileclient = data.client;
                 TasteProfile.id = data.id;
 
                 // Notifiy
@@ -72,18 +84,25 @@ angular.module("mopify.account.services.sync", [
 
         $scope.settings.sync.spotify_type = "post";
 
-        Sync.setTasteProfile({
-            id: TasteProfile.id
-        }).then(function(response){
-            // Notify
-            notifier.notify({type: "custom", template: "Credentials succesfully pushed.", delay: 5000});
+        if(TasteProfile.id === null || TasteProfile.id === undefined){
+            notifier.notify({type: "custom", template: "Please enable TasteProfile first.", delay: 5000});
 
-            // Set ID
-            $scope.tasteprofileclient = $scope.client.id;
+            deferred.reject();
+        }
+        else{
+            Sync.setTasteProfile({
+                id: TasteProfile.id
+            }).then(function(response){
+                // Notify
+                notifier.notify({type: "custom", template: "Credentials succesfully pushed.", delay: 5000});
 
-            // Resolve
-            deferred.resolve();
-        });
+                // Set ID
+                $scope.tasteprofileclient = $scope.client;
+
+                // Resolve
+                deferred.resolve();
+            });
+        }
 
         return deferred.promise;
     };
@@ -97,19 +116,21 @@ angular.module("mopify.account.services.sync", [
         $scope.settings.sync.spotify_type = "get";
 
         Sync.getSpotify().then(function(data){
-            // Check if the data ain't empty
-            if(data.access_token !== "" && data.refresh_token !== ""){
+            if(data.access_token === undefined || data.refresh_token === undefined || data.access_token === "" || data.refresh_token === ""){
+                notifier.notify({type: "custom", template: "No synchronized data available. Press PUSH to push your current credentails.", delay: 5000});
+
+                deferred.reject();
+            }
+            else{
                 // Set tokens
                 SpotifyLogin.access_token = data.access_token;
                 SpotifyLogin.refresh_token = data.refresh_token;
 
                 // set client
-                $scope.spotifyclient = data.client_id;
+                $scope.spotifyclient = data.client;
 
                 // Refresh Spotify
                 SpotifyLogin.refresh();
-
-                notifier.notify({type: "custom", template: "Credentials succesfully retrieved and set.", delay: 5000});
 
                 // Resolve
                 deferred.resolve(data);
@@ -127,16 +148,23 @@ angular.module("mopify.account.services.sync", [
 
         $scope.settings.sync.spotify_type = "post";
 
-        Sync.setSpotify({
-            access_token: SpotifyLogin.access_token,
-            refresh_token: SpotifyLogin.refresh_token
-        }).then(function(response){
-            notifier.notify({type: "custom", template: "Credentials succesfully pushed.", delay: 5000});
+        if(SpotifyLogin.access_token === null || SpotifyLogin.refresh_token === null || !SpotifyLogin.connected){
+            notifier.notify({type: "custom", template: "Please login to Spotify first.", delay: 5000});
 
-            $scope.spotifyclient = $scope.client.id;
+            deferred.reject();
+        }
+        else{
+            Sync.setSpotify({
+                access_token: SpotifyLogin.access_token,
+                refresh_token: SpotifyLogin.refresh_token
+            }).then(function(response){
+                notifier.notify({type: "custom", template: "Credentials succesfully pushed.", delay: 5000});
 
-            deferred.resolve();
-        });
+                $scope.spotifyclient = $scope.client;
+
+                deferred.resolve();
+            });
+        }
 
         return deferred.promise;
     };

@@ -21,41 +21,40 @@ class SpotifyRequestHandler(tornado.web.RequestHandler):
         
     def initialize(self, core, config):
         self.core = core
-        self.sync_file = os.path.join(os.path.dirname(__file__), 'sync.ini')
+        self.sync_filename = os.path.join(os.path.dirname(__file__), 'sync.ini')
+        self.syncini = ConfigObj(self.sync_filename, encoding='UTF8', create_empty=True)
+
+        # Check if the key exists
+        try:
+            self.syncini["spotify"]
+        except KeyError:
+            self.syncini["spotify"] = {}
 
     def get(self):
         resp = ''
 
-        #read config file
-        try:
-            syncini = ConfigObj(self.sync_file, encoding='UTF8')
-        except (ConfigObjError, IOError), e:
-            resp = 'Could not load sync file! %s %s %s' % (e, ConfigObjError, IOError)
-
         if resp == '':
-            resp = syncini['spotify']
+            spotify = self.syncini['spotify']
+            spotify['client'] = self.syncini['accounts'][spotify['client_id']]
+
+            resp = spotify
 
         self.write(json_encode({'response': resp}))
 
     def post(self):
         resp = ''
 
-        try:
-            syncini = ConfigObj(self.sync_file, encoding='UTF8')
-        except (ConfigObjError, IOError), e:
-            resp = 'Could not load sync.ini file!'
-
         if resp == '':
             # Create the section
-            syncini['spotify'] = {
+            self.syncini['spotify'] = {
                 'refresh_token': self.get_argument('refresh_token', default=''),
                 'access_token': self.get_argument('access_token', default=''),
                 'client_id': self.get_argument('client_id', default='')
             }
 
             # Write to ini file
-            syncini.write()
-            resp = syncini['spotify']
+            self.syncini.write()
+            resp = self.syncini['spotify']
 
         self.write(json_encode({'response': resp}))
         
@@ -66,40 +65,39 @@ class TasteProfileRequestHandler(tornado.web.RequestHandler):
         
     def initialize(self, core, config):
         self.core = core
-        self.sync_file = os.path.join(os.path.dirname(__file__), 'sync.ini')
+        self.sync_filename = os.path.join(os.path.dirname(__file__), 'sync.ini')
+        self.syncini = ConfigObj(self.sync_filename, encoding='UTF8', create_empty=True)
+
+        # Check if the key exists
+        try:
+            self.syncini["tasteprofile"]
+        except KeyError:
+            self.syncini["tasteprofile"] = {}
 
     def get(self):
         resp = ''
 
-        #read config file
-        try:
-            syncini = ConfigObj(self.sync_file, encoding='UTF8')
-        except (ConfigObjError, IOError), e:
-            resp = 'Could not load sync file! %s %s %s' % (e, ConfigObjError, IOError)
-
         if resp == '':
-            resp = syncini['tasteprofile']
+            tasteprofile = self.syncini['spotify']
+            tasteprofile['client'] = self.syncini['accounts'][tasteprofile['client_id']]
+            
+            resp = tasteprofile
 
         self.write(json_encode({'response': resp}))
 
     def post(self):
         resp = ''
 
-        try:
-            syncini = ConfigObj(self.sync_file, encoding='UTF8')
-        except (ConfigObjError, IOError), e:
-            resp = 'Could not load sync.ini file!'
-
         if resp == '':
             # Create the section
-            syncini['tasteprofile'] = {
+            self.syncini['tasteprofile'] = {
                 'id': self.get_argument('id', default=''),
                 'client_id': self.get_argument('client_id', default='')
             }
 
             # Write to ini file
-            syncini.write()
-            resp = syncini['tasteprofile']
+            self.syncini.write()
+            resp = self.syncini['tasteprofile']
 
         self.write(json_encode({'response': resp}))
 
@@ -109,19 +107,20 @@ class ClientsRequestHandler(tornado.web.RequestHandler):
 
     def initialize(self, core, config):
         self.core = core
-        self.sync_file = os.path.join(os.path.dirname(__file__), 'sync.ini')
+        self.sync_filename = os.path.join(os.path.dirname(__file__), 'sync.ini')
+        self.syncini = ConfigObj(self.sync_filename, encoding='UTF8', create_empty=True)
+
+        # Check if the key exists
+        try:
+            self.syncini["accounts"]
+        except KeyError:
+            self.syncini["accounts"] = {}
 
     def get(self):
         resp = ''
 
-        #read config file
-        try:
-            syncini = ConfigObj(self.sync_file, encoding='UTF8')
-        except (ConfigObjError, IOError), e:
-            resp = 'Could not load sync file! %s %s %s' % (e, ConfigObjError, IOError)
-
         if resp == '':
-            resp = syncini['accounts']
+            resp = self.syncini['accounts']
 
         self.write(json_encode({'response': resp}))
 
@@ -129,39 +128,29 @@ class ClientsRequestHandler(tornado.web.RequestHandler):
         resp = ''
         exists = True
 
-        try:
-            syncini = ConfigObj(self.sync_file, encoding='UTF8')
-        except (ConfigObjError, IOError), e:
-            resp = 'Could not load sync.ini file!'
-
         if resp == '':
-            # Get the previous clients as list and add client
-            try:
-                accounts = syncini["accounts"]
-            except KeyError:
-                accounts = {}
-
+            accounts = self.syncini["accounts"]
+ 
             try:
                 client = accounts[self.get_argument("client_id")]
             except KeyError:
-                accounts[self.get_argument("client_id")] = {}
                 exists = False
 
             if exists == False:
                 accounts[self.get_argument("client_id")] = {
+                    'name': self.get_argument("name", default=''),
                     'master': self.get_argument("master", default=False)
                 }
-                syncini.write()
+                self.syncini.write()
 
-                resp = syncini["accounts"]
+                resp = self.syncini["accounts"]
             else:
-                resp = "Client already listed in accounts list"
+                client["name"] = self.get_argument("name", default=client["name"])
 
+                self.syncini.write()
 
-        self.write(json_encode({'response': resp}))
+                resp = client
 
-    def put(self, clientid):
-        resp = clientid
         self.write(json_encode({'response': resp}))
 
 
