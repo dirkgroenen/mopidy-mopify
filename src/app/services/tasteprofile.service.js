@@ -68,7 +68,7 @@ angular.module("mopify.services.tasteprofile", [
     TasteProfile.prototype.getProfile = function(){
         var tasteprofile = localStorageService.get("tasteprofile");
 
-        if(tasteprofile === null){
+        if(tasteprofile === null && (this.id === undefined || this.id === null)){
             var that = this;
             
             this.create().then(function(response){
@@ -76,12 +76,10 @@ angular.module("mopify.services.tasteprofile", [
                 localStorageService.set("tasteprofile", response);
 
                 that.id = tasteprofile.id;
-                that.name = tasteprofile.name;
             });
         }
         else{
             this.id = tasteprofile.id;
-            this.name = tasteprofile.name;
         }
     };  
 
@@ -161,7 +159,6 @@ angular.module("mopify.services.tasteprofile", [
             if(response.status.code === 0){
                 // Reset data
                 that.id = null;
-                that.name = null;
 
                 // Remove from storage
                 localStorageService.remove("tasteprofile");

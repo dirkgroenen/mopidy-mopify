@@ -94,12 +94,28 @@ angular.module("mopify.services.sync", [
     };
 
     /**
-     * Get the Spotify tokens
+     * Set the Spotify tokens
      * @param {object} data data to save
      */
     Sync.prototype.setSpotify = function(data){
         data.client_id = this.client.id;
         return post("spotify", data);
+    };
+
+    /**
+     * Get the TasteProfile ID
+     */
+    Sync.prototype.getTasteProfile = function(){
+        return get("tasteprofile");
+    };
+
+    /**
+     * Set the TasteProfile ID
+     * @param {object} data data to save
+     */
+    Sync.prototype.setTasteProfile = function(data){
+        data.client_id = this.client.id;
+        return post("tasteprofile", data);
     };
 
     return new Sync();
