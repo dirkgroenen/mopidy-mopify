@@ -231,10 +231,12 @@ angular.module('mopify.music.tracklist', [
                 });
 
                 // Concat with previous tracks
-                $scope.tracks = $scope.tracks.concat(tracks);
+                loadedTracks = loadedTracks.concat(tracks);
 
                 if(response.next !== null)
                     loadSpotifyLibraryTracks(offset + 50);
+                else
+                    $scope.getMoreTracks();
             });
         }
         else if(!ServiceManager.isEnabled("spotify")){

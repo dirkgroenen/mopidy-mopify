@@ -31,12 +31,11 @@ angular.module('mopify.widgets.directive.track', [
 
             // Copy so we have raw tracks again (otherwise mopidy will crash)
             var track = angular.copy(scope.track);
-            var surrounding = angular.copy(scope.surrounding);
-
-            scope.visible = true;
 
             scope.selected = false;
             scope.multipleselected = true;
+
+            scope.visible = true;
 
             scope.showSaveTrack = false;
             scope.trackAlreadySaved = false;
@@ -87,6 +86,7 @@ angular.module('mopify.widgets.directive.track', [
              */
             scope.play = function(){
                 var clickedindex = 0;
+                var surrounding = angular.copy(scope.surrounding);
                 var surroundinguris = [];
 
                 /**
