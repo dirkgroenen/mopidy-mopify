@@ -26,7 +26,7 @@ setup(
         'setuptools',
         'Mopidy >= 0.19',
         'Mopidy-Spotify >= 1.2.0',
-        'configobj'
+        'ConfigObj'
     ],
     entry_points={
         'mopidy.ext': [
