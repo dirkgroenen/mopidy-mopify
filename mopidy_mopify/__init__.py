@@ -7,7 +7,7 @@ from mopidy import config, ext
 
 from sync import mopify_sync_factory
 
-__version__ = ''
+__version__ = '1.3.0'
 __ext_name__ = 'mopify'
 
 class MopifyExtension(ext.Extension):
