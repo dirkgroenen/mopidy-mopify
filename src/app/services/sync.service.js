@@ -1,13 +1,16 @@
 "use strict";
 
 angular.module("mopify.services.sync", [
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'mopify.services.settings'
 ])
 
-.factory("Sync", function SyncFactory($http, $q, localStorageService){
+.factory("Sync", function SyncFactory($http, $q, $location, localStorageService, Settings){
     
-   /* var apiUrl = "/mopify-sync/"; */
-    var apiUrl = "http://localhost:6680/mopify-sync/";
+    var mopidyip = Settings.get("mopidyip", $location.host());
+    var mopidyport = Settings.get("mopidyport", "6680");
+
+    var apiUrl = "http://" + mopidyip + ":" +  mopidyport + "/mopify-sync/";
 
     /**
      * Do a post request to the sync server
