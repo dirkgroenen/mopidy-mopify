@@ -125,11 +125,13 @@ v2.0.0 (UNRELEASED, expected in March/April)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
-v1.2.4 (UNRELEASED)
+v1.3.0 (UNRELEASED)
 
 - Fixed showing Spotify login window while logged in
 
 - Show connected servives in mobile menu
+
+- Added [Sync service](https://github.com/dirkgroenen/mopidy-mopify/wiki/Services#sync)
 
 v1.2.3 (22-02-2015)
 ------------------
