@@ -32,17 +32,21 @@ angular.module("mopify.account.services.sync", [
     $scope.spotifyclient = null;
 
     // Get client from remote
-    Sync.getSpotify().then(function(data){
-        if(data !== undefined)
-            $scope.spotifyclient = data.client;
-    });
+    if($scope.settings.sync.spotify === true){
+        Sync.getSpotify().then(function(data){
+            if(data !== undefined)
+                $scope.spotifyclient = data.client;
+        });
+    }
 
     // Get client from remote
-    Sync.getTasteProfile().then(function(data){
-        if(data !== undefined)
-            $scope.tasteprofileclient = data.client;
-    });
-    
+    if($scope.settings.sync.tasteprofile === true){
+        Sync.getTasteProfile().then(function(data){
+            if(data !== undefined)
+                $scope.tasteprofileclient = data.client;
+        });
+    }
+
     /*
      * Update the client in Sync
      */
