@@ -33,12 +33,14 @@ angular.module("mopify.account.services.sync", [
 
     // Get client from remote
     Sync.getSpotify().then(function(data){
-        $scope.spotifyclient = data.client;
+        if(data !== undefined)
+            $scope.spotifyclient = data.client;
     });
 
     // Get client from remote
     Sync.getTasteProfile().then(function(data){
-        $scope.tasteprofileclient = data.client;
+        if(data !== undefined)
+            $scope.tasteprofileclient = data.client;
     });
     
     /*
@@ -55,7 +57,7 @@ angular.module("mopify.account.services.sync", [
         var deferred = $q.defer();
 
         Sync.getTasteProfile().then(function(data){
-            if(data.id === "" || data.id === undefined){
+            if(data === undefined || data.id === "" || data.id === undefined){
                 notifier.notify({type: "custom", template: "No synchronized data available. Press PUSH to push your current credentails.", delay: 5000});
 
                 deferred.reject();
@@ -116,7 +118,7 @@ angular.module("mopify.account.services.sync", [
         $scope.settings.sync.spotify_type = "get";
 
         Sync.getSpotify().then(function(data){
-            if(data.access_token === undefined || data.refresh_token === undefined || data.access_token === "" || data.refresh_token === ""){
+            if(data === undefined || data.access_token === undefined || data.refresh_token === undefined || data.access_token === "" || data.refresh_token === ""){
                 notifier.notify({type: "custom", template: "No synchronized data available. Press PUSH to push your current credentails.", delay: 5000});
 
                 deferred.reject();
@@ -130,7 +132,7 @@ angular.module("mopify.account.services.sync", [
                 $scope.spotifyclient = data.client;
 
                 // Refresh Spotify
-                SpotifyLogin.refresh();
+                SpotifyLogin.login();
 
                 // Resolve
                 deferred.resolve(data);

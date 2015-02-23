@@ -209,7 +209,7 @@ angular.module("mopify.services.spotifylogin", [
             deferred.reject();
         }
 
-        if(force !== true){
+        if(force !== true && this.refresh_token !== null){
             // Refresh tokens
             this.refresh().then(function(){
                 // Check if refreshing the tokens resulted in a working connection
@@ -358,7 +358,7 @@ angular.module("mopify.services.spotifylogin", [
             if(response.status === 401 && response.config.url == "https://api.spotify.com/v1/me"){
                 spotifyErrors++;
                 
-                if(spotifyErrors >= 2 && !retrystarted){
+                if(spotifyErrors >= 3 && !retrystarted){
                     retrystarted = true;
 
                     /**
