@@ -8,6 +8,18 @@ from tornado.escape import json_encode
 
 from configobj import ConfigObj, ConfigObjError
 
+class Sync:
+    # Define variables
+    userhome = os.getenv("HOME")
+    directory = ".config/mopidy-mopify"
+    filename = "sync.ini"
+    syncfile = os.path.join(userhome, directory, filename)
+
+    def __init__(self):
+        if not os.path.exists(os.path.join(self.userhome, self.directory)):
+            os.makedirs(os.path.join(self.userhome, self.directory))
+
+
 class RootRequestHandler(tornado.web.RequestHandler):
     def initialize(self, core, config):
         self.core = core
@@ -21,8 +33,7 @@ class SpotifyRequestHandler(tornado.web.RequestHandler):
         
     def initialize(self, core, config):
         self.core = core
-        self.sync_filename = os.path.join(os.path.dirname(__file__), 'sync.ini')
-        self.syncini = ConfigObj(self.sync_filename, encoding='UTF8', create_empty=True)
+        self.syncini = ConfigObj(Sync.syncfile, encoding='UTF8', create_empty=True)
 
         # Check if the key exists
         try:
@@ -68,8 +79,7 @@ class TasteProfileRequestHandler(tornado.web.RequestHandler):
         
     def initialize(self, core, config):
         self.core = core
-        self.sync_filename = os.path.join(os.path.dirname(__file__), 'sync.ini')
-        self.syncini = ConfigObj(self.sync_filename, encoding='UTF8', create_empty=True)
+        self.syncini = ConfigObj(Sync.syncfile, encoding='UTF8', create_empty=True)
 
         # Check if the key exists
         try:
@@ -113,8 +123,7 @@ class ClientsRequestHandler(tornado.web.RequestHandler):
 
     def initialize(self, core, config):
         self.core = core
-        self.sync_filename = os.path.join(os.path.dirname(__file__), 'sync.ini')
-        self.syncini = ConfigObj(self.sync_filename, encoding='UTF8', create_empty=True)
+        self.syncini = ConfigObj(Sync.syncfile, encoding='UTF8', create_empty=True)
 
         # Check if the key exists
         try:
@@ -158,8 +167,6 @@ class ClientsRequestHandler(tornado.web.RequestHandler):
                 resp = client
 
         self.write(json_encode({'response': resp}))
-
-
 
 
 def mopify_sync_factory(config, core):

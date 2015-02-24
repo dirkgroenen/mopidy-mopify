@@ -4,8 +4,7 @@ import os
 import tornado.web
 
 from mopidy import config, ext
-
-from sync import mopify_sync_factory
+from sync import Sync, mopify_sync_factory
 
 __version__ = '1.3.1'
 __ext_name__ = 'mopify'
@@ -25,6 +24,10 @@ class MopifyExtension(ext.Extension):
             'path': os.path.join(os.path.dirname(__file__), 'static'),
         })
 
+        # initalize the call class so it makes our directory
+        sync = Sync()
+
+        # Add the sync tornado app
         registry.add('http:app', {
             'name': self.ext_name + '-sync',
             'factory': mopify_sync_factory,
