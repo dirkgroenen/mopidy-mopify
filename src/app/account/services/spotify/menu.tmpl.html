@@ -4,7 +4,7 @@
     </div>
     <div class="content">
         <span class="username" ng-show="authorized">
-            {{ userProfile.display_name }}
+            {{ userProfile.display_name || userProfile.id }}
         </span>
         <span class="username" ng-hide="authorized">
         Connecting...
