@@ -89,8 +89,6 @@ angular.module('mopify.widgets.directive.track', [
                 var clickedindex = 0;
                 var surroundinguris = [];
 
-                console.log(scope.surrounding);
-
                 /**
                  * Check if this is the only selected track and play it
                  */
