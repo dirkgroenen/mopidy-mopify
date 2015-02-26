@@ -19,7 +19,6 @@ angular.module('mopify.widgets.directive.track', [
         restrict: 'E',
         scope: {
             track: '=',
-            surrounding: "=",
             type: "=",
             currentPlayingTrack: "=currentplayingtrack"
         },
@@ -39,6 +38,8 @@ angular.module('mopify.widgets.directive.track', [
 
             scope.showSaveTrack = false;
             scope.trackAlreadySaved = false;
+
+            scope.surrounding = scope.$parent.loadedTracks;
 
             scope.artistsString = function(){
                 return util.artistsToString(scope.track.artists, true);
@@ -86,28 +87,27 @@ angular.module('mopify.widgets.directive.track', [
              */
             scope.play = function(){
                 var clickedindex = 0;
-                var surrounding = angular.copy(scope.surrounding);
                 var surroundinguris = [];
+
+                console.log(scope.surrounding);
 
                 /**
                  * Check if this is the only selected track and play it
                  */
                 if($rootScope.selectedtracks.length === 1){
                     if(track.__model__ == "Track"){
-                        mopidyservice.playTrack(track, surrounding);    
+                        mopidyservice.playTrack(track, scope.surrounding);    
                     }
                     else{
-                        _.each(surrounding, function(iTrack, index){
+                        _.each(scope.surrounding, function(iTrack, index){
                             if(track.uri == iTrack.uri){
                                 clickedindex = index;
                                 return;
                             }
                         });
 
-                        // Convert spotify tracks to mopidy tracks
-                        surroundinguris = _.map(surrounding, function(track){
-                            return track.uri;
-                        });
+                        // Get the URIs from the surrounding tracks
+                        surroundinguris = _.pluck(scope.surrounding, "uri");
 
                         // Get a list of all the urls and play it
                         mopidyservice.findExact({ uri: surroundinguris }).then(function(data){
@@ -135,10 +135,8 @@ angular.module('mopify.widgets.directive.track', [
                             }
                         });
 
-                        // Convert spotify tracks to mopidy tracks
-                        surroundinguris = _.map($rootScope.selectedtracks, function(track){
-                            return track.uri;
-                        });
+                        // Get the URIs from the surrounding tracks
+                        surroundinguris = _.pluck(scope.surrounding, "uri");
 
                         // Get a list of all the urls and play it
                         mopidyservice.findExact({ uri: surroundinguris }).then(function(data){

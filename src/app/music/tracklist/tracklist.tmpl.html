@@ -10,7 +10,7 @@
             tracks <span class="sub">{{ type }}</span>
         </div>
         <div class="col-md-6 col-md-offset-3 alignright">
-            <div class="button white" ng-click="toggleSaveAlbum()" ng-show="type == 'Album'">
+            <div class="button white" ng-click="toglgeSaveAlbum()" ng-show="type == 'Album'">
                 <span class="text">{{ (albumAlreadySaved) ? 'Remove' : 'Save' }} album</span>
                 <i class="ss-icon ss-check" ng-show="!albumAlreadySaved"></i> 
                 <i class="ss-icon ss-delete" ng-show="albumAlreadySaved"></i> 
@@ -29,7 +29,7 @@
     <div class="pagecontent row">
         <div id="tracklist" infinite-scroll="getMoreTracks()" infinite-scroll-distance="1">
             <div class="row" ng-repeat="track in tracks track by $index" >
-                <mopify-track track="track" surrounding="tracks" currentplayingtrack="currentPlayingTrack" type="type"> </mopify-track>
+                <mopify-track track="track" currentplayingtrack="currentPlayingTrack" type="type"> </mopify-track>
             </div>
         </div>
     </div>
