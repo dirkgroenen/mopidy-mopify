@@ -46,6 +46,11 @@ Install using PIP:
 sudo pip install Mopidy-Mopify
 ```
 
+Install on Linux Arch ([AUR](https://aur.archlinux.org/packages/mopidy-mopify/)):
+```bash
+yaourt -S mopidy-mopify
+```
+
 After installing Mopify, you can enable it by adding the following options to
 your Mopidy config file (optional):
 
