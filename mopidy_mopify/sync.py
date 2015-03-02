@@ -1,9 +1,7 @@
 from __future__ import unicode_literals
-
 import os
 
 import tornado.web
-
 from tornado.escape import json_encode
 
 from configobj import ConfigObj, ConfigObjError
@@ -13,27 +11,64 @@ class Sync:
     userhome = os.getenv("HOME")
     directory = ".config/mopidy-mopify"
     filename = "sync.ini"
+
+    # build path
     syncfile = os.path.join(userhome, directory, filename)
 
+    # check if path exists, otherwise create it
     def __init__(self):
         if not os.path.exists(os.path.join(self.userhome, self.directory)):
             os.makedirs(os.path.join(self.userhome, self.directory))
 
 
 class RootRequestHandler(tornado.web.RequestHandler):
-    def initialize(self, core, config):
-        self.core = core
-
-    def get(self):
-        self.write("This extension is part of Mopidy-Mopify and is used to create the Sync service.")
-
-class SpotifyRequestHandler(tornado.web.RequestHandler):
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
-        
+
     def initialize(self, core, config):
         self.core = core
-        self.syncini = ConfigObj(Sync.syncfile, encoding='UTF8', create_empty=True)
+
+    def get(self, service):
+        response = {}
+
+        if(service == "spotify"):
+            spotify = Spotify()
+            response = spotify.read()
+
+        if(service == "tasteprofile"):
+            response = {}
+                        
+        if(service == "clients"):
+            response = {}
+            
+
+        self.write({"response": response})
+
+    def post(self, service):
+        response = {}
+
+        if(service == "spotify"):
+            spotify = Spotify()
+            response = spotify.write({
+                'refresh_token': self.get_argument('refresh_token', default=''),
+                'access_token': self.get_argument('access_token', default=''),
+                'client_id': self.get_argument('client_id', default='')
+            })
+
+        if(service == "tasteprofile"):
+            response = {}
+                        
+        if(service == "clients"):
+            response = {}
+            
+
+        self.write({"response": response})
+
+
+class Spotify(Sync):
+
+    def __init__(self):
+        self.syncini = ConfigObj(self.syncfile, encoding='UTF8', create_empty=True)
 
         # Check if the key exists
         try:
@@ -41,37 +76,53 @@ class SpotifyRequestHandler(tornado.web.RequestHandler):
         except KeyError:
             self.syncini["spotify"] = {}
 
-    def get(self):
-        resp = ''
+    def read(self):
+        try:
+            spotify = self.syncini['spotify']
+            spotify['client'] = self.syncini['accounts'][spotify['client_id']]
+        except KeyError:
+            resp = "No data available"
 
-        if resp == '':
-            try:
-                spotify = self.syncini['spotify']
-                spotify['client'] = self.syncini['accounts'][spotify['client_id']]
-            except KeyError:
-                resp = "No data available"
+        resp = spotify
 
-            resp = spotify
+        return resp
 
-        self.write(json_encode({'response': resp}))
+    def write(self, arguments):
+        # Create the section
+        self.syncini['spotify'] = arguments
 
-    def post(self):
-        resp = ''
+        # Write to ini file
+        self.syncini.write()
 
-        if resp == '':
-            # Create the section
-            self.syncini['spotify'] = {
-                'refresh_token': self.get_argument('refresh_token', default=''),
-                'access_token': self.get_argument('access_token', default=''),
-                'client_id': self.get_argument('client_id', default='')
-            }
-
-            # Write to ini file
-            self.syncini.write()
-            resp = self.syncini['spotify']
-
-        self.write(json_encode({'response': resp}))
+        return self.syncini['spotify']
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class TasteProfileRequestHandler(tornado.web.RequestHandler):
     def set_default_headers(self):
@@ -116,6 +167,7 @@ class TasteProfileRequestHandler(tornado.web.RequestHandler):
             resp = self.syncini['tasteprofile']
 
         self.write(json_encode({'response': resp}))
+
 
 class ClientsRequestHandler(tornado.web.RequestHandler):
     def set_default_headers(self):
@@ -167,12 +219,3 @@ class ClientsRequestHandler(tornado.web.RequestHandler):
                 resp = client
 
         self.write(json_encode({'response': resp}))
-
-
-def mopify_sync_factory(config, core):
-    return [
-        ('/', RootRequestHandler, {'core': core, 'config': config}),
-        ('/spotify', SpotifyRequestHandler, {'core': core, 'config': config}),
-        ('/tasteprofile', TasteProfileRequestHandler, {'core': core, 'config': config}),
-        ('/clients', ClientsRequestHandler, {'core': core, 'config': config})
-    ]
