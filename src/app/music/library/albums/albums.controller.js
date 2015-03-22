@@ -69,10 +69,27 @@ angular.module('mopify.music.library.albums', [
                 // Check if the scope's last album doesn't equal the first album we wan't to add
                 if($scope.albums.length > 0){
                     if($scope.albums[$scope.albums.length - 1].id == albums[0].id){
-                        // REmove the first album
+                        // Remove the first album
                         albums.shift();
                     }
                 }
+
+                // Add artists to each album based on the tracks
+                _.each(albums, function(album){
+                    var tracks = _.filter(response.items, function(item){
+                        return item.track.album.id === album.id;
+                    });
+
+                    var artists = _.flatten(_.map(tracks, function(item){
+                        return item.track.artists;
+                    }));
+
+                    artists = _.uniq(artists, function(item){
+                        return item.id;
+                    });
+
+                    album.artists = artists;
+                });
 
                 // Concat with previous tracks
                 $scope.albums = $scope.albums.concat(albums);
