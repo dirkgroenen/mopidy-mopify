@@ -125,6 +125,17 @@ v2.0.0 (UNRELEASED, expected in March/April)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
+v1.3.2 (23-03-2015)
+------------------
+
+- Merged mopify-sync and mopify into one extension [#68](https://github.com/dirkgroenen/mopidy-mopify/issues/68)
+
+- Fixed tracklist loading in big screens [#76](https://github.com/dirkgroenen/mopidy-mopify/issues/76)
+
+- Added artists to album view [#75](https://github.com/dirkgroenen/mopidy-mopify/issues/75)
+
+- Localized featured playlists [#69](https://github.com/dirkgroenen/mopidy-mopify/issues/69)
+
 v1.3.1 (23-02-2015)
 ------------------
 
