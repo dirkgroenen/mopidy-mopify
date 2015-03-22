@@ -17,7 +17,7 @@ class Sync:
 
     # check if path exists, otherwise create it
     def __init__(self):
-        if not os.path.exists(os.path.join(self.userhome, self.directory)):
+        if not os.path.exists(os.pNopeath.join(self.userhome, self.directory)):
             os.makedirs(os.path.join(self.userhome, self.directory))
 
 
@@ -36,10 +36,12 @@ class RootRequestHandler(tornado.web.RequestHandler):
             response = spotify.read()
 
         if(service == "tasteprofile"):
-            response = {}
+            tasteprofile = TasteProfile()
+            response = tasteprofile.read()
                         
         if(service == "clients"):
-            response = {}
+            clients = Clients()
+            response = clients.read();
             
 
         self.write({"response": response})
@@ -56,10 +58,19 @@ class RootRequestHandler(tornado.web.RequestHandler):
             })
 
         if(service == "tasteprofile"):
-            response = {}
+            tasteprofile = TasteProfile()
+            response = tasteprofile.write({
+                'id': self.get_argument('id', default=''),
+                'client_id': self.get_argument('client_id', default='')
+            })
                         
         if(service == "clients"):
-            response = {}
+            clients = Clients()
+            response = clients.write({
+                'name': self.get_argument("name", default=''),
+                'client_id': self.get_argument("client_id", default=''),
+                'master': self.get_argument("master", default=False)
+            });
             
 
         self.write({"response": response})
@@ -97,40 +108,10 @@ class Spotify(Sync):
         return self.syncini['spotify']
         
 
+class TasteProfile(Sync):
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class TasteProfileRequestHandler(tornado.web.RequestHandler):
-    def set_default_headers(self):
-        self.set_header("Access-Control-Allow-Origin", "*")
-        
-    def initialize(self, core, config):
-        self.core = core
-        self.syncini = ConfigObj(Sync.syncfile, encoding='UTF8', create_empty=True)
+    def __init__(self):
+        self.syncini = ConfigObj(self.syncfile, encoding='UTF8', create_empty=True)
 
         # Check if the key exists
         try:
@@ -138,44 +119,30 @@ class TasteProfileRequestHandler(tornado.web.RequestHandler):
         except KeyError:
             self.syncini["tasteprofile"] = {}
 
-    def get(self):
-        resp = ''
-
-        if resp == '':
-            try:
-                tasteprofile = self.syncini['tasteprofile']
-                tasteprofile['client'] = self.syncini['accounts'][tasteprofile['client_id']]
-            except KeyError:
-                resp = "No data available"
-
+    def read(self):
+        try:
+            tasteprofile = self.syncini['tasteprofile']
+            tasteprofile['client'] = self.syncini['accounts'][tasteprofile['client_id']]
+            
             resp = tasteprofile
+        except KeyError:
+            resp = "No data available"
 
-        self.write(json_encode({'response': resp}))
+        return resp
 
-    def post(self):
-        resp = ''
+    def write(self, arguments):
+        # Create the section
+        self.syncini['tasteprofile'] = arguments
 
-        if resp == '':
-            # Create the section
-            self.syncini['tasteprofile'] = {
-                'id': self.get_argument('id', default=''),
-                'client_id': self.get_argument('client_id', default='')
-            }
-
-            # Write to ini file
-            self.syncini.write()
-            resp = self.syncini['tasteprofile']
-
-        self.write(json_encode({'response': resp}))
+        # Write to ini file
+        self.syncini.write()
+        return self.syncini['tasteprofile']
 
 
-class ClientsRequestHandler(tornado.web.RequestHandler):
-    def set_default_headers(self):
-        self.set_header("Access-Control-Allow-Origin", "*")
+class Clients(Sync):
 
-    def initialize(self, core, config):
-        self.core = core
-        self.syncini = ConfigObj(Sync.syncfile, encoding='UTF8', create_empty=True)
+    def __init__(self):
+        self.syncini = ConfigObj(self.syncfile, encoding='UTF8', create_empty=True)
 
         # Check if the key exists
         try:
@@ -183,39 +150,34 @@ class ClientsRequestHandler(tornado.web.RequestHandler):
         except KeyError:
             self.syncini["accounts"] = {}
 
-    def get(self):
-        resp = ''
+    def read(self):
+        return self.syncini["accounts"]
 
-        if resp == '':
-            resp = self.syncini['accounts']
-
-        self.write(json_encode({'response': resp}))
-
-    def post(self):
-        resp = ''
+    def write(self, arguments):
         exists = True
 
-        if resp == '':
-            accounts = self.syncini["accounts"]
- 
-            try:
-                client = accounts[self.get_argument("client_id")]
-            except KeyError:
-                exists = False
+        accounts = self.syncini["accounts"]
 
-            if exists == False:
-                accounts[self.get_argument("client_id")] = {
-                    'name': self.get_argument("name", default=''),
-                    'master': self.get_argument("master", default=False)
-                }
-                self.syncini.write()
+        try:
+            client = accounts[arguments["client_id"]]
+        except KeyError:
+            exists = False
 
-                resp = self.syncini["accounts"]
-            else:
-                client["name"] = self.get_argument("name", default=client["name"])
+        if exists == False:
+            accounts[arguments["client_id"]] = arguments
+            self.syncini.write()
 
-                self.syncini.write()
+            resp = self.syncini["accounts"]
+        else:
+            client["name"] = arguments["name"]
 
-                resp = client
+            self.syncini.write()
 
-        self.write(json_encode({'response': resp}))
+            resp = client
+
+        # Write to ini file
+        self.syncini.write()
+        return resp
+
+
+

@@ -25,6 +25,7 @@ class MopifyExtension(ext.Extension):
         })
 
 
+
 def mopify_client_factory(config, core):
     return [
         ('/sync/(.*)', sync.RootRequestHandler, {'core': core, 'config': config}),
