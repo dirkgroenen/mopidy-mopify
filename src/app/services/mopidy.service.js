@@ -247,6 +247,7 @@ angular.module('mopify.services.mopidy', [
                     var tlTrackToPlay = _.find(tlTracks, function(tlTrack) {
                         return tlTrack.track.uri === track.uri;
                     });
+
                     self.mopidy.playback.changeTrack({ tl_track: tlTrackToPlay })
                         .then(function() {
                             self.mopidy.playback.play().then(function(){

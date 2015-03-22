@@ -110,7 +110,7 @@ angular.module('mopify.music.tracklist', [
     $scope.tracks = [];
     $scope.currentPlayingTrack = {};
 
-    var loadedTracks = [];
+    $scope.loadedTracks = [];
 
     if($scope.type == "Playlist"){
         loadSpotifyInfo();
@@ -159,7 +159,7 @@ angular.module('mopify.music.tracklist', [
                     $timeout(loadTracks, 1000);
                 }
                 else{
-                    loadedTracks = angular.copy(tracks);
+                    $scope.loadedTracks = angular.copy(tracks);
 
                     var random = Math.floor((Math.random() * tracks.length) + 0);
 
@@ -231,7 +231,7 @@ angular.module('mopify.music.tracklist', [
                 });
 
                 // Concat with previous tracks
-                loadedTracks = loadedTracks.concat(tracks);
+                $scope.loadedTracks = $scope.loadedTracks.concat(tracks);
 
                 if(response.next !== null)
                     loadSpotifyLibraryTracks(offset + 50);
@@ -322,16 +322,16 @@ angular.module('mopify.music.tracklist', [
             stationservice.startFromTracks($scope.tracks);
     };
 
-    var tracksPerCall = 20;
+    var tracksPerCall = 40;
 
     /*
      * Add {trackspercall} tracks to the scope
      * This function is used in combination with infinite scroll
      */
     $scope.getMoreTracks = function(){
-        if(loadedTracks.length > 0){
+        if($scope.loadedTracks.length > 0){
             var current = $scope.tracks;
-            var toAdd = loadedTracks.splice(0, tracksPerCall);
+            var toAdd = $scope.loadedTracks.slice(0, tracksPerCall);
             
             $scope.tracks = current.concat(toAdd);
         }

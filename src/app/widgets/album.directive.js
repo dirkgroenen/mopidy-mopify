@@ -3,6 +3,7 @@
 angular.module('mopify.widgets.directive.album', [
     "mopify.services.mopidy",
     "mopify.services.station",
+    "mopify.services.util",
     "mopify.modal.playlistselect",
     "ui.bootstrap",
     "spotify",
@@ -11,7 +12,7 @@ angular.module('mopify.widgets.directive.album', [
     "llNotifier"
 ])
 
-.directive('mopifyAlbum', function mopifyAlbum($modal, mopidyservice, stationservice, prompt, PlaylistManager, notifier, Spotify, SpotifyLogin, ServiceManager) {
+.directive('mopifyAlbum', function mopifyAlbum($modal, mopidyservice, stationservice, prompt, util, PlaylistManager, notifier, Spotify, SpotifyLogin, ServiceManager) {
 
     return {
         restrict: 'E',
@@ -30,6 +31,8 @@ angular.module('mopify.widgets.directive.album', [
 
             scope.visible = true;
             
+            scope.artiststring = util.artistsToString(scope.album.artists);
+
             var albumtracks = [];
 
             /*

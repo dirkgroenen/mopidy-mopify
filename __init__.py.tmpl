@@ -2,10 +2,9 @@ from __future__ import unicode_literals
 
 import os
 import tornado.web
+import sync
 
 from mopidy import config, ext
-
-from sync import mopify_sync_factory
 
 __version__ = '<%= version %>'
 __ext_name__ = 'mopify'
@@ -20,12 +19,18 @@ class MopifyExtension(ext.Extension):
         return config.read(conf_file)
 
     def setup(self, registry):
-        registry.add('http:static', {
+        registry.add('http:app', {
             'name': self.ext_name,
-            'path': os.path.join(os.path.dirname(__file__), 'static'),
+            'factory': mopify_client_factory  
         })
 
-        registry.add('http:app', {
-            'name': self.ext_name + '-sync',
-            'factory': mopify_sync_factory,
+
+
+def mopify_client_factory(config, core):
+    return [
+        ('/sync/(.*)', sync.RootRequestHandler, {'core': core, 'config': config}),
+        (r'/(.*)', tornado.web.StaticFileHandler, {
+            "path": os.path.join(os.path.dirname(__file__), 'static'),
+            "default_filename": "index.html"
         })
+    ]

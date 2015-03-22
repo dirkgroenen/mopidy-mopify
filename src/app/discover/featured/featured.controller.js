@@ -40,11 +40,16 @@ function loadFeaturedPlaylists(){
         var locale = Settings.get("locale", "en_US");
         var country = Settings.get("country", "US");
 
+        // Get ISO 8601 timestamp
+        var date = new Date();
+        var timestamp = date.toISOString();
+
         // Get the featured playlists from spotify
         Spotify.getFeaturedPlaylists({
             locale: locale,
             country: country,
-            limit: 12
+            limit: 12,
+            timestamp: timestamp
         }).then(function(data){
             // Set the message and items
             $scope.titletext = data.message;
