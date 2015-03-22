@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import os
 import tornado.web
 import sync
+import update
 
 from mopidy import config, ext
 
@@ -29,6 +30,7 @@ class MopifyExtension(ext.Extension):
 def mopify_client_factory(config, core):
     return [
         ('/sync/(.*)', sync.RootRequestHandler, {'core': core, 'config': config}),
+        ('/update', update.UpdateRequestHandler, {'core': core, 'config': config}),
         (r'/(.*)', tornado.web.StaticFileHandler, {
             "path": os.path.join(os.path.dirname(__file__), 'static'),
             "default_filename": "index.html"
