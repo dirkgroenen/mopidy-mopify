@@ -217,7 +217,7 @@ angular.module('mopify.services.mopidy', [
 
                 if (_.difference(trackUris, currentTrackUris).length === 0) {
                     // no playlist change required, just play a different track.
-                    self.mopidy.playback.stop({ clear_current_track: false })
+                    self.mopidy.playback.stop()
                         .then(function () {
                             var tlTrackToPlay = _.find(self.currentTlTracks, function(tlTrack) {
                                 return tlTrack.track.uri === track.uri;
@@ -233,7 +233,7 @@ angular.module('mopify.services.mopidy', [
                 }
             }
 
-            self.mopidy.playback.stop({ clear_current_track: true })
+            self.mopidy.playback.stop()
                 .then(function() {
                     self.mopidy.tracklist.clear();
                 }, consoleError)
@@ -310,8 +310,8 @@ angular.module('mopify.services.mopidy', [
             return wrapMopidyFunc("mopidy.playback.pause", this)();
         },
 
-        stopPlayback: function(clearCurrentTrack) {
-            return wrapMopidyFunc("mopidy.playback.stop", this)({ clear_current_track: clearCurrentTrack });
+        stopPlayback: function() {
+            return wrapMopidyFunc("mopidy.playback.stop", this)();
         },
 
         previous: function() {
