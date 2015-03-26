@@ -20,7 +20,7 @@ angular.module('mopify.widgets.directive.album', [
             album: '='
         },
         replace: true,
-        templateUrl: 'widgets/album.directive.tmpl.html',
+        templateUrl: 'directives/album.directive.tmpl.html',
         link: function(scope, element, attrs) {
 
             var encodedname = encodeURIComponent( scope.album.name.replace(/\//g, "-") );

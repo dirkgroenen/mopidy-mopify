@@ -215,47 +215,46 @@ angular.module('mopify.services.mopidy', [
                     return tlTrack.track.uri;
                 });
 
+
                 if (_.difference(trackUris, currentTrackUris).length === 0) {
+
                     // no playlist change required, just play a different track.
                     self.mopidy.playback.stop()
                         .then(function () {
                             var tlTrackToPlay = _.find(self.currentTlTracks, function(tlTrack) {
                                 return tlTrack.track.uri === track.uri;
                             });
-                            self.mopidy.playback.changeTrack({ tl_track: tlTrackToPlay })
-                        .then(function() {
-                            self.mopidy.playback.play().then(function(){
-                                $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tlTrackToPlay);
+                            self.mopidy.playback.play({ tl_track: tlTrackToPlay }).then(function() {
+                                self.mopidy.playback.getCurrentTlTrack().then(function(tltrack){
+                                    $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tltrack);
+                                }, consoleError);
                             });
-                        });
                     });
                     return;
                 }
             }
 
-            self.mopidy.playback.stop()
-                .then(function() {
-                    self.mopidy.tracklist.clear();
-                }, consoleError)
-                .then(function() {
-                    self.mopidy.tracklist.add({ tracks: surroundingTracks });
-                }, consoleError)
-                .then(function() {
-                    self.mopidy.tracklist.getTlTracks()
-                .then(function(tlTracks) {
+            self.mopidy.playback.stop().then(function() {
+                self.mopidy.tracklist.clear().then(function(){
+                    
+                });
+            }, consoleError).then(function() {
+                self.mopidy.tracklist.add({ uris: surroundingTracks });
+            }, consoleError).then(function() {
+                self.mopidy.tracklist.getTlTracks().then(function(tlTracks) {
                     self.currentTlTracks = tlTracks;
+
                     var tlTrackToPlay = _.find(tlTracks, function(tlTrack) {
                         return tlTrack.track.uri === track.uri;
                     });
 
-                    self.mopidy.playback.changeTrack({ tl_track: tlTrackToPlay })
-                        .then(function() {
-                            self.mopidy.playback.play().then(function(){
-                                $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tlTrackToPlay);
-                            }); 
-                        });
-                    }, consoleError);
-                } , consoleError);
+                    self.mopidy.playback.play({ tl_track: tlTrackToPlay }).then(function() {
+                        self.mopidy.playback.getCurrentTlTrack().then(function(tltrack){
+                            $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tltrack);
+                        }, consoleError);
+                    });
+                }, consoleError);
+            } , consoleError);
         },
 
         playTrackAtIndex: function(index){
@@ -265,10 +264,10 @@ angular.module('mopify.services.mopidy', [
                 index = (index < tlTracks.length) ? index : tlTracks.length - 1;
                 var tlTrackToPlay = tlTracks[index];
 
-                self.mopidy.playback.changeTrack({ tl_track: tlTrackToPlay }).then(function() {
-                    self.mopidy.playback.play().then(function(){
-                        $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tlTrackToPlay);
-                    }); 
+                self.mopidy.playback.play({ tl_track: tlTrackToPlay }).then(function() {
+                    self.mopidy.playback.getCurrentTlTrack().then(function(tltrack){
+                        $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tltrack);
+                    }, consoleError);
                 });
             }, consoleError);
         },

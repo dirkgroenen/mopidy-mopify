@@ -13,7 +13,7 @@ angular.module('mopify.widgets.directive.playlist', [
         scope: {
             playlist: '='
         },
-        templateUrl: 'widgets/playlist.directive.tmpl.html',
+        templateUrl: 'directives/playlist.directive.tmpl.html',
         link: function(scope, element, attrs) {
             scope.coverImage = defaultAlbumImageUrl;
 

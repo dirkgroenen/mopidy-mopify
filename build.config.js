@@ -50,7 +50,7 @@ module.exports = {
       */
     vendor_files: {
         js: [
-            'src/vendor/mopidy/mopidy.min.js',
+            'src/vendor/mopidy/mopidy.js',
             'src/vendor/angular/angular.js',
             'src/vendor/angular-route/angular-route.js',
             'src/vendor/angular-local-storage/dist/angular-local-storage.js',

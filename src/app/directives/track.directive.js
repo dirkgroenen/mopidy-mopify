@@ -23,7 +23,7 @@ angular.module('mopify.widgets.directive.track', [
             currentPlayingTrack: "=currentplayingtrack"
         },
         transclude: true,
-        templateUrl: 'widgets/track.directive.tmpl.html',
+        templateUrl: 'directives/track.directive.tmpl.html',
         link: function(scope, element, attrs) {
 
             var uri = $routeParams.uri;

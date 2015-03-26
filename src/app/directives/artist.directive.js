@@ -16,7 +16,7 @@ angular.module('mopify.widgets.directive.artist', [
         scope: {
             artist: '='
         },
-        templateUrl: 'widgets/artist.directive.tmpl.html',
+        templateUrl: 'directives/artist.directive.tmpl.html',
         link: function(scope, element, attrs) {
 
             scope.showFollowArtist = false;
