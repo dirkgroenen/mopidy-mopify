@@ -64,7 +64,7 @@ module.exports = {
             'src/vendor/underscore/underscore-min.js',
             'src/vendor/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
             'src/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            'src/vendor/angular-prompt/dist/angular-prompt.min.js',
+            'src/vendor/angular-prompt/angular-prompt.js',
             'src/vendor/angular-toggle-switch/angular-toggle-switch.min.js',
             'src/vendor/hammerjs/hammer.js',
             'src/vendor/ryanmullins-angular-hammer/angular.hammer.js',
