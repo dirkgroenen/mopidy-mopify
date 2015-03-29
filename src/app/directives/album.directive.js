@@ -30,8 +30,12 @@ angular.module('mopify.widgets.directive.album', [
             scope.albumAlreadySaved = false;
 
             scope.visible = true;
-            
-            scope.artiststring = util.artistsToString(scope.album.artists);
+
+            if (scope.album.artists.length < 4) {
+                scope.artiststring = util.artistsToString(scope.album.artists);
+            } else {
+                scope.artiststring = "Various Artists";
+            }
 
             var albumtracks = [];
 
