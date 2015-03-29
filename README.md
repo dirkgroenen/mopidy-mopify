@@ -36,8 +36,8 @@ the future depending on how popular Mopify becomes!
 
 ## Installation
 
-Installing Mopify is easy. Make sure you have installed Mopidy 0.19 and
-Mopidy-Spotify 1.2 (or higher) and enabled the [HTTP
+Installing Mopify is easy. Make sure you have installed Mopidy 1.0 and
+Mopidy-Spotify 1.3 (or higher) and enabled the [HTTP
 Extension](https://docs.mopidy.com/en/latest/ext/http/).
 
 Install using PIP:
@@ -127,9 +127,18 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
-v2.0.0 (UNRELEASED, expected in March/April)
+v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
+
+v1.4.0 (UNRELEASED)
+------------------
+
+- Added compatability for Mopidy 1.0 [#81](https://github.com/dirkgroenen/mopidy-mopify/issues/81) [#80](https://github.com/dirkgroenen/mopidy-mopify/issues/80)
+
+- Sync service working again [#80](https://github.com/dirkgroenen/mopidy-mopify/issues/80)
+
+- Dropped support for < Mopidy 1.0
 
 v1.3.2 (23-03-2015)
 ------------------
