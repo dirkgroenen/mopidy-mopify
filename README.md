@@ -140,6 +140,10 @@ v1.4.0 (UNRELEASED)
 
 - Dropped support for < Mopidy 1.0
 
+- Fixed endless repeating tracklist
+
+- Some little speed improvements
+
 v1.3.2 (23-03-2015)
 ------------------
 
