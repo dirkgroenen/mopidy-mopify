@@ -19,6 +19,8 @@ class MopifyExtension(ext.Extension):
         return config.read(conf_file)
 
     def setup(self, registry):
+        syncinstance = sync.Sync();
+        
         registry.add('http:app', {
             'name': self.ext_name,
             'factory': mopify_client_factory  

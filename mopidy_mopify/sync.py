@@ -17,7 +17,7 @@ class Sync:
 
     # check if path exists, otherwise create it
     def __init__(self):
-        if not os.path.exists(os.pNopeath.join(self.userhome, self.directory)):
+        if not os.path.exists(os.path.join(self.userhome, self.directory)):
             os.makedirs(os.path.join(self.userhome, self.directory))
 
 
