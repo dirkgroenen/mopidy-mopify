@@ -29,8 +29,9 @@ angular.module('mopify.services.station', [
         // The reponse from echonest only contains the artist name and track title. We need to look up the tracks in mopidy and add them
         // This is done in batches to prevent mopidy from overloading
         if(echonestTracksQueue.length > 0){
-            generateMopidyTracks().then(function(tracks){
-                mopidyservice.addToTracklist({ tracks: tracks }).then(function(response){
+            generateMopidyTracks().then(function(uris){
+
+                mopidyservice.addToTracklist({ uris: uris }).then(function(response){
                     $timeout(processMopidyTracklist, 1000);
 
                     deferred.resolve(response);
@@ -55,10 +56,7 @@ angular.module('mopify.services.station', [
             return song.tracks[0].foreign_id;
         });
 
-        // Find all uris in mopidy
-        mopidyservice.findExact({ uri: songuris }).then(function(result){
-            deferred.resolve(result[0].tracks);
-        });
+        deferred.resolve(songuris);
 
         return deferred.promise;        
     }

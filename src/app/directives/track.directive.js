@@ -104,14 +104,8 @@ angular.module('mopify.widgets.directive.track', [
                             }
                         });
 
-                        // Get the URIs from the surrounding tracks
-                        surroundinguris = _.pluck(scope.surrounding, "uri");
-
-                        // Get a list of all the urls and play it
-                        mopidyservice.findExact({ uri: surroundinguris }).then(function(data){
-                            var tracks = data[0].tracks;
-                            mopidyservice.playTrack(tracks[clickedindex], tracks);
-                        });
+                        // Play the clicked and surrounding tracks
+                        mopidyservice.playTrack(scope.surrounding[clickedindex], scope.surrounding);
                     }    
                 }
                 else{
@@ -133,14 +127,8 @@ angular.module('mopify.widgets.directive.track', [
                             }
                         });
 
-                        // Get the URIs from the surrounding tracks
-                        surroundinguris = _.pluck(scope.surrounding, "uri");
-
-                        // Get a list of all the urls and play it
-                        mopidyservice.findExact({ uri: surroundinguris }).then(function(data){
-                            var tracks = data[0].tracks;
-                            mopidyservice.playTrack(tracks[clickedindex], tracks);
-                        });
+                        // Play the clicked and surrounding tracks
+                        mopidyservice.playTrack($rootScope.selectedtracks[clickedindex], $rootScope.selectedtracks);
                     }
                 }                
             };

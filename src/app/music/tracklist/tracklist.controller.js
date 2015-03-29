@@ -146,7 +146,9 @@ angular.module('mopify.music.tracklist', [
 
         // Lookup the tracks for the given album or playlist
         if(uri.indexOf("spotify:") > -1){
-            mopidyservice.lookup(uri).then(function(tracks){
+            mopidyservice.lookup(uri).then(function(response){
+                var tracks = response[uri];
+                
                 // Check if the $scope.tracks contains loading tracks
                 var loadingTracks = false;
 
@@ -292,10 +294,14 @@ angular.module('mopify.music.tracklist', [
      */
     $scope.shuffle = function(){
         if(mopidyservice.isConnected){
+            var uris = _.map($scope.loadedTracks, function(track){
+                return track.uri;
+            });
+
             // Clear tracklist
             mopidyservice.clearTracklist().then(function(){
                 // Add track to tracklist
-                mopidyservice.addToTracklist({ uri: uri }).then(function(tltacks){
+                mopidyservice.addToTracklist({ uris: uris }).then(function(tltacks){
                     // Set random to true
                     mopidyservice.setRandom(true).then(function(){
                         // Start with random track
@@ -307,7 +313,6 @@ angular.module('mopify.music.tracklist', [
                 });
 
             });
-            
         }
     };
 
@@ -323,17 +328,20 @@ angular.module('mopify.music.tracklist', [
     };
 
     var tracksPerCall = 40;
+    var callRun = 0;
 
     /*
      * Add {trackspercall} tracks to the scope
      * This function is used in combination with infinite scroll
      */
     $scope.getMoreTracks = function(){
-        if($scope.loadedTracks.length > 0){
+        if($scope.loadedTracks.length > (tracksPerCall * callRun)){
             var current = $scope.tracks;
-            var toAdd = $scope.loadedTracks.slice(0, tracksPerCall);
+            var toAdd = $scope.loadedTracks.slice((callRun * tracksPerCall), (callRun * tracksPerCall) + tracksPerCall);
             
             $scope.tracks = current.concat(toAdd);
+
+            callRun++;
         }
     };
 
