@@ -33,7 +33,7 @@ angular.module("mopify.services.autoupdate", [
      * Run an automatic update
      * @return promise
      */
-    AutoUpdate.runUpdate = function(){
+    AutoUpdate.prototype.runUpdate = function(){
         var deferred = $q.defer();
 
         // Check if we can update
