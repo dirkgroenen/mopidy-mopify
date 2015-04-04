@@ -31,10 +31,14 @@ angular.module('mopify.widgets.directive.album', [
 
             scope.visible = true;
 
-            if (scope.album.artists.length < 4) {
-                scope.artiststring = util.artistsToString(scope.album.artists);
-            } else {
-                scope.artiststring = "Various Artists";
+            // Check if album has 'Various Artists'
+            if(scope.album.artists !== undefined){
+                if(scope.album.artists.length < 4){
+                    scope.artiststring = util.artistsToString(scope.album.artists);
+                }
+                else{
+                    scope.artiststring = "Various Artists";
+                }    
             }
 
             var albumtracks = [];
