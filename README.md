@@ -144,6 +144,8 @@ v1.4.0 (UNRELEASED)
 
 - Some little speed improvements
 
+- Added 'Various Artists' to albums [PR #85](https://github.com/dirkgroenen/mopidy-mopify/pull/85)
+
 v1.3.2 (23-03-2015)
 ------------------
 
