@@ -90,6 +90,12 @@ angular.module('mopify.player', [
         $scope.trackTitle = "No connection";
     });
 
+    // Listen for messages
+    $scope.$on('mopidy:state:online', function() {
+        $scope.trackArtist = "Mopidy";
+        $scope.trackTitle = "Connected";
+    });
+
     /**
      * Update the information which is displayed in the player
      * @param object track
