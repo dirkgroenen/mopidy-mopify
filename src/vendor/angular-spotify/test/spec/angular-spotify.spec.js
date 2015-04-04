@@ -48,6 +48,10 @@ describe('angular-spotify', function () {
       expect(spotifyProvider.setScope).toBeDefined();
     });
 
+    it('should have a method setAuthToken', function () {
+      expect(spotifyProvider.setAuthToken).toBeDefined();
+    });
+
     it('should set the client id', function () {
       expect(spotifyProvider.setClientId('ABCDEFGHIJKLMNOP')).toBe('ABCDEFGHIJKLMNOP');
     });
@@ -68,6 +72,10 @@ describe('angular-spotify', function () {
 
     it('should set the scope', function () {
       expect(spotifyProvider.setScope('user-read-private playlist-read-private')).toBe('user-read-private playlist-read-private');
+    });
+
+    it('should set the authToken', function () {
+      expect(spotifyProvider.setAuthToken('ABCDEFGHIJKLMNOP')).toBe('ABCDEFGHIJKLMNOP');
     });
 
   });
@@ -163,6 +171,10 @@ describe('angular-spotify', function () {
       expect(Spotify.removePlaylistTracks).toBeDefined();
     });
 
+    it('should have a method reorderPlaylistTracks()', function () {
+      expect(Spotify.reorderPlaylistTracks).toBeDefined();
+    });
+
     it('should have a method replacePlaylistTracks()', function () {
       expect(Spotify.replacePlaylistTracks).toBeDefined();
     });
@@ -237,6 +249,10 @@ describe('angular-spotify', function () {
 
     it('should have a method unfollowPlaylist()', function () {
       expect(Spotify.unfollowPlaylist).toBeDefined();
+    });
+
+    it('should have a method playlistFollowingContains()', function () {
+      expect(Spotify.playlistFollowingContains).toBeDefined();
     });
 
 
@@ -1139,6 +1155,30 @@ describe('angular-spotify', function () {
         });
       });
 
+      describe('Spotify.reorderPlaylistTracks', function () {
+        it('should call the correct url', function () {
+          spyOn(Spotify, 'api');
+
+          Spotify.setAuthToken('TESTING');
+
+          Spotify.reorderPlaylistTracks('triple.j.abc', '73ppZmbaAS2aW9hmDTTDcb', {
+            range_start: 2,
+            range_length: 10,
+            insert_before: 15
+          });
+
+          expect(Spotify.api).toHaveBeenCalled();
+          expect(Spotify.api).toHaveBeenCalledWith('/users/triple.j.abc/playlists/73ppZmbaAS2aW9hmDTTDcb/tracks', 'PUT', null, {
+            range_start: 2,
+            range_length: 10,
+            insert_before: 15
+          },{
+            'Authorization': 'Bearer TESTING',
+            'Content-Type': 'application/json'
+          });
+        });
+      });
+
       describe('Spotify.replacePlaylistTracks', function() {
         it('should call the correct url', function () {
           spyOn(Spotify, 'api');
@@ -1619,8 +1659,65 @@ describe('angular-spotify', function () {
           });
         });
       });
-    });
 
+      describe('Spotify.playlistFollowingContains', function () {
+        it('should call the correct URL', function () {
+          spyOn(Spotify, 'api');
+
+          Spotify.setAuthToken('TESTING');
+
+          Spotify.playlistFollowingContains('jmperezperez', '2v3iNvBX8Ay1Gt2uXtUKUT', 'possan,elogain');
+
+          expect(Spotify.api).toHaveBeenCalled();
+          expect(Spotify.api).toHaveBeenCalledWith('/users/jmperezperez/playlists/2v3iNvBX8Ay1Gt2uXtUKUT/followers/contains', 'GET', {
+            ids: 'possan,elogain'
+          }, null, {
+            'Authorization': 'Bearer TESTING'
+          });
+        });
+
+        it('should be able to be called with an array of users', function () {
+          spyOn(Spotify, 'api');
+
+          Spotify.setAuthToken('TESTING');
+
+          Spotify.playlistFollowingContains('jmperezperez', '2v3iNvBX8Ay1Gt2uXtUKUT', ['possan','elogain']);
+
+          expect(Spotify.api).toHaveBeenCalled();
+          expect(Spotify.api).toHaveBeenCalledWith('/users/jmperezperez/playlists/2v3iNvBX8Ay1Gt2uXtUKUT/followers/contains', 'GET', {
+            ids: 'possan,elogain'
+          }, null, {
+            'Authorization': 'Bearer TESTING'
+          });
+        });
+      });
+    });
+    
+
+    describe('Spotify.login', function () {
+      it('should open the login window', function () {
+        spyOn(window, 'open');
+
+        Spotify.login();
+
+        var w = 400,
+            h = 500,
+            left = (screen.width / 2) - (w / 2),
+            top = (screen.height / 2) - (h / 2);
+
+        var params = {
+          client_id: null,
+          redirect_uri: null,
+          scope: '',
+          response_type: 'token'
+        };
+
+        expect(window.open).toHaveBeenCalled();
+        expect(window.open).toHaveBeenCalledWith('https://accounts.spotify.com/authorize?' + Spotify.toQueryString(params),
+            'Spotify',
+            'menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,width=' + w + ',height=' + h + ',top=' + top + ',left=' + left);
+      });
+    });
   });
 
 });

@@ -24,6 +24,8 @@ app.config(function (SpotifyProvider) {
   SpotifyProvider.setClientId('<CLIENT_ID>');
   SpotifyProvider.setRedirectUri('<CALLBACK_URI>');
   SpotifyProvider.setScope('<SCOPE>');
+  // If you already have an auth token
+  SpotifyProvider.setAuthToken('<AUTH_TOKEN>');
 });
 ```
 For example:
@@ -32,6 +34,8 @@ app.config(function (SpotifyProvider) {
   SpotifyProvider.setClientId('ABC123DEF456GHI789JKL');
   SpotifyProvider.setRedirectUri('http://www.example.com/callback.html');
   SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public');
+  // If you already have an auth token
+  SpotifyProvider.setAuthToken('zoasliu1248sdfuiknuha7882iu4rnuwehifskmkiuwhjg23');
 });
 ```
 
@@ -313,6 +317,28 @@ Spotify
   });
 ```
 
+####Reorder a Playlist's Tracks
+Reorder a track or a group of tracks in a playlist.
+```javascript
+Spotify.reorderPlaylistTracks('user_id', 'playlist_id', options);
+```
+#####Options Object (Required)
+ - range_start - integer - Required. The position of the first track to be reordered.
+ - range_length - integer - Optional. The amount of tracks to be reordered. Defaults to 1 if not set.
+ - insert_before - integer - Required. The position where the tracks should be inserted. 
+ - snapshot_id - string - Optional. The playlist's snapshot ID against which you want to make the changes.
+
+Example:
+```javascript
+Spotify.reorderPlaylistTracks('1176458919', '2TkWjGCu8jurholsfdWtG4', {
+  range_start: 8,
+  range_length: 5,
+  insert_before: 0
+}).then(function (data) {
+  console.log(data);
+});
+```
+
 ####Replace a Playlist’s Tracks
 Replace all the tracks in a playlist, overwriting its existing tracks. This powerful request can be useful for replacing tracks, re-ordering existing tracks, or clearing the playlist. Replacing tracks in a public playlist requires the ```playlist-modify-public``` scope. Replacing tracks in a private playlist requires the ```playlist-modify-private``` scope.
 ```javascript
@@ -452,6 +478,21 @@ Spotify.unfollowPlaylist('jmperezperez', '2v3iNvBX8Ay1Gt2uXtUKUT').then(function
   console.log(data);
 });
 ```
+
+####Check if Users Follow a Playlist
+Check to see if one or more Spotify users are following a specified playlist.Following a playlist can be done publicly or privately. Checking if a user publicly follows a playlist doesn't require any scopes; if the user is publicly following the playlist, this endpoint returns true.
+
+Checking if the user is privately following a playlist is only possible for the current user when that user has granted access to the ```playlist-read-private``` scope.
+```javascript
+Spotify.playlistFollowingContains('owner_id', 'playlist_id', 'comma separated string or array of user ids');
+```
+Example:
+```javascript
+Spotify.playlistFollowingContains('jmperezperez', '2v3iNvBX8Ay1Gt2uXtUKUT', 'possan,elogain').then(function (data) {
+  console.log(data);
+});
+```
+
 
 ###User Profiles
 User needs to be logged in to gain access to user profiles

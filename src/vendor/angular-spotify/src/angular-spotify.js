@@ -21,6 +21,11 @@
         return settings.clientId;
       };
 
+      this.setAuthToken = function (accessToken) {
+        settings.accessToken = accessToken;
+        return settings.accessToken;
+      };
+
       this.setRedirectUri = function (redirectUri) {
         settings.redirectUri = redirectUri;
         return settings.redirectUri;
@@ -49,7 +54,7 @@
        */
       settings.apiBase = 'https://api.spotify.com/v1';
 
-      this.$get = ['$q', '$http', '$window', function ($q, $http, $window) {
+      this.$get = ['$q', '$http', function ($q, $http) {
 
         function NgSpotify () {
           this.clientId = settings.clientId;
@@ -261,6 +266,13 @@
           });
         };
 
+        NgSpotify.prototype.reorderPlaylistTracks = function (userId, playlistId, options) {
+          return this.api('/users/' + userId + '/playlists/' + playlistId + '/tracks', 'PUT', null, options, {
+            'Authorization': 'Bearer ' + this.authToken,
+            'Content-Type': 'application/json'
+          });
+        };
+
         NgSpotify.prototype.replacePlaylistTracks = function (userId, playlistId, tracks) {
           tracks = angular.isArray(tracks) ? tracks : tracks.split(',');
           var track;
@@ -394,6 +406,14 @@
           });
         };
 
+        NgSpotify.prototype.playlistFollowingContains = function(userId, playlistId, ids) {
+          return this.api('/users/' + userId + '/playlists/' + playlistId + '/followers/contains', 'GET', {
+            ids: ids.toString()
+          }, null, {
+            'Authorization': 'Bearer ' + this.authToken
+          });
+        };
+
         /**
           ====================== Login =====================
          */
@@ -404,7 +424,6 @@
 
         NgSpotify.prototype.login = function () {
           var deferred = $q.defer();
-          var that = this;
 
           var w = 400,
               h = 500,
@@ -418,30 +437,18 @@
             response_type: 'code'
           };
 
-          var authWindow = window.open(
+          window.open(
             'https://accounts.spotify.com/authorize?' + this.toQueryString(params),
             'Spotify',
             'menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,width=' + w + ',height=' + h + ',top=' + top + ',left=' + left
           );
+          
           /*
            * Checking the returned code is done in other servives and pages
-           * 
-          function storageChanged (e) {
-            if (e.key === 'spotify-token') {
-              if (authWindow) {
-                authWindow.close();
-              }
-
-              that.setAuthToken(e.newValue);
-              $window.removeEventListener('storage', storageChanged, false);
-              //localStorage.removeItem('spotify-token');
-
-              deferred.resolve(e.newValue);
-            }
-          }
-
-          $window.addEventListener('storage', storageChanged, false);
-          */
+           *
+           * MOPIFY: RESPONSE CHECKING IS HAPPENING IN THE SPOTIFYLOGIN SERVICE
+           */
+          
           return deferred.promise;
         };
 
