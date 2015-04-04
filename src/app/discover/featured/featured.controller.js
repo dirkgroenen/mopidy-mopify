@@ -63,7 +63,9 @@ function loadFeaturedPlaylists(){
 
     function loadHeaderPlaylistTracks(){
         // Get the tracks for the headerplaylist
-        mopidyservice.lookup($scope.headerplaylist.uri).then(function(tracks){
+        mopidyservice.lookup($scope.headerplaylist.uri).then(function(response){
+            var tracks = response[$scope.headerplaylist.uri];
+            
             var frontendtracks = angular.copy(tracks.splice(0,7));
             var tracksloaded = true;
 

@@ -41,12 +41,14 @@ angular.module("mopify.services.spotifylogin", [
             this.refresh_token = localStorageService.get(tokenStorageKey).refresh_token;
             this.expires = localStorageService.get(tokenStorageKey).expires_in;
             this.access_token = localStorageService.get(tokenStorageKey).access_token;
+            this.user = localStorageService.get(tokenStorageKey).user;
             this.mopifyversion = localStorageService.get(tokenStorageKey).mopifyversion;
         }
         else{
             this.refresh_token = null;
             this.expires = null;
             this.access_token = null;
+            this.user = null;
             this.mopifyversion = VersionManager.version;
         }
 
@@ -111,6 +113,9 @@ angular.module("mopify.services.spotifylogin", [
                 Spotify.getCurrentUser().then(function(data){
                     deferred.resolve({ status: "connected" });
                     that.connected = true;
+
+                    // Set user data
+                    that.user = data;
 
                     // Set last login check
                     that.lastPositiveLoginCheck = Date.now();
@@ -182,7 +187,7 @@ angular.module("mopify.services.spotifylogin", [
      * permisions for these scopes
      */
     SpotifyLogin.prototype.checkOldToken = function(){
-        var minversion = '1.2.0';
+        var minversion = '1.4.0';
         var compare = util.versionCompare(minversion, this.mopifyversion);
 
         // If the minversion is greater than the token's version
@@ -217,6 +222,8 @@ angular.module("mopify.services.spotifylogin", [
                     that.connected = true;
                     $rootScope.$broadcast("mopify:spotify:connected");
 
+                    // Set user data
+                    that.user = data;
                 }, function(){
                     // If refreshing failed getcurrentuser() returns a reject
                     // try to login again, but this time force the window
@@ -238,10 +245,14 @@ angular.module("mopify.services.spotifylogin", [
                     Spotify.getCurrentUser().then(function(data){
                         that.connected = true;
 
+                        // Set user object
+                        that.user = data;
+
                         var tokens = {
                             access_token: that.access_token,
                             refresh_token: that.refresh_token,
                             expires: that.expires,
+                            user: that.user,
                             mopifyversion: VersionManager.version
                         };  
 

@@ -46,9 +46,25 @@ angular.module('mopify.music.tracklist', [
 
     var albumtracks = [];
 
+    // Split URI and get owner and playlist id
+    var splitteduri = uri.split(":");
+    var ownerid = splitteduri[2];
+    var playlistid = splitteduri[4];
+
+
     // Define the type from the uri parameter
-    if(uri.indexOf(":playlist:") > -1)
+    if(uri.indexOf(":playlist:") > -1){
         $scope.type = "Playlist";
+
+        $scope.followingPlaylist = false;
+
+        if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
+            // Check if user is following the playlist
+            Spotify.playlistFollowingContains(ownerid, playlistid, SpotifyLogin.user.id).then(function(response){
+                $scope.followingPlaylist = response[0];
+            });
+        }
+    }
 
     if(uri.indexOf(":album:") > -1){
         $scope.type = "Album";    
@@ -70,9 +86,6 @@ angular.module('mopify.music.tracklist', [
 
             $scope.showSaveAlbum = true;
         }
-        else{
-            $scope.showSaveAlbum = false;
-        }
     }
 
     if(uri.indexOf("mopidy:current") > -1){
@@ -88,13 +101,10 @@ angular.module('mopify.music.tracklist', [
     // Check if this is a playlist from the loggedin Spotify user
     if($scope.type == "Playlist"){
         $scope.isowner = false;
-        var ownerid = uri.split(":")[2];
 
-        Spotify.getCurrentUser().then(function(data){
-            if(ownerid == data.id){
-                $scope.isowner = true;            
-            }
-        });
+        if(ownerid == SpotifyLogin.user.id){
+            $scope.isowner = true;            
+        }
     }
 
     // Check if a name has been defined
@@ -179,17 +189,13 @@ angular.module('mopify.music.tracklist', [
      * Load information about the playlist from Spotify
      */
     function loadSpotifyInfo(){
-        var splitteduri = uri.split(":");
-        var userid = splitteduri[2];
-        var playlistid = splitteduri[4];
-
         if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
-            Spotify.getPlaylist(userid, playlistid).then(function(data){
+            Spotify.getPlaylist(ownerid, playlistid).then(function(data){
                 $scope.name = data.name + " from " + data.owner.id;
             });    
         }
         else{
-            $scope.name = "Playlist from " + userid;
+            $scope.name = "Playlist from " + ownerid;
         }
     }
 
@@ -285,6 +291,40 @@ angular.module('mopify.music.tracklist', [
             }
             else{
                 notifier.notify({type: "custom", template: "Can't add album. Are you connected with Spotify?", delay: 5000});   
+            }
+        }
+    };
+
+    /**
+     * Follow or unfollow the playlist
+     * @return void
+     */
+    $scope.toglgeFollowPlaylist = function(){
+        if($scope.type == "Playlist"){
+            if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
+
+                if($scope.followingPlaylist){
+                    // Unfollow
+                    Spotify.unfollowPlaylist(ownerid, playlistid).then(function (data) {
+                        notifier.notify({type: "custom", template: "Playlist succesfully unfollowed.", delay: 5000});   
+                        $scope.followingPlaylist = false;
+                    }, function(data){
+                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                    });
+                }
+                else{
+                    // Follow
+                    Spotify.followPlaylist(ownerid, playlistid, true).then(function (data) {
+                        notifier.notify({type: "custom", template: "Playlist succesfully followed.", delay: 5000});   
+                        $scope.followingPlaylist = true;
+                    }, function(data){
+                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                    });   
+                }
+
+            }
+            else{
+                notifier.notify({type: "custom", template: "Can't follow playlist. Are you connected with Spotify?", delay: 5000});   
             }
         }
     };
