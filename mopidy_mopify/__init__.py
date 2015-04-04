@@ -3,11 +3,10 @@ from __future__ import unicode_literals
 import os
 import tornado.web
 import sync
-import update
 
 from mopidy import config, ext
 
-__version__ = '1.3.2'
+__version__ = '1.4.0'
 __ext_name__ = 'mopify'
 
 class MopifyExtension(ext.Extension):
@@ -21,7 +20,7 @@ class MopifyExtension(ext.Extension):
 
     def setup(self, registry):
         syncinstance = sync.Sync();
-
+        
         registry.add('http:app', {
             'name': self.ext_name,
             'factory': mopify_client_factory  

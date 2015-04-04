@@ -4,7 +4,9 @@ angular.module('mopify.account.settings', [
     'ngRoute',
     'LocalStorageModule',
     'mopify.services.settings',
-    'mopify.services.versionmanager'
+    'mopify.services.autoupdate',
+    'mopify.services.versionmanager',
+    'llNotifier'
 ])
 
 /**
@@ -20,12 +22,13 @@ angular.module('mopify.account.settings', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("SettingsController", function SettingsController($scope, $rootScope, $timeout, $http, localStorageService, Settings, VersionManager){
+.controller("SettingsController", function SettingsController($scope, $rootScope, $timeout, $http, localStorageService, Settings, VersionManager, AutoUpdate, notifier){
     
     // bind settings with the $scope
     Settings.bind($scope);
 
     $scope.buttonactive = false;
+    $scope.autoupdate = false;
 
     /**
      * Temporarily highlight the save button
@@ -42,8 +45,37 @@ angular.module('mopify.account.settings', [
     /**
      * Check for a newer Mopify version
      */
-    VersionManager.checkVersion().then(function(version){
-        $scope.newversion = VersionManager.newVersion;
-        $scope.newversionnumber = VersionManager.lastversion;
+    function checkVersion(){
+        VersionManager.checkVersion().then(function(version){
+            $scope.newversion = VersionManager.newVersion;
+            $scope.newversionnumber = VersionManager.lastversion;
+        });    
+    }
+        
+    // Run at init
+    checkVersion();
+
+    // check if we can autoamatically update
+    AutoUpdate.check().then(function(response){
+        $scope.autoupdate = true;
     });
+
+    /**
+     * Update Mopify
+     * @return void
+     */
+    $scope.update = function(){
+        // Show notifcation
+        notifier.notify({type: "custom", template: "Started updating...", delay: 3000});
+
+        // Start updating
+        AutoUpdate.runUpdate().then(function(data){
+            notifier.notify({type: "custom", template: "Update succesfull. You might need to restart Mopidy before changes are visible. ", delay: 3000});
+
+            // Recheck version
+            checkVersion();
+        }, function(data){
+            notifier.notify({type: "custom", template: "Update failed. Mopify returned: " + data.response, delay: 3000});
+        });
+    };
 });
