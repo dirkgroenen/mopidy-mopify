@@ -46,7 +46,7 @@ angular.module("mopify.services.autoupdate", [
             });
         }
         else{
-            deferred.reject({"response": "Can't update"});
+            deferred.reject({"response": "Can't update since Mopidy isn't running as root."});
         }  
 
         return deferred.promise;

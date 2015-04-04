@@ -134,11 +134,11 @@
             <div class="description col-md-6">
                 <p>Current version: {{ mopifyversion }}</p>
                 <p ng-if="newversion" style="font-weight: bold">A new version of Mopify is available ({{ newversionnumber }}). Read the <a href="https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md" target="_blank">Github readme</a> on how to update mopify or use the button below.</p>
-                <div class="button white fullwidth" ng-click="update()" ng-if="newversion && autoupdate">
+                <div class="button white fullwidth" ng-click="update()" ng-if="newversion == true && autoupdate == true">
                     <span class="text">Autoupdate Mopify to version: {{ newversionnumber }}</span>
                     <i class="ss-icon ss-refresh"></i> 
                 </div>
-                <div class="button white fullwidth" ng-click="update()" ng-if="newversion && !autoupdate">
+                <div class="button white fullwidth" ng-if="newversion == true && autoupdate == false">
                     <span class="text">Autoupdate isn't possible. Is Mopidy running as root user?</span>
                     <i class="ss-icon ss-refresh"></i> 
                 </div>

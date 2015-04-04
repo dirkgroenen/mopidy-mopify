@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import os
 import tornado.web
 import sync
+import update 
 
 from mopidy import config, ext
 

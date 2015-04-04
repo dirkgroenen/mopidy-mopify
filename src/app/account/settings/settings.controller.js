@@ -56,8 +56,8 @@ angular.module('mopify.account.settings', [
     checkVersion();
 
     // check if we can autoamatically update
-    AutoUpdate.check().then(function(response){
-        $scope.autoupdate = true;
+    AutoUpdate.check().then(function(data){
+        $scope.autoupdate = data.response;
     });
 
     /**
