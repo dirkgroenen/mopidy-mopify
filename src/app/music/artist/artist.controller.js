@@ -103,7 +103,7 @@ angular.module('mopify.music.artist', [
 
     
     // Init an empty toptracks object
-    $scope.toptracks = {};
+    $scope.toptracks = [];
 
     // Get the artist's top tracks
     Spotify.getArtistTopTracks($scope.artistId, 'NL').then(function (data) {

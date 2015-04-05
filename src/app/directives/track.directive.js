@@ -20,6 +20,7 @@ angular.module('mopify.widgets.directive.track', [
         scope: {
             track: '=',
             type: "=",
+            surrounding: "=?",
             currentPlayingTrack: "=currentplayingtrack"
         },
         transclude: true,
@@ -39,7 +40,10 @@ angular.module('mopify.widgets.directive.track', [
             scope.showSaveTrack = false;
             scope.trackAlreadySaved = false;
 
-            scope.surrounding = scope.$parent.loadedTracks;
+            console.log(scope.surrounding);
+
+            if(scope.surrounding === undefined)
+                scope.surrounding = scope.$parent.loadedTracks;
 
             scope.artistsString = function(){
                 return util.artistsToString(scope.track.artists, true);
@@ -103,6 +107,8 @@ angular.module('mopify.widgets.directive.track', [
                                 return;
                             }
                         });
+
+                        console.log(scope.surrounding);
 
                         // Play the clicked and surrounding tracks
                         mopidyservice.playTrack(scope.surrounding[clickedindex], scope.surrounding);
