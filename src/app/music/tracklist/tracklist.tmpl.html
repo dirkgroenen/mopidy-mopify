@@ -31,6 +31,12 @@
         </div>
     </div>
 
+    <div class="row note" ng-if="type == 'My Music - Songs'">
+        <div class="col-md-10">
+            <p><b>Note:</b> loading the Library songs tracks into Mopidy <a href="https://github.com/dirkgroenen/mopidy-mopify/issues/62" target="_blank">can be slow</a> since Mopidy has no official support for directly playing this list. Use CTRL to select multiple tracks and add them through the context menu to prevent Mopidy from hanging.</p>
+        </div>
+    </div>
+
     <div class="pagecontent row">
         <div id="tracklist" infinite-scroll="getMoreTracks()" infinite-scroll-distance="1">
             <div class="row" ng-repeat="track in tracks track by $index" >

@@ -189,6 +189,7 @@ angular.module('mopify.music.tracklist', [
             });
         }
         else{
+            // Wait untill spotify has connected
             $rootScope.$on("mopify:spotify:connected", function(){
                 loadSpotifyInfo();
             });

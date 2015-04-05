@@ -204,6 +204,7 @@ angular.module('mopify.services.mopidy', [
         playTrack: function(track, surroundingTracks) {
             var self = this;
 
+            
             if(surroundingTracks === undefined)
                 surroundingTracks = [track];
 
@@ -233,7 +234,6 @@ angular.module('mopify.services.mopidy', [
             self.mopidy.playback.stop().then(function(){
                 self.mopidy.tracklist.clear().then(function(){
                     var uris = _.pluck(surroundingTracks, "uri");
-                    
                     self.mopidy.tracklist.add({ uris: uris }).then(function(tltracks){
                         var tlTrackToPlay = _.find(tltracks, function(tltrack) {
                             return tltrack.track.uri === track.uri;
@@ -245,6 +245,7 @@ angular.module('mopify.services.mopidy', [
                     }, consoleError);
                 }, consoleError);
             }, consoleError);
+
         },
 
         playTrackAtIndex: function(index){
