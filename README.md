@@ -156,6 +156,8 @@ v1.4.0 (05-04-2015)
 
 - Mopify can now update itself [#22](https://github.com/dirkgroenen/mopidy-mopify/issues/22) 
 
+- Show tile overlay when on mobile device [#58](https://github.com/dirkgroenen/mopidy-mopify/issues/58)
+
 v1.3.2 (23-03-2015)
 ------------------
 
