@@ -133,7 +133,7 @@ v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
-v1.4.0 (05-04-2015)
+v1.4.1 (05-04-2015)
 ------------------
 
 - Added compatability for Mopidy 1.0 [#86](https://github.com/dirkgroenen/mopidy-mopify/issues/86) [#81](https://github.com/dirkgroenen/mopidy-mopify/issues/81) [#80](https://github.com/dirkgroenen/mopidy-mopify/issues/80)
