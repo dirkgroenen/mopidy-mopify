@@ -91,7 +91,8 @@ angular.module('mopify.search', [
      * Play the songs that are given in the topresult
      */
     $scope.playTopItem = function(){
-        mopidyservice.lookup($scope.topresult.item.uri).then(function(tracks){
+        mopidyservice.lookup($scope.topresult.item.uri).then(function(response){
+            var tracks = response[$scope.topresult.item.uri];
             mopidyservice.playTrack(tracks[0], tracks.splice(0, 10));
         });
     };
@@ -171,7 +172,9 @@ angular.module('mopify.search', [
      * @param {object} resultitem   The best result item
      */
     function lookupFeaturedResult(resultitem){
-        mopidyservice.lookup(resultitem.item.uri).then(function(results){
+        mopidyservice.lookup(resultitem.item.uri).then(function(response){
+            var results = response[resultitem.item.uri];
+            
             var tracksloaded = true;
 
             var filtered = _.filter(_.shuffle(results), function(item){
