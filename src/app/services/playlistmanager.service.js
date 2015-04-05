@@ -41,7 +41,63 @@ angular.module("mopify.services.playlistmanager", [
                 that.loadPlaylists();
             }
         }
+
+        // Load playlists on playlists:change event
+        $rootScope.$on("mopidy:event:playlistsLoaded", function(){
+            // Load playlists
+            that.loadPlaylists();
+        });
     }
+
+    /**
+     * Load the playlists from Spotify or Mopidy
+     */
+    PlaylistManager.prototype.loadPlaylists = function() {
+        var that = this;
+        
+        // Set loading
+        this.loading = true;
+
+        // Clear current playlists array
+        this.playlists = [];
+        this.orderedPlaylists = {};
+
+        // Get the spotify loadplaylists setting
+        var loadspotifyplaylists = false;
+
+        if(Settings.get("spotify") !== undefined)
+            loadspotifyplaylists = Settings.get("spotify").loadspotifyplaylists;
+
+        // Load the playlists from Spotify is the user is connected, otherwise load them from Mopidy
+        if(ServiceManager.isEnabled("spotify") && loadspotifyplaylists === true){
+            // Set source to spotify
+            this.source = "spotify";
+
+            // Get user's playlists
+            Spotify.getUserPlaylists(that.spotifyuserid, { limit: 50 }).then(function(data){
+                that.playlists = data.items;
+
+                // Starts loading more playlists if needed
+                if(data.next !== null){
+                    that.loadMorePlaylists(data.next);
+                }
+                else{
+                    that.playlists = sortPlaylists(that.playlists);
+                    that.loading = false;
+                }
+            });
+        }
+        else{
+            // Set source to mopidy
+            this.source = "mopidy";
+
+            mopidyservice.getPlaylists().then(function(playlists){
+                that.playlists = sortPlaylists(playlists);
+                that.orderedPlaylists = orderPlaylists(playlists);
+                that.loading = false;
+            });
+        }
+    };
 
     /**
      * Return the previously loaded playlists
@@ -90,52 +146,6 @@ angular.module("mopify.services.playlistmanager", [
         }
 
         return deferred.promise;
-    };
-
-    /**
-     * Load the playlists from Spotify or Mopidy
-     */
-    PlaylistManager.prototype.loadPlaylists = function() {
-        var that = this;
-        
-        // Set loading
-        this.loading = true;
-
-        // Get the spotify loadplaylists setting
-        var loadspotifyplaylists = false;
-
-        if(Settings.get("spotify") !== undefined)
-            loadspotifyplaylists = Settings.get("spotify").loadspotifyplaylists;
-
-        // Load the playlists from Spotify is the user is connected, otherwise load them from Mopidy
-        if(ServiceManager.isEnabled("spotify") && loadspotifyplaylists === true){
-            // Set source to spotify
-            this.source = "spotify";
-
-            // Get user's playlists
-            Spotify.getUserPlaylists(that.spotifyuserid, { limit: 50 }).then(function(data){
-                that.playlists = data.items;
-
-                // Starts loading more playlists if needed
-                if(data.next !== null){
-                    that.loadMorePlaylists(data.next);
-                }
-                else{
-                    that.playlists = sortPlaylists(that.playlists);
-                    that.loading = false;
-                }
-            });
-        }
-        else{
-            // Set source to mopidy
-            this.source = "mopidy";
-
-            mopidyservice.getPlaylists().then(function(playlists){
-                that.playlists = sortPlaylists(playlists);
-                that.orderedPlaylists = orderPlaylists(playlists);
-                that.loading = false;
-            });
-        }
     };
 
     /**
