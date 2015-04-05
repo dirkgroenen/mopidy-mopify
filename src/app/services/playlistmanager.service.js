@@ -162,7 +162,7 @@ angular.module("mopify.services.playlistmanager", [
         }).then(function(data){
             // Starts loading more playlists if needed
             if(data.next !== null){
-                loadMorePlaylists(data.next);
+                that.loadMorePlaylists(data.next);
             }
             else{
                 that.playlists = sortPlaylists(that.playlists.concat(data.items));
