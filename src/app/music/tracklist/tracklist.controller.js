@@ -55,15 +55,6 @@ angular.module('mopify.music.tracklist', [
     // Define the type from the uri parameter
     if(uri.indexOf(":playlist:") > -1){
         $scope.type = "Playlist";
-
-        $scope.followingPlaylist = false;
-
-        if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
-            // Check if user is following the playlist
-            Spotify.playlistFollowingContains(ownerid, playlistid, SpotifyLogin.user.id).then(function(response){
-                $scope.followingPlaylist = response[0];
-            });
-        }
     }
 
     if(uri.indexOf(":album:") > -1){
@@ -98,15 +89,6 @@ angular.module('mopify.music.tracklist', [
         $scope.coverImage = "./assets/images/tracklist-header.jpg";
     }
 
-    // Check if this is a playlist from the loggedin Spotify user
-    if($scope.type == "Playlist"){
-        $scope.isowner = false;
-
-        if(ownerid == SpotifyLogin.user.id){
-            $scope.isowner = true;            
-        }
-    }
-
     // Check if a name has been defined
     if($routeParams.name !== undefined)
         $scope.name = $routeParams.name;
@@ -117,16 +99,17 @@ angular.module('mopify.music.tracklist', [
     else
         $scope.name = "";
 
+    // Create empty arrays for tracks, loadedtracks and currentplayingtrack
     $scope.tracks = [];
     $scope.currentPlayingTrack = {};
-
     $scope.loadedTracks = [];
 
+    // Load information from Spotify when type equals playlist
     if($scope.type == "Playlist"){
         loadSpotifyInfo();
     }
 
-    // Load the user's library tracks is the type equals songs
+    // Load the user's library tracks if the type equals songs
     if($scope.type == "My Music - Songs"){
         
         $rootScope.$on("mopify:spotify:connected", function(){
@@ -190,12 +173,25 @@ angular.module('mopify.music.tracklist', [
      */
     function loadSpotifyInfo(){
         if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
+            // Check if the user is the owner of this playlist
+            $scope.isowner = (ownerid == SpotifyLogin.user.id);
+
+            // Get the official playlist name
             Spotify.getPlaylist(ownerid, playlistid).then(function(data){
                 $scope.name = data.name + " from " + data.owner.id;
             });    
+
+            // Check if user is following the playlist
+            $scope.followingPlaylist = false;
+
+            Spotify.playlistFollowingContains(ownerid, playlistid, SpotifyLogin.user.id).then(function(response){
+                $scope.followingPlaylist = response[0];
+            });
         }
         else{
-            $scope.name = "Playlist from " + ownerid;
+            $rootScope.$on("mopify:spotify:connected", function(){
+                loadSpotifyInfo();
+            });
         }
     }
 
