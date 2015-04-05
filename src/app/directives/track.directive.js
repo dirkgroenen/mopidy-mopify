@@ -40,8 +40,6 @@ angular.module('mopify.widgets.directive.track', [
             scope.showSaveTrack = false;
             scope.trackAlreadySaved = false;
 
-            console.log(scope.surrounding);
-
             if(scope.surrounding === undefined)
                 scope.surrounding = scope.$parent.loadedTracks;
 
@@ -107,8 +105,6 @@ angular.module('mopify.widgets.directive.track', [
                                 return;
                             }
                         });
-
-                        console.log(scope.surrounding);
 
                         // Play the clicked and surrounding tracks
                         mopidyservice.playTrack(scope.surrounding[clickedindex], scope.surrounding);
