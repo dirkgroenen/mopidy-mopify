@@ -278,4 +278,9 @@
     #application .mobilemenutoggle .line::after{
         margin-top: 8px;
     }
+
+    #application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap, 
+    #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap{
+        opacity: 1;
+    }
 }
