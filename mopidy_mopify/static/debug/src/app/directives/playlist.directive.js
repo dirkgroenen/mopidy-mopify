@@ -37,7 +37,8 @@ angular.module('mopify.widgets.directive.playlist', []).directive('mopifyPlaylis
             mopidyservice.playTrack(scope.playlist.tracks[0], scope.playlist.tracks);
           } else {
             mopidyservice.lookup(scope.playlist.uri).then(function (data) {
-              mopidyservice.playTrack(data[0], data);
+              var tracks = data[scope.playlist.uri];
+              mopidyservice.playTrack(tracks[0], tracks);
             });
           }
         };
