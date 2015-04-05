@@ -7,7 +7,7 @@ import update
 
 from mopidy import config, ext
 
-__version__ = '1.4.0'
+__version__ = '1.4.1'
 __ext_name__ = 'mopify'
 __verbosemode__ = False
 
