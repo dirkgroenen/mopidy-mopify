@@ -186,8 +186,14 @@ module.exports = function ( grunt ) {
                 files: [
                     {
                         src: [ '**' ],
-                        dest: '<%= mopidy_package_dir %>/static',
+                        dest: '<%= mopidy_package_dir %>/static/min',
                         cwd: '<%= compile_dir %>',
+                        expand: true
+                    },
+                    {
+                        src: [ '**' ],
+                        dest: '<%= mopidy_package_dir %>/static/debug',
+                        cwd: '<%= build_dir %>',
                         expand: true
                     }
                 ]

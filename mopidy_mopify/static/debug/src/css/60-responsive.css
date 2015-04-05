@@ -1,0 +1,286 @@
+
+/**
+ * Responsive heights
+ */
+@media all and (max-height: 900px){
+    #application #leftside #menu .block{
+        margin: 0 0 20px 0;
+    }
+
+    #application #leftside #accounts .account{
+        margin: 15px 0 0px 0;
+    }
+
+    #application #header.small {
+       height: 150px;
+    }
+
+    #application #header.small .lefttext{
+        padding-top: 90px;
+    }
+
+    #application #player .controlwrap {
+        padding: 40px 53px 5px 50px;
+    }
+
+    #application #player #seekbar .trackname{
+        margin-top: 12px;
+    }
+    
+    #application #leftside #menu{
+        max-height: calc(100% - 180px);
+        overflow-y: auto;
+    }
+}
+
+@media all and (max-height: 800px){
+
+    #application #leftside #accounts .account,
+    #application #leftside #accounts .account a,
+    #application #leftside #menu .block .content#search input,
+    #application #leftside #menu .block .content, 
+    #application #leftside #menu .block .content a{
+        font-size: 17px;
+    }
+
+    #application #leftside #menu .block .content#search .ss-icon,
+    #application #leftside #accounts .title, 
+    #application #leftside #menu .block .title{
+        font-size: 14px;
+    }
+
+    #application #leftside #menu .block .content ul li {
+        padding: 2px 0 2px 0;
+    }
+
+    #application #leftside #accounts .account{
+        margin: 5px 0 0px 0;
+        overflow: hidden;
+        height: 25px;
+    }
+
+    #application #leftside #accounts .account .profileimage{
+        width: 20px;
+        height: 20px;
+    }
+
+    #application #leftside #accounts .account .profileimage img{
+        width: 20px;
+    }
+
+    #application #leftside #accounts .account .content{
+        padding-left: 10px;
+    }
+
+    #application #leftside #accounts .account .content .username{
+        display: none;
+    }
+}
+
+@media all and (max-height: 600px){
+
+    #application #leftside #accounts{
+        display: none;
+    }
+
+
+    #application #leftside #menu{
+        max-height: 100%;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+}
+
+/**
+ * Responsive widths
+ */
+@media all and (max-width: 1600px){
+    #application #leftside{
+        width: 250px;
+    }
+
+    #application #leftside #accounts,
+    #application #leftside #menu{
+        padding: 20px;
+    }
+
+    #application #mainwrap{
+        margin-left: 250px;
+    }
+}
+
+@media all and (max-width: 1200px){
+    #application #leftside{
+        width: 200px;
+    }
+
+    #application #mainwrap{
+        margin-left: 200px;
+    }
+}
+
+@media all and (max-width: 1023px){
+    #application #player #seekbar{
+        display: block;
+        width: 100%;
+        text-align: center;
+        float: none;
+        padding: 5px 0 0 0;
+    }   
+
+    #application #player #seekbar .trackname .title,
+    #application #player #seekbar .trackname .artist{
+        font-size: 13px;
+    }
+
+    #application #player #seekbar .barwrap{
+        display: none;
+    }
+
+    #application #player .controlwrap{
+        padding: 10px 20px 9px 20px;
+    }
+
+    #application #player .controlwrap.left{
+        width: 65%;
+    }
+
+    #application #player .controlwrap.right{
+        width: 35%;
+    }
+
+    #application #player .controlwrap .iconwrap{
+       width: 100%;
+    }
+
+    #application #leftside{
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: -300px;
+        height: 100%;
+        overflow: auto;
+        -webkit-transition: left .25s ease;
+        -moz-transition: left .25s ease;
+        -ms-transition: left .25s ease;
+        transition: left .25s ease;
+    }
+
+    #application #leftside.show{
+        left: 0;
+    }
+
+    #application #leftside #menu .block .content ul li ul.submenu{
+        display: none;
+    }
+
+    #application #leftside #accounts{
+        display: block;
+        position: static;
+    }
+
+    #application #leftside #menu{
+        max-height: none;
+        height: auto;
+        overflow-y: auto;
+        padding-bottom: 0;
+    }
+
+    #application #mainwrap {
+        margin-left: 0;
+        margin-top: 50px;
+    }
+
+    #application #header{
+        height: 50px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+    }
+
+    #application #header.big{
+        height: auto;
+        min-height: 50px;
+    }
+
+    #application #header.small{
+        height: 50px;
+    }
+
+    #application #header.small .centertext{
+        display: none;
+    }
+
+    #application #header #featured .title{
+        margin: 10px 12%;
+        font-size: 15px;
+        width: 75%;
+    }
+
+    #application #header #featured .playlist{
+        display: none;
+    }
+
+    #application #overview .pagetitle .button{
+        float: right;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 10px;
+    }
+
+    #application #overview .pagetitle .button .text{
+        display: none;
+    }
+
+    #application #header.small .lefttext{
+        padding-top: 15px;
+        padding-left: 20px;
+        font-size: 16px;
+    }
+
+    #application #overview{
+        padding: 25px 20px;
+    }
+
+    #application .mobilemenutoggle{
+        position: fixed;
+        right: 15px;
+        top: 12px;
+        z-index: 500;
+        padding: 5px;
+    }
+
+    #application .mobilemenutoggle .line{
+        height: 2px;
+        width: 25px;
+        background-color: white;
+        box-shadow: 0 0 3px rgba(0,0,0,.5);
+        margin-top: 8px;
+    }
+
+    #application .mobilemenutoggle .line::before,
+    #application .mobilemenutoggle .line::after{
+        position: absolute;
+        width: 25px;
+        height: 2px;
+        background-color: white;
+        box-shadow: 0 0 3px rgba(0,0,0,.5);
+        content: "";
+    }
+
+    #application .mobilemenutoggle .line::before{
+        margin-top: -8px;
+    }
+
+    #application .mobilemenutoggle .line::after{
+        margin-top: 8px;
+    }
+
+    #application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap, 
+    #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap{
+        opacity: 1;
+    }
+}

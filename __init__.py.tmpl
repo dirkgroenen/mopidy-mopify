@@ -9,6 +9,7 @@ from mopidy import config, ext
 
 __version__ = '<%= version %>'
 __ext_name__ = 'mopify'
+__verbosemode__ = False
 
 class MopifyExtension(ext.Extension):
     dist_name = 'Mopidy-Mopify'
@@ -19,6 +20,11 @@ class MopifyExtension(ext.Extension):
         conf_file = os.path.join(os.path.dirname(__file__), 'ext.conf')
         return config.read(conf_file)
 
+    def get_config_schema(self):
+        schema = super(MopifyExtension, self).get_config_schema()
+        schema['debug'] = config.Boolean()
+        return schema
+
     def setup(self, registry):
         syncinstance = sync.Sync();
         
@@ -27,14 +33,15 @@ class MopifyExtension(ext.Extension):
             'factory': mopify_client_factory  
         })
 
-
-
 def mopify_client_factory(config, core):
+    directory = 'debug' if (config.get(__ext_name__)['debug'] == True) else 'min'
+    mopifypath = os.path.join(os.path.dirname(__file__), 'static', directory)
+
     return [
         ('/sync/(.*)', sync.RootRequestHandler, {'core': core, 'config': config}),
         ('/update', update.UpdateRequestHandler, {'core': core, 'config': config}),
         (r'/(.*)', tornado.web.StaticFileHandler, {
-            "path": os.path.join(os.path.dirname(__file__), 'static'),
+            "path": mopifypath,
             "default_filename": "index.html"
         })
     ]

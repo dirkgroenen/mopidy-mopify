@@ -1,0 +1,1387 @@
+body, html{
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    color: #404040;
+    min-height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+*{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+img[src=""] {
+   display: none;
+}
+
+.container-fluid{
+    margin: 0;
+    padding: 0;
+}
+
+.clickable{
+    cursor: pointer;
+}
+
+.fullheight{
+    height: 100%;
+}
+
+.alignright{
+    text-align: right;
+}
+
+.aligncenter{
+    text-align: center;
+}
+    
+.button{
+    padding: 10px 15px;
+    text-transform: none;
+    font-size: 15px;
+    border: 1px solid white;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    display: inline-block;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.button{
+    font-size: 14px;
+}
+
+.button.white{
+    border: 1px solid #c0c0c0;
+    padding: 6px 15px 3px 15px;
+    text-transform: uppercase;
+    margin-left: 10px;
+    color: #c0c0c0;
+}
+
+.button.white.active,
+.button.white:hover{
+    background-color: #fafafa;
+    color: #777;
+}
+
+.button.white .text{
+    float: left;
+    margin: -1px 7px 0 0;
+}
+
+.button.dangerous.active,
+.button.dangerous:hover{
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.button.white .text{
+    float: left;
+    margin: -1px 7px 0 0;
+}
+
+.button.fullwidth{
+    width: 100%;
+    text-align: center;
+}
+
+.button.fullwidth .text{
+    float: none;
+}
+
+.button.fullwidth .ss-icon{
+    float: right;
+}
+
+.toggle-switch{
+    border-color: #bbb;
+}
+
+.contextmenu{
+    position: fixed;
+    display: none;
+    z-index: 1000;
+    border: 1px solid #c0c0c0;
+    box-shadow: 0 0 5px rgba(0,0,0,.15);
+    background-color: white;
+}
+
+.contextmenu ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.contextmenu ul li{
+    min-width: 250px;
+    margin: 0;
+    padding: 8px 20px;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+    cursor: pointer;
+    font-size: 14px;
+    color: #777;
+}
+
+.contextmenu ul li.divider{
+    background-color: #ddd;
+    height: 1px;
+    width: 96%;
+    min-width: 96%;
+    margin-left: 2%;
+    padding: 0;
+}
+
+.contextmenu ul li:hover{
+    background-color: #f5f5f5;
+    color: #404040;
+}
+
+.contextmenu.open{
+    display: block;
+}
+
+/* Override some notifier styles */
+.notifier-msg-content{
+    font-family: "Roboto Condensed";
+}
+
+.notifier-msg-content.custom{
+    background-color: rgba(0,0,0,.7);
+    color: white;
+    font-size: 15px;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 15px;
+}
+
+/* modal styling */
+.modal-dialog label{
+    display: none;
+}
+
+.modal-dialog input{
+    margin: 10px 0;
+    width: 100%;
+    background: white;
+    padding: 7px 12px;
+    border-radius: 5px;
+    border: 1px solid #c0c0c0;
+}
+
+/* Start app styles */
+#application{
+    height: 100%;   
+    width: 100%;
+    overflow: hidden;
+}
+
+#application #overlaymodal::before{
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.2);
+    z-index: 100;
+}
+
+#application #overlaymodal{
+    background: #fafafa;
+    width: 800px;
+    z-index: 500;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+#application #leftside{
+    background-color: #f8f8f8;
+    border-right: 1px solid #e4e6e8;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300px;
+    bottom: 0;
+}
+
+#application #leftside #menu{
+    padding: 35px 35px 0 35px;
+    background-color: #f8f8f8;
+    position: relative;
+    z-index: 3;
+}
+
+#application #leftside #menu .block{
+    margin: 0 0 40px 0;
+}
+
+#application #leftside #accounts .title,
+#application #leftside #menu .block .title{
+    text-transform: uppercase;
+    font-size: 15px;
+    color: #b2b2b2;
+    padding-bottom: 2px;
+    font-weight: 300;
+}
+
+#application #leftside #accounts .title a,
+#application #leftside #menu .block .title a{
+    color: #b2b2b2;
+    text-decoration: none !important;
+}
+
+#application #leftside #accounts .notify{
+    margin: 10px 0 20px 0;
+}
+
+#application #leftside #accounts .notify a{
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+    color: #777;
+    font-weight: 300;
+}
+
+#application #leftside #accounts .notify a:hover{
+    color: #000;
+    text-decoration: none !important;
+}
+
+#application #leftside #accounts .account,
+#application #leftside #accounts .account a,
+#application #leftside #menu .block .content,
+#application #leftside #menu .block .content a{
+    font-size: 18px;
+    color: #777;
+    text-transform: uppercase;
+    -webkit-transition: color .2s ease;
+    -moz-transition: color .2s ease;
+    transition: color .2s ease;
+    font-weight: 300;
+}
+
+#application #leftside #accounts .account a:hover,
+#application #leftside #accounts .account a:active,
+#application #leftside #menu .block .content a.active,
+#application #leftside #menu .block .content a:hover{
+    color: #333;
+    text-decoration: none;
+}
+
+#application #leftside #menu .block .content ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#application #leftside #menu .block .content ul li{
+    margin: 0;
+    padding: 3px 0 4px 0;
+}
+
+#application #leftside #menu .block .content ul li ul.submenu{
+    padding-left: 15px;
+    margin: 5px 0;
+    font-size: 14px;
+    position: relative;
+}
+
+#application #leftside #menu .block .content ul li ul.submenu li{
+    padding: 1px 0;
+}
+
+#application #leftside #menu .block .content ul li ul.submenu.playlists{
+    overflow: hidden;
+    max-height: 400px;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+#application #leftside #menu .block .content ul li ul.submenu.playlists.small{
+    max-height: 17px;
+}
+
+#application #leftside #menu .block .content ul li ul.submenu .shadow{
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 80%;
+    height: 2px;
+    z-index: 5;
+    -webkit-box-shadow: 0px -4px 10px #888;
+    -moz-box-shadow: 0px -4px 10px #888;
+    box-shadow: 0px -4px 10px #888;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+#application #leftside #menu .block .content ul li ul.submenu.playlists.small .shadow{
+    bottom: -8px;
+}
+
+#application #leftside #menu .block .content#search .inputwrap{
+    margin: 5px;
+    display: inline-block;
+    position: relative;
+    width: calc(100% - 40px);
+}
+
+#application #leftside #menu .block .content#search .inputwrap::after{
+    position: absolute;
+    height: 1px;
+    width: 0%;
+    background-color: #b2b2b2;
+    bottom: 0;
+    left: 0;
+    content: "";
+    -webkit-transition: width .2s ease;
+    -moz-transition: width .2s ease;
+    transition: width .2s ease;
+}
+
+#application #leftside #menu .block .content#search .inputwrap.focus::after{
+    width: 100%;
+}
+
+#application #leftside #menu .block .content#search input{
+    border: none;
+    background: #f8f8f8;
+    font-size: 18px;
+    color: #777;
+    text-transform: uppercase;
+    font-weight: 300;
+    width: 100%;
+}
+
+#application #leftside #menu .block .content#search input:focus{
+    outline: none;
+}
+
+#application #leftside #accounts{
+    padding: 35px;
+    position: absolute;
+    bottom: 65px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+#application #leftside #accounts .account{
+    margin: 5px 0 30px 0;
+    height: 45px;
+    width: 100%;
+    font-size: 17px;
+}
+
+#application #leftside #accounts .account .profileimage{
+    overflow: hidden;
+    -webkit-border-radius: 9999px;
+    -moz-border-radius: 9999px;
+    border-radius: 9999px;
+    width: 45px;
+    height: 45px;
+    float: left;
+    background-color: rgba(0,0,0,.1); 
+}
+
+#application #leftside #accounts .account .profileimage img{
+    width: 45px;
+    vertical-align: top;
+}
+
+#application #leftside #accounts .account .profileimage.icon{
+    padding: 13px 14px;
+    color: white;
+}
+
+#application #leftside #accounts .account .content{
+    padding-left: 15px;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+}
+
+#application #leftside #accounts .account .content .status{
+    font-size: 12px;
+    color: #a2a2a2;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+}
+
+#application #overview .pagecontent #tileview .service .status .connection,
+#application #leftside #accounts .account .content .status .connection{
+    height: 4px;
+    width: 4px;
+    background: #a0a0a0;
+    -webkit-border-radius: 9999px;
+    -moz-border-radius: 9999px;
+    border-radius: 9999px;
+    display: inline-block;
+    margin: 0 4px 2.5px 0;
+}
+
+#application #overview .pagecontent #tileview .service .status .connection.connected,
+#application #leftside #accounts .account .content .status .connection.connected{
+    background: #27ae60;
+}
+
+#application #overview .pagecontent #tileview .service .status .connection.disconnected,
+#application #leftside #accounts .account .content .status .connection.disconnected{
+    background: #c0392b;
+}
+
+#application #leftside #accounts.small .account{
+    margin: 5px 0 5px 0;
+    overflow: hidden;
+    height: 25px;
+}
+
+#application #leftside #accounts.small .account .profileimage{
+    width: 20px;
+    height: 20px;
+}
+
+#application #leftside #accounts.small .account .profileimage img{
+    width: 20px;
+}
+
+#application #leftside #accounts.small .account .content{
+    padding-left: 30px;
+}
+
+#application #leftside #accounts.small .account .content .username{
+    display: none;
+}
+
+#application #mainwrap{
+    margin-left: 300px;
+}
+
+#application #header{
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    -webkit-transition: height .5s ease;
+    -moz-transition: height .5s ease;
+    transition: height .5s ease;
+}
+
+#application #header.small{
+    height: 200px;
+}
+
+#application #header.big{
+    height: 400px;
+}
+
+#application #header a{
+    position: relative;
+    color: white;
+    text-decoration: none;
+}
+
+#application #header a::after{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background-color: white;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+#application #header a.active::after,
+#application #header a:hover::after{
+    width: 100%;
+}
+
+#application #header .lefttext,
+#application #header .centertext,
+#application #header .righttext{
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+#application #header.small .lefttext{
+    color: white;
+    font-size: 21px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    padding: 130px 0 0 50px;
+    text-shadow: 0 0 2px rgba(0,0,0,.3);
+}
+
+#application #header.small .lefttext i{
+    margin: 4px 9px 0 0;
+    float: left;    
+}
+
+#application #header.small .centertext{
+    color: white;
+    padding: 140px 0 0 0;
+    text-shadow: 0 0 2px rgba(0,0,0,.3);   
+    text-align: center;
+    font-weight: bold;
+}
+
+#application #header.small .centertext .bigtitle{
+    font-size: 35px;
+    text-align: center;
+    margin-top: -50px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+#application #header.small .righttext{
+    padding: 125px 50px 0 0;
+    text-align: right;
+}
+
+#application #header.small .righttext .button{
+    color: white;
+    border: 1px solid white;
+}
+
+#application #header.small .righttext .button.active,
+#application #header.small .righttext .button:hover{
+    background-color: rgba(255,255,255,.15);
+}
+
+#application #header.big .lefttext,
+#application #header.big .centertext,
+#application #header.big .righttext{
+    padding-top: 20px !important;
+}
+
+#application #header #radiosearch{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+#application #header #radiosearch::before{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    background-color: rgba(0,0,0,.4);
+    opacity: 1;
+    -webkit-transition: all .5s ease;
+}
+
+#application #header #radiosearch .title{
+    text-align: center;
+    margin-top: 80px;
+    font-size: 40px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+#application #header #radiosearch .inputwrap{
+    margin-top: 50px;
+    text-align: center;
+}
+
+#application #header #radiosearch .inputwrap input{
+    background: rgba(0,0,0,0);
+    border: 1px solid white;
+    width: 80%;
+    font-size: 19px;
+    padding: 10px 30px;
+    letter-spacing: 1px;
+    color: white;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+#application #header #radiosearch.dropdownvisible .inputwrap input{
+    -webkit-border-radius: 25px;
+    -webkit-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -moz-border-radius: 25px;
+    -moz-border-radius-bottomright: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    border-radius: 25px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+#application #header #radiosearch .inputwrap input:focus{
+    background: rgba(0,0,0,.15);
+}
+
+#application #header #radiosearch .inputwrap input:focus{
+    outline: none;
+}
+
+#application #header #radiosearch .inputwrap input::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #fff;
+    font-style: italic;
+    opacity: .7;
+    font-family: inherit;
+}
+#application #header #radiosearch .inputwrap input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #fff;
+    font-style: italic;
+    opacity: .7;
+    font-family: inherit;
+}
+#application #header #radiosearch .inputwrap input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #fff;
+    font-style: italic;
+    opacity: .7;
+    font-family: inherit;
+}
+#application #header #radiosearch .inputwrap input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #fff;
+    font-style: italic;
+    opacity: .7;
+    font-family: inherit;
+}
+
+#application #header #radiosearch.ng-hide::before{
+    opacity: 0;
+}
+
+#application #header #radiosearch .resultswrap{
+    width: 80%;
+    margin-left: 10%;
+    position: absolute;
+    z-index: 100;
+    -webkit-border-bottom-right-radius: 25px;
+    -webkit-border-bottom-left-radius: 25px;
+    -moz-border-radius-bottomright: 25px;
+    -moz-border-radius-bottomleft: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+#application #header #radiosearch .resultswrap ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    border: 1px solid white;
+    border-top: 0px solid white;
+    overflow: hidden;
+    opacity: 0;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+#application #header #radiosearch.dropdownvisible .resultswrap ul{
+    opacity: 1;
+}
+
+#application #header #radiosearch .resultswrap ul li{
+    background-color: rgba(0,0,0,.9);
+    color: white;
+    height: 40px;
+    padding: 2px 30px;
+    border-bottom: 1px solid rgba(255,255,255,.3);
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#application #header #radiosearch .resultswrap ul li .thumb{
+    position: absolute;
+    z-index: 0;
+    opacity: .2;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+}
+
+#application #header #radiosearch .resultswrap ul li .thumb img{
+    width: 100%;
+    margin-top: -50%;        
+    -webkit-transform: translateY(25%);
+    -moz-transform: translateY(25%);
+    transform: translateY(25%);
+}
+
+#application #header #radiosearch .resultswrap ul li:hover .thumb{
+    opacity: .4;
+}
+
+#application #header #radiosearch .resultswrap ul li .text{
+    line-height: 36px;
+}
+
+#application #header #radiosearch .resultswrap ul li.divider{
+    height: 32px;
+    padding: 0px 30px;
+    line-height: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: black;
+    border-top: 2px solid white;
+}
+
+#application #header #radiosearch .resultswrap ul li.divider:first-child{
+    border-top: 0px solid white;
+    height: 30px;
+}
+
+/* Featured playlist header */
+#application #header #featured{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+#application #header #featured::before{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    background-color: rgba(0,0,0,.4);
+    opacity: 1;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+#application #header #featured .title{
+    text-align: center;
+    margin-top: 30px;
+    font-size: 30px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+#application #header #featured .playlist{
+    margin-top: 10px;
+}
+
+#application #header #featured .playlist .cover{
+    float: left;
+    margin-top: 35px;
+}
+
+#application #header #featured .playlist .cover img{
+    height: 225px;
+    width: 225px;
+    box-shadow: 0 0 40px rgba(0,0,0,.5);
+}
+
+#application #header #featured .playlist .details{
+    float: left;
+    width: calc(100% - 250px);
+    margin-top: 35px;
+    margin-left: 20px;
+    color: white;
+    font-size: 21px;
+    text-transform: uppercase;
+    text-shadow: 0 0 2px rgba(0,0,0,.3);
+}
+
+#application #header #featured .playlist .details.fullwidth{
+    width: 100%;
+}
+
+#application #header #featured .playlist .details .tracklist .track{
+    padding: 7px 0;
+    border-top: 1px solid #666;
+    font-size: 13px;
+    text-transform: none;
+    color: #ccc;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;   
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+}
+
+#application #header #featured .playlist .details .tracklist .track .name,
+#application #header #featured .playlist .details .tracklist .track .artist{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#application #header #featured .playlist .hoverwrap{
+    position: absolute;
+    top: 35px;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+    z-index: 50;
+    background-color: rgba(0,0,0,.5);
+    color: white;
+    text-align: center;
+    opacity: 0;
+    webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease; 
+}
+
+#application #header #featured .playlist:hover .hoverwrap{
+    opacity: 1;
+}
+
+#application #header #featured .playlist .hoverwrap .iconwrap{
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 100%;
+}
+
+#application #header #featured .playlist .hoverwrap .icon{
+    font-size: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+    color: #bfbfbf;
+}
+
+#application #header #featured .playlist .hoverwrap .icon a{
+    color: #bfbfbf;
+}
+
+#application #header #featured .playlist .hoverwrap .icon a:hover{
+    color: white;
+}
+
+#application #header #featured .playlist .hoverwrap .icon a:hover::after{
+    width: 0;
+}
+
+#application #header #featured .playlist .hoverwrap .icon.small{
+    font-size: 27px;
+}
+
+#application #header #featured .playlist .hoverwrap .icon:hover{
+    color: white;
+}
+
+/* START Application code */
+#application .note{
+    font-size: 13px;
+    border: 1px solid #ccc;
+    color: #777;
+    padding: 0px 15px;
+}
+
+#application #overview{
+    padding: 35px 50px;
+}
+
+#application #overview .pagetitle{
+    color: #c0c0c0;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+#application #overview .pagetitle .sub{
+    padding-left: 5px;
+    color: #777;
+}
+
+#application #overview .pagetitle .button{
+    float: right;
+    margin-top: -12px;
+}
+
+#application #overview .pagecontent{
+    padding-top: 20px;
+    padding-bottom: 80px;
+    font-size: 14px;
+}
+
+#application #overview .pagecontent#searchresults{
+    padding-bottom: 30px;
+}
+
+#application #overview .pagecontent #tileview{
+    margin-left: -25px;
+    margin-right: -25px;
+}
+
+#application #overview .pagecontent #tileview .single-tile{
+    padding: 0 25px 50px 25px;
+    position: relative;
+}
+
+#application #overview .pagecontent #tileview .single-tile .tileart{
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(0,0,0,.1);
+}
+
+#application #overview .pagecontent #tileview .single-tile .tileart::after{
+    content: '';
+    display: block;
+    margin-top: 100%;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap,
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    background-color: rgba(0,0,0,.5);
+    color: white;
+    opacity: 0;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap:hover,
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap:hover{
+    opacity: 1;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .icon,
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon{
+    margin-top: 50%;
+    -webkit-transform: translateY(-45%);
+    -moz-transform: translateY(-45%);
+    transform: translateY(-45%);
+    font-size: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+    color: #bfbfbf;
+    text-align: center;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .icon.small,
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon.small{
+    font-size: 20px;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .icon a,
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .icon a{
+    color: #bfbfbf;
+    text-decoration: none !important;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap a:hover,
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap .icon:hover,
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .iconwrap a:hover,
+#application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap .iconwrap .icon:hover{
+    color: white;
+}
+
+#application #overview .pagecontent #tileview .single-tile .tileart img{
+    min-height: 100%;
+    min-width: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#application #overview .pagecontent #tileview .single-tile .tileinfo{
+    padding-top: 5px;
+}
+
+#application #overview .pagecontent #tileview .single-tile .tileinfo a{
+    color: #404040;
+}
+
+#application #overview .pagecontent #tileview .single-tile .tileinfo a:hover{
+    text-decoration: none;
+}
+
+#application #overview .pagecontent #tileview .single-tile .tileinfo span{
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;   
+}
+
+#application #overview .pagecontent #tileview .single-tile .tileinfo span.year{
+    font-size: 14px;
+    color: #bbb;
+    display: block;
+}
+
+#application #overview .pagecontent #tileview .single-tile .tileinfo.clickable:hover span.name{
+    color: black;
+}
+
+#application #overview .pagecontent #tileview .service .status{
+    display: inline-block;
+    padding-left: 5px;
+}
+
+#application #overview .pagecontent #tracklist .track{
+    padding: 7px 0;
+    border-top: 1px solid #ccc;
+    cursor: pointer;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;   
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+}
+
+#application #overview .pagecontent #tracklist .track.loading{
+    cursor: default;
+    color: #aaa;
+    background-color: white !important;
+}
+
+#application #overview .pagecontent #tracklist .track.selected,
+#application #overview .pagecontent #tracklist .track:hover{
+    background-color: #f2f2f2;
+}
+
+#application #overview .pagecontent #tracklist .track .nowplaying{
+    background-image: url("../images/ani_equalizer_black.gif");
+    background-repeat: no-repeat;
+    background-position: right -7px;
+}
+
+#application #overview .pagecontent #tracklist .track .artists,
+#application #overview .pagecontent #tracklist .track .album,
+#application #overview .pagecontent #tracklist .track .name{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 10px;
+}
+
+#application #overview .pagecontent #tracklist .track .artists,
+#application #overview .pagecontent #tracklist .track .album{
+    color: #777;
+}
+
+#application #overview .pagecontent #tracklist .track .length{
+    color: #777;
+}
+
+#application #overview .pagecontent #tracklist .track a{
+    color: #404040;
+    color: #777;
+}
+
+.selectplaylist{
+    box-shadow: inset 0 0 1px rgba(0,0,0,0.25);
+    background: #fafafa;
+    margin: 25px 0;
+    position: relative;
+}
+
+.selectplaylist ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 25px;
+}
+
+.selectplaylist ul li{
+    padding: 7px 0;
+    border-top: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.selectplaylist ul li:hover{
+    background-color: white;
+}
+
+.selectplaylist .close{
+    position: absolute;
+    bottom: 10px;
+    right: 25px;
+    z-index: 50;
+    cursor: pointer;
+}
+
+.selectplaylist .close:hover{
+    text-decoration: underline;
+}
+
+#application #overview .pagecontent #tracklistinfo{
+    padding-left: 80px;
+}
+
+#application #overview .pagecontent #tracklistinfo #coverwrap{
+    width: 100%;
+}
+
+#application #overview .pagecontent #tracklistinfo #coverwrap img{
+    width: 100%;
+}
+
+/* START Application settigns styling */
+#application #overview .pagecontent .settingwrap{
+    border-bottom: 1px solid #e2e2e2;
+    padding: 25px 0;
+}
+
+#application #overview .pagecontent .settingwrap:first-child{
+    padding-top: 0;
+}
+
+#application #overview .pagecontent .settingwrap:last-child{
+    border: none;
+    padding-bottom: 0;
+}
+
+#application #overview .pagecontent .settingwrap .input input{
+    width: 100%;
+    background: white;
+    padding: 7px 12px;
+    border-radius: 5px;
+    border: 1px solid #c0c0c0;
+}
+
+#application #overview .pagecontent .settingwrap .description{
+    font-weight: normal;
+    font-size: 13px;
+}
+
+#application #overview .pagecontent .settingwrap .description p{
+    margin: 0 0 10px 0;
+}
+
+/* Start discover browse styling */
+#application #overview .pagecontent #browsewrap{
+
+}
+
+#application #overview .pagecontent #browsewrap .browseitem{
+    width: 90%;
+    margin-bottom: 50px;
+    margin-right: 2.5%;
+    margin-left: 2.5%;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 4px rgba(0,0,0,.1);
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .text{
+    padding: 20px;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .text .title{
+    color: #404040;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .text .artist{
+    color: #777;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap{
+    position: relative;
+    width: 100%;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap img{
+    width: 100%;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+
+#application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap .iconwrap .icon{
+    margin-top: 0;
+}
+
+/* START Application player styling */
+#application #player{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 500;
+    background-color: rgba(0,0,0,.9);
+}
+
+#application #player .bgimage{
+    width: 100%;
+    height: 100%;
+    opacity: .3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+#application #player .bgimage img{
+    width: 100%;
+    min-height: 100%;
+    margin-top: -20%;
+}
+
+#application #player .column{
+    float: left;
+}
+
+#application #player .controlwrap{
+    padding: 53px 53px 20px 50px;
+    width: 300px;
+}
+
+#application #player .controlwrap .iconwrap{
+    width: 230px;
+}
+
+#application #player .controlwrap .iconwrap i{
+    color: #aaa;
+    cursor: pointer;
+    -webkit-transition: color .2s ease;
+    -moz-transition: color .2s ease;
+    transition: color .2s ease;
+}
+
+#application #player .controlwrap .iconwrap i.active,
+#application #player .controlwrap .iconwrap i:hover{
+    color: #eee;
+}
+
+#application #player .controlwrap .iconwrap .volumebar{
+    position: absolute;
+    top: 0px;
+    left: 25px;
+    width: 100px;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+#application #player .controlwrap .iconwrap .volumebar .outer{
+    height: 2px;
+    width: 100%;
+    background-color: rgba(255,255,255,.5);
+}
+
+#application #player .controlwrap .iconwrap .volumebar .inner{
+    width: 0%;
+    height: 100%;
+    background-color: white;
+    position: relative;
+}
+
+#application #player #seekbar{
+    width: calc(100% - 600px);
+}
+
+#application #player #seekbar .trackname{
+    text-align: center;
+    color: #fff;
+    margin-top: 25px;
+    padding-bottom: 5px;
+    display: block;
+    position: relative;
+    z-index: 10;
+}
+
+#application #player #seekbar .trackname:hover{
+    text-decoration: none;
+}
+
+#application #player #seekbar .trackname .title{
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+#application #player #seekbar .trackname .artist{
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 14px;
+}
+
+#application #player #seekbar .barwrap{
+    width: 100%;
+    position: relative;
+}
+
+#application #player #seekbar .barwrap .time{
+    display: inline-block;
+    color: #fff;
+    width: 40px;
+    font-size: 14px;
+}
+
+#application #player #seekbar .barwrap .time#total{
+    text-align: right;
+    color: #aaa;
+    width: calc(100% - 55px);
+}
+
+#application #player #seekbar .barwrap .bar{
+    width: calc(100% - 100px);
+    position: relative;
+    cursor: pointer;
+    position: absolute;
+    display: inline-block;
+    padding: 10px 0;
+}
+
+#application #player #seekbar .barwrap .bar .outer{
+    width: 100%;
+    height: 2px;
+    background-color: rgba(255,255,255,.5);
+    margin-top: 4px;
+}
+
+#application #player #seekbar .barwrap .bar .outer .inner{
+    height: 100%;
+    width: 23%;
+    background-color: white;
+}

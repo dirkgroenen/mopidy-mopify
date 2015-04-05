@@ -58,6 +58,7 @@ your Mopidy config file (optional):
 ```
 [mopify]
 enabled = true
+debug = false
 ```
 
 ### Updating
