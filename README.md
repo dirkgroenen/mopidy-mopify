@@ -133,10 +133,10 @@ v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
-v1.4.0 (UNRELEASED)
+v1.4.0 (05-04-2015)
 ------------------
 
-- Added compatability for Mopidy 1.0 [#81](https://github.com/dirkgroenen/mopidy-mopify/issues/81) [#80](https://github.com/dirkgroenen/mopidy-mopify/issues/80)
+- Added compatability for Mopidy 1.0 [#86](https://github.com/dirkgroenen/mopidy-mopify/issues/86) [#81](https://github.com/dirkgroenen/mopidy-mopify/issues/81) [#80](https://github.com/dirkgroenen/mopidy-mopify/issues/80)
 
 - Sync service working again [#80](https://github.com/dirkgroenen/mopidy-mopify/issues/80)
 
@@ -147,6 +147,14 @@ v1.4.0 (UNRELEASED)
 - Some little speed improvements
 
 - Added 'Various Artists' to albums [PR #85](https://github.com/dirkgroenen/mopidy-mopify/pull/85)
+
+- Added debug option which starts Mopify with non-minified files
+
+- Added cgPrompt to gitignore [#83](https://github.com/dirkgroenen/mopidy-mopify/issues/83)
+
+- Added playlist follow/unfollow button [#79](https://github.com/dirkgroenen/mopidy-mopify/issues/79);
+
+- Mopify can now update itself [#22](https://github.com/dirkgroenen/mopidy-mopify/issues/22) 
 
 v1.3.2 (23-03-2015)
 ------------------
