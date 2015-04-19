@@ -1,13 +1,17 @@
 angular.module("mopify.services.autoupdate", [
+    "mopify.services.settings"
 ])
 
-.factory("AutoUpdate", function($q, $http){
+.factory("AutoUpdate", function($q, $http, $location, $rootScope, Settings){
     "use strict";
 
     var canupdate = false;
 
+    var mopidyip = Settings.get("mopidyip", $location.host());
+    var mopidyport = Settings.get("mopidyport", "6680");
+
     function AutoUpdate(){
-        
+        this.autoupdate = Settings.get("autoupdate", false);
     }
 
     /**
@@ -18,12 +22,12 @@ angular.module("mopify.services.autoupdate", [
         var deferred = $q.defer();
 
         // Make request
-        $http.get('/mopify/update').success(function(data){
+        $http.get('http://' + mopidyip + ':' + mopidyport + '/mopify/update').success(function(data){
             canupdate = data.response;
-            deferred.resolve(data);
+            deferred.resolve(canupdate);
         }).error(function(data){
             canupdate = false;
-            deferred.reject(data);
+            deferred.reject(canupdate);
         });
 
         return deferred.promise;
@@ -39,8 +43,11 @@ angular.module("mopify.services.autoupdate", [
         // Check if we can update
         if(canupdate){
             // Make request
-            $http.post('/mopify/update').success(function(data){
+            $http.post('http://' + mopidyip + ':' + mopidyport + '/mopify/update').success(function(data){
                 deferred.resolve(data);
+
+                // Broadcast update message
+                $rootScope.$broadcast("mopify:update:succesfull", data);
             }).error(function(data){
                 deferred.reject(data);
             });

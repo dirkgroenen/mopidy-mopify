@@ -6,6 +6,7 @@ angular.module('mopify', [
   'angular-loading-bar',
   'mopify.services.mopidy',
   'mopify.services.versionmanager',
+  'mopify.services.autoupdate',
   'spotify',
   'mopify.dashboard',
   'mopify.search',
@@ -31,7 +32,8 @@ angular.module('mopify', [
   'mopify.discover.newreleases',
   'templates-app',
   'llNotifier',
-  'ErrorCatcher'
+  'ErrorCatcher',
+  'cgPrompt'
 ]).config([
   '$routeProvider',
   '$httpProvider',
@@ -58,7 +60,9 @@ angular.module('mopify', [
   'notifier',
   'VersionManager',
   'localStorageService',
-  function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier, VersionManager, localStorageService) {
+  'AutoUpdate',
+  'prompt',
+  function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier, VersionManager, localStorageService, AutoUpdate, prompt) {
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
@@ -123,5 +127,58 @@ angular.module('mopify', [
         }
       }
     }
+    // Listen for new version message and automatically update when enabled
+    $scope.$on('mopify:version:new', function (event, version) {
+      if (AutoUpdate.autoupdate === true) {
+        AutoUpdate.check().then(function (canupdate) {
+          if (canupdate) {
+            notifier.notify({
+              type: 'custom',
+              template: 'Updating to version ' + version + '...',
+              delay: 2500
+            });
+            // Run auto-update
+            AutoUpdate.runUpdate().then(function () {
+              notifier.notify({
+                type: 'custom',
+                template: 'Update succesfull. You might need to restart Mopidy before changes are visible. ',
+                delay: 3000
+              });
+            }, function (data) {
+              notifier.notify({
+                type: 'custom',
+                template: 'Update failed. Mopify returned: ' + data.response,
+                delay: 5000
+              });
+            });
+          } else {
+            notifier.notify({
+              type: 'custom',
+              template: 'Mopify version ' + version + ' is available. Use the <a href=\'https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md#updating\' target=\'_blank\'>README</a> on how to update.',
+              delay: 5000
+            });
+          }
+        });
+      } else {
+        notifier.notify({
+          type: 'custom',
+          template: 'Mopify version ' + version + ' is available. Use the <a href=\'https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md#updating\' target=\'_blank\'>README</a> on how to update, or use the <a href=\'/#/account/settings\'>auto-update</a> feature.',
+          delay: 7500
+        });
+      }
+    });
+    // Listen for the update:successfull message which will show the changelog
+    $scope.$on('mopify:update:succesfull', function (e, data) {
+      var changelog = VersionManager.getChangelog();
+      prompt({
+        title: 'New version: ' + VersionManager.lastversion,
+        message: '<p>Mopify just updated to version ' + VersionManager.lastversion + '. The following changes have been made:</p><pre style="font-size: 10px;">' + changelog + '</pre>',
+        input: false,
+        buttons: [{
+            label: 'Ok',
+            primary: true
+          }]
+      });
+    });
   }
 ]);

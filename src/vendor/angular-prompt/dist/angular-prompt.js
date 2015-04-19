@@ -1,6 +1,6 @@
 angular.module('cgPrompt',['ui.bootstrap']);
 
-angular.module('cgPrompt').factory('prompt',['$modal','$q',function($modal,$q){
+angular.module('cgPrompt').factory('prompt',['$modal','$q','$sce',function($modal,$q, $sce){
 
     var prompt = function(options){
 
@@ -16,6 +16,8 @@ angular.module('cgPrompt').factory('prompt',['$modal','$q',function($modal,$q){
                 {label:'OK',primary:true}
             ]
         };
+
+        options.message = $sce.trustAsHtml(options.message);
 
         if (options === undefined){
             options = {};
@@ -111,9 +113,7 @@ angular.module('cgPrompt').run(['$templateCache', function($templateCache) {
     "    </div>\n" +
     "    <div class=\"modal-body\">\n" +
     "\n" +
-    "        <p ng-if=\"options.message\">\n" +
-    "            {{options.message}}\n" +
-    "        </p>\n" +
+    "        <div ng-if=\"options.message\" ng-bind-html=\"options.message\"></div>" +
     "\n" +
     "        <form id=\"cgPromptForm\" name=\"cgPromptForm\" ng-if=\"options.input\" ng-submit=\"submit()\">\n" +
     "            <div class=\"form-group\" ng-class=\"{'has-error':cgPromptForm.$invalid && changed}\">\n" +

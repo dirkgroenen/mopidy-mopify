@@ -17,6 +17,7 @@ Some of the features that are included in Mopify:
 - Start music stations from artists, albums, tracks, playlists or your personal
   taste profile.
 - [Synchronize](https://github.com/dirkgroenen/mopidy-mopify/wiki/Services#sync) with other Mopify clients in your network
+- Automatic updating
 
 At the moment, Mopify only works with
 [mopidy-spotify](https://github.com/mopidy/mopidy-spotify). This may change in
@@ -69,6 +70,8 @@ new version you can use the following command:
 ```bash
 sudo pip install --upgrade Mopidy-Mopify
 ```
+
+Or use the automatic updating feature which is available since version 1.4.1.
 
 ## Getting started
 
@@ -132,6 +135,14 @@ This will create a new `Mopidy-Mopify` web extension package.
 v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
+
+v1.4.2 (19-04-2015)
+------------------
+
+- Mopify can now update itself when a new version is available [#87](https://github.com/dirkgroenen/mopidy-mopify/issues/87)
+
+- Play button is working again [#86](https://github.com/dirkgroenen/mopidy-mopify/issues/86)
+
 
 v1.4.1 (05-04-2015)
 ------------------

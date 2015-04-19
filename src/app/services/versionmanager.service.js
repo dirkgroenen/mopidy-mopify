@@ -3,7 +3,7 @@ angular.module("mopify.services.versionmanager", [
     "mopify.services.util"
 ])
 
-.factory("VersionManager", function($window, $q, $http, util, localStorageService){
+.factory("VersionManager", function($window, $q, $rootScope, $http, util, localStorageService){
     "use strict";
 
     function VersionManager(){
@@ -24,8 +24,10 @@ angular.module("mopify.services.versionmanager", [
 
         // Check latest version from Github
         this.checkVersion().then(function(lastversion){
-            if(util.versionCompare(lastversion, that.version) > 0)
+            if(util.versionCompare(lastversion, that.version) > 0){
                 that.newVersion = true;
+                $rootScope.$broadcast("mopify:version:new", lastversion);
+            }
 
             that.lastversion = lastversion;
         });
@@ -46,16 +48,19 @@ angular.module("mopify.services.versionmanager", [
             $http.get('https://api.github.com/repos/dirkgroenen/mopidy-mopify/releases').success(function(data){
                 if(data[0] !== undefined){
                     var lastversion = data[0].tag_name;
+                    var changelog = data[0].body;
                     
                     // Update version data
                     versiondata.lastversion = lastversion;
                     versiondata.lastcheck = Date.now();
+                    versiondata.changelog = changelog;
 
                     localStorageService.set("versionmanager", versiondata);
 
                     // Check if the returned version is different 
-                    if(util.versionCompare(lastversion, that.version) > 0)
+                    if(util.versionCompare(lastversion, that.version) > 0){
                         that.newVersion = true;
+                    }
 
                     // Resolve
                     deferred.resolve(lastversion);
@@ -86,6 +91,15 @@ angular.module("mopify.services.versionmanager", [
 
         return "";
     } 
+
+    /**
+     * Get the last version's changelog
+     * @return string
+     */
+    VersionManager.prototype.getChangelog = function(){
+        var versiondata = localStorageService.get("versionmanager");
+        return versiondata.changelog;
+    };
 
 
     return new VersionManager();

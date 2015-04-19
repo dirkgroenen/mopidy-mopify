@@ -28,6 +28,7 @@ angular.module('mopify.widgets.directive.track', [
       scope: {
         track: '=',
         type: '=',
+        surrounding: '=?',
         currentPlayingTrack: '=currentplayingtrack'
       },
       transclude: true,
@@ -41,7 +42,8 @@ angular.module('mopify.widgets.directive.track', [
         scope.visible = true;
         scope.showSaveTrack = false;
         scope.trackAlreadySaved = false;
-        scope.surrounding = scope.$parent.loadedTracks;
+        if (scope.surrounding === undefined)
+          scope.surrounding = scope.$parent.loadedTracks;
         scope.artistsString = function () {
           return util.artistsToString(scope.track.artists, true);
         };

@@ -493,6 +493,25 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
+    "    <div class=\"pagetitle row\">\n" +
+    "        <div class=\"col-md-3\">\n" +
+    "            Settings <span class=\"sub\">Automatic updating (BETA)</span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"pagecontent row\">\n" +
+    "        <div class=\"settingwrap row\">\n" +
+    "            <div class=\"label col-md-2\">\n" +
+    "                <label>Automatically update to new versions</label>\n" +
+    "            </div>\n" +
+    "            <div class=\"input col-md-4\">\n" +
+    "                <toggle-switch ng-model=\"settings.autoupdate\" ng-disabled=\"!autoupdate\"><toggle-switch>\n" +
+    "            </div>\n" +
+    "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
+    "                <p>Automatically update to a new version when available. This feature can only be used when Mopidy is running as root.</p>\n" +
+    "                <p ng-if=\"!autoupdate\"><b>Run Mopidy as root to enable automatic updating</b></p>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
     "\n" +
     "    <div class=\"pagetitle row\">\n" +
     "        <div class=\"col-md-3\">\n" +
