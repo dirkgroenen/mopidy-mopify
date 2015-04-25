@@ -1382,6 +1382,6 @@ img[src=""] {
 
 #application #player #seekbar .barwrap .bar .outer .inner{
     height: 100%;
-    width: 23%;
+    width: 0%;
     background-color: white;
 }
