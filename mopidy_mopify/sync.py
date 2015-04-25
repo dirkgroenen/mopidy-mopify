@@ -42,6 +42,10 @@ class RootRequestHandler(tornado.web.RequestHandler):
         if(service == "clients"):
             clients = Clients()
             response = clients.read();
+
+        if(service == "settings"):
+            settings = Settings()
+            response = settings.read();
             
 
         self.write({"response": response})
@@ -70,6 +74,12 @@ class RootRequestHandler(tornado.web.RequestHandler):
                 'name': self.get_argument("name", default=''),
                 'client_id': self.get_argument("client_id", default=''),
                 'master': self.get_argument("master", default=False)
+            });
+
+        if(service == "settings"):
+            settings = Settings()
+            response = settings.write({
+                'forcesync': self.get_argument("forcesync", default='')
             });
             
 
@@ -180,4 +190,31 @@ class Clients(Sync):
         return resp
 
 
+class Settings(Sync):
 
+    def __init__(self):
+        self.syncini = ConfigObj(self.syncfile, encoding='UTF8', create_empty=True)
+
+        # Check if the key exists
+        try:
+            self.syncini["settings"]
+        except KeyError:
+            self.syncini["settings"] = {}
+
+    def read(self):
+        try:
+            settings = self.syncini['settings']
+            
+            resp = settings
+        except KeyError:
+            resp = "No data available"
+
+        return resp
+
+    def write(self, arguments):
+        # Create the section
+        self.syncini['settings'] = arguments
+
+        # Write to ini file
+        self.syncini.write()
+        return self.syncini['settings']
