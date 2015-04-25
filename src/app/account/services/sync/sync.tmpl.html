@@ -23,7 +23,26 @@
 
     <div class="pagetitle row">
         <div class="col-md-3">
-            Synchronize <span class="sub">Sync</span>
+            Settings <span class="sub">Sync</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Force synchronisation</label>
+            </div>
+            <div class="input col-md-4">
+                <toggle-switch ng-model="settings.sync.force" ng-click="forceToggle()"></toggle-switch>
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>When enabled every new client which connects to the provided Mopidy server and enabled the Sync service will automatically retrieve all synced credentials.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Services <span class="sub">Sync</span>
         </div>
     </div>
     <div class="pagecontent row">

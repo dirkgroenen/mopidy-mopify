@@ -42,6 +42,14 @@ angular.module("mopify.services.playlistmanager", [
             }
         }
 
+        // Load playlists on spotify connection
+        $rootScope.$on("mopify:spotify:connected", function(){
+            Spotify.getCurrentUser().then(function(user){
+                that.spotifyuserid = user.id;
+                that.loadPlaylists();
+            });
+        });
+
         // Load playlists on playlists:change event
         $rootScope.$on("mopidy:event:playlistsLoaded", function(){
             // Load playlists

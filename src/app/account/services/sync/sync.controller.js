@@ -49,6 +49,8 @@ angular.module("mopify.account.services.sync", [
 
     /*
      * Update the client in Sync
+     * 
+     * @return {void}
      */
     $scope.updateClient = function(){
         Sync.updateClient($scope.client);
@@ -56,6 +58,8 @@ angular.module("mopify.account.services.sync", [
 
     /**
      * Get TasteProfile ID and set as current ID
+     * 
+     * @return {void}
      */
     $scope.getSyncTasteProfileID = function(){
         var deferred = $q.defer();
@@ -84,6 +88,8 @@ angular.module("mopify.account.services.sync", [
 
     /**
      * Set the current TasteProfile ID as Sync ID
+     * 
+     * @return {void}
      */
     $scope.sendCurrentTasteProfileID = function(){
         var deferred = $q.defer();
@@ -115,6 +121,8 @@ angular.module("mopify.account.services.sync", [
 
     /**
      * Get Spotify tokens and set as current Spotify tokens
+     * 
+     * @return {void}
      */
     $scope.getSyncSpotifyTokens = function(){
         var deferred = $q.defer();
@@ -148,6 +156,8 @@ angular.module("mopify.account.services.sync", [
 
     /**
      * Set the current Spotify Tokens as Sync tokens
+     * 
+     * @return {void}
      */
     $scope.sendCurrentSpotifyTokens = function(){
         var deferred = $q.defer();
@@ -178,6 +188,8 @@ angular.module("mopify.account.services.sync", [
     /**
      * Method which runs on every Spotify Toggle click
      * and checks if we have to enable the Spotify
+     * 
+     * @return {void}
      */
     $scope.spotifyToggle = function(){
         if($scope.settings.sync.spotify === true){
@@ -195,6 +207,8 @@ angular.module("mopify.account.services.sync", [
     /**
      * Method which runs on every TasteProfile Toggle click
      * and checks if we have to enable the TasteProfile service
+     * 
+     * @return {void}
      */
     $scope.tasteProfileToggle = function(){
         if($scope.settings.sync.tasteprofile === true){
@@ -208,6 +222,19 @@ angular.module("mopify.account.services.sync", [
 
             }
         }
+    };
+
+    /**
+     * Runs on a forceSync toggle
+     * 
+     * @return {void}
+     */
+    $scope.forceToggle = function(){
+        Sync.setSettings({
+            forcesync: $scope.settings.sync.force
+        }).then(function(response){
+            notifier.notify({type: "custom", template: "Settings succesfully saved.", delay: 5000});
+        });
     };
 })
 

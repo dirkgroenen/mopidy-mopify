@@ -2,10 +2,12 @@
 
 angular.module("mopify.services.sync", [
     'LocalStorageModule',
-    'mopify.services.settings'
+    'mopify.services.settings',
+    'mopify.services.servicemanager',
+    'mopify.services.spotifylogin'
 ])
 
-.factory("Sync", function SyncFactory($http, $q, $location, localStorageService, Settings){
+.factory("Sync", function SyncFactory($http, $q, $location, localStorageService, Settings, ServiceManager, SpotifyLogin, TasteProfile){
     
     var mopidyip = Settings.get("mopidyip", $location.host());
     var mopidyport = Settings.get("mopidyport", "6680");
@@ -52,6 +54,49 @@ angular.module("mopify.services.sync", [
         return deferred.promise;
     };
 
+    /**
+     * Run the force synchronisation which checks 
+     * all services, enabled them and sets the right
+     * credentials
+     * 
+     * @return {void}
+     */
+    function runForceSynchronisation(){
+        // Get Spotify
+        get("spotify").then(function(response){
+            // Server will only return an object when data is available
+            if(typeof(response) == "object"){
+                // Set data
+                SpotifyLogin.access_token = response.access_token;
+                SpotifyLogin.refresh_token = response.refresh_token;
+
+                // Set sync setting force to true
+                Settings.set("sync", {spotify: true});
+
+                // Enable service
+                ServiceManager.enableService("Spotify");
+            }
+        });
+
+        // Get TasteProfile
+        get("tasteprofile").then(function(response){
+            // Server will only return an object when data is available
+            if(typeof(response) == "object"){
+                // Set data
+                TasteProfile.id = response.id;
+
+                // Set sync setting force to true
+                Settings.set("sync", {tasteprofile: true});
+                
+                // Enable service
+                ServiceManager.enableService("Taste Profile");
+            }
+        });
+    }
+
+    /**
+     * Sync constructor
+     */
     function Sync(){
         var client = localStorageService.get("syncclient");
 
@@ -71,7 +116,29 @@ angular.module("mopify.services.sync", [
         else{
             this.client = client;
         }
+
+        // Check if force synchronisation is activated
+        this.checkForceSynchronisation();
     }
+
+    /**
+     * Check if the force sync setting is enabled
+     * 
+     * @return {void}
+     */
+    Sync.prototype.checkForceSynchronisation = function(){
+        get("settings").then(function(response){
+            if(response.forcesync === "true"){
+                // Set sync setting force to true
+                Settings.set("sync", {force: true});
+
+                ServiceManager.enableService("Sync");
+
+                // Run the forced synchronisation
+                runForceSynchronisation();
+            }
+        });
+    };
 
     /**
      * Update the current client
@@ -134,6 +201,22 @@ angular.module("mopify.services.sync", [
     Sync.prototype.setTasteProfile = function(data){
         data.client_id = this.client.id;
         return post("tasteprofile", data);
+    };
+
+    /**
+     * Get settings
+     * @param {object} data data to save
+     */
+    Sync.prototype.getSettings = function(){
+        return get("settings");
+    };
+
+    /**
+     * Set settings
+     * @param {object} data data to save
+     */
+    Sync.prototype.setSettings = function(data){
+        return post("settings", data);
     };
 
     return new Sync();

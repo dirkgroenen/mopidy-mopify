@@ -34,10 +34,19 @@ angular.module("mopify.services.settings", [
      * Save a (new) value
      * @param  {string} key   
      * @param  {string} value 
+     * @param  {boolean} extend
      */
-    Settings.prototype.set = function(key, value){
+    Settings.prototype.set = function(key, value, extend){
+        extend = (extend === undefined) ? true : false;
+
         // Set settings and set new key and value
         var settings = localStorageService.get(rootkey);
+        
+        // Extend value if exists
+        if(settings[key] !== null && settings[key] !== undefined && extend === true){
+            value = angular.extend(settings[key], value);
+        }
+
         settings[key] = value;
 
         // Save settings
