@@ -136,6 +136,13 @@ v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
+v1.5.0 (UNRELEASED)
+-------------------
+
+- Added master mode to Sync service [#71](https://github.com/dirkgroenen/mopidy-mopify/issues/71)
+
+- Rebuild the search's layout [#18](https://github.com/dirkgroenen/mopidy-mopify/issues/18) [#11](https://github.com/dirkgroenen/mopidy-mopify/issues/11)
+
 v1.4.2 (19-04-2015)
 ------------------
 
