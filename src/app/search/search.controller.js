@@ -228,12 +228,14 @@ angular.module('mopify.search', [
             });
         });
 
-        // Genereate the link
-        if(resultitem.type === "artists")
-            resultitem.link = "#/music/artist/" + resultitem.item.uri;
-        else
-            resultitem.link = "#/music/tracklist/" + resultitem.item.uri;
-
+        if(resultitem.item !== undefined){
+            // Genereate the link
+            if(resultitem.type === "artists")
+                resultitem.link = "#/music/artist/" + resultitem.item.uri;
+            else
+                resultitem.link = "#/music/tracklist/" + resultitem.item.uri;
+        }
+        
         // Set topresult and stop loading
         $scope.loading = false;
         $scope.topresult = resultitem;
