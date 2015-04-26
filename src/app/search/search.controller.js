@@ -134,14 +134,14 @@ angular.module('mopify.search', [
         typingTimeout = $timeout(function(){
             if($scope.query.trim().length > 1)
                 $scope.performSearch();    
-        }, 1000);   
+        }, 250);   
     });
 
     if(mopidyservice.isConnected){
         typingTimeout = $timeout(function(){
             if($scope.query.trim().length > 1)
                 $scope.performSearch();    
-        }, 1000);   
+        }, 250);   
     }
         
     /**
