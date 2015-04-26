@@ -114,7 +114,7 @@ angular.module('mopify.search', [
 
             // The search request only returns limited information about an album
             // so lets get some more information
-            Spotify.getAlbums(_.map(data.albums.items, function(album){
+            Spotify.getAlbums(_.map(data.albums.items.slice(0,20), function(album){
                 return album.id;
             })).then(function(response){
                 angular.extend($scope.results.albums.items, response.albums);

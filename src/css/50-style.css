@@ -1534,6 +1534,7 @@ img[src=""] {
     margin-bottom: 7px;
     position: relative;
     display: block;
+    overflow: hidden;
 }
 
 .search-overlay .inner .resultwrap #searchview .single-tile::after{
