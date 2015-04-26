@@ -1,6 +1,6 @@
 <div class="barwrap">
     <div class="time" id="passed">{{ timeCurrent }}</div>
-    <div class="bar" ng-mouseup="seekbarMouseUp()" ng-mousedown="seekbarMouseDown()" ng-mousemove="seekbarMouseMove($event)" ng-click="seekbarMouseClick($event)" >
+    <div class="bar" ng-mouseup="seekbarMouseUp()" ng-mousedown="seekbarMouseDown($event)" ng-mousemove="seekbarMouseMove($event)" ng-click="seekbarMouseClick($event)" >
         <div class="outer">
             <div class="inner" style="width: {{ seekbarWidth }}%;"></div>
         </div>

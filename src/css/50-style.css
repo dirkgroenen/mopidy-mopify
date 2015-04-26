@@ -133,6 +133,11 @@ img[src=""] {
     color: #777;
 }
 
+.contextmenu ul li a{
+    color: #777;
+    text-decoration: none;
+}
+
 .contextmenu ul li.divider{
     background-color: #ddd;
     height: 1px;
@@ -476,12 +481,31 @@ img[src=""] {
 }
 
 #application #header{
-    height: 200px;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    height: 200px;
     -webkit-transition: height .5s ease;
     -moz-transition: height .5s ease;
     transition: height .5s ease;
+    position: relative;
+    background-color: black;
+    overflow: hidden;
+}
+
+#application #header .backgroundimage{
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-filter: blur(5px);
+    overflow: hidden;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: .5;
 }
 
 #application #header.small{
@@ -524,12 +548,27 @@ img[src=""] {
     transition: all .3s ease;
 }
 
+#application #header .albumart{
+    float: left;
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+    margin: 25px 25px 25px 50px;
+    border: 1px solid white;
+    box-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+#application #header .albumart img{
+    height: 100%;
+    width: auto;
+}
+
 #application #header.small .lefttext{
     color: white;
-    font-size: 21px;
+    font-size: 23px;
     text-transform: uppercase;
     letter-spacing: 3px;
-    padding: 130px 0 0 50px;
+    padding: 140px 0 0 50px;
     text-shadow: 0 0 2px rgba(0,0,0,.3);
 }
 

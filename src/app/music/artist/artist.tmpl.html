@@ -1,8 +1,16 @@
-<div id="header" class="small row" ng-class="(currentview.id == 'bio') ? 'big' : ''" style="background-image: url('{{ artist.coverimage }}');">
-    <div class="col-md-4 col-sm-3 lefttext">
-        <div class="inner">{{ artist.name }}</div>
+<div id="header" class="small row">
+    <div class="backgroundimage" style="background-image: url('{{ artist.coverimage }}');"></div>
+    <div class="col-md-6 col-lg-4">
+        <div class="albumart hidden-xs hidden-sm hidden-md">
+            <img ng-src="{{ artist.coverimage }}" />
+        </div>
+        <div class="lefttext">
+            <div class="inner"> 
+                <i class="ss-icon ss-list"></i> {{ artist.name }}
+            </div>
+        </div>
     </div>
-    <div class="col-md-8 col-lg-4 col-sm-9 centertext">
+    <div class="col-md-6 col-lg-4 col-sm-9 centertext">
         <div class="row">
             <div class="col-xs-4 music"><a href="#/music/artist/{{ artistId }}" ng-class="{ 'active': currentview.id == 'music' }" ng-click="setView('music')">Music</a></div>
             <div class="col-xs-4 biography"><a href="#/music/artist/{{ artistId }}" ng-class="{ 'active': currentview.id == 'bio' }" ng-click="setView('bio')">Biography</a></div>
@@ -10,6 +18,7 @@
         </div>  
     </div>
 </div>
+
 <div id="overview" class="row">
     <div class="pagetitle row" ng-if="currentview.id == 'music'">
         <div class="col-md-3">

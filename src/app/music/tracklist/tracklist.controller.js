@@ -178,6 +178,7 @@ angular.module('mopify.music.tracklist', [
 
             // Get the official playlist name
             Spotify.getPlaylist(ownerid, playlistid).then(function(data){
+                $scope.coverImage = data.images[0].url;
                 $scope.name = data.name + " from " + data.owner.id;
             });    
 
