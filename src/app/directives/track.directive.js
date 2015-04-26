@@ -29,9 +29,6 @@ angular.module('mopify.widgets.directive.track', [
 
             var uri = $routeParams.uri;
 
-            // Copy so we have raw tracks again (otherwise mopidy will crash)
-            var track = angular.copy(scope.track);
-
             scope.selected = false;
             scope.multipleselected = true;
 
@@ -57,15 +54,15 @@ angular.module('mopify.widgets.directive.track', [
             scope.selectTrack = function(event){
                 if(event.ctrlKey === true){
                     if(scope.selected){
-                        $rootScope.selectedtracks = _.without($rootScope.selectedtracks, _.findWhere($rootScope.selectedtracks, { uri: track.uri }));
+                        $rootScope.selectedtracks = _.without($rootScope.selectedtracks, _.findWhere($rootScope.selectedtracks, { uri: scope.track.uri }));
                     }
                     else{
-                        $rootScope.selectedtracks.push(track);    
+                        $rootScope.selectedtracks.push(scope.track);    
                     }
                     
                 }
                 else{
-                    $rootScope.selectedtracks = [track];
+                    $rootScope.selectedtracks = [scope.track];
                 }
             };
 
@@ -76,7 +73,7 @@ angular.module('mopify.widgets.directive.track', [
             scope.$watch(function() {
                 return $rootScope.selectedtracks;
             }, function() {
-                var found = _.findWhere($rootScope.selectedtracks, { uri: track.uri });
+                var found = _.findWhere($rootScope.selectedtracks, { uri: scope.track.uri });
                 
                 if(found !== undefined)
                     scope.selected = true;
@@ -90,6 +87,9 @@ angular.module('mopify.widgets.directive.track', [
             scope.play = function(){
                 var clickedindex = 0;
                 var surroundinguris = [];
+
+                // Copy so we have raw tracks again (otherwise mopidy will crash)
+                var track = angular.copy(scope.track);
 
                 /**
                  * Check if this is the only selected track and play it
@@ -134,7 +134,17 @@ angular.module('mopify.widgets.directive.track', [
                     }
                 }                
             };
-            
+
+            /**
+             * Play track next
+             * @return {void}
+             */
+            scope.playNext = function(){
+                mopidyservice.playNext(scope.track.uri).then(function(result){
+                    console.log(result);
+                });
+            };
+
             scope.startStation = function(){
                 stationservice.startFromSpotifyUri(scope.track.uri);
             };
@@ -151,21 +161,29 @@ angular.module('mopify.widgets.directive.track', [
 
             /**
              * Remove the track from the tracklist
-             * @param  {track} track
+             * @return {void}
              */
             scope.removeFromQueue = function(){
-                var uris = _.map($rootScope.selectedtracks, function(track){
-                    return track.uri;
+                var tlids = [];
+
+                mopidyservice.getTracklist().then(function(tltracks){
+                    _.forEach($rootScope.selectedtracks, function(track){
+                        _.forEach(tltracks, function(tltrack){
+                            if(tltrack.track.uri === track.uri)
+                                tlids.push(tltrack.tlid);
+                        });
+                    });
+
+                    // Remove from tracklist
+                    mopidyservice.removeFromTracklist({ tlid: tlids }).then(function(){
+                        // Broadcast event
+                        $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
+
+                        // Reset selectedtrack
+                        $rootScope.selectedtracks = [];
+                    });
+
                 });
-
-                // Remove from tracklist
-                mopidyservice.removeFromTracklist({ uri: uris });
-
-                // Hide tracks
-                scope.visible = false;
-
-                // Broadcast event
-                $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
             };
 
             /*
@@ -272,7 +290,7 @@ angular.module('mopify.widgets.directive.track', [
                  * Check if the current scope is already selected, otherwise clear the previous selected tracks
                  */
                 if(!scope.selected){
-                    $rootScope.selectedtracks = [track];
+                    $rootScope.selectedtracks = [scope.track];
                 }
 
                 if($rootScope.selectedtracks.length > 1)

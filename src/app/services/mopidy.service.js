@@ -277,8 +277,18 @@ angular.module('mopify.services.mopidy', [
             return wrapMopidyFunc("mopidy.tracklist.shuffle", this)();
         },
         
-        playNext: function(tltrack){
-            return wrapMopidyFunc("mopidy.tracklist.eotTrack", this)({ tl_track: tltrack });
+        playNext: function(uris){
+            var deferred = $q.defer();
+
+            if(typeof uris === "string")
+                uris = [uris];
+
+            this.mopidy.tracklist.add({uris: uris, at_position: 1}).then(function(response){
+                deferred.resolve(response);
+                $rootScope.$broadcast("mopidy:event:tracklistChanged");
+            });
+
+            return deferred.promise;
         },
 
         play: function(tltrack) {
@@ -329,8 +339,9 @@ angular.module('mopify.services.mopidy', [
         setRepeat: function (isRepeat) {
             return wrapMopidyFunc("mopidy.tracklist.setRepeat", this)([ isRepeat ]);
         },
+
         removeFromTracklist: function(dict){
-            return wrapMopidyFunc("mopidy.tracklist.remove", this)({ criteria: dict });
+            return wrapMopidyFunc("mopidy.tracklist.remove", this)(dict);
         }
 
 	};
