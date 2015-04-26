@@ -1,7 +1,6 @@
 <div ng-show="visible">
     <div class="tileart" context-menu="onContextShow()"
-         data-target="menu-{{ album.uri }}"
-         ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
+        data-target="menu-{{ album.uri }}">
         <div class="hoverwrap">
             <div class="iconwrap row">
                 <div class="icon small col-xs-4" title="Show album's tracks">
@@ -18,7 +17,8 @@
 
         <img ng-src="{{ album.images[1].url }}" />
     </div>
-    <div class="tileinfo clickable">
+    <div class="tileinfo clickable" context-menu="onContextShow()"
+        data-target="menu-{{ album.uri }}">
         <a href="{{ tracklistUrl }}">
             <span class="name">{{ album.name}}</span>
             <span class="year ng-binding">{{ artiststring }}</span>

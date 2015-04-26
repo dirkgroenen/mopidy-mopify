@@ -1485,7 +1485,20 @@ img[src=""] {
 }
 
 .search-overlay .inner .resultwrap{
-    margin-top: 175px;
+    margin-top: 150px;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+.search-overlay .inner .resultwrap.loading{
+    text-align: center;
+}
+
+.search-overlay .inner .resultwrap.loading svg{
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 40%;
 }
 
 .search-overlay .inner .resultwrap .column{

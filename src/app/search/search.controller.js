@@ -112,6 +112,14 @@ angular.module('mopify.search', [
             $scope.results.albums = data.albums;
             $scope.results.playlists = data.playlists;
 
+            // The search request only returns limited information about an album
+            // so lets get some more information
+            Spotify.getAlbums(_.map(data.albums.items, function(album){
+                return album.id;
+            })).then(function(response){
+                angular.extend($scope.results.albums.items, response.albums);
+            });
+
             resultsloaded++;
             if(resultsloaded == 2)
                 getTopMatchingResult($scope.query, $scope.results);
@@ -220,47 +228,15 @@ angular.module('mopify.search', [
             });
         });
 
-        // Lookup and place
-        lookupFeaturedResult(resultitem);
-    }
+        // Genereate the link
+        if(resultitem.type === "artists")
+            resultitem.link = "#/music/artist/" + resultitem.item.uri;
+        else
+            resultitem.link = "#/music/tracklist/" + resultitem.item.uri;
 
-    /**
-     * Lookup the filtered result and place it in the header
-     * @param {object} resultitem   The best result item
-     */
-    function lookupFeaturedResult(resultitem){
-        mopidyservice.lookup(resultitem.item.uri).then(function(response){
-            // Set loading to false
-            $scope.loading = false;
-
-            var results = response[resultitem.item.uri];
-            
-            var tracksloaded = true;
-
-            var filtered = _.filter(_.shuffle(results), function(item){
-                return item.name.indexOf("unplayable") < 0;
-            });
-
-            _.each(filtered, function(track){
-                if(track.name.indexOf("loading") > -1)
-                    tracksloaded = false;
-            });
-
-            if(tracksloaded){
-                resultitem.item.tracks = filtered.splice(0, 7);
-
-                if(resultitem.type == "tracks")
-                    resultitem.item.tracks[0].artiststring = util.artistsToString(resultitem.item.tracks[0].artists);
-
-                // Set the resultitem as $scope.topresult
-                $scope.topresult = resultitem;
-            }
-            else{
-                $timeout(function(){
-                    lookupFeaturedResult(resultitem);
-                }, 1000);
-            }
-        });
+        // Set topresult and stop loading
+        $scope.loading = false;
+        $scope.topresult = resultitem;
     }
 
     /**

@@ -324,6 +324,11 @@
 }
 
 @media all and (max-width: 768px){
+    .search-overlay .inner .resultwrap{
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
     .search-overlay .inner .resultwrap .column{
         padding: 0;
     }

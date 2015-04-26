@@ -6,8 +6,15 @@
             <input type="text" class="fluent" ng-model="query" novalidate focus-me="$root.focussearch" ng-keyup="typing($event)"/>
         </div>
 
-        <div class="resultwrap pagecontent" ng-show="loading">
-            Loading...
+        <div class="resultwrap pagecontent loading" ng-show="loading">
+            <svg version="1.1" class="svg-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 80 80" xml:space="preserve">
+                <path id="spinner" fill="#444444" d="M40,72C22.4,72,8,57.6,8,40C8,22.4,
+                    22.4,8,40,8c17.6,0,32,14.4,32,32c0,1.1-0.9,2-2,2
+                    s-2-0.9-2-2c0-15.4-12.6-28-28-28S12,24.6,12,40s12.6,
+                    28,28,28c1.1,0,2,0.9,2,2S41.1,72,40,72z" transform="rotate(42.6866 40 40)">
+                    <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 40 40" to="360 40 40" dur="0.75s" repeatCount="indefinite"></animateTransform>
+                </path>
+            </svg>
         </div>
 
         <div class="resultwrap pagecontent" ng-hide="loading">
@@ -19,7 +26,7 @@
                     <div id="featured">
                         <div id="searchview" class="topresult">
                             <div class="cover">
-                                <a href="#/music/tracklist/{{ topresult.item.uri }}"><img ng-src="{{ topresult.item.images[0].url }}" /></a>
+                                <a href="{{ topresult.link }}"><img ng-src="{{ topresult.item.images[0].url }}" /></a>
                             </div>
                         </div>
                     </div>
