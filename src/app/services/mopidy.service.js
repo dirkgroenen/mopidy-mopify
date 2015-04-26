@@ -13,6 +13,8 @@ angular.module('mopify.services.mopidy', [
 	// Create consolelog object for Mopidy to log it's logs on
     var consoleError = console.error.bind(console);
 
+    var lasttracklist = [];
+
     /*
      * Wrap calls to the Mopidy API and convert the promise to Angular $q's promise.
      * 
@@ -146,10 +148,6 @@ angular.module('mopify.services.mopidy', [
             return wrapMopidyFunc("mopidy.playlists.lookup", this)({ uri: uri });
         },
 
-        refresh: function(uri) {
-            return wrapMopidyFunc("mopidy.library.refresh", this)({ uri: uri });
-        },
-
         getTrack: function(uri) {
             return wrapMopidyFunc("mopidy.library.lookup", this)({ uri: uri });
         },
@@ -164,10 +162,6 @@ angular.module('mopify.services.mopidy', [
 
         search: function(query) {
             return wrapMopidyFunc("mopidy.library.search", this)({ any : [ query ] });
-        },
-
-        searchTrack: function(artist, title){
-            return wrapMopidyFunc("mopidy.library.search", this)({ title: [ title ], artist: [ artist ]});
         },
 
         getCurrentTrack: function() {
@@ -272,10 +266,6 @@ angular.module('mopify.services.mopidy', [
         getTracklist: function(){
             return wrapMopidyFunc("mopidy.tracklist.getTlTracks", this)();
         },
-
-        shuffleTracklist: function(){
-            return wrapMopidyFunc("mopidy.tracklist.shuffle", this)();
-        },
         
         playNext: function(uris){
             var deferred = $q.defer();
@@ -300,16 +290,8 @@ angular.module('mopify.services.mopidy', [
             }
         },
 
-        filterTracklist: function(query){
-            return wrapMopidyFunc("mopidy.tracklist.filter", this)({ criteria: query });
-        },
-
         pause: function() {
             return wrapMopidyFunc("mopidy.playback.pause", this)();
-        },
-
-        stopPlayback: function(clearCurrentTrack) {
-            return wrapMopidyFunc("mopidy.playback.stop", this)();
         },
 
         previous: function() {
