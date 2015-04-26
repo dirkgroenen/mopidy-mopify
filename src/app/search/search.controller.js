@@ -44,10 +44,10 @@ angular.module('mopify.search', [
     };
 
     $scope.searchLimits = {
-        artists: 12,
-        albums: 12,
-        tracks: 10,
-        playlists: 12
+        artists: 8,
+        albums: 8,
+        tracks: 15,
+        playlists: 8
     };
 
     $scope.topresult = {};

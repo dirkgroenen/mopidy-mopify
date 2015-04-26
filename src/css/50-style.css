@@ -1518,7 +1518,7 @@ img[src=""] {
 
 .search-overlay .inner .resultwrap #searchview .single-tile{
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 7px;
     position: relative;
     display: block;
 }
@@ -1534,7 +1534,7 @@ img[src=""] {
 }
 
 .search-overlay .inner .resultwrap #searchview .single-tile .tileart{
-    width: 30%;
+    width: 25%;
     float: left;
     display: inline-block;
     position: relative;
