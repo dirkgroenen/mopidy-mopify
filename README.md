@@ -87,6 +87,7 @@ Problems or ideas? Please submit a new [issue](https://github.com/dirkgroenen/mo
 ## Screenshots
 
 ![http://i.imgur.com/lLTKjiQ.jpg](http://i.imgur.com/lLTKjiQ.jpg)
+![http://i.imgur.com/8Ya5rwY.png](http://i.imgur.com/8Ya5rwY.png)
 ![http://i.imgur.com/AQIJBbr.jpg](http://i.imgur.com/AQIJBbr.jpg)
 ![http://i.imgur.com/t1PevJf.jpg](http://i.imgur.com/t1PevJf.jpg)
 ![http://i.imgur.com/RyoV1Is.png](http://i.imgur.com/RyoV1Is.png)
