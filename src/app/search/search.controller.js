@@ -4,6 +4,7 @@
 angular.module('mopify.search', [
     'spotify',
     'ngRoute',
+    'cfp.hotkeys',
     'mopify.services.spotifylogin',
     'mopify.services.mopidy',
     'mopify.services.station',
@@ -11,23 +12,28 @@ angular.module('mopify.search', [
     'mopify.widgets.directive.playlist',
     'mopify.widgets.directive.album',
     'mopify.widgets.directive.artist',
-    'mopify.widgets.directive.track'
+    'mopify.widgets.directive.track',
+    'mopify.widgets.directive.focusme'
 ])
 
 /**
  * Every controller start with defining its own routes.
  */
 .config(function($routeProvider) {
-    $routeProvider.when("/search/:query?", {
+    $routeProvider.when("/search", {
         templateUrl: "search/search.tmpl.html",
-        controller: "SearchController"
+        controller: "SearchController",
+        reloadOnSearch: false
     });
 })
 
-.controller("SearchController", function SearchController($scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, stationservice, util, Settings){
-    
+.controller("SearchController", function SearchController($rootScope, $scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, stationservice, util, Settings){
+
     $scope.query = $routeParams.query;
     var typingTimeout = null;
+
+    // Set focus on input
+    $rootScope.focussearch = true;
 
     // Define empty result scope
     $scope.results = {
@@ -45,6 +51,51 @@ angular.module('mopify.search', [
     };
 
     $scope.topresult = {};
+
+    $scope.loading = true;
+
+    // Keep track of previous query
+    var previousQuery = $routeParams.query || "";
+
+    /**
+     * Event listener for typing
+     * @param  {object} event
+     * @return {void}
+     */
+    $scope.typing = function(event){
+        // Close the search overlay on ESC press
+        if(event.keyCode === 27)
+            $scope.closeSearch();
+
+        if($scope.query.trim().length === 0 || $scope.query === previousQuery)
+            return;
+
+        // Set previous query
+        previousQuery = $scope.query;
+
+        // Set loading
+        $scope.loading = true;
+
+        // Clear previous timeout
+        $timeout.cancel(typingTimeout);
+
+        // Set search param
+        $location.search("query", $scope.query);
+
+        // Set timeout before performing search
+        typingTimeout = $timeout(function(){
+            if($scope.query.trim().length > 1)
+                $scope.performSearch();    
+        }, 1000);   
+    };
+
+    /**
+     * Close the search overlay
+     * @return {void}
+     */
+    $scope.closeSearch = function(){
+        $location.url($routeParams.refer || "/");
+    };
 
     /*
      * Perform a search with the current query
@@ -80,13 +131,19 @@ angular.module('mopify.search', [
 
     // Run on load
     $scope.$on("mopidy:state:online", function(){
-        $scope.performSearch();
+        typingTimeout = $timeout(function(){
+            if($scope.query.trim().length > 1)
+                $scope.performSearch();    
+        }, 1000);   
     });
 
-    if(mopidyservice.isConnected)
-        $scope.performSearch();
-
-
+    if(mopidyservice.isConnected){
+        typingTimeout = $timeout(function(){
+            if($scope.query.trim().length > 1)
+                $scope.performSearch();    
+        }, 1000);   
+    }
+        
     /**
      * Play the songs that are given in the topresult
      */
@@ -173,6 +230,9 @@ angular.module('mopify.search', [
      */
     function lookupFeaturedResult(resultitem){
         mopidyservice.lookup(resultitem.item.uri).then(function(response){
+            // Set loading to false
+            $scope.loading = false;
+
             var results = response[resultitem.item.uri];
             
             var tracksloaded = true;
@@ -246,16 +306,31 @@ angular.module('mopify.search', [
 
 })
 
-.controller("SearchMenuController", function SearchMenuController($scope, $routeParams, $route, $location){
+.controller("SearchMenuController", function SearchMenuController($scope, $rootScope, $routeParams, $route, $location, hotkeys){
+
+    var previous = "";
+
+    // Send the user to the search page when he starts typing
+    $scope.typing = function(){
+        if($scope.query.trim().length > 0 && $scope.query !== previous){
+            $location.url("/search?query=" + $scope.query + "&refer=" + $location.url());
+            $scope.query = "";
+        }
+
+        previous = $scope.query;
+    };
     
     $scope.query = $routeParams.query;
 
-    $scope.typing = function(event){
-        // Parse as query to search page
-        if(event.keyCode == 13){
-            $location.path("/search/" + $scope.query);
+    // Add search hotkey
+    hotkeys.add({
+        combo: 'ctrl+f',
+        description: 'Search',
+        callback: function(event, hotkey) {
+            event.preventDefault();
+            $rootScope.focussearch = true;
         }
-    };
+    });
 
 });
 
