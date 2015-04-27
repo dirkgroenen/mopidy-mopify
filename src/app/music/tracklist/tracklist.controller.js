@@ -7,6 +7,7 @@ angular.module('mopify.music.tracklist', [
     'mopify.services.station',
     'mopify.services.spotifylogin',
     'mopify.services.servicemanager',
+    'mopify.services.queuemanager',
     'spotify',
     'ngSanitize',
     'llNotifier',
@@ -27,7 +28,7 @@ angular.module('mopify.music.tracklist', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("TracklistController", function TracklistController($scope, $rootScope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager, notifier){
+.controller("TracklistController", function TracklistController($scope, $rootScope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager, notifier, QueueManager){
     // Grab params in var
     var uri = $routeParams.uri;
 
@@ -125,7 +126,21 @@ angular.module('mopify.music.tracklist', [
     function loadTracks(){    
         // Get curren tracklist from Mopidy
         if(uri.indexOf("mopidy:") > -1){
-            mopidyservice.getTracklist().then(function(tracks){
+            QueueManager.whenReady().then(function(){
+
+                var mappedTracks = QueueManager.playlist.map(function(tltrack){
+                    return tltrack.track;
+                });
+
+                var mappedQueueTracks = QueueManager.queue.map(function(tltrack){
+                    return tltrack.track;
+                });
+
+                $scope.tracks = angular.copy(mappedTracks);
+                $scope.queue = angular.copy(mappedQueueTracks);
+            });
+
+            /*mopidyservice.getTracklist().then(function(tracks){
 
                 var mappedTracks = tracks.map(function(tltrack){
                     return tltrack.track;
@@ -133,7 +148,7 @@ angular.module('mopify.music.tracklist', [
 
                 $scope.tracks = angular.copy(mappedTracks);
             });
-
+            */
             $scope.$on('mopidy:event:tracklistChanged', loadTracks);
         }
 

@@ -6,14 +6,13 @@
 
 angular.module('mopify.services.mopidy', [
     "mopify.services.settings",
+    "mopify.services.queuemanager",
     'llNotifier'
 ])
 
-.factory("mopidyservice", function($q, $rootScope, $cacheFactory, $location, Settings, notifier){
+.factory("mopidyservice", function($q, $rootScope, $cacheFactory, $location, Settings, notifier, QueueManager){
 	// Create consolelog object for Mopidy to log it's logs on
     var consoleError = console.error.bind(console);
-
-    var lasttracklist = [];
 
     /*
      * Wrap calls to the Mopidy API and convert the promise to Angular $q's promise.
@@ -236,6 +235,9 @@ angular.module('mopify.services.mopidy', [
                         self.mopidy.playback.play({ tl_track: tlTrackToPlay }).then(function() {
                             $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tlTrackToPlay);
                         }, consoleError);
+
+                        // Sync with QueueManager
+                        QueueManager.setPlaylist(tltracks);
                     }, consoleError);
                 }, consoleError);
             }, consoleError);
@@ -260,7 +262,10 @@ angular.module('mopify.services.mopidy', [
         },
 
         addToTracklist: function(obj){
-            return wrapMopidyFunc("mopidy.tracklist.add", this)(obj);
+            return wrapMopidyFunc("mopidy.tracklist.add", this)(obj).then(function(tltracks){
+               // Sync with queuemanager
+                QueueManager.add(tltracks);
+            });
         },
 
         getTracklist: function(){
@@ -274,7 +279,13 @@ angular.module('mopify.services.mopidy', [
                 uris = [uris];
 
             this.mopidy.tracklist.add({uris: uris, at_position: 1}).then(function(response){
+                // Add to QueueManager
+                QueueManager.next(response);
+
+                // Resolve 
                 deferred.resolve(response);
+
+                // Broadcast change
                 $rootScope.$broadcast("mopidy:event:tracklistChanged");
             });
 
@@ -323,7 +334,9 @@ angular.module('mopify.services.mopidy', [
         },
 
         removeFromTracklist: function(dict){
-            return wrapMopidyFunc("mopidy.tracklist.remove", this)(dict);
+            return wrapMopidyFunc("mopidy.tracklist.remove", this)(dict).then(function(tltracks){
+                QueueManager.remove(tltracks);
+            });
         }
 
 	};
