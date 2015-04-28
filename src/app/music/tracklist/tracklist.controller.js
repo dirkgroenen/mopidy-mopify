@@ -152,7 +152,7 @@ angular.module('mopify.music.tracklist', [
                 loading = false;
             });
 
-            $rootScope.$on('mopidy:event:tracklistChanged', loadTracks);
+            $rootScope.$on('queuemanager:event:changed', loadTracks);
         }
 
         // Lookup the tracks for the given album or playlist

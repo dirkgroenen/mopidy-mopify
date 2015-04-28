@@ -14,10 +14,10 @@
 
 <div id="overview" class="row">
     <div class="pagetitle row">
-        <div class="col-md-3" ng-hide="queue">
+        <div class="col-md-3" ng-hide="type == 'tracklist'">
             tracks <span class="sub">{{ type }}</span>
         </div>
-        <div class="col-md-3" ng-show="queue">
+        <div class="col-md-3" ng-show="type == 'tracklist'">
             tracks <span class="sub">Queue</span>
         </div>
         <div class="col-md-6 col-md-offset-3 alignright">
@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <div class="pagecontent row" style="padding-bottom: 30px;" ng-if="queue">
+    <div class="pagecontent row" style="padding-bottom: 30px;" ng-if="type == 'tracklist'">
         <div id="tracklist" infinite-scroll="getMoreTracks()" infinite-scroll-distance="1">
             <div class="row" ng-repeat="track in queue track by $index" >
                 <mopify-track track="track" currentplayingtrack="currentPlayingTrack" type="type"> </mopify-track>
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <div class="pagetitle row" ng-show="queue">
+    <div class="pagetitle row" ng-show="type == 'tracklist'">
         <div class="col-md-3">
             tracks <span class="sub">Playlist</span>
         </div>

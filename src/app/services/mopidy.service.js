@@ -197,50 +197,51 @@ angular.module('mopify.services.mopidy', [
         playTrack: function(track, surroundingTracks) {
             var self = this;
 
-            
             if(surroundingTracks === undefined)
-                surroundingTracks = [track];
+                surroundingTracks = [];
+            
+            // Get the current queue
+            QueueManager.all().then(function(response){
 
-            // Check if a playlist change is required. If not cust change the track.
-            if (self.currentTlTracks.length > 0) {
-                var trackUris = _.pluck(surroundingTracks, 'uri');
-                var currentTrackUris = _.map(self.currentTlTracks, function(tlTrack) {
-                    return tlTrack.track.uri;
-                });
-
-                if (_.difference(trackUris, currentTrackUris).length === 0) {
-                    // no playlist change required, just play a different track.
-                    self.mopidy.playback.stop().then(function () {
-                        var tlTrackToPlay = _.find(self.currentTlTracks, function(tlTrack) {
-                            return tlTrack.track.uri === track.uri;
-                        });
-
-                        self.mopidy.playback.play({ tl_track: tlTrackToPlay }).then(function() {
-                            $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tlTrackToPlay);
-                        });
-                    });
-                    return;
-                }
-            }
-
-            // Clear and replace complete tracklist
-            self.mopidy.playback.stop().then(function(){
+                // Clear full list
                 self.mopidy.tracklist.clear().then(function(){
-                    var uris = _.pluck(surroundingTracks, "uri");
-                    self.mopidy.tracklist.add({ uris: uris }).then(function(tltracks){
-                        var tlTrackToPlay = _.find(tltracks, function(tltrack) {
-                            return tltrack.track.uri === track.uri;
+                    var uris = [track.uri];
+
+                    // Collect all uris from the queue, track to play and follow up tracks
+                    _.forEach(response.tracks.queue, function(tl){
+                        uris.push(tl.track.uri);
+                    });
+
+                    if(surroundingTracks.length > 0){
+                        var trackindex = 0;
+
+                        // find the selected track's index
+                        _.find(surroundingTracks, function(surtrack, index){
+                            if(track.uri === surtrack.uri)
+                                trackindex = index + 1;
                         });
+                            
+                        // Get all uris from the tracks after the selected track
+                        var trackstoadd = surroundingTracks.slice(trackindex, surroundingTracks.length - 1);
+                        _.forEach(trackstoadd, function(tta){
+                            uris.push(tta.uri);
+                        });
+                    }
+                    
+                    // Add the selected track as next
+                    self.mopidy.tracklist.add({uris: uris}).then(function(tltracks){
+                        var start = response.tracks.queue.length + 1;
+                        var end = tltracks.length - 1;
 
-                        self.mopidy.playback.play({ tl_track: tlTrackToPlay }).then(function() {
-                            $rootScope.$broadcast("mopidy:event:trackPlaybackStarted", tlTrackToPlay);
-                        }, consoleError);
+                        // Send data to QueueManager
+                        var playlisttracks = tltracks.slice(start, end);
+                        QueueManager.setPlaylist(playlisttracks);
 
-                        // Sync with QueueManager
-                        QueueManager.setPlaylist(tltracks.slice(1, tltracks.length - 1));
-                    }, consoleError);
-                }, consoleError);
-            }, consoleError);
+                        // Start playing the track
+                        self.mopidy.playback.play({ tl_track: tltracks[0] });
+                    });
+                });
+            });
 
         },
 
@@ -318,11 +319,56 @@ angular.module('mopify.services.mopidy', [
         },
 
         getRandom: function () {
-            return wrapMopidyFunc("mopidy.tracklist.getRandom", this)();
+            return QueueManager.getShuffle();
         },
 
-        setRandom: function (isRandom) {
-            return wrapMopidyFunc("mopidy.tracklist.setRandom", this)([ isRandom ]);
+        setRandom: function (setShuffle) {
+            var self = this;
+
+            if(setShuffle === false){
+                // Reset to original state
+                QueueManager.setShuffle(false).then(function(response){
+                    var start = response.tracks.queue.length - 1;
+                    var end = response.tracks.playlist.length - 1;
+
+                    // Pluck the tlid from the playlist
+                    var tlids = _.pluck(response.playlist, "tlid");
+
+                    console.log(response);
+
+                    // Remove the selected part
+                    self.mopidy.tracklist.remove({ criteria: {tlid: tlids }}).then(function(){
+                        // Get the uris
+                        var uris = _.map(response.tracks.playlist, function(tltrack){
+                            return tltrack.track.uri;
+                        });
+
+                        // Add the uris to the tracklist
+                        self.mopidy.tracklist.add({ uris: uris });
+                    });
+                });
+            }
+            else{
+                // Shuffle
+                // Get the track data from the queuemanager
+                var start = QueueManager.all().then(function(response){
+
+                    var start = response.tracks.queue.length;
+                    var end = response.tracks.playlist.length;
+
+                    // Send shuffle to mopidy
+                    self.mopidy.tracklist.shuffle({ start: start, end: end }).then(function(){
+
+                        // Get new tracklist and send the shuffle part to the QueueManager
+                        self.mopidy.tracklist.getTlTracks().then(function(response){
+                            // Get tltracks and send to the queuemanager
+                            var tltracks = response.slice(start, end);
+                            QueueManager.setShuffle(true, tltracks);
+                        });
+                    });
+                });
+            }
+            //return wrapMopidyFunc("mopidy.tracklist.setRandom", this)([ isRandom ]);
         },
 
         getRepeat: function () {

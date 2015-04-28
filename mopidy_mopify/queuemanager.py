@@ -48,7 +48,13 @@ class QueueManager:
     def shuffle_playlist(self, tracks):
         self.shufflememory = self.playlist
         self.playlist = tracks
+        shuffled = True
         self.version += 1
+
+    def shuffle_reset(self):
+        shuffled = False
+        self.playlist = self.shufflememory
+        self.shufflememory = []
 
 
 class RequestHandler(tornado.web.RequestHandler):
@@ -74,11 +80,15 @@ class RequestHandler(tornado.web.RequestHandler):
         if(type == "playlist"):
             response = self.instance.playlist
 
+        if(type == "shuffle"):
+            response = self.instance.shuffled
+
         if(type == "all"):
             response = {
                 "queue": self.instance.queue,
                 "playlist": self.instance.playlist,
                 "version": self.instance.version,
+                "shuffle": self.instance.shuffled
             }
 
         self.write({"tracks": response, "version": self.instance.version})
@@ -103,6 +113,7 @@ class RequestHandler(tornado.web.RequestHandler):
 
             if(action == "remove"):
                 self.instance.remove_from_queue(tracks)
+                self.instance.remove_from_playlist(tracks)
 
             if(action == "clear"):
                 self.instance.clear_queue()
@@ -113,10 +124,21 @@ class RequestHandler(tornado.web.RequestHandler):
             if(action == "set"):
                 self.instance.set_playlist(tracks)
 
-            if(action == "shuffle")
+            response = self.instance.playlist
+
+        if(type == "shuffle"):
+            if(action == "shuffle"):
                 self.instance.shuffle_playlist(tracks)
 
-            response = self.instance.playlist
+            if(action == "resetshuffle"):
+                self.instance.shuffle_reset()
+
+            response = {
+                "queue": self.instance.queue,
+                "playlist": self.instance.playlist,
+                "version": self.instance.version,
+                "shuffle": self.instance.shuffled
+            }
 
         self.write({"tracks": response, "version": self.instance.version})
 
@@ -133,4 +155,5 @@ class QueueManagerFrontend(pykka.ThreadingActor, CoreListener):
     def track_playback_started(self, tl_track):
         tlids = [tl_track.tlid]
 
+        mem.queuemanager.remove_from_queue(tlids)
         mem.queuemanager.remove_from_playlist(tlids)
