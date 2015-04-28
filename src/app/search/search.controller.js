@@ -79,11 +79,11 @@ angular.module('mopify.search', [
         // Clear previous timeout
         $timeout.cancel(typingTimeout);
 
-        // Set search param
-        $location.search("query", $scope.query);
-
         // Set timeout before performing search
         typingTimeout = $timeout(function(){
+            // Set search param
+            $location.search("query", $scope.query);
+
             if($scope.query.trim().length > 1)
                 $scope.performSearch();    
         }, 1000);   
