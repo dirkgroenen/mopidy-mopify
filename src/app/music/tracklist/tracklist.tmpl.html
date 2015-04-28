@@ -64,8 +64,8 @@
 
     <div class="pagecontent row">
         <div id="tracklist">
-            <div class="row" ng-repeat="track in tracks track by $index" >
-                <mopify-track track="track" currentplayingtrack="currentPlayingTrack" type="type"> </mopify-track>
+            <div class="row" ng-repeat="track in tracks track by $index" ng-if="track.uri != queue[0].uri">
+                <mopify-track track="track" currentplayingtrack="currentPlayingTrack" type="type"></mopify-track>
             </div>
         </div>
     </div>

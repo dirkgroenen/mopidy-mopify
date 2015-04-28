@@ -237,7 +237,7 @@ angular.module('mopify.services.mopidy', [
                         }, consoleError);
 
                         // Sync with QueueManager
-                        QueueManager.setPlaylist(tltracks);
+                        QueueManager.setPlaylist(tltracks.slice(1, tltracks.length - 1));
                     }, consoleError);
                 }, consoleError);
             }, consoleError);
@@ -280,13 +280,13 @@ angular.module('mopify.services.mopidy', [
 
             this.mopidy.tracklist.add({uris: uris, at_position: 1}).then(function(response){
                 // Add to QueueManager
-                QueueManager.next(response);
+                QueueManager.next(response).then(function(){
+                    // Resolve 
+                    deferred.resolve(response);
 
-                // Resolve 
-                deferred.resolve(response);
-
-                // Broadcast change
-                $rootScope.$broadcast("mopidy:event:tracklistChanged");
+                    // Broadcast change
+                    $rootScope.$broadcast("mopidy:event:tracklistChanged");
+                });
             });
 
             return deferred.promise;

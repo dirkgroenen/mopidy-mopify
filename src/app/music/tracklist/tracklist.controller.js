@@ -100,8 +100,10 @@ angular.module('mopify.music.tracklist', [
     else
         $scope.name = "";
 
-    // Create empty arrays for tracks, loadedtracks and currentplayingtrack
+    // Create empty arrays for tracks, queue, loadedtracks and currentplayingtrack
     $scope.tracks = [];
+    $scope.queue = [];
+
     $scope.currentPlayingTrack = {};
     $scope.loadedTracks = [];
 
@@ -126,30 +128,31 @@ angular.module('mopify.music.tracklist', [
     function loadTracks(){    
         // Get curren tracklist from Mopidy
         if(uri.indexOf("mopidy:") > -1){
-            QueueManager.whenReady().then(function(){
+            // Kill if already loading data
+            if(loading === true)
+                return;
 
-                var mappedTracks = QueueManager.playlist.map(function(tltrack){
+            var loading = true;
+
+            // Load queuemanager's data
+            QueueManager.all().then(function(response){
+                
+                var mappedTracks = response.tracks.playlist.map(function(tltrack){
                     return tltrack.track;
                 });
 
-                var mappedQueueTracks = QueueManager.queue.map(function(tltrack){
+                var mappedQueueTracks = response.tracks.queue.map(function(tltrack){
                     return tltrack.track;
                 });
 
                 $scope.tracks = angular.copy(mappedTracks);
                 $scope.queue = angular.copy(mappedQueueTracks);
+
+                // Set loading to false
+                loading = false;
             });
 
-            /*mopidyservice.getTracklist().then(function(tracks){
-
-                var mappedTracks = tracks.map(function(tltrack){
-                    return tltrack.track;
-                });
-
-                $scope.tracks = angular.copy(mappedTracks);
-            });
-            */
-            $scope.$on('mopidy:event:tracklistChanged', loadTracks);
+            $rootScope.$on('mopidy:event:tracklistChanged', loadTracks);
         }
 
         // Lookup the tracks for the given album or playlist

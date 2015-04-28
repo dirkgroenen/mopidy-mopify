@@ -39,33 +39,8 @@ angular.module("mopify.services.queuemanager", [
      * Constructor
      */
     function QueueManager(){
-        var that = this;
-
-        this.deferred = $q.defer();
-
-        this.queue = [];
-        this.playlist = [];
         this.version = 0;
-
-        // Sync all data with server's queuemanager
-        this.all().then(function(response){
-            that.queue = response.tracks.queue;
-            that.playlist = response.tracks.playlist;
-            that.version = response.tracks.version;
-
-            that.deferred.resolve();
-        });
     }
-
-    /**
-     * Hook on the overall ready moment
-     * which will resolve when the sync has been completed
-     * 
-     * @return {promise}
-     */
-    QueueManager.prototype.whenReady = function(){
-        return this.deferred.promise;
-    };
 
     /**
      * Get all data
@@ -107,7 +82,6 @@ angular.module("mopify.services.queuemanager", [
             action: "next",
             tracks: angular.toJson(tracks)
         }).then(function(response){
-            that.queue = response.tracks;
             that.version = response.version;
         });
     };
@@ -125,7 +99,6 @@ angular.module("mopify.services.queuemanager", [
             action: "add",
             tracks: angular.toJson(tracks)
         }).then(function(response){
-            that.queue = response.tracks;
             that.version = response.version;
         });
     };
@@ -143,7 +116,6 @@ angular.module("mopify.services.queuemanager", [
             action: "remove",
             tracks: angular.toJson(tracks)
         }).then(function(response){
-            that.queue = response.tracks;
             that.version = response.version;
         });
     };
@@ -161,7 +133,6 @@ angular.module("mopify.services.queuemanager", [
             action: "set",
             tracks: angular.toJson(tracks)
         }).then(function(response){
-            that.playlist = response.tracks;
             that.version = response.version;
         });
     };

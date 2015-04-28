@@ -16,6 +16,9 @@ class QueueManager:
     # Initialize the tracklist
     queue = []
     playlist = []
+    shufflememory = []
+    
+    shuffled = False
     version = 0
 
     def add_to_queue(self, tracks):
@@ -42,12 +45,21 @@ class QueueManager:
         self.playlist = tracks
         self.version += 1
 
+    def shuffle_playlist(self, tracks):
+        self.shufflememory = self.playlist
+        self.playlist = tracks
+        self.version += 1
+
 
 class RequestHandler(tornado.web.RequestHandler):
     instance = None
 
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Methods", "GET, POST")
+        self.set_header("Access-Control-Allow-Headers", "Accept, Authorization, Origin, Content-Type")
+        self.set_header("Access-Control-Max-Age", "60480")
+        
 
     def initialize(self, core, config, instance):
         self.core = core
@@ -57,10 +69,10 @@ class RequestHandler(tornado.web.RequestHandler):
         response = {}
 
         if(type == "queue"):
-            response = self.instance.queue;
+            response = self.instance.queue
 
         if(type == "playlist"):
-            response = self.instance.playlist;
+            response = self.instance.playlist
 
         if(type == "all"):
             response = {
@@ -74,35 +86,42 @@ class RequestHandler(tornado.web.RequestHandler):
     def post(self, type):
         response = {}
 
-        action = self.get_argument("action", default=None)
-        tracks = self.get_argument("tracks", default=None)
+        # Get post body
+        postdata = tornado.escape.json_decode(self.request.body)
 
-        # decode tracks string
+        action = postdata["action"]
+        tracks = postdata["tracks"]
+
         tracks = json.loads(tracks);
 
         if(type == "queue"):
             if(action == "add"):
-                self.instance.add_to_queue(tracks);
+                self.instance.add_to_queue(tracks)
 
             if(action == "next"):
-                self.instance.add_play_next(tracks);
+                self.instance.add_play_next(tracks)
 
             if(action == "remove"):
-                self.instance.remove_from_queue(tracks);
+                self.instance.remove_from_queue(tracks)
 
             if(action == "clear"):
-                self.instance.clear_queue();
+                self.instance.clear_queue()
 
             response = self.instance.queue
 
         if(type == "playlist"):
             if(action == "set"):
-                self.instance.set_playlist(tracks);
+                self.instance.set_playlist(tracks)
+
+            if(action == "shuffle")
+                self.instance.shuffle_playlist(tracks)
 
             response = self.instance.playlist
 
         self.write({"tracks": response, "version": self.instance.version})
 
+    def options(self, type):
+        self.write("")
 
 
 class QueueManagerFrontend(pykka.ThreadingActor, CoreListener):
