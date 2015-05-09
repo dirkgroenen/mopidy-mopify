@@ -7,6 +7,7 @@ angular.module('mopify.music.tracklist', [
     'mopify.services.station',
     'mopify.services.spotifylogin',
     'mopify.services.servicemanager',
+    'mopify.services.queuemanager',
     'spotify',
     'ngSanitize',
     'llNotifier',
@@ -27,7 +28,7 @@ angular.module('mopify.music.tracklist', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("TracklistController", function TracklistController($scope, $rootScope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager, notifier){
+.controller("TracklistController", function TracklistController($scope, $rootScope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager, notifier, QueueManager){
     // Grab params in var
     var uri = $routeParams.uri;
 
@@ -99,8 +100,10 @@ angular.module('mopify.music.tracklist', [
     else
         $scope.name = "";
 
-    // Create empty arrays for tracks, loadedtracks and currentplayingtrack
+    // Create empty arrays for tracks, queue, loadedtracks and currentplayingtrack
     $scope.tracks = [];
+    $scope.queue = [];
+
     $scope.currentPlayingTrack = {};
     $scope.loadedTracks = [];
 
@@ -125,16 +128,31 @@ angular.module('mopify.music.tracklist', [
     function loadTracks(){    
         // Get curren tracklist from Mopidy
         if(uri.indexOf("mopidy:") > -1){
-            mopidyservice.getTracklist().then(function(tracks){
+            // Kill if already loading data
+            if(loading === true)
+                return;
 
-                var mappedTracks = tracks.map(function(tltrack){
+            var loading = true;
+
+            // Load queuemanager's data
+            QueueManager.all().then(function(response){
+                
+                var mappedTracks = response.tracks.playlist.map(function(tltrack){
+                    return tltrack.track;
+                });
+
+                var mappedQueueTracks = response.tracks.queue.map(function(tltrack){
                     return tltrack.track;
                 });
 
                 $scope.tracks = angular.copy(mappedTracks);
+                $scope.queue = angular.copy(mappedQueueTracks);
+
+                // Set loading to false
+                loading = false;
             });
 
-            $scope.$on('mopidy:event:tracklistChanged', loadTracks);
+            $rootScope.$on('queuemanager:event:changed', loadTracks);
         }
 
         // Lookup the tracks for the given album or playlist

@@ -4,6 +4,8 @@ import os
 import tornado.web
 import sync
 import update 
+import mem
+import queuemanager
 
 from mopidy import config, ext
 
@@ -28,6 +30,13 @@ class MopifyExtension(ext.Extension):
     def setup(self, registry):
         syncinstance = sync.Sync();
         
+        mem.queuemanager = queuemanager.QueueManager()
+
+        # Add Queuemanager Frontend class
+        from .queuemanager import QueueManagerFrontend
+        registry.add('frontend', QueueManagerFrontend)
+
+        # Add web extension
         registry.add('http:app', {
             'name': self.ext_name,
             'factory': mopify_client_factory  
@@ -39,6 +48,7 @@ def mopify_client_factory(config, core):
 
     return [
         ('/sync/(.*)', sync.RootRequestHandler, {'core': core, 'config': config}),
+        ('/queuemanager/(.*)', queuemanager.RequestHandler, {'core': core, 'config': config, 'instance': mem.queuemanager}),
         ('/update', update.UpdateRequestHandler, {'core': core, 'config': config}),
         (r'/(.*)', tornado.web.StaticFileHandler, {
             "path": mopifypath,
