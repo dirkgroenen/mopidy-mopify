@@ -40,7 +40,9 @@ angular.module('mopify.widgets.directive.playlist', [
 
             /**
              * Replace the current tracklist with the given playlist
+             * 
              * @param  {Playlist} playlist
+             * @return {void}
              */
             scope.play = function(){
                 if(scope.playlist.__model__ == "Playlist"){
@@ -57,8 +59,22 @@ angular.module('mopify.widgets.directive.playlist', [
             var encodedname = encodeURIComponent( scope.playlist.name.replace(/\//g, "-") );
             scope.tracklistUrl = "#/music/tracklist/" + scope.playlist.uri + "/" + encodedname;
 
+            /**
+             * Start a station from the current playlist
+             * 
+             * @return {void}
+             */
             scope.startStation = function(){
                 stationservice.startFromSpotifyUri(scope.playlist.uri);
+            };
+
+            /**
+             * Add the playlist to the queue
+             *
+             * @return {void}
+             */
+            scope.addToQueue = function(){
+                mopidyservice.addToTracklist({ uris: [scope.playlist.uri] });
             };
         }
     };
