@@ -66,7 +66,6 @@ class RequestHandler(tornado.web.RequestHandler):
         self.set_header("Access-Control-Allow-Headers", "Accept, Authorization, Origin, Content-Type")
         self.set_header("Access-Control-Max-Age", "60480")
         
-
     def initialize(self, core, config, instance):
         self.core = core
         self.instance = instance
