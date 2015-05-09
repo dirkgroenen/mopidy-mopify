@@ -83,6 +83,9 @@ angular.module('mopify.music.tracklist', [
     if(uri.indexOf("mopidy:current") > -1){
         $scope.type = "tracklist";    
         $scope.coverImage = "./assets/images/tracklist-header.jpg";
+
+        $rootScope.$on('mopidy:event:trackPlaybackStarted', loadTracks);
+        $rootScope.$on('queuemanager:event:changed', loadTracks);
     }
 
     if(uri.indexOf("spotify:library:songs") > -1){
@@ -151,8 +154,6 @@ angular.module('mopify.music.tracklist', [
                 // Set loading to false
                 loading = false;
             });
-
-            $rootScope.$on('queuemanager:event:changed', loadTracks);
         }
 
         // Lookup the tracks for the given album or playlist

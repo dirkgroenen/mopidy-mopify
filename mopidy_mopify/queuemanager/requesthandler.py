@@ -4,58 +4,9 @@ import os
 import tornado.web
 from tornado.escape import json_encode
 
-import logging
 import json
 
-from mopidy.core import CoreListener
-import pykka
-
-import mem
-
-class QueueManager:
-    # Initialize the tracklist
-    queue = []
-    playlist = []
-    shufflememory = []
-    
-    shuffled = False
-    version = 0
-
-    def add_to_queue(self, tracks):
-        self.queue.extend(tracks);
-        self.version += 1
-
-    def add_play_next(self, tracks):
-        self.queue.insert(0, tracks[0]);
-        self.version += 1
-
-    def remove_from_queue(self, tlids):
-        self.queue = [tltrack for tltrack in self.queue if tltrack["tlid"] not in tlids]
-        self.version += 1
-
-    def remove_from_playlist(self, tlids):
-        self.playlist = [tltrack for tltrack in self.playlist if tltrack["tlid"] not in tlids]
-        self.version += 1
-
-    def clear_queue(self, tracks):
-        self.queue = []
-        self.version += 1
-
-    def set_playlist(self, tracks):
-        self.playlist = tracks
-        self.version += 1
-
-    def shuffle_playlist(self, tracks):
-        self.shufflememory = self.playlist
-        self.playlist = tracks
-        shuffled = True
-        self.version += 1
-
-    def shuffle_reset(self):
-        shuffled = False
-        self.playlist = self.shufflememory
-        self.shufflememory = []
-
+from .. import mem
 
 class RequestHandler(tornado.web.RequestHandler):
     instance = None
@@ -127,9 +78,11 @@ class RequestHandler(tornado.web.RequestHandler):
 
         if(type == "shuffle"):
             if(action == "shuffle"):
+                self.instance.shuffled = True;
                 self.instance.shuffle_playlist(tracks)
 
             if(action == "resetshuffle"):
+                self.instance.shuffled = False;
                 self.instance.shuffle_reset()
 
             response = {
@@ -143,16 +96,3 @@ class RequestHandler(tornado.web.RequestHandler):
 
     def options(self, type):
         self.write("")
-
-
-class QueueManagerFrontend(pykka.ThreadingActor, CoreListener):
-    def __init__(self, config, core):
-        super(QueueManagerFrontend, self).__init__()
-        self.config = config
-        self.core = core
-
-    def track_playback_started(self, tl_track):
-        tlids = [tl_track.tlid]
-
-        mem.queuemanager.remove_from_queue(tlids)
-        mem.queuemanager.remove_from_playlist(tlids)

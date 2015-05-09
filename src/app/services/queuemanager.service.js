@@ -45,7 +45,7 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
 
         this.version = 0;
-        this.isShuffle = false;
+        this.shuffle = false;
 
         // Get current shuffle
         this.getShuffle().then(function(response){
@@ -86,7 +86,18 @@ angular.module("mopify.services.queuemanager", [
      * @return {Promise}
      */
     QueueManager.prototype.getShuffle = function(){
-        return get("/shuffle");
+        var deferred = $q.defer();
+        var that = this;
+
+        // Get shuffle information
+        get("/shuffle").then(function(response){
+            that.version = response.version;
+            that.shuffle = response.tracks;
+
+            deferred.resolve(response.tracks);
+        });
+
+        return deferred.promise;
     };
 
     /**
@@ -97,13 +108,18 @@ angular.module("mopify.services.queuemanager", [
      */
     QueueManager.prototype.next = function(tracks){
         var that = this;
+        var deferred = $q.defer();
 
-        return post("/queue", {
+        post("/queue", {
             action: "next",
             tracks: angular.toJson(tracks)
         }).then(function(response){
             that.version = response.version;
+
+            deferred.resolve(response);
         });
+
+        return deferred.promise;
     };
 
     /**
@@ -114,13 +130,18 @@ angular.module("mopify.services.queuemanager", [
      */
     QueueManager.prototype.add = function(tracks){
         var that = this;
+        var deferred = $q.defer();
 
-        return post("/queue", {
+        post("/queue", {
             action: "add",
             tracks: angular.toJson(tracks)
         }).then(function(response){
             that.version = response.version;
+
+            deferred.resolve(response);
         });
+
+        return deferred.promise;
     };
     
     /**
@@ -131,15 +152,20 @@ angular.module("mopify.services.queuemanager", [
      */
     QueueManager.prototype.remove = function(tracks){
         var that = this;
+        var deferred = $q.defer();
 
         tracks = _.pluck(tracks, "tlid");
 
-        return post("/queue", {
+        post("/queue", {
             action: "remove",
             tracks: angular.toJson(tracks)
         }).then(function(response){
             that.version = response.version;
+
+            deferred.resolve(response);
         });
+
+        return deferred.promise;
     };
 
     /**
@@ -150,13 +176,18 @@ angular.module("mopify.services.queuemanager", [
      */
     QueueManager.prototype.setPlaylist = function(tracks){
         var that = this;
+        var deferred = $q.defer();
 
-        return post("/playlist", {
+        post("/playlist", {
             action: "set",
             tracks: angular.toJson(tracks)
         }).then(function(response){
             that.version = response.version;
+
+            deferred.resolve(response);
         });
+
+        return deferred.promise;
     };
 
     /**
@@ -168,6 +199,7 @@ angular.module("mopify.services.queuemanager", [
      */
     QueueManager.prototype.setShuffle = function(shuffle, tracks){
         var that = this;
+        var deferred  = $q.defer();
         var action = (shuffle) ? "shuffle" : "resetshuffle";
 
         if(tracks === undefined )
@@ -176,12 +208,16 @@ angular.module("mopify.services.queuemanager", [
         // Set shuffle in manager
         that.shuffle = shuffle;
 
-        return post("/shuffle", {
+        post("/shuffle", {
             action: action,
             tracks: angular.toJson(tracks)
         }).then(function(response){
             that.version = response.version;
+            
+            deferred.resolve(response);
         });
+
+        return deferred.promise;
     };
 
     return new QueueManager();

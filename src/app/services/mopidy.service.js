@@ -325,6 +325,9 @@ angular.module('mopify.services.mopidy', [
         setRandom: function (setShuffle) {
             var self = this;
 
+            // Always set mopidy's random mode to false
+            self.mopidy.tracklist.setRandom([false]);
+
             if(setShuffle === false){
                 // Reset to original state
                 QueueManager.setShuffle(false).then(function(response){
@@ -333,8 +336,6 @@ angular.module('mopify.services.mopidy', [
 
                     // Pluck the tlid from the playlist
                     var tlids = _.pluck(response.playlist, "tlid");
-
-                    console.log(response);
 
                     // Remove the selected part
                     self.mopidy.tracklist.remove({ criteria: {tlid: tlids }}).then(function(){
@@ -368,7 +369,6 @@ angular.module('mopify.services.mopidy', [
                     });
                 });
             }
-            //return wrapMopidyFunc("mopidy.tracklist.setRandom", this)([ isRandom ]);
         },
 
         getRepeat: function () {
