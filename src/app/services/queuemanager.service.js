@@ -46,12 +46,38 @@ angular.module("mopify.services.queuemanager", [
 
         this.version = 0;
         this.shuffle = false;
+        this.playlist = [];
+        this.queue = [];
 
-        // Get current shuffle
-        this.getShuffle().then(function(response){
-            that.shuffle = response.shuffle;
+        // Load all data on init
+        this.loadData();
+
+        // Register listener which loads the new data on a trackplayback started
+        $rootScope.$on('mopidy:event:trackPlaybackStarted', function(){
+            that.loadData();
+        });
+
+        $rootScope.$on('queuemanager:event:changed', function(){
+            that.loadData();
         });
     }
+
+    /**
+     * Load all data and set in the QueueManager class
+     * 
+     * @return {void}
+     */
+    QueueManager.prototype.loadData = function(){
+        var that = this;
+
+        // Get all information
+        this.all().then(function(response){
+            that.shuffle = response.data.shuffle;
+            that.queue = response.data.queue;
+            that.playlist = response.data.playlist;
+            that.version = response.version;
+        });
+    };
 
     /**
      * Get all data
@@ -92,7 +118,7 @@ angular.module("mopify.services.queuemanager", [
         // Get shuffle information
         get("/shuffle").then(function(response){
             that.version = response.version;
-            that.shuffle = response.tracks;
+            that.shuffle = response.data;
 
             deferred.resolve(response.tracks);
         });
@@ -110,16 +136,10 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
         var deferred = $q.defer();
 
-        post("/queue", {
+        return post("/queue", {
             action: "next",
-            tracks: angular.toJson(tracks)
-        }).then(function(response){
-            that.version = response.version;
-
-            deferred.resolve(response);
+            data: angular.toJson(tracks)
         });
-
-        return deferred.promise;
     };
 
     /**
@@ -134,7 +154,7 @@ angular.module("mopify.services.queuemanager", [
 
         post("/queue", {
             action: "add",
-            tracks: angular.toJson(tracks)
+            data: angular.toJson(tracks)
         }).then(function(response){
             that.version = response.version;
 
@@ -158,7 +178,29 @@ angular.module("mopify.services.queuemanager", [
 
         post("/queue", {
             action: "remove",
-            tracks: angular.toJson(tracks)
+            data: angular.toJson(tracks)
+        }).then(function(response){
+            that.version = response.version;
+
+            deferred.resolve(response);
+        });
+
+        return deferred.promise;
+    };
+
+    /**
+     * Replace the queue and/or playlist with the given tracks
+     * 
+     * @param  {Object} tracks      (object with queue and/or playlist)
+     * @return {Promise}
+     */
+    QueueManager.prototype.replace = function(tracks){
+        var that = this;
+        var deferred = $q.defer();
+
+        post("/general", {
+            action: "replace",
+            data: angular.toJson(tracks)
         }).then(function(response){
             that.version = response.version;
 
@@ -178,16 +220,10 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
         var deferred = $q.defer();
 
-        post("/playlist", {
+        return post("/playlist", {
             action: "set",
-            tracks: angular.toJson(tracks)
-        }).then(function(response){
-            that.version = response.version;
-
-            deferred.resolve(response);
+            data: angular.toJson(tracks)
         });
-
-        return deferred.promise;
     };
 
     /**
@@ -208,16 +244,10 @@ angular.module("mopify.services.queuemanager", [
         // Set shuffle in manager
         that.shuffle = shuffle;
 
-        post("/shuffle", {
+        return post("/shuffle", {
             action: action,
-            tracks: angular.toJson(tracks)
-        }).then(function(response){
-            that.version = response.version;
-            
-            deferred.resolve(response);
+            data: angular.toJson(tracks)
         });
-
-        return deferred.promise;
     };
 
     return new QueueManager();

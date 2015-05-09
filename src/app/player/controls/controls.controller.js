@@ -3,13 +3,14 @@
 angular.module('mopify.player.controls', [
     'mopify.services.mopidy',
     'mopify.services.station',
-    'cfp.hotkeys'
+    'cfp.hotkeys',
+    'mopify.services.queuemanager'
 ])
 
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerControlsController", function PlayerControlsController($scope, $rootScope, mopidyservice, stationservice, hotkeys){
+.controller("PlayerControlsController", function PlayerControlsController($scope, $rootScope, mopidyservice, stationservice, hotkeys, QueueManager){
     $scope.volume = 0;
     $scope.isRandom = false;
     $scope.isPlaying = false;
@@ -46,9 +47,11 @@ angular.module('mopify.player.controls', [
             $scope.stateIcon = (state === 'playing') ? 'ss-pause' : "ss-play";
         });
 
-        // Get shuffle
-        mopidyservice.getRandom().then(function(random){
-            $scope.isRandom = (random === true);
+        // Watch shuffle boolean in QueueManager
+        $scope.$watch(function(){
+            return QueueManager.shuffle;
+        }, function(value){
+            $scope.isRandom = value;
         });
 
         // Get repeat

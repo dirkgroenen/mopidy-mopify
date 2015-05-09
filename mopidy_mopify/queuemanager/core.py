@@ -51,4 +51,9 @@ class QueueManager:
         shuffled = False
         self.playlist = self.shufflememory
         self.shufflememory = []
+        self.version += 1
 
+    def replace_all(self, data):
+        self.version += 1
+        self.playlist = data["playlist"]
+        self.queue = data["queue"]

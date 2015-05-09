@@ -52,7 +52,6 @@ angular.module('mopify.music.tracklist', [
     var ownerid = splitteduri[2];
     var playlistid = splitteduri[4];
 
-
     // Define the type from the uri parameter
     if(uri.indexOf(":playlist:") > -1){
         $scope.type = "Playlist";
@@ -84,8 +83,12 @@ angular.module('mopify.music.tracklist', [
         $scope.type = "tracklist";    
         $scope.coverImage = "./assets/images/tracklist-header.jpg";
 
-        $rootScope.$on('mopidy:event:trackPlaybackStarted', loadTracks);
-        $rootScope.$on('queuemanager:event:changed', loadTracks);
+        // Load tracks when queuemanager version changes
+        $scope.$watch(function(){
+            return QueueManager.version;
+        }, function(){
+            loadTracks();
+        });
     }
 
     if(uri.indexOf("spotify:library:songs") > -1){
@@ -131,29 +134,16 @@ angular.module('mopify.music.tracklist', [
     function loadTracks(){    
         // Get curren tracklist from Mopidy
         if(uri.indexOf("mopidy:") > -1){
-            // Kill if already loading data
-            if(loading === true)
-                return;
-
-            var loading = true;
-
-            // Load queuemanager's data
-            QueueManager.all().then(function(response){
-                
-                var mappedTracks = response.tracks.playlist.map(function(tltrack){
-                    return tltrack.track;
-                });
-
-                var mappedQueueTracks = response.tracks.queue.map(function(tltrack){
-                    return tltrack.track;
-                });
-
-                $scope.tracks = angular.copy(mappedTracks);
-                $scope.queue = angular.copy(mappedQueueTracks);
-
-                // Set loading to false
-                loading = false;
+            var mappedTracks = QueueManager.playlist.map(function(tltrack){
+                return tltrack.track;
             });
+
+            var mappedQueueTracks = QueueManager.queue.map(function(tltrack){
+                return tltrack.track;
+            });
+
+            $scope.tracks = angular.copy(mappedTracks);
+            $scope.queue = angular.copy(mappedQueueTracks);
         }
 
         // Lookup the tracks for the given album or playlist

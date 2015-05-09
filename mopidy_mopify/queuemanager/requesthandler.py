@@ -41,7 +41,7 @@ class RequestHandler(tornado.web.RequestHandler):
                 "shuffle": self.instance.shuffled
             }
 
-        self.write({"tracks": response, "version": self.instance.version})
+        self.write({"data": response, "version": self.instance.version})
 
     def post(self, type):
         response = {}
@@ -50,20 +50,24 @@ class RequestHandler(tornado.web.RequestHandler):
         postdata = tornado.escape.json_decode(self.request.body)
 
         action = postdata["action"]
-        tracks = postdata["tracks"]
+        data = postdata["data"]
 
-        tracks = json.loads(tracks);
+        data = json.loads(data);
+
+        if(type == "general"):
+            if(action == "replace"):
+                self.instance.replace_all(data)
 
         if(type == "queue"):
             if(action == "add"):
-                self.instance.add_to_queue(tracks)
+                self.instance.add_to_queue(data)
 
             if(action == "next"):
-                self.instance.add_play_next(tracks)
+                self.instance.add_play_next(data)
 
             if(action == "remove"):
-                self.instance.remove_from_queue(tracks)
-                self.instance.remove_from_playlist(tracks)
+                self.instance.remove_from_queue(data)
+                self.instance.remove_from_playlist(data)
 
             if(action == "clear"):
                 self.instance.clear_queue()
@@ -72,14 +76,14 @@ class RequestHandler(tornado.web.RequestHandler):
 
         if(type == "playlist"):
             if(action == "set"):
-                self.instance.set_playlist(tracks)
+                self.instance.set_playlist(data)
 
             response = self.instance.playlist
 
         if(type == "shuffle"):
             if(action == "shuffle"):
                 self.instance.shuffled = True;
-                self.instance.shuffle_playlist(tracks)
+                self.instance.shuffle_playlist(data)
 
             if(action == "resetshuffle"):
                 self.instance.shuffled = False;
@@ -92,7 +96,7 @@ class RequestHandler(tornado.web.RequestHandler):
                 "shuffle": self.instance.shuffled
             }
 
-        self.write({"tracks": response, "version": self.instance.version})
+        self.write({"data": response, "version": self.instance.version})
 
     def options(self, type):
         self.write("")
