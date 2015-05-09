@@ -313,7 +313,26 @@ angular.module('mopify.services.mopidy', [
         },
 
         next: function() {
-            return wrapMopidyFunc("mopidy.playback.next", this)();
+            var self = this;
+            var deferred = $q.defer();
+
+            // Start playing when the next track gets called and te state doesn't equal play
+            self.mopidy.playback.getState().then(function(state){
+                if(state === 'playing'){
+                    self.mopidy.playback.next().then(function(response){
+                        deferred.resolve(response);
+                    });
+                }
+                else{
+                    self.mopidy.playback.play().then(function(){
+                        self.mopidy.playback.next().then(function(response){
+                            deferred.resolve(response);
+                        });
+                    });
+                }
+            });
+            
+            return deferred.promise;
         },
 
         setConsume: function(){
