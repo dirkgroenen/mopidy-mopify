@@ -196,6 +196,7 @@ angular.module('mopify.services.mopidy', [
 
         playTrack: function(track, surroundingTracks) {
             var self = this;
+            var deferred = $q.defer();
 
             if(surroundingTracks === undefined)
                 surroundingTracks = [];
@@ -229,7 +230,7 @@ angular.module('mopify.services.mopidy', [
                     }
                     
                     // Add the selected track as next
-                    self.mopidy.tracklist.add({uris: uris}).then(function(tltracks){
+                    self.mopidy.tracklist.add({ uris: uris }).then(function(tltracks){
                         var start = data.queue.length + 1;
                         var end = tltracks.length - 1;
 
@@ -240,14 +241,18 @@ angular.module('mopify.services.mopidy', [
                         QueueManager.replace({
                             playlist: playlisttracks,
                             queue: queuetracks
-                        });
+                        }).then(function(){
 
-                        // Start playing the track
-                        self.mopidy.playback.play({ tl_track: tltracks[0] });
+                            // Start playing the track
+                            self.mopidy.playback.play({ tl_track: tltracks[0] }).then(function(track){
+                                deferred.resolve(track);
+                            });
+                        });
                     });
                 });
             });
 
+            return deferred.promise;
         },
 
         playTrackAtIndex: function(index){
@@ -264,10 +269,24 @@ angular.module('mopify.services.mopidy', [
         },
 
         clearTracklist: function(){
-            return this.mopidy.tracklist.clear();
+            var deferred = $q.defer();
+
+            this.mopidy.tracklist.clear().then(function(){
+                QueueManager.replace({
+                    queue: [],
+                    playlist: []
+                }).then(function(){
+                    deferred.resolve();
+                });    
+            });
+
+            return deferred.promise;
         },
 
         addToTracklist: function(obj){
+            // Add the tracks at the end of the queue
+            obj.at_position = QueueManager.queue.length + 1;
+
             return wrapMopidyFunc("mopidy.tracklist.add", this)(obj).then(function(tltracks){
                // Sync with queuemanager
                 QueueManager.add(tltracks);
@@ -348,6 +367,8 @@ angular.module('mopify.services.mopidy', [
 
         setRandom: function (setShuffle) {
             var self = this;
+            var 
+            deferred = $q.defer(); 
 
             // Always set mopidy's random mode to false
             self.mopidy.tracklist.setRandom([false]);
@@ -381,6 +402,8 @@ angular.module('mopify.services.mopidy', [
                                     queue: queue,
                                     playlist: playlist
                                 });
+
+                                deferred.resolve(tltracks);
                             });
                         });
                     });
@@ -400,9 +423,13 @@ angular.module('mopify.services.mopidy', [
                         // Get tltracks and send to the queuemanager
                         var tltracks = response.slice(start, end);
                         QueueManager.setShuffle(true, tltracks);
+
+                        deferred.resolve(tltracks);
                     });
                 });
             }
+
+            return deferred.promise;
         },
 
         getRepeat: function () {

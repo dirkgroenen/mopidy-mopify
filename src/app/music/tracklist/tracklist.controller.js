@@ -346,19 +346,12 @@ angular.module('mopify.music.tracklist', [
      */
     $scope.shuffle = function(){
         if(mopidyservice.isConnected){
-            var uris = _.map($scope.loadedTracks, function(track){
-                return track.uri;
-            });
-
             // Clear tracklist
             mopidyservice.clearTracklist().then(function(){
                 // Add track to tracklist
-                mopidyservice.addToTracklist({ uris: uris }).then(function(tltacks){
+                mopidyservice.playTrack($scope.loadedTracks[0], $scope.loadedTracks).then(function(){
                     // Set random to true
                     mopidyservice.setRandom(true).then(function(){
-                        // Start with random track
-                        mopidyservice.play(tltacks[Math.floor(Math.random() * tltacks.length)]);
-
                         // Broadcast control change
                         $rootScope.$broadcast("mopify:playercontrols:changed");
                     });

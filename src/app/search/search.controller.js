@@ -290,6 +290,9 @@ angular.module('mopify.search', [
 
     // Send the user to the search page when he starts typing
     $scope.typing = function(){
+        if($scope.query === undefined)
+            return;
+
         if($scope.query.trim().length > 0 && $scope.query !== previous){
             $location.url("/search?query=" + $scope.query + "&refer=" + $location.url());
             $scope.query = "";

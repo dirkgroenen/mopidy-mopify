@@ -144,7 +144,9 @@ v1.5.0 (UNRELEASED)
 
 - Rebuild the search's layout [#18](https://github.com/dirkgroenen/mopidy-mopify/issues/18) [#11](https://github.com/dirkgroenen/mopidy-mopify/issues/11)
 
-- Rebuild the queue manager to get it more in line with other music clients
+- Rebuild the queue manager to get it more in line with other music clients (for example Spotify)
+
+- Fixed adding items (like playlists and albums) to queue
 
 v1.4.2 (19-04-2015)
 ------------------

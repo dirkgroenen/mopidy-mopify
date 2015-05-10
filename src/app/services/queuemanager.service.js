@@ -239,8 +239,6 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
         var deferred = $q.defer();
 
-        console.log(tlids);
-
         request("remove_from_tracklist", {
             tlids: tlids
         }).then(function(response){
