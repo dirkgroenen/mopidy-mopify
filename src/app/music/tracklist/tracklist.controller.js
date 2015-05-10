@@ -113,6 +113,9 @@ angular.module('mopify.music.tracklist', [
     $scope.currentPlayingTrack = {};
     $scope.loadedTracks = [];
 
+    // Set loading to true
+    $scope.loading = true;
+
     // Load information from Spotify when type equals playlist
     if($scope.type == "Playlist"){
         loadSpotifyInfo();
@@ -148,6 +151,9 @@ angular.module('mopify.music.tracklist', [
 
                 $scope.tracks = angular.copy(mappedTracks);
                 $scope.queue = angular.copy(mappedQueueTracks);
+
+                // Set loading to false
+                $scope.loading = false;
             });
         }
 
@@ -176,6 +182,9 @@ angular.module('mopify.music.tracklist', [
                         getCoverImage(tracks[random]);
 
                     $scope.getMoreTracks();
+
+                    // Set loading to false
+                    $scope.loading = false;
                 }
             });
 

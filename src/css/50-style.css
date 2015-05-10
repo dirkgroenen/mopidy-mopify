@@ -976,6 +976,21 @@ img[src=""] {
     font-size: 14px;
 }
 
+#application #overview .pagecontent.loading{
+    position: relative;
+}
+
+#application #overview .pagecontent.loading svg{
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -35px;
+    margin-top: -35px;
+}
+
+
 #application #overview .pagecontent#searchresults{
     padding-bottom: 30px;
 }
