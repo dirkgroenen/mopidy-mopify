@@ -18,7 +18,7 @@ Some of the features that are included in Mopify:
   taste profile.
 - [Synchronize](https://github.com/dirkgroenen/mopidy-mopify/wiki/Services#sync) with other Mopify clients in your network
 - Automatic updating
-- Improved Queue manager which works like Spotify's one
+- Improved [Queue manager](https://github.com/dirkgroenen/mopidy-mopify/wiki/Queuemanager) which works like Spotify's one
 
 At the moment, Mopify only works with
 [mopidy-spotify](https://github.com/mopidy/mopidy-spotify). This may change in
