@@ -6,6 +6,7 @@ angular.module('mopify.music.tracklist', [
   'mopify.services.station',
   'mopify.services.spotifylogin',
   'mopify.services.servicemanager',
+  'mopify.services.queuemanager',
   'spotify',
   'ngSanitize',
   'llNotifier',
@@ -31,7 +32,8 @@ angular.module('mopify.music.tracklist', [
   'SpotifyLogin',
   'ServiceManager',
   'notifier',
-  function TracklistController($scope, $rootScope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager, notifier) {
+  'QueueManager',
+  function TracklistController($scope, $rootScope, $timeout, $routeParams, mopidyservice, stationservice, util, Spotify, SpotifyLogin, ServiceManager, notifier, QueueManager) {
     // Grab params in var
     var uri = $routeParams.uri;
     // Set default coverimage
@@ -73,6 +75,12 @@ angular.module('mopify.music.tracklist', [
     if (uri.indexOf('mopidy:current') > -1) {
       $scope.type = 'tracklist';
       $scope.coverImage = './assets/images/tracklist-header.jpg';
+      // Load tracks when queuemanager version changes
+      $scope.$watch(function () {
+        return QueueManager.version;
+      }, function () {
+        loadTracks();
+      });
     }
     if (uri.indexOf('spotify:library:songs') > -1) {
       $scope.type = 'My Music - Songs';
@@ -87,10 +95,13 @@ angular.module('mopify.music.tracklist', [
       $scope.name = 'Your music: Songs';
     else
       $scope.name = '';
-    // Create empty arrays for tracks, loadedtracks and currentplayingtrack
+    // Create empty arrays for tracks, queue, loadedtracks and currentplayingtrack
     $scope.tracks = [];
+    $scope.queue = [];
     $scope.currentPlayingTrack = {};
     $scope.loadedTracks = [];
+    // Set loading to true
+    $scope.loading = true;
     // Load information from Spotify when type equals playlist
     if ($scope.type == 'Playlist') {
       loadSpotifyInfo();
@@ -104,17 +115,31 @@ angular.module('mopify.music.tracklist', [
     }
     /**
      * Load the tracks from the mopidy library
+     *
+     * @return {void}
      */
     function loadTracks() {
       // Get curren tracklist from Mopidy
       if (uri.indexOf('mopidy:') > -1) {
-        mopidyservice.getTracklist().then(function (tracks) {
-          var mappedTracks = tracks.map(function (tltrack) {
+        QueueManager.all().then(function (data) {
+          var mappedTracks = data.playlist.map(function (tltrack) {
+              tltrack.track.tlid = tltrack.tlid;
               return tltrack.track;
             });
-          $scope.tracks = angular.copy(mappedTracks);
+          var mappedQueueTracks = data.queue.map(function (tltrack) {
+              tltrack.track.tlid = tltrack.tlid;
+              return tltrack.track;
+            });
+          // Reset batch loading
+          resetTrackBatchLoading();
+          // Set tracks
+          $scope.loadedTracks = angular.copy(mappedTracks);
+          $scope.queue = angular.copy(mappedQueueTracks);
+          // Set loading to false
+          $scope.loading = false;
+          // Load first batch of tracks
+          $scope.getMoreTracks();
         });
-        $scope.$on('mopidy:event:tracklistChanged', loadTracks);
       }
       // Lookup the tracks for the given album or playlist
       if (uri.indexOf('spotify:') > -1) {
@@ -134,12 +159,16 @@ angular.module('mopify.music.tracklist', [
             if ($scope.type == 'Album')
               getCoverImage(tracks[random]);
             $scope.getMoreTracks();
+            // Set loading to false
+            $scope.loading = false;
           }
         });
       }
     }
     /**
      * Load information about the playlist from Spotify
+     *
+     * @return {void}
      */
     function loadSpotifyInfo() {
       if (ServiceManager.isEnabled('spotify') && SpotifyLogin.connected) {
@@ -147,6 +176,7 @@ angular.module('mopify.music.tracklist', [
         $scope.isowner = ownerid == SpotifyLogin.user.id;
         // Get the official playlist name
         Spotify.getPlaylist(ownerid, playlistid).then(function (data) {
+          $scope.coverImage = data.images[0].url;
           $scope.name = data.name + ' from ' + data.owner.id;
         });
         // Check if user is following the playlist
@@ -163,6 +193,8 @@ angular.module('mopify.music.tracklist', [
     }
     /**
      * Load the current playing track
+     *
+     * @return {void}
      */
     function loadCurrentTrack() {
       mopidyservice.getCurrentTrack().then(function (track) {
@@ -180,7 +212,9 @@ angular.module('mopify.music.tracklist', [
     }
     /**
      * Load the user's Spotify Library tracks
+     * 
      * @param {int} offset the offset to load the track, will be zero if not defined
+     * @return {void}
      */
     function loadSpotifyLibraryTracks(offset) {
       if (ServiceManager.isEnabled('spotify') && SpotifyLogin.connected) {
@@ -320,17 +354,12 @@ angular.module('mopify.music.tracklist', [
      */
     $scope.shuffle = function () {
       if (mopidyservice.isConnected) {
-        var uris = _.map($scope.loadedTracks, function (track) {
-            return track.uri;
-          });
         // Clear tracklist
         mopidyservice.clearTracklist().then(function () {
           // Add track to tracklist
-          mopidyservice.addToTracklist({ uris: uris }).then(function (tltacks) {
+          mopidyservice.playTrack($scope.loadedTracks[0], $scope.loadedTracks).then(function () {
             // Set random to true
             mopidyservice.setRandom(true).then(function () {
-              // Start with random track
-              mopidyservice.play(tltacks[Math.floor(Math.random() * tltacks.length)]);
               // Broadcast control change
               $rootScope.$broadcast('mopify:playercontrols:changed');
             });
@@ -361,5 +390,14 @@ angular.module('mopify.music.tracklist', [
         callRun++;
       }
     };
+    /**
+     * Reset the track loading batch value to their start values
+     * 
+     * @return {void}
+     */
+    function resetTrackBatchLoading() {
+      $scope.tracks = [];
+      callRun = 0;
+    }
   }
 ]);

@@ -229,7 +229,26 @@ angular.module("account/services/sync/sync.tmpl.html", []).run(["$templateCache"
     "\n" +
     "    <div class=\"pagetitle row\">\n" +
     "        <div class=\"col-md-3\">\n" +
-    "            Synchronize <span class=\"sub\">Sync</span>\n" +
+    "            Settings <span class=\"sub\">Sync</span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"pagecontent row\">\n" +
+    "        <div class=\"settingwrap row\">\n" +
+    "            <div class=\"label col-md-2\">\n" +
+    "                <label>Force synchronisation</label>\n" +
+    "            </div>\n" +
+    "            <div class=\"input col-md-4\">\n" +
+    "                <toggle-switch ng-model=\"settings.sync.force\" ng-click=\"forceToggle()\"></toggle-switch>\n" +
+    "            </div>\n" +
+    "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
+    "                <p>When enabled every new client which connects to the provided Mopidy server and enabled the Sync service will automatically retrieve all synced credentials.</p>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"pagetitle row\">\n" +
+    "        <div class=\"col-md-3\">\n" +
+    "            Services <span class=\"sub\">Sync</span>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"pagecontent row\">\n" +
@@ -601,8 +620,7 @@ angular.module("directives/album.directive.tmpl.html", []).run(["$templateCache"
   $templateCache.put("directives/album.directive.tmpl.html",
     "<div ng-show=\"visible\">\n" +
     "    <div class=\"tileart\" context-menu=\"onContextShow()\"\n" +
-    "         data-target=\"menu-{{ album.uri }}\"\n" +
-    "         ng-class=\"{ 'highlight': highlight, 'expanded' : expanded }\">\n" +
+    "        data-target=\"menu-{{ album.uri }}\">\n" +
     "        <div class=\"hoverwrap\">\n" +
     "            <div class=\"iconwrap row\">\n" +
     "                <div class=\"icon small col-xs-4\" title=\"Show album's tracks\">\n" +
@@ -619,7 +637,8 @@ angular.module("directives/album.directive.tmpl.html", []).run(["$templateCache"
     "\n" +
     "        <img ng-src=\"{{ album.images[1].url }}\" />\n" +
     "    </div>\n" +
-    "    <div class=\"tileinfo clickable\">\n" +
+    "    <div class=\"tileinfo clickable\" context-menu=\"onContextShow()\"\n" +
+    "        data-target=\"menu-{{ album.uri }}\">\n" +
     "        <a href=\"{{ tracklistUrl }}\">\n" +
     "            <span class=\"name\">{{ album.name}}</span>\n" +
     "            <span class=\"year ng-binding\">{{ artiststring }}</span>\n" +
@@ -759,10 +778,10 @@ angular.module("directives/playlist.directive.tmpl.html", []).run(["$templateCac
     "\n" +
     "<div class=\"contextmenu position-fixed\" id=\"menu-{{ playlist.uri }}\">\n" +
     "    <ul class=\"dropdown-menu\" role=\"menu\">\n" +
-    "        <li ng-click=\"playTrack(track)\">\n" +
+    "        <li ng-click=\"play()\">\n" +
     "            Play\n" +
     "        </li>\n" +
-    "        <li ng-click=\"addTrackToQueue(track)\">\n" +
+    "        <li ng-click=\"addToQueue()\">\n" +
     "            Add to queue\n" +
     "        </li>\n" +
     "        <li class=\"divider\"></li>\n" +
@@ -858,6 +877,9 @@ angular.module("directives/track.directive.tmpl.html", []).run(["$templateCache"
     "    <ul class=\"dropdown-menu\" role=\"menu\">\n" +
     "        <li ng-click=\"play()\">\n" +
     "            Play track<span ng-show=\"multipleselected\">s</span>\n" +
+    "        </li>\n" +
+    "        <li ng-click=\"playNext()\" ng-hide=\"multipleselected\">\n" +
+    "            Play next\n" +
     "        </li>\n" +
     "        <li class=\"divider\"></li>\n" +
     "        <li ng-click=\"addToQueue()\">\n" +
@@ -1121,11 +1143,19 @@ angular.module("modals/playlistselect.tmpl.html", []).run(["$templateCache", fun
 
 angular.module("music/artist/artist.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("music/artist/artist.tmpl.html",
-    "<div id=\"header\" class=\"small row\" ng-class=\"(currentview.id == 'bio') ? 'big' : ''\" style=\"background-image: url('{{ artist.coverimage }}');\">\n" +
-    "    <div class=\"col-md-4 col-sm-3 lefttext\">\n" +
-    "        <div class=\"inner\">{{ artist.name }}</div>\n" +
+    "<div id=\"header\" class=\"small row\">\n" +
+    "    <div class=\"backgroundimage\" style=\"background-image: url('{{ artist.coverimage }}');\"></div>\n" +
+    "    <div class=\"col-md-6 col-lg-4\">\n" +
+    "        <div class=\"albumart hidden-xs hidden-sm hidden-md\">\n" +
+    "            <img ng-src=\"{{ artist.coverimage }}\" />\n" +
+    "        </div>\n" +
+    "        <div class=\"lefttext\">\n" +
+    "            <div class=\"inner\"> \n" +
+    "                <i class=\"ss-icon ss-list\"></i> {{ artist.name }}\n" +
+    "            </div>\n" +
+    "        </div>\n" +
     "    </div>\n" +
-    "    <div class=\"col-md-8 col-lg-4 col-sm-9 centertext\">\n" +
+    "    <div class=\"col-md-6 col-lg-4 col-sm-9 centertext\">\n" +
     "        <div class=\"row\">\n" +
     "            <div class=\"col-xs-4 music\"><a href=\"#/music/artist/{{ artistId }}\" ng-class=\"{ 'active': currentview.id == 'music' }\" ng-click=\"setView('music')\">Music</a></div>\n" +
     "            <div class=\"col-xs-4 biography\"><a href=\"#/music/artist/{{ artistId }}\" ng-class=\"{ 'active': currentview.id == 'bio' }\" ng-click=\"setView('bio')\">Biography</a></div>\n" +
@@ -1133,6 +1163,7 @@ angular.module("music/artist/artist.tmpl.html", []).run(["$templateCache", funct
     "        </div>  \n" +
     "    </div>\n" +
     "</div>\n" +
+    "\n" +
     "<div id=\"overview\" class=\"row\">\n" +
     "    <div class=\"pagetitle row\" ng-if=\"currentview.id == 'music'\">\n" +
     "        <div class=\"col-md-3\">\n" +
@@ -1198,9 +1229,17 @@ angular.module("music/artist/artist.tmpl.html", []).run(["$templateCache", funct
 
 angular.module("music/library/albums/albums.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("music/library/albums/albums.tmpl.html",
-    "<div id=\"header\" class=\"small row\" style=\"background-image: url('./assets/images/playlists-header.jpg');\">\n" +
-    "    <div class=\"col-md-4 lefttext\">\n" +
-    "        <div class=\"inner\"><i class=\"ss-icon ss-list\"></i> Your music: Albums</div>\n" +
+    "<div id=\"header\" class=\"small row\">\n" +
+    "    <div class=\"backgroundimage\" style=\"background-image: url('./assets/images/playlists-header.jpg');\"></div>\n" +
+    "    <div class=\"col-md-12\">\n" +
+    "        <div class=\"albumart\">\n" +
+    "            <img src=\"/assets/images/playlists-header.jpg\" />\n" +
+    "        </div>\n" +
+    "        <div class=\"lefttext\">\n" +
+    "            <div class=\"inner\"> \n" +
+    "                <i class=\"ss-icon ss-list\"></i> Your music: Albums\n" +
+    "            </div>\n" +
+    "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
@@ -1229,9 +1268,17 @@ angular.module("music/library/albums/albums.tmpl.html", []).run(["$templateCache
 
 angular.module("music/library/artists/artists.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("music/library/artists/artists.tmpl.html",
-    "<div id=\"header\" class=\"small row\" style=\"background-image: url('./assets/images/playlists-header.jpg');\">\n" +
-    "    <div class=\"col-md-4 lefttext\">\n" +
-    "        <div class=\"inner\"><i class=\"ss-icon ss-list\"></i> Your music: Artists</div>\n" +
+    "<div id=\"header\" class=\"small row\">\n" +
+    "    <div class=\"backgroundimage\" style=\"background-image: url('./assets/images/playlists-header.jpg');\"></div>\n" +
+    "    <div class=\"col-md-12\">\n" +
+    "        <div class=\"albumart\">\n" +
+    "            <img src=\"/assets/images/playlists-header.jpg\" />\n" +
+    "        </div>\n" +
+    "        <div class=\"lefttext\">\n" +
+    "            <div class=\"inner\"> \n" +
+    "                <i class=\"ss-icon ss-list\"></i> Your music: Artists\n" +
+    "            </div>\n" +
+    "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
@@ -1260,9 +1307,17 @@ angular.module("music/library/artists/artists.tmpl.html", []).run(["$templateCac
 
 angular.module("music/library/playlists/playlists.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("music/library/playlists/playlists.tmpl.html",
-    "<div id=\"header\" class=\"small row\" style=\"background-image: url('./assets/images/playlists-header.jpg');\">\n" +
-    "    <div class=\"col-md-4 lefttext\">\n" +
-    "        <div class=\"inner\"><i class=\"ss-icon ss-list\"></i> Your music: Playlists</div>\n" +
+    "<div id=\"header\" class=\"small row\">\n" +
+    "    <div class=\"backgroundimage\" style=\"background-image: url('./assets/images/playlists-header.jpg');\"></div>\n" +
+    "    <div class=\"col-md-12\">\n" +
+    "        <div class=\"albumart\">\n" +
+    "            <img src=\"/assets/images/playlists-header.jpg\" />\n" +
+    "        </div>\n" +
+    "        <div class=\"lefttext\">\n" +
+    "            <div class=\"inner\"> \n" +
+    "                <i class=\"ss-icon ss-list\"></i> Your music: Playlists\n" +
+    "            </div>\n" +
+    "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
@@ -1413,16 +1468,27 @@ angular.module("music/stations/stations.tmpl.html", []).run(["$templateCache", f
 
 angular.module("music/tracklist/tracklist.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("music/tracklist/tracklist.tmpl.html",
-    "<div id=\"header\" class=\"small row\" style=\"background-image: url('{{ coverImage }}');\">\n" +
-    "    <div class=\"col-md-10 lefttext\">\n" +
-    "        <div class=\"inner\"><i class=\"ss-icon ss-list\"></i>  {{ name }}</div>\n" +
+    "<div id=\"header\" class=\"small row\">\n" +
+    "    <div class=\"backgroundimage\" style=\"background-image: url('{{ coverImage }}');\"></div>\n" +
+    "    <div class=\"col-md-12\">\n" +
+    "        <div class=\"albumart hidden-xs hidden-sm\">\n" +
+    "            <img ng-src=\"{{ coverImage }}\" />\n" +
+    "        </div>\n" +
+    "        <div class=\"lefttext\">\n" +
+    "            <div class=\"inner\"> \n" +
+    "                <i class=\"ss-icon ss-list\"></i>  {{ name }}\n" +
+    "            </div>\n" +
+    "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
     "<div id=\"overview\" class=\"row\">\n" +
     "    <div class=\"pagetitle row\">\n" +
-    "        <div class=\"col-md-3\">\n" +
+    "        <div class=\"col-md-3\" ng-hide=\"type == 'tracklist'\">\n" +
     "            tracks <span class=\"sub\">{{ type }}</span>\n" +
+    "        </div>\n" +
+    "        <div class=\"col-md-3\" ng-show=\"type == 'tracklist'\">\n" +
+    "            tracks <span class=\"sub\">Now playing</span>\n" +
     "        </div>\n" +
     "        <div class=\"col-md-6 col-md-offset-3 alignright\">\n" +
     "            <div class=\"button white\" ng-click=\"toglgeSaveAlbum()\" ng-show=\"type == 'Album'\">\n" +
@@ -1446,16 +1512,55 @@ angular.module("music/tracklist/tracklist.tmpl.html", []).run(["$templateCache",
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
+    "    <div class=\"pagecontent row loading\" ng-if=\"loading\">\n" +
+    "        <svg version=\"1.1\" class=\"svg-loader\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 80 80\" xml:space=\"preserve\">\n" +
+    "            <path id=\"spinner\" fill=\"#444444\" d=\"M40,72C22.4,72,8,57.6,8,40C8,22.4,\n" +
+    "                22.4,8,40,8c17.6,0,32,14.4,32,32c0,1.1-0.9,2-2,2\n" +
+    "                s-2-0.9-2-2c0-15.4-12.6-28-28-28S12,24.6,12,40s12.6,\n" +
+    "                28,28,28c1.1,0,2,0.9,2,2S41.1,72,40,72z\" transform=\"rotate(42.6866 40 40)\">\n" +
+    "                <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 40 40\" to=\"360 40 40\" dur=\"0.75s\" repeatCount=\"indefinite\"></animateTransform>\n" +
+    "            </path>\n" +
+    "        </svg>\n" +
+    "    </div>\n" +
+    "\n" +
     "    <div class=\"row note\" ng-if=\"type == 'My Music - Songs'\">\n" +
     "        <div class=\"col-md-10\">\n" +
     "            <p><b>Note:</b> loading the Library songs tracks into Mopidy <a href=\"https://github.com/dirkgroenen/mopidy-mopify/issues/62\" target=\"_blank\">can be slow</a> since Mopidy has no official support for directly playing this list. Use CTRL to select multiple tracks and add them through the context menu to prevent Mopidy from hanging.</p>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
+    "    <div class=\"pagecontent row\" style=\"padding-bottom: 30px;\" ng-if=\"type == 'tracklist'\">\n" +
+    "        <div id=\"tracklist\"> \n" +
+    "            <div class=\"row\">\n" +
+    "                <mopify-track track=\"currentPlayingTrack\" currentplayingtrack=\"currentPlayingTrack\" type=\"type\"></mopify-track>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"pagetitle row\" ng-show=\"type == 'tracklist' && queue.length > 0\">\n" +
+    "        <div class=\"col-md-3\">\n" +
+    "            tracks <span class=\"sub\">Queue</span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"pagecontent row\" style=\"padding-bottom: 30px;\" ng-if=\"type == 'tracklist' && queue.length > 0\">\n" +
+    "        <div id=\"tracklist\"> \n" +
+    "            <div class=\"row\" ng-repeat=\"track in queue track by $index\" >\n" +
+    "                <mopify-track track=\"track\" surrounding=\"queue\" type=\"type\"> </mopify-track>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"pagetitle row\" ng-show=\"type == 'tracklist'\">\n" +
+    "        <div class=\"col-md-3\">\n" +
+    "            tracks <span class=\"sub\">Playlist</span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
     "    <div class=\"pagecontent row\">\n" +
     "        <div id=\"tracklist\" infinite-scroll=\"getMoreTracks()\" infinite-scroll-distance=\"1\">\n" +
-    "            <div class=\"row\" ng-repeat=\"track in tracks track by $index\" >\n" +
-    "                <mopify-track track=\"track\" currentplayingtrack=\"currentPlayingTrack\" type=\"type\"> </mopify-track>\n" +
+    "            <div class=\"row\" ng-repeat=\"track in tracks track by $index\">\n" +
+    "                <mopify-track track=\"track\" currentplayingtrack=\"currentPlayingTrack\" surrounding=\"tracks\" type=\"type\"></mopify-track>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -1515,7 +1620,7 @@ angular.module("player/player.tmpl.html", []).run(["$templateCache", function($t
     "        <ng-include src=\"'player/controls/controls.left.tmpl.html'\"></ng-include>\n" +
     "    </div>\n" +
     "    <div class=\"seekwrap column\" id=\"seekbar\">\n" +
-    "        <a class=\"trackname\" href=\"#/music/tracklist/{{ albumUri }}\">\n" +
+    "        <a class=\"trackname\" href=\"#/music/tracklist/{{ albumUri }}/{{ albumName }}\">\n" +
     "            <span class=\"title\">{{ trackTitle }}</span> <span class=\"delimiter\">-</span> <span class=\"artist\">{{ trackArtist }}</span>\n" +
     "        </a>\n" +
     "        <div ng-controller=\"PlayerSeekbarController\">\n" +
@@ -1536,7 +1641,7 @@ angular.module("player/seekbar/seekbar.tmpl.html", []).run(["$templateCache", fu
   $templateCache.put("player/seekbar/seekbar.tmpl.html",
     "<div class=\"barwrap\">\n" +
     "    <div class=\"time\" id=\"passed\">{{ timeCurrent }}</div>\n" +
-    "    <div class=\"bar\" ng-mouseup=\"seekbarMouseUp()\" ng-mousedown=\"seekbarMouseDown()\" ng-mousemove=\"seekbarMouseMove($event)\" ng-click=\"seekbarMouseClick($event)\" >\n" +
+    "    <div class=\"bar\" ng-mouseup=\"seekbarMouseUp()\" ng-mousedown=\"seekbarMouseDown($event)\" ng-mousemove=\"seekbarMouseMove($event)\" ng-click=\"seekbarMouseClick($event)\" >\n" +
     "        <div class=\"outer\">\n" +
     "            <div class=\"inner\" style=\"width: {{ seekbarWidth }}%;\"></div>\n" +
     "        </div>\n" +
@@ -1550,151 +1655,101 @@ angular.module("search/menu.tmpl.html", []).run(["$templateCache", function($tem
     "<div class=\"block row\" ng-controller=\"SearchMenuController\">\n" +
     "    <div class=\"content\" id=\"search\">\n" +
     "        <i class=\"ss-icon ss-search\"></i>\n" +
-    "        <span class=\"inputwrap\" ng-class=\"{ 'focus': focused }\"><input type=\"text\" name=\"query\" ng-model=\"query\" ng-focus=\"focused = true\" ng-blur=\"focused = false\" placeholder=\"Search\" ng-keyup=\"typing($event)\" /></span>\n" +
+    "        <span class=\"inputwrap\" ng-class=\"{ 'focus': focused }\"><input type=\"text\" name=\"query\" ng-model=\"query\" ng-focus=\"focused = true;\" ng-blur=\"focused = false\" placeholder=\"Search\" ng-keyup=\"typing($event)\" focus-me=\"$root.focussearch\"/></span>\n" +
     "    </div>\n" +
     "</div>");
 }]);
 
 angular.module("search/search.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("search/search.tmpl.html",
-    "<div id=\"header\" ng-class=\"{ small: topresult.type == 'tracks', big: topresult.type != 'tracks' }\" style=\"background-image: url('./assets/images/discover-header.jpg');\">\n" +
-    "    <div id=\"featured\">\n" +
-    "        <div class=\"row\">\n" +
-    "            <div class=\"col-md-8 col-md-offset-2\">\n" +
-    "                <div class=\"title\" ng-hide=\"topresult.item.name === undefined\">\n" +
-    "                    Top result: {{ topresult.item.name }}\n" +
-    "                </div>\n" +
-    "            </div>\n" +
+    "<div class=\"search-overlay\" id=\"overview\" > \n" +
+    "    <div class=\"close\" ng-click=\"closeSearch();\"><i class=\"ss-icon ss-delete\"></i></div>  \n" +
+    "    <div class=\"inner\">\n" +
+    "        <div class=\"inputwrap\">\n" +
+    "            <span class=\"instructions\">Start typing to search</span>\n" +
+    "            <input type=\"text\" class=\"fluent\" ng-model=\"query\" novalidate focus-me=\"$root.focussearch\" ng-keyup=\"typing($event)\"/>\n" +
     "        </div>\n" +
-    "        <div class=\"row\">\n" +
-    "            <div class=\"playlist col-lg-4 col-md-8 col-sm-10 col-lg-offset-4 col-md-offset-2 col-sm-offset-1\">\n" +
-    "                <div class=\"cover\" ng-hide=\"topresult.item.images === undefined\">\n" +
-    "                    <img ng-src=\"{{ topresult.item.images[0].url }}\" />\n" +
-    "                </div>\n" +
-    "                <div class=\"details\" ng-class=\"{ 'fullwidth': topresult.item.images === undefined }\">\n" +
-    "                    <div class=\"tracklist\">\n" +
-    "                        <div class=\"row track\" ng-repeat=\"track in topresult.item.tracks\" ng-if=\"topresult.item.tracks\" >\n" +
-    "                            <div class=\"col-xs-7 name\">\n" +
-    "                                {{ track.name }}    \n" +
-    "                            </div>\n" +
-    "                            <div class=\"col-xs-5 artist\">\n" +
-    "                                {{ track.artiststring }}\n" +
+    "\n" +
+    "        <div class=\"resultwrap pagecontent loading\" ng-show=\"loading\">\n" +
+    "            <svg version=\"1.1\" class=\"svg-loader\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\" viewBox=\"0 0 80 80\" xml:space=\"preserve\">\n" +
+    "                <path id=\"spinner\" fill=\"#444444\" d=\"M40,72C22.4,72,8,57.6,8,40C8,22.4,\n" +
+    "                    22.4,8,40,8c17.6,0,32,14.4,32,32c0,1.1-0.9,2-2,2\n" +
+    "                    s-2-0.9-2-2c0-15.4-12.6-28-28-28S12,24.6,12,40s12.6,\n" +
+    "                    28,28,28c1.1,0,2,0.9,2,2S41.1,72,40,72z\" transform=\"rotate(42.6866 40 40)\">\n" +
+    "                    <animateTransform attributeType=\"xml\" attributeName=\"transform\" type=\"rotate\" from=\"0 40 40\" to=\"360 40 40\" dur=\"0.75s\" repeatCount=\"indefinite\"></animateTransform>\n" +
+    "                </path>\n" +
+    "            </svg>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"resultwrap pagecontent\" ng-hide=\"loading\">\n" +
+    "            <div class=\"row\">\n" +
+    "                <div class=\"col-lg-2 col-sm-6 column hidden-md hidden-sm\">\n" +
+    "                    <div class=\"title\">\n" +
+    "                        <h2>Best match: {{ topresult.item.name }}</h2>\n" +
+    "                    </div>\n" +
+    "                    <div id=\"featured\">\n" +
+    "                        <div id=\"searchview\" class=\"topresult\">\n" +
+    "                            <div class=\"cover\">\n" +
+    "                                <a href=\"{{ topresult.link }}\"><img ng-src=\"{{ topresult.item.images[0].url }}\" /></a>\n" +
     "                            </div>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    "                <div class=\"hoverwrap\">\n" +
-    "                    <div class=\"iconwrap row\">\n" +
-    "                        <div class=\"icon small col-xs-4\">\n" +
-    "                            <a href=\"#/music/tracklist/{{ topresult.item.uri }}\"><i class=\"ss-icon ss-list\"></i></a>\n" +
+    "                <div class=\"col-lg-2 col-md-3 col-sm-4 column \">\n" +
+    "                    <div class=\"title\">\n" +
+    "                        <h2>Artists</h2>\n" +
+    "                        <div ng-click=\"searchLimitsToggle('artists')\">\n" +
+    "                            <span class=\"more\" ng-show=\"searchLimits.artists != 50\">More</span>\n" +
+    "                            <span class=\"more\" ng-show=\"searchLimits.artists == 50\">Less</span>\n" +
     "                        </div>\n" +
-    "                        <div class=\"icon col-xs-4\">\n" +
-    "                            <i class=\"ss-icon ss-play\" ng-click=\"playTopItem()\"></i>\n" +
+    "                    </div>\n" +
+    "                    <div id=\"searchview\">\n" +
+    "                        <div class=\"noresults\" ng-show=\"results.artists.items.length == 0\">No results</div>\n" +
+    "                        <mopify-artist artist=\"artist\" class=\"single-tile\" ng-repeat=\"artist in results.artists.items | limitTo:searchLimits.artists\"></mopify-artist>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-lg-2 col-md-3 col-sm-4 column\">\n" +
+    "                    <div class=\"title\">\n" +
+    "                        <h2>Albums</h2>\n" +
+    "                        <div ng-click=\"searchLimitsToggle('albums')\">\n" +
+    "                            <span class=\"more\" ng-show=\"searchLimits.albums != 50\">More</span>\n" +
+    "                            <span class=\"more\" ng-show=\"searchLimits.albums == 50\">Less</span>\n" +
     "                        </div>\n" +
-    "                        <div class=\"icon small col-xs-4\">\n" +
-    "                            <i class=\"ss-icon ss-wifi\" ng-click=\"startTopItemStation()\"></i>\n" +
+    "                    </div>\n" +
+    "                    <div id=\"searchview\">\n" +
+    "                        <div class=\"noresults\" ng-show=\"results.albums.items.length == 0\">No results</div>\n" +
+    "                        <mopify-album album=\"album\" class=\"single-tile\" ng-repeat=\"album in results.albums.items | limitTo:searchLimits.albums\"></mopify-album>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-lg-2 col-md-3 col-sm-4 column\">\n" +
+    "                    <div class=\"title\">\n" +
+    "                        <h2>Playlists</h2>\n" +
+    "                        <div ng-click=\"searchLimitsToggle('playlists')\">\n" +
+    "                            <span class=\"more\" ng-show=\"searchLimits.playlists != 50\">More</span>\n" +
+    "                            <span class=\"more\" ng-show=\"searchLimits.playlists == 50\">Less</span>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div id=\"searchview\">\n" +
+    "                        <div class=\"noresults\" ng-show=\"results.playlists.items.length == 0\">No results</div>\n" +
+    "                        <mopify-playlist playlist=\"playlist\" play=\"play(playlist)\" class=\"single-tile col-sm-4\" ng-repeat=\"playlist in results.playlists.items | limitTo:searchLimits.playlists\"></mopify-playlist>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <div class=\"col-lg-4 col-md-3 col-sm-12 column\">\n" +
+    "                    <div class=\"title\">\n" +
+    "                        <h2>Tracks</h2>\n" +
+    "                        <div ng-click=\"searchLimitsToggle('tracks')\">\n" +
+    "                            <span class=\"more\" ng-show=\"searchLimits.tracks != 50\">More</span>\n" +
+    "                            <span class=\"more\" ng-show=\"searchLimits.tracks == 50\">Less</span>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div id=\"searchview\">\n" +
+    "                        <div id=\"tracklist\" class=\"row\">\n" +
+    "                            <div class=\"noresults\" ng-show=\"results.tracks.length == 0\">No results</div>\n" +
+    "                            <mopify-track track=\"track\" surrounding=\"results.tracks\" <div ng-repeat=\"track in results.tracks | limitTo:searchLimits.tracks\">> </mopify-track>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>\n" +
     "\n" +
-    "<div id=\"overview\" class=\"row\">\n" +
-    "    \n" +
-    "    <div class=\"pagetitle row\" ng-show=\"results.artists.items.length > 0\">\n" +
-    "        <div class=\"col-md-3\">\n" +
-    "            Artists <span class=\"sub\">{{ query }}</span>\n" +
-    "        </div>\n" +
-    "        <div class=\"col-md-6 col-md-offset-3 alignright\">\n" +
-    "            <div class=\"button white\" ng-click=\"searchLimitsToggle('artists')\">\n" +
-    "                <span class=\"text\" ng-show=\"searchLimits.artists != 50\">Show more artists</span>\n" +
-    "                <span class=\"text\" ng-show=\"searchLimits.artists == 50\">Show less artists</span>\n" +
-    "                <i class=\"ss-icon ss-plus\" ng-show=\"searchLimits.artists != 50\"></i>\n" +
-    "                <i class=\"ss-icon ss-hyphen\" ng-show=\"searchLimits.artists == 50\"></i>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"pagecontent row\" id=\"searchresults\" ng-show=\"results.artists.items.length > 0\">\n" +
-    "        <div id=\"tileview\" class=\"row\">\n" +
-    "            <div ng-repeat=\"artist in results.artists.items | limitTo:searchLimits.artists\">\n" +
-    "                <mopify-artist artist=\"artist\" class=\"col-lg-2 col-md-3 col-sm-4 col-xs-6 single-tile\"></mopify-artist>\n" +
-    "                <div ng-if=\"($index + 1) % 6 == 0\" class=\"clearfix visible-lg-block\"></div>\n" +
-    "                <div ng-if=\"($index + 1) % 4 == 0\" class=\"clearfix visible-md-block\"></div>\n" +
-    "                <div ng-if=\"($index + 1) % 3 == 0\" class=\"clearfix visible-sm-block\"></div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div class=\"pagetitle row\" ng-show=\"results.albums.items.length > 0\">\n" +
-    "        <div class=\"col-md-3\">\n" +
-    "            Albums <span class=\"sub\">{{ query }}</span>\n" +
-    "        </div>\n" +
-    "        <div class=\"col-md-6 col-md-offset-3 alignright\">\n" +
-    "            <div class=\"button white\" ng-click=\"searchLimitsToggle('albums')\">\n" +
-    "                <span class=\"text\" ng-show=\"searchLimits.albums != 50\">Show more albums</span>\n" +
-    "                <span class=\"text\" ng-show=\"searchLimits.albums == 50\">Show less albums</span>\n" +
-    "                <i class=\"ss-icon ss-plus\" ng-show=\"searchLimits.albums != 50\"></i>\n" +
-    "                <i class=\"ss-icon ss-hyphen\" ng-show=\"searchLimits.albums == 50\"></i>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"pagecontent row\" id=\"searchresults\" ng-show=\"results.albums.items.length > 0\">\n" +
-    "        <div id=\"tileview\" class=\"row\">\n" +
-    "            <div ng-repeat=\"album in results.albums.items | limitTo:searchLimits.albums\">\n" +
-    "                <mopify-album album=\"album\" class=\"col-lg-2 col-md-3 col-sm-4 col-xs-6 single-tile\"></mopify-album>\n" +
-    "                <div ng-if=\"($index + 1) % 6 == 0\" class=\"clearfix visible-lg-block\"></div>\n" +
-    "                <div ng-if=\"($index + 1) % 4 == 0\" class=\"clearfix visible-md-block\"></div>\n" +
-    "                <div ng-if=\"($index + 1) % 3 == 0\" class=\"clearfix visible-sm-block\"></div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div class=\"pagetitle row\" ng-show=\"results.tracks.length > 0\">\n" +
-    "        <div class=\"col-md-3\">\n" +
-    "            Tracks <span class=\"sub\">{{ query }}</span>\n" +
-    "        </div>\n" +
-    "        <div class=\"col-md-6 col-md-offset-3 alignright\">\n" +
-    "            <div class=\"button white\" ng-click=\"searchLimitsToggle('tracks')\">\n" +
-    "                <span class=\"text\" ng-show=\"searchLimits.tracks != 50\">Show more tracks</span>\n" +
-    "                <span class=\"text\" ng-show=\"searchLimits.tracks == 50\">Show less tracks</span>\n" +
-    "                <i class=\"ss-icon ss-plus\" ng-show=\"searchLimits.tracks != 50\"></i>\n" +
-    "                <i class=\"ss-icon ss-hyphen\" ng-show=\"searchLimits.tracks == 50\"></i>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"pagecontent row\" id=\"searchresults\" ng-show=\"results.tracks.length > 0\">\n" +
-    "        <div id=\"tracklist\" class=\"row\">\n" +
-    "            <div ng-repeat=\"track in results.tracks | limitTo:searchLimits.tracks\">\n" +
-    "                <mopify-track track=\"track\" surrounding=\"results.tracks\"> </mopify-track>\n" +
-    "                <div ng-if=\"($index + 1) % 6 == 0\" class=\"clearfix visible-lg-block\"></div>\n" +
-    "                <div ng-if=\"($index + 1) % 4 == 0\" class=\"clearfix visible-md-block\"></div>\n" +
-    "                <div ng-if=\"($index + 1) % 3 == 0\" class=\"clearfix visible-sm-block\"></div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div class=\"pagetitle row\" ng-show=\"results.playlists.items.length > 0\">\n" +
-    "        <div class=\"col-md-3\">\n" +
-    "            Playlists <span class=\"sub\">{{ query }}</span>\n" +
-    "        </div>\n" +
-    "        <div class=\"col-md-6 col-md-offset-3 alignright\">\n" +
-    "            <div class=\"button white\" ng-click=\"searchLimitsToggle('playlists')\">\n" +
-    "                <span class=\"text\" ng-show=\"searchLimits.playlists != 50\">Show more playlists</span>\n" +
-    "                <span class=\"text\" ng-show=\"searchLimits.playlists == 50\">Show less playlists</span>\n" +
-    "                <i class=\"ss-icon ss-plus\" ng-show=\"searchLimits.playlists != 50\"></i>\n" +
-    "                <i class=\"ss-icon ss-hyphen\" ng-show=\"searchLimits.playlists == 50\"></i>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"pagecontent row\" id=\"searchresults\" ng-show=\"results.playlists.items.length > 0\">\n" +
-    "        <div id=\"tileview\" class=\"row\">\n" +
-    "            <div ng-repeat=\"playlist in results.playlists.items | limitTo:searchLimits.playlists\">\n" +
-    "                <mopify-playlist playlist=\"playlist\" play=\"play(playlist)\" class=\"col-lg-2 col-md-3 col-sm-4 col-xs-6 single-tile\"></mopify-playlist>\n" +
-    "                <div ng-if=\"($index + 1) % 6 == 0\" class=\"clearfix visible-lg-block\"></div>\n" +
-    "                <div ng-if=\"($index + 1) % 4 == 0\" class=\"clearfix visible-md-block\"></div>\n" +
-    "                <div ng-if=\"($index + 1) % 3 == 0\" class=\"clearfix visible-sm-block\"></div>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +

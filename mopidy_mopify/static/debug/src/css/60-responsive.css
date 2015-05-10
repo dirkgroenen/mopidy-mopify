@@ -75,6 +75,20 @@
     #application #leftside #accounts .account .content .username{
         display: none;
     }
+
+    .search-overlay .inner .inputwrap{
+        padding-top: 20px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .search-overlay .inner .inputwrap input{
+        font-size: 60px;
+    }
+
+    .search-overlay .inner .resultwrap{
+        margin-top: 100px;
+    }
 }
 
 @media all and (max-height: 600px){
@@ -282,5 +296,40 @@
     #application #overview .pagecontent #browsewrap .browseitem .imagewrap .hoverwrap, 
     #application #overview .pagecontent #tileview .single-tile .tileart .hoverwrap{
         opacity: 1;
+    }
+
+    .search-overlay .inner{
+        padding: 0;
+    }
+
+    .search-overlay .close{
+        right: 20px;
+        top: 20px;
+    }
+
+    .search-overlay .inner .inputwrap{
+        padding-top: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .search-overlay .inner .inputwrap input{
+        font-size: 30px;
+    }
+
+    .search-overlay .inner .resultwrap{
+        margin-top: 60px;
+    }
+
+}
+
+@media all and (max-width: 768px){
+    .search-overlay .inner .resultwrap{
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    .search-overlay .inner .resultwrap .column{
+        padding: 0;
     }
 }

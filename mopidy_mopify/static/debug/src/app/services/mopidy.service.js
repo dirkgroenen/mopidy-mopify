@@ -5,6 +5,7 @@
 'use strict';
 angular.module('mopify.services.mopidy', [
   'mopify.services.settings',
+  'mopify.services.queuemanager',
   'llNotifier'
 ]).factory('mopidyservice', [
   '$q',
@@ -13,7 +14,8 @@ angular.module('mopify.services.mopidy', [
   '$location',
   'Settings',
   'notifier',
-  function ($q, $rootScope, $cacheFactory, $location, Settings, notifier) {
+  'QueueManager',
+  function ($q, $rootScope, $cacheFactory, $location, Settings, notifier, QueueManager) {
     // Create consolelog object for Mopidy to log it's logs on
     var consoleError = console.error.bind(console);
     /*
@@ -135,9 +137,6 @@ angular.module('mopify.services.mopidy', [
       getPlaylist: function (uri) {
         return wrapMopidyFunc('mopidy.playlists.lookup', this)({ uri: uri });
       },
-      refresh: function (uri) {
-        return wrapMopidyFunc('mopidy.library.refresh', this)({ uri: uri });
-      },
       getTrack: function (uri) {
         return wrapMopidyFunc('mopidy.library.lookup', this)({ uri: uri });
       },
@@ -149,12 +148,6 @@ angular.module('mopify.services.mopidy', [
       },
       search: function (query) {
         return wrapMopidyFunc('mopidy.library.search', this)({ any: [query] });
-      },
-      searchTrack: function (artist, title) {
-        return wrapMopidyFunc('mopidy.library.search', this)({
-          title: [title],
-          artist: [artist]
-        });
       },
       getCurrentTrack: function () {
         return wrapMopidyFunc('mopidy.playback.getCurrentTrack', this)();
@@ -181,41 +174,51 @@ angular.module('mopify.services.mopidy', [
       },
       playTrack: function (track, surroundingTracks) {
         var self = this;
+        var deferred = $q.defer();
         if (surroundingTracks === undefined)
-          surroundingTracks = [track];
-        // Check if a playlist change is required. If not cust change the track.
-        if (self.currentTlTracks.length > 0) {
-          var trackUris = _.pluck(surroundingTracks, 'uri');
-          var currentTrackUris = _.map(self.currentTlTracks, function (tlTrack) {
-              return tlTrack.track.uri;
+          surroundingTracks = [];
+        // Get the current queue
+        QueueManager.all().then(function (data) {
+          // Clear full list
+          self.mopidy.tracklist.clear().then(function () {
+            var uris = [track.uri];
+            // Collect all uris from the queue, track to play and follow up tracks
+            _.forEach(data.queue, function (tl) {
+              uris.push(tl.track.uri);
             });
-          if (_.difference(trackUris, currentTrackUris).length === 0) {
-            // no playlist change required, just play a different track.
-            self.mopidy.playback.stop().then(function () {
-              var tlTrackToPlay = _.find(self.currentTlTracks, function (tlTrack) {
-                  return tlTrack.track.uri === track.uri;
+            if (surroundingTracks.length > 0) {
+              var trackindex = 0;
+              // find the selected track's index
+              _.find(surroundingTracks, function (surtrack, index) {
+                if (track.uri === surtrack.uri)
+                  trackindex = index + 1;
+              });
+              // Get all uris from the tracks after the selected track
+              var trackstoadd = surroundingTracks.slice(trackindex, surroundingTracks.length - 1);
+              _.forEach(trackstoadd, function (tta) {
+                uris.push(tta.uri);
+              });
+            }
+            // Add the selected track as next
+            self.mopidy.tracklist.add({ uris: uris }).then(function (tltracks) {
+              var start = data.queue.length + 1;
+              var end = tltracks.length - 1;
+              // Send data to QueueManager
+              var queuetracks = tltracks.slice(0, start);
+              var playlisttracks = tltracks.slice(start, end);
+              QueueManager.replace({
+                playlist: playlisttracks,
+                queue: queuetracks
+              }).then(function () {
+                // Start playing the track
+                self.mopidy.playback.play({ tl_track: tltracks[0] }).then(function (track) {
+                  deferred.resolve(track);
                 });
-              self.mopidy.playback.play({ tl_track: tlTrackToPlay }).then(function () {
-                $rootScope.$broadcast('mopidy:event:trackPlaybackStarted', tlTrackToPlay);
               });
             });
-            return;
-          }
-        }
-        // Clear and replace complete tracklist
-        self.mopidy.playback.stop().then(function () {
-          self.mopidy.tracklist.clear().then(function () {
-            var uris = _.pluck(surroundingTracks, 'uri');
-            self.mopidy.tracklist.add({ uris: uris }).then(function (tltracks) {
-              var tlTrackToPlay = _.find(tltracks, function (tltrack) {
-                  return tltrack.track.uri === track.uri;
-                });
-              self.mopidy.playback.play({ tl_track: tlTrackToPlay }).then(function () {
-                $rootScope.$broadcast('mopidy:event:trackPlaybackStarted', tlTrackToPlay);
-              }, consoleError);
-            }, consoleError);
-          }, consoleError);
-        }, consoleError);
+          });
+        });
+        return deferred.promise;
       },
       playTrackAtIndex: function (index) {
         var self = this;
@@ -228,19 +231,45 @@ angular.module('mopify.services.mopidy', [
         }, consoleError);
       },
       clearTracklist: function () {
-        return this.mopidy.tracklist.clear();
+        var deferred = $q.defer();
+        this.mopidy.tracklist.clear().then(function () {
+          QueueManager.replace({
+            queue: [],
+            playlist: []
+          }).then(function () {
+            deferred.resolve();
+          });
+        });
+        return deferred.promise;
       },
       addToTracklist: function (obj) {
-        return wrapMopidyFunc('mopidy.tracklist.add', this)(obj);
+        // Add the tracks at the end of the queue
+        obj.at_position = QueueManager.queue.length + 1;
+        return wrapMopidyFunc('mopidy.tracklist.add', this)(obj).then(function (tltracks) {
+          // Sync with queuemanager
+          QueueManager.add(tltracks);
+        });
       },
       getTracklist: function () {
         return wrapMopidyFunc('mopidy.tracklist.getTlTracks', this)();
       },
-      shuffleTracklist: function () {
-        return wrapMopidyFunc('mopidy.tracklist.shuffle', this)();
-      },
-      playNext: function (tltrack) {
-        return wrapMopidyFunc('mopidy.tracklist.eotTrack', this)({ tl_track: tltrack });
+      playNext: function (uris) {
+        var deferred = $q.defer();
+        if (typeof uris === 'string')
+          uris = [uris];
+        this.mopidy.tracklist.add({
+          uris: uris,
+          at_position: 1
+        }).then(function (response) {
+          // Add to QueueManager
+          QueueManager.next(response).then(function () {
+            // Resolve 
+            deferred.resolve(response);
+            // Broadcast change
+            $rootScope.$broadcast('mopidy:event:tracklistChanged');
+          });
+        });
+        return deferred.promise;
       },
       play: function (tltrack) {
         if (tltrack !== undefined) {
@@ -249,29 +278,91 @@ angular.module('mopify.services.mopidy', [
           return wrapMopidyFunc('mopidy.playback.play', this)();
         }
       },
-      filterTracklist: function (query) {
-        return wrapMopidyFunc('mopidy.tracklist.filter', this)({ criteria: query });
-      },
       pause: function () {
         return wrapMopidyFunc('mopidy.playback.pause', this)();
-      },
-      stopPlayback: function (clearCurrentTrack) {
-        return wrapMopidyFunc('mopidy.playback.stop', this)();
       },
       previous: function () {
         return wrapMopidyFunc('mopidy.playback.previous', this)();
       },
       next: function () {
-        return wrapMopidyFunc('mopidy.playback.next', this)();
+        var self = this;
+        var deferred = $q.defer();
+        // Start playing when the next track gets called and te state doesn't equal play
+        self.mopidy.playback.getState().then(function (state) {
+          if (state === 'playing') {
+            self.mopidy.playback.next().then(function (response) {
+              deferred.resolve(response);
+            });
+          } else {
+            self.mopidy.playback.play().then(function () {
+              self.mopidy.playback.next().then(function (response) {
+                deferred.resolve(response);
+              });
+            });
+          }
+        });
+        return deferred.promise;
       },
       setConsume: function () {
         return wrapMopidyFunc('mopidy.tracklist.setConsume', this)([true]);
       },
       getRandom: function () {
-        return wrapMopidyFunc('mopidy.tracklist.getRandom', this)();
+        return QueueManager.getShuffle();
       },
-      setRandom: function (isRandom) {
-        return wrapMopidyFunc('mopidy.tracklist.setRandom', this)([isRandom]);
+      setRandom: function (setShuffle) {
+        var self = this;
+        var deferred = $q.defer();
+        // Always set mopidy's random mode to false
+        self.mopidy.tracklist.setRandom([false]);
+        if (setShuffle === false) {
+          // Disable shuffle and reset the tracklist to its original state
+          QueueManager.setShuffle(false).then(function (data) {
+            // Get current tracklist
+            self.mopidy.tracklist.getTlTracks().then(function (tltracks) {
+              // Get all tltracks ids except for the currently playing one (which is the first)
+              var tlids = _.pluck(tltracks.slice(1), 'tlid');
+              // Remove the selected tracks
+              self.mopidy.tracklist.remove({ criteria: { tlid: tlids } }).then(function () {
+                var trackstoadd = data.queue.concat(data.playlist);
+                // Get the uris
+                var uris = _.map(trackstoadd, function (tltrack) {
+                    return tltrack.track.uri;
+                  });
+                // Add the uris to the tracklist
+                self.mopidy.tracklist.add({ uris: uris }).then(function (tltracks) {
+                  // Since all the tracks have a new tlid we have to
+                  // replace all values in the queuemanager
+                  var queue = tltracks.slice(0, QueueManager.queue.length);
+                  var playlist = tltracks.slice(QueueManager.queue.length);
+                  QueueManager.replace({
+                    queue: queue,
+                    playlist: playlist
+                  });
+                  deferred.resolve(tltracks);
+                });
+              });
+            });
+          });
+        } else {
+          // Shuffle
+          // Get the track data from the queuemanager
+          var start = QueueManager.queue.length + 1;
+          var end = QueueManager.playlist.length;
+          // Send shuffle to mopidy
+          self.mopidy.tracklist.shuffle({
+            start: start,
+            end: end
+          }).then(function () {
+            // Get new tracklist and send the shuffle part to the QueueManager
+            self.mopidy.tracklist.getTlTracks().then(function (response) {
+              // Get tltracks and send to the queuemanager
+              var tltracks = response.slice(start, end);
+              QueueManager.setShuffle(true, tltracks);
+              deferred.resolve(tltracks);
+            });
+          });
+        }
+        return deferred.promise;
       },
       getRepeat: function () {
         return wrapMopidyFunc('mopidy.tracklist.getRepeat', this)();
@@ -280,7 +371,10 @@ angular.module('mopify.services.mopidy', [
         return wrapMopidyFunc('mopidy.tracklist.setRepeat', this)([isRepeat]);
       },
       removeFromTracklist: function (dict) {
-        return wrapMopidyFunc('mopidy.tracklist.remove', this)({ criteria: dict });
+        return wrapMopidyFunc('mopidy.tracklist.remove', this)(dict).then(function (tltracks) {
+          var tlids = _.pluck(tltracks, 'tlid');
+          QueueManager.remove(tlids);
+        });
       }
     };
   }

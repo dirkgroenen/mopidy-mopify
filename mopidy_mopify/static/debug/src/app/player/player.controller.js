@@ -16,6 +16,7 @@ angular.module('mopify.player', [
     $scope.trackTitle = '';
     $scope.trackArtist = '';
     $scope.albumUri = '';
+    $scope.albumName = '';
     $scope.playerBackground = '';
     $scope.mobiledisplay = $window.innerWidth < 1024 ? true : false;
     var historyaddtimeout = null;
@@ -95,6 +96,7 @@ angular.module('mopify.player', [
           $scope.trackArtist = track.artists[0].name;
           $scope.trackTitle = track.name;
           $scope.albumUri = track.album.uri;
+          $scope.albumName = track.album.name;
           // Get the background image from Spotify
           Spotify.getTrack(track.uri).then(function (data) {
             $scope.playerBackground = data.album.images[0].url;

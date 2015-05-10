@@ -119,8 +119,9 @@ angular.module('mopify.player.seekbar', [
         isSeeking = false;
       });
     };
-    $scope.seekbarMouseDown = function () {
-      isSeeking = true;
+    $scope.seekbarMouseDown = function (event) {
+      if (event.button === 1 || event.which === 1)
+        isSeeking = true;
     };
     $scope.seekbarMouseUp = function () {
       isSeeking = false;

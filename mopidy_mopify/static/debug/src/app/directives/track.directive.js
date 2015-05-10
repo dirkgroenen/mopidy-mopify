@@ -35,8 +35,21 @@ angular.module('mopify.widgets.directive.track', [
       templateUrl: 'directives/track.directive.tmpl.html',
       link: function (scope, element, attrs) {
         var uri = $routeParams.uri;
-        // Copy so we have raw tracks again (otherwise mopidy will crash)
-        var track = angular.copy(scope.track);
+        // Set scope.$id in track object
+        scope.track.id = scope.$id;
+        /**
+             * For some reason the scope.track.id get's replaced at some moment
+             * this $watch needs to keep track if this habbit and set the track's id 
+             * to it's previous value
+             *
+             * TODO: Search for a reason why this is happening
+             */
+        scope.$watch(function () {
+          return scope.track.id;
+        }, function (current, previous) {
+          if (current === undefined && previous !== undefined)
+            scope.track.id = previous;
+        });
         scope.selected = false;
         scope.multipleselected = true;
         scope.visible = true;
@@ -52,16 +65,32 @@ angular.module('mopify.widgets.directive.track', [
         };
         /**
              * Select the current track
+             *
+             * @param {Event} event
+             * @return {void}
              */
         scope.selectTrack = function (event) {
+          // Check if CTRL key is selected (manual select)
           if (event.ctrlKey === true) {
             if (scope.selected) {
-              $rootScope.selectedtracks = _.without($rootScope.selectedtracks, _.findWhere($rootScope.selectedtracks, { uri: track.uri }));
+              $rootScope.selectedtracks = _.without($rootScope.selectedtracks, _.findWhere($rootScope.selectedtracks, { id: scope.track.id }));
             } else {
-              $rootScope.selectedtracks.push(track);
+              $rootScope.selectedtracks.push(scope.track);
             }
-          } else {
-            $rootScope.selectedtracks = [track];
+          }  // Check if shift key is pressed (select range)
+          else if (event.shiftKey === true) {
+            if ($rootScope.selectedtracks.length === 0 || scope.surrounding.length < 2)
+              return;
+            var start = $rootScope.selectedtracks[0].id;
+            var end = scope.track.id;
+            $rootScope.selectedtracks = [];
+            _.each(scope.surrounding, function (track) {
+              if (track.id >= start && track.id <= end)
+                $rootScope.selectedtracks.push(track);
+            });
+          }  // Just select the clicked
+          else {
+            $rootScope.selectedtracks = [scope.track];
           }
         };
         /**
@@ -71,7 +100,7 @@ angular.module('mopify.widgets.directive.track', [
         scope.$watch(function () {
           return $rootScope.selectedtracks;
         }, function () {
-          var found = _.findWhere($rootScope.selectedtracks, { uri: track.uri });
+          var found = _.findWhere($rootScope.selectedtracks, { id: scope.track.id });
           if (found !== undefined)
             scope.selected = true;
           else
@@ -83,6 +112,8 @@ angular.module('mopify.widgets.directive.track', [
         scope.play = function () {
           var clickedindex = 0;
           var surroundinguris = [];
+          // Copy so we have raw tracks again (otherwise mopidy will crash)
+          var track = angular.copy(scope.track);
           /**
                  * Check if this is the only selected track and play it
                  */
@@ -120,6 +151,13 @@ angular.module('mopify.widgets.directive.track', [
             }
           }
         };
+        /**
+             * Play track next
+             * @return {void}
+             */
+        scope.playNext = function () {
+          mopidyservice.playNext(scope.track.uri);
+        };
         scope.startStation = function () {
           stationservice.startFromSpotifyUri(scope.track.uri);
         };
@@ -127,25 +165,28 @@ angular.module('mopify.widgets.directive.track', [
              * Add selected tracks in the queue
              */
         scope.addToQueue = function () {
-          mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks }).then(function (response) {
+          var selected = _.sortBy($rootScope.selectedtracks, function (item) {
+              return item.id;
+            });
+          var uris = _.pluck(selected, 'uri');
+          mopidyservice.addToTracklist({ uris: uris }).then(function (response) {
             // Broadcast event
             $rootScope.$broadcast('mopidy:event:tracklistChanged', {});
           });
         };
         /**
              * Remove the track from the tracklist
-             * @param  {track} track
+             * @return {void}
              */
         scope.removeFromQueue = function () {
-          var uris = _.map($rootScope.selectedtracks, function (track) {
-              return track.uri;
-            });
+          var tlids = _.pluck($rootScope.selectedtracks, 'tlid');
           // Remove from tracklist
-          mopidyservice.removeFromTracklist({ uri: uris });
-          // Hide tracks
-          scope.visible = false;
-          // Broadcast event
-          $rootScope.$broadcast('mopidy:event:tracklistChanged', {});
+          mopidyservice.removeFromTracklist({ tlid: tlids }).then(function () {
+            // Broadcast event
+            $rootScope.$broadcast('mopidy:event:tracklistChanged', {});
+            // Reset selectedtrack
+            $rootScope.selectedtracks = [];
+          });
         };
         /*
              * Remove track from the playlist
@@ -270,7 +311,7 @@ angular.module('mopify.widgets.directive.track', [
                  * Check if the current scope is already selected, otherwise clear the previous selected tracks
                  */
           if (!scope.selected) {
-            $rootScope.selectedtracks = [track];
+            $rootScope.selectedtracks = [scope.track];
           }
           if ($rootScope.selectedtracks.length > 1)
             scope.multipleselected = true;
