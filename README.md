@@ -144,9 +144,14 @@ v1.5.0 (UNRELEASED)
 
 - Rebuild the search's layout [#18](https://github.com/dirkgroenen/mopidy-mopify/issues/18) [#11](https://github.com/dirkgroenen/mopidy-mopify/issues/11)
 
-- Rebuild the queue manager to get it more in line with other music clients (for example Spotify)
+- Rebuild the queue manager to get it more in line with other music clients (for example Spotify) [#49](https://github.com/dirkgroenen/mopidy-mopify/issues/49)
 
 - Fixed adding items (like playlists and albums) to queue
+
+- Added playlist's image and square cover image in tracklist header
+
+- Use SHIFT so select a range of tracks [#99](https://github.com/dirkgroenen/mopidy-mopify/issues/99)
+
 
 v1.4.2 (19-04-2015)
 ------------------
