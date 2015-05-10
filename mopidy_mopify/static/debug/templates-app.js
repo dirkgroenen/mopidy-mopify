@@ -1233,7 +1233,7 @@ angular.module("music/library/albums/albums.tmpl.html", []).run(["$templateCache
     "    <div class=\"backgroundimage\" style=\"background-image: url('./assets/images/playlists-header.jpg');\"></div>\n" +
     "    <div class=\"col-md-12\">\n" +
     "        <div class=\"albumart\">\n" +
-    "            <img src=\"/assets/images/playlists-header.jpg\" />\n" +
+    "            <img src=\"./assets/images/playlists-header.jpg\" />\n" +
     "        </div>\n" +
     "        <div class=\"lefttext\">\n" +
     "            <div class=\"inner\"> \n" +
@@ -1272,7 +1272,7 @@ angular.module("music/library/artists/artists.tmpl.html", []).run(["$templateCac
     "    <div class=\"backgroundimage\" style=\"background-image: url('./assets/images/playlists-header.jpg');\"></div>\n" +
     "    <div class=\"col-md-12\">\n" +
     "        <div class=\"albumart\">\n" +
-    "            <img src=\"/assets/images/playlists-header.jpg\" />\n" +
+    "            <img src=\"./assets/images/playlists-header.jpg\" />\n" +
     "        </div>\n" +
     "        <div class=\"lefttext\">\n" +
     "            <div class=\"inner\"> \n" +
@@ -1311,7 +1311,7 @@ angular.module("music/library/playlists/playlists.tmpl.html", []).run(["$templat
     "    <div class=\"backgroundimage\" style=\"background-image: url('./assets/images/playlists-header.jpg');\"></div>\n" +
     "    <div class=\"col-md-12\">\n" +
     "        <div class=\"albumart\">\n" +
-    "            <img src=\"/assets/images/playlists-header.jpg\" />\n" +
+    "            <img src=\"./assets/images/playlists-header.jpg\" />\n" +
     "        </div>\n" +
     "        <div class=\"lefttext\">\n" +
     "            <div class=\"inner\"> \n" +
