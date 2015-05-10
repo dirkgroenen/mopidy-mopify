@@ -203,6 +203,11 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
         var deferred = $q.defer();
 
+        // Remove unplayable tracks
+        tracks = _.filter(tracks, function(tltrack){
+            return tltrack.track.name.indexOf("[unplayable]") < 0;
+        });
+
         return request("add_play_next", {
             tracks: tracks
         });
@@ -217,6 +222,11 @@ angular.module("mopify.services.queuemanager", [
     QueueManager.prototype.add = function(tracks){
         var that = this;
         var deferred = $q.defer();
+
+        // Remove unplayable tracks
+        tracks = _.filter(tracks, function(tltrack){
+            return tltrack.track.name.indexOf("[unplayable]") < 0;
+        });
 
         request("add_to_queue", {
             tracks: tracks
@@ -260,6 +270,19 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
         var deferred = $q.defer();
 
+        // Extend with default empty arrays
+        data = angular.extend({ queue: [], playlist: []}, data);
+
+        // Remove unplayable tracks
+        data.playlist = _.filter(data.playlist, function(tltrack){
+            return tltrack.track.name.indexOf("[unplayable]") < 0;
+        });
+
+        // Remove unplayable tracks
+        data.queue = _.filter(data.queue, function(tltrack){
+            return tltrack.track.name.indexOf("[unplayable]") < 0;
+        });
+
         request("replace_all", data).then(function(response){
             that.version = response.version;
 
@@ -279,6 +302,11 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
         var deferred = $q.defer();
 
+        // Remove unplayable tracks
+        tracks = _.filter(tracks, function(tltrack){
+            return tltrack.track.name.indexOf("[unplayable]") < 0;
+        });
+
         return request("set_playlist", {
             tracks: tracks
         });
@@ -296,6 +324,11 @@ angular.module("mopify.services.queuemanager", [
         var deferred  = $q.defer();
         var action = (shuffle) ? "shuffle_playlist" : "shuffle_reset";
         var data;
+
+        // Remove unplayable tracks
+        tracks = _.filter(tracks, function(tltrack){
+            return tltrack.track.name.indexOf("[unplayable]") < 0;
+        });
 
         if(tracks === undefined )
             data = {};
