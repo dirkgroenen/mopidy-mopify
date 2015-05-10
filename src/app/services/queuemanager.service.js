@@ -63,6 +63,7 @@ angular.module("mopify.services.queuemanager", [
         for(var x = 0; x < waitlist.length; x++){
             var waitingrequest = waitlist[x];
             request(waitingrequest.method, waitingrequest.data, waitingrequest.id);
+            waitlist.splice(x, 1);
         }
     }
 

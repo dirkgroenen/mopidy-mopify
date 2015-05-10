@@ -29,7 +29,22 @@ angular.module('mopify.widgets.directive.track', [
 
             var uri = $routeParams.uri;
 
+            // Set scope.$id in track object
             scope.track.id = scope.$id;
+
+            /**
+             * For some reason the scope.track.id get's replaced at some moment
+             * this $watch needs to keep track if this habbit and set the track's id 
+             * to it's previous value
+             *
+             * TODO: Search for a reason why this is happening
+             */
+            scope.$watch(function(){
+                return scope.track.id;
+            }, function(current, previous){
+                if(current === undefined && previous !== undefined)
+                    scope.track.id = previous;
+            });
 
             scope.selected = false;
             scope.multipleselected = true;
@@ -57,6 +72,7 @@ angular.module('mopify.widgets.directive.track', [
              * @return {void}
              */
             scope.selectTrack = function(event){
+                // Check if CTRL key is selected (manual select)
                 if(event.ctrlKey === true){
                     if(scope.selected){
                         $rootScope.selectedtracks = _.without($rootScope.selectedtracks, _.findWhere($rootScope.selectedtracks, { id: scope.track.id }));
@@ -64,8 +80,8 @@ angular.module('mopify.widgets.directive.track', [
                     else{
                         $rootScope.selectedtracks.push(scope.track);
                     }
-                    
                 }
+                // Check if shift key is pressed (select range)
                 else if(event.shiftKey === true){
                     if($rootScope.selectedtracks.length === 0 || scope.surrounding.length < 2)
                         return;
@@ -81,6 +97,7 @@ angular.module('mopify.widgets.directive.track', [
                     });
 
                 }
+                // Just select the clicked
                 else{
                     $rootScope.selectedtracks = [scope.track];
                 }
