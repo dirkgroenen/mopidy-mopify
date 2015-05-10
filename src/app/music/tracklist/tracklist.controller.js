@@ -133,8 +133,10 @@ angular.module('mopify.music.tracklist', [
 
     /**
      * Load the tracks from the mopidy library
+     *
+     * @return {void}
      */
-    function loadTracks(){    
+    function loadTracks(){
         // Get curren tracklist from Mopidy
         if(uri.indexOf("mopidy:") > -1){
 
@@ -149,11 +151,18 @@ angular.module('mopify.music.tracklist', [
                     return tltrack.track;
                 });
 
-                $scope.tracks = angular.copy(mappedTracks);
+                // Reset batch loading
+                resetTrackBatchLoading();
+
+                // Set tracks
+                $scope.loadedTracks = angular.copy(mappedTracks);
                 $scope.queue = angular.copy(mappedQueueTracks);
 
                 // Set loading to false
                 $scope.loading = false;
+
+                // Load first batch of tracks
+                $scope.getMoreTracks();
             });
         }
 
@@ -193,6 +202,8 @@ angular.module('mopify.music.tracklist', [
 
     /**
      * Load information about the playlist from Spotify
+     *
+     * @return {void}
      */
     function loadSpotifyInfo(){
         if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
@@ -222,6 +233,8 @@ angular.module('mopify.music.tracklist', [
 
     /**
      * Load the current playing track
+     *
+     * @return {void}
      */
     function loadCurrentTrack(){
         mopidyservice.getCurrentTrack().then(function(track){
@@ -241,7 +254,9 @@ angular.module('mopify.music.tracklist', [
 
     /**
      * Load the user's Spotify Library tracks
+     * 
      * @param {int} offset the offset to load the track, will be zero if not defined
+     * @return {void}
      */
     function loadSpotifyLibraryTracks(offset){
         if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
@@ -398,5 +413,15 @@ angular.module('mopify.music.tracklist', [
             callRun++;
         }
     };
+
+    /**
+     * Reset the track loading batch value to their start values
+     * 
+     * @return {void}
+     */
+    function resetTrackBatchLoading(){
+        $scope.tracks = [];
+        callRun = 0;
+    }
 
 });

@@ -76,7 +76,7 @@
     <div class="pagecontent row" style="padding-bottom: 30px;" ng-if="type == 'tracklist' && queue.length > 0">
         <div id="tracklist"> 
             <div class="row" ng-repeat="track in queue track by $index" >
-                <mopify-track track="track" currentplayingtrack="currentPlayingTrack" surrounding="queue" type="type"> </mopify-track>
+                <mopify-track track="track" surrounding="queue" type="type"> </mopify-track>
             </div>
         </div>
     </div>

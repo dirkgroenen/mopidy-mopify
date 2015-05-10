@@ -107,7 +107,7 @@ angular.module('mopify.widgets.directive.track', [
              * Watch the rootscope.selectedtracks for changes
              * and check if the current track is still selected
              */
-            scope.$watch(function() {
+            scope.$watch(function(){
                 return $rootScope.selectedtracks;
             }, function() {
                 var found = _.findWhere($rootScope.selectedtracks, { id: scope.track.id });
