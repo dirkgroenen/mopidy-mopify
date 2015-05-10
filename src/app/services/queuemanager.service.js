@@ -5,38 +5,66 @@ angular.module("mopify.services.queuemanager", [
 .factory("QueueManager", function($q, $http, $location, $rootScope, Settings){
     "use strict";
 
+    // Create request array and init the connection to false
+    var requests = [];
+    var wsconnection = false;
+    var waitlist = [];
+
+    // Get mopidy ip and post
     var mopidyip = Settings.get("mopidyip", $location.host());
     var mopidyport = Settings.get("mopidyport", "6680");
 
-    var post = function(url, data) {
-        var deferred = $q.defer();
+    // Setup websoclet
+    var ws = new WebSocket("ws://" + mopidyip + ":" + mopidyport + "/mopify/queuemanager/");
 
-        $http({
-            method: 'POST',
-            url: "http://" + mopidyip + ":" + mopidyport + "/mopify/queuemanager" + url,
-            data: data
-        }).success(function(result) {
-            deferred.resolve(result);
+    /**
+     * Send a request to the server's queuemanager class
+     * 
+     * @param  {string} method
+     * @param  {data} data
+     * @return {Promise}
+     */
+    var request = function(method, data, id){
+        var deferred;
+        var requestid = (id === undefined) ? requests.length : id;
 
-            // Broadcast a change event
-            $rootScope.$broadcast("queuemanager:event:changed");
-        });
+        if(requests[requestid] !== undefined)
+            deferred = requests[requestid];
+        else
+            deferred = $q.defer();
+
+        data = (data === undefined) ? {} : data;
+
+        var message = {
+            method: method,
+            data: data,
+            id: requestid
+        };
+
+        // Check if we have a open websocket connection
+        // If not we store the request in a waitlist
+        if(wsconnection === false)
+            waitlist.push(message);
+        else
+            ws.send(angular.toJson(message));
+
+        // Add deferred to requests
+        requests[requestid] = deferred;
 
         return deferred.promise;
     };
 
-    var get = function(url, data){
-        var deferred = $q.defer();
-
-        $http({
-            method: 'GET',
-            url: "http://" + mopidyip + ":" + mopidyport + "/mopify/queuemanager" + url
-        }).success(function(result) {
-            deferred.resolve(result);
-        });
-
-        return deferred.promise;
-    };
+    /**
+     * Loops through the waitlist and recalls all requests
+     * 
+     * @return {void}
+     */
+    function handleWaitlist(){
+        for(var x = 0; x < waitlist.length; x++){
+            var waitingrequest = waitlist[x];
+            request(waitingrequest.method, waitingrequest.data, waitingrequest.id);
+        }
+    }
 
     /**
      * Constructor
@@ -47,10 +75,13 @@ angular.module("mopify.services.queuemanager", [
         this.version = 0;
         this.shuffle = false;
         this.playlist = [];
-        this.queue = [];
+        this.queue =
+        
+        // Setup websocket
+        this.setupWebsocket();
 
         // Load all data on init
-        this.loadData();
+        that.loadData();
 
         // Register listener which loads the new data on a trackplayback started
         $rootScope.$on('mopidy:event:trackPlaybackStarted', function(){
@@ -63,6 +94,42 @@ angular.module("mopify.services.queuemanager", [
     }
 
     /**
+     * Setup all the data needed for the websocket communication
+     * 
+     * @return {void}
+     */
+    QueueManager.prototype.setupWebsocket = function(){
+        var that = this;
+
+        // Wait for the websocket to be opened and set active connection
+        ws.onopen = function(){
+            wsconnection = true;
+
+            handleWaitlist();
+        };
+
+        // Set connection to false on close
+        ws.onclose = function(){
+            wsconnection = false;
+        };
+
+        // Handle incoming messages
+        ws.onmessage = function (evt) {
+            var response = angular.fromJson(evt.data);
+
+            if(response.id !== undefined){
+                // Resolve 
+                requests[response.id].resolve(response.call);
+                
+                // Set version if included with response
+                if(response.call.version !== undefined){
+                    that.version = response.call.version;
+                }
+            }
+        };
+    };
+
+    /**
      * Load all data and set in the QueueManager class
      * 
      * @return {void}
@@ -72,9 +139,9 @@ angular.module("mopify.services.queuemanager", [
 
         // Get all information
         this.all().then(function(response){
-            that.shuffle = response.data.shuffle;
-            that.queue = response.data.queue;
-            that.playlist = response.data.playlist;
+            that.shuffle = response.shuffle;
+            that.queue = response.queue;
+            that.playlist = response.playlist;
             that.version = response.version;
         });
     };
@@ -85,7 +152,7 @@ angular.module("mopify.services.queuemanager", [
      * @return {Promise}
      */
     QueueManager.prototype.all = function(){
-        return get("/all");
+        return request("get_all");
     };
 
     /**
@@ -94,7 +161,7 @@ angular.module("mopify.services.queuemanager", [
      * @return {Promise}
      */
     QueueManager.prototype.queue = function(){
-        return get("/queue");
+        return request("get_queue");
     };
 
     /**
@@ -103,7 +170,7 @@ angular.module("mopify.services.queuemanager", [
      * @return {Promise}
      */
     QueueManager.prototype.playlist = function(){
-        return get("/playlist");
+        return request("get_playlist");
     };
 
     /**
@@ -116,7 +183,7 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
 
         // Get shuffle information
-        get("/shuffle").then(function(response){
+        request("get_shuffle").then(function(response){
             that.version = response.version;
             that.shuffle = response.data;
 
@@ -136,9 +203,8 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
         var deferred = $q.defer();
 
-        return post("/queue", {
-            action: "next",
-            data: angular.toJson(tracks)
+        return request("add_play_next", {
+            tracks: tracks
         });
     };
 
@@ -152,9 +218,8 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
         var deferred = $q.defer();
 
-        post("/queue", {
-            action: "add",
-            data: angular.toJson(tracks)
+        request("add_to_queue", {
+            tracks: tracks
         }).then(function(response){
             that.version = response.version;
 
@@ -165,20 +230,19 @@ angular.module("mopify.services.queuemanager", [
     };
     
     /**
-     * Remove the given tracks from the queue
+     * Remove the given tlids from the queue and playlist
      * 
-     * @param  {Array} tracks
+     * @param  {Array} tlids
      * @return {Promise}
      */
-    QueueManager.prototype.remove = function(tracks){
+    QueueManager.prototype.remove = function(tlids){
         var that = this;
         var deferred = $q.defer();
 
-        tracks = _.pluck(tracks, "tlid");
+        console.log(tlids);
 
-        post("/queue", {
-            action: "remove",
-            data: angular.toJson(tracks)
+        request("remove_from_tracklist", {
+            tlids: tlids
         }).then(function(response){
             that.version = response.version;
 
@@ -191,17 +255,14 @@ angular.module("mopify.services.queuemanager", [
     /**
      * Replace the queue and/or playlist with the given tracks
      * 
-     * @param  {Object} tracks      (object with queue and/or playlist)
+     * @param  {Object} data      (object with queue and/or playlist)
      * @return {Promise}
      */
-    QueueManager.prototype.replace = function(tracks){
+    QueueManager.prototype.replace = function(data){
         var that = this;
         var deferred = $q.defer();
 
-        post("/general", {
-            action: "replace",
-            data: angular.toJson(tracks)
-        }).then(function(response){
+        request("replace_all", data).then(function(response){
             that.version = response.version;
 
             deferred.resolve(response);
@@ -220,9 +281,8 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
         var deferred = $q.defer();
 
-        return post("/playlist", {
-            action: "set",
-            data: angular.toJson(tracks)
+        return request("set_playlist", {
+            tracks: tracks
         });
     };
 
@@ -236,18 +296,18 @@ angular.module("mopify.services.queuemanager", [
     QueueManager.prototype.setShuffle = function(shuffle, tracks){
         var that = this;
         var deferred  = $q.defer();
-        var action = (shuffle) ? "shuffle" : "resetshuffle";
+        var action = (shuffle) ? "shuffle_playlist" : "shuffle_reset";
+        var data;
 
         if(tracks === undefined )
-            tracks = [];
+            data = {};
+        else
+            data = {tracks: tracks};
 
         // Set shuffle in manager
         that.shuffle = shuffle;
 
-        return post("/shuffle", {
-            action: action,
-            data: angular.toJson(tracks)
-        });
+        return request(action, data);
     };
 
     return new QueueManager();

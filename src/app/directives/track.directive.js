@@ -140,9 +140,7 @@ angular.module('mopify.widgets.directive.track', [
              * @return {void}
              */
             scope.playNext = function(){
-                mopidyservice.playNext(scope.track.uri).then(function(result){
-                    console.log(result);
-                });
+                mopidyservice.playNext(scope.track.uri);
             };
 
             scope.startStation = function(){
@@ -164,25 +162,15 @@ angular.module('mopify.widgets.directive.track', [
              * @return {void}
              */
             scope.removeFromQueue = function(){
-                var tlids = [];
+                var tlids = _.pluck($rootScope.selectedtracks, 'tlid');
 
-                mopidyservice.getTracklist().then(function(tltracks){
-                    _.forEach($rootScope.selectedtracks, function(track){
-                        _.forEach(tltracks, function(tltrack){
-                            if(tltrack.track.uri === track.uri)
-                                tlids.push(tltrack.tlid);
-                        });
-                    });
+                // Remove from tracklist
+                mopidyservice.removeFromTracklist({ tlid: tlids }).then(function(){
+                    // Broadcast event
+                    $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
 
-                    // Remove from tracklist
-                    mopidyservice.removeFromTracklist({ tlid: tlids }).then(function(){
-                        // Broadcast event
-                        $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
-
-                        // Reset selectedtrack
-                        $rootScope.selectedtracks = [];
-                    });
-
+                    // Reset selectedtrack
+                    $rootScope.selectedtracks = [];
                 });
             };
 

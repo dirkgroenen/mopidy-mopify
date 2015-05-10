@@ -134,16 +134,21 @@ angular.module('mopify.music.tracklist', [
     function loadTracks(){    
         // Get curren tracklist from Mopidy
         if(uri.indexOf("mopidy:") > -1){
-            var mappedTracks = QueueManager.playlist.map(function(tltrack){
-                return tltrack.track;
-            });
 
-            var mappedQueueTracks = QueueManager.queue.map(function(tltrack){
-                return tltrack.track;
-            });
+            QueueManager.all().then(function(data){
+                var mappedTracks = data.playlist.map(function(tltrack){
+                    tltrack.track.tlid = tltrack.tlid;
+                    return tltrack.track;
+                });
 
-            $scope.tracks = angular.copy(mappedTracks);
-            $scope.queue = angular.copy(mappedQueueTracks);
+                var mappedQueueTracks = data.queue.map(function(tltrack){
+                    tltrack.track.tlid = tltrack.tlid;
+                    return tltrack.track;
+                });
+
+                $scope.tracks = angular.copy(mappedTracks);
+                $scope.queue = angular.copy(mappedQueueTracks);
+            });
         }
 
         // Lookup the tracks for the given album or playlist

@@ -6,8 +6,6 @@ import logging
 
 from .. import mem
 
-logger = logging.getLogger(__name__)
-
 class QueueManagerFrontend(pykka.ThreadingActor, CoreListener):
 
     def __init__(self, config, core):

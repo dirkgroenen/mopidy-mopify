@@ -1,102 +1,49 @@
 from __future__ import unicode_literals
 import os
+import logging
 
-import tornado.web
+import tornado.websocket
 from tornado.escape import json_encode
 
 import json
 
 from .. import mem
 
-class RequestHandler(tornado.web.RequestHandler):
-    instance = None
+logger = logging.getLogger(__name__)
 
-    def set_default_headers(self):
-        self.set_header("Access-Control-Allow-Origin", "*")
-        self.set_header("Access-Control-Allow-Methods", "GET, POST")
-        self.set_header("Access-Control-Allow-Headers", "Accept, Authorization, Origin, Content-Type")
-        self.set_header("Access-Control-Max-Age", "60480")
-        
+class RequestHandler(tornado.websocket.WebSocketHandler):
+    
     def initialize(self, core, config, instance):
         self.core = core
         self.instance = instance
 
-    def get(self, type):
-        response = {}
+    def check_origin(self, origin):
+        return True
 
-        if(type == "queue"):
-            response = self.instance.queue
+    def open(self, args):
+        logger.debug("QueueManager WebSocket opened")
 
-        if(type == "playlist"):
-            response = self.instance.playlist
+    def on_message(self, message):
+        if not message:
+            return
 
-        if(type == "shuffle"):
-            response = self.instance.shuffled
+        logger.debug("Message received: %s", message)
 
-        if(type == "all"):
-            response = {
-                "queue": self.instance.queue,
-                "playlist": self.instance.playlist,
-                "version": self.instance.version,
-                "shuffle": self.instance.shuffled
-            }
+        data = tornado.escape.json_decode(message)
 
-        self.write({"data": response, "version": self.instance.version})
+        if type(data['data']) is dict:
+            args = data['data']
+        else:
+            args = {}
+            
+        call = getattr(mem.queuemanager, data['method'])(**args)
 
-    def post(self, type):
-        response = {}
+        result = {
+            'call': call,
+            'id': data['id']
+        }
 
-        # Get post body
-        postdata = tornado.escape.json_decode(self.request.body)
+        self.write_message(json.dumps(result))
 
-        action = postdata["action"]
-        data = postdata["data"]
-
-        data = json.loads(data);
-
-        if(type == "general"):
-            if(action == "replace"):
-                self.instance.replace_all(data)
-
-        if(type == "queue"):
-            if(action == "add"):
-                self.instance.add_to_queue(data)
-
-            if(action == "next"):
-                self.instance.add_play_next(data)
-
-            if(action == "remove"):
-                self.instance.remove_from_queue(data)
-                self.instance.remove_from_playlist(data)
-
-            if(action == "clear"):
-                self.instance.clear_queue()
-
-            response = self.instance.queue
-
-        if(type == "playlist"):
-            if(action == "set"):
-                self.instance.set_playlist(data)
-
-            response = self.instance.playlist
-
-        if(type == "shuffle"):
-            if(action == "shuffle"):
-                self.instance.shuffled = True;
-                self.instance.shuffle_playlist(data)
-
-            if(action == "resetshuffle"):
-                self.instance.shuffled = False;
-                self.instance.shuffle_reset()
-
-            response = {
-                "queue": self.instance.queue,
-                "playlist": self.instance.playlist,
-                "version": self.instance.version,
-                "shuffle": self.instance.shuffled
-            }
-
-        self.write({"data": response, "version": self.instance.version})
-
-    def options(self, type):
-        self.write("")
+    def on_close(self):
+        logger.debug("QueueManager WebSocket closed")

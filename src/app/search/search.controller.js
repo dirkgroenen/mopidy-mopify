@@ -176,7 +176,7 @@ angular.module('mopify.search', [
      */
     $scope.searchLimitsToggle = function(item){
         if($scope.searchLimits[item] == 50)
-            $scope.searchLimits[item] = 12;
+            $scope.searchLimits[item] = (item != "tracks") ? 8 : 15;
         else
             $scope.searchLimits[item] = 50;
     };

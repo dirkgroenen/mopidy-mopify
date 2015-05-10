@@ -201,9 +201,7 @@ angular.module('mopify.services.mopidy', [
                 surroundingTracks = [];
             
             // Get the current queue
-            QueueManager.all().then(function(response){
-
-                var data = response.data;
+            QueueManager.all().then(function(data){
 
                 // Clear full list
                 self.mopidy.tracklist.clear().then(function(){
@@ -236,8 +234,13 @@ angular.module('mopify.services.mopidy', [
                         var end = tltracks.length - 1;
 
                         // Send data to QueueManager
+                        var queuetracks = tltracks.slice(0, start);
                         var playlisttracks = tltracks.slice(start, end);
-                        QueueManager.setPlaylist(playlisttracks);
+
+                        QueueManager.replace({
+                            playlist: playlisttracks,
+                            queue: queuetracks
+                        });
 
                         // Start playing the track
                         self.mopidy.playback.play({ tl_track: tltracks[0] });
@@ -351,7 +354,7 @@ angular.module('mopify.services.mopidy', [
 
             if(setShuffle === false){
                 // Disable shuffle and reset the tracklist to its original state
-                QueueManager.setShuffle(false).then(function(response){
+                QueueManager.setShuffle(false).then(function(data){
 
                     // Get current tracklist
                     self.mopidy.tracklist.getTlTracks().then(function(tltracks){
@@ -360,7 +363,7 @@ angular.module('mopify.services.mopidy', [
 
                         // Remove the selected tracks
                         self.mopidy.tracklist.remove({ criteria: {tlid: tlids }}).then(function(){
-                            var trackstoadd = response.data.queue.concat(response.data.playlist);
+                            var trackstoadd = data.queue.concat(data.playlist);
 
                             // Get the uris
                             var uris = _.map(trackstoadd, function(tltrack){
@@ -412,7 +415,8 @@ angular.module('mopify.services.mopidy', [
 
         removeFromTracklist: function(dict){
             return wrapMopidyFunc("mopidy.tracklist.remove", this)(dict).then(function(tltracks){
-                QueueManager.remove(tltracks);
+                var tlids = _.pluck(tltracks, 'tlid');
+                QueueManager.remove(tlids);
             });
         }
 

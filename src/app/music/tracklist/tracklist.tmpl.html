@@ -49,9 +49,9 @@
     </div>
 
     <div class="pagecontent row" style="padding-bottom: 30px;" ng-if="type == 'tracklist'">
-        <div id="tracklist" infinite-scroll="getMoreTracks()" infinite-scroll-distance="1">
+        <div id="tracklist">
             <div class="row" ng-repeat="track in queue track by $index" >
-                <mopify-track track="track" currentplayingtrack="currentPlayingTrack" type="type"> </mopify-track>
+                <mopify-track track="track" currentplayingtrack="currentPlayingTrack" surrounding="queue" type="type"> </mopify-track>
             </div>
         </div>
     </div>
@@ -63,9 +63,9 @@
     </div>
 
     <div class="pagecontent row">
-        <div id="tracklist">
+        <div id="tracklist" infinite-scroll="getMoreTracks()" infinite-scroll-distance="1">
             <div class="row" ng-repeat="track in tracks track by $index" ng-if="track.uri != queue[0].uri">
-                <mopify-track track="track" currentplayingtrack="currentPlayingTrack" type="type"></mopify-track>
+                <mopify-track track="track" currentplayingtrack="currentPlayingTrack" surrounding="tracks" type="type"></mopify-track>
             </div>
         </div>
     </div>
