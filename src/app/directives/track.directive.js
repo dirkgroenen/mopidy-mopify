@@ -29,6 +29,8 @@ angular.module('mopify.widgets.directive.track', [
 
             var uri = $routeParams.uri;
 
+            scope.track.id = scope.$id;
+
             scope.selected = false;
             scope.multipleselected = true;
 
@@ -50,16 +52,34 @@ angular.module('mopify.widgets.directive.track', [
 
             /**
              * Select the current track
+             *
+             * @param {Event} event
+             * @return {void}
              */
             scope.selectTrack = function(event){
                 if(event.ctrlKey === true){
                     if(scope.selected){
-                        $rootScope.selectedtracks = _.without($rootScope.selectedtracks, _.findWhere($rootScope.selectedtracks, { uri: scope.track.uri }));
+                        $rootScope.selectedtracks = _.without($rootScope.selectedtracks, _.findWhere($rootScope.selectedtracks, { id: scope.track.id }));
                     }
                     else{
-                        $rootScope.selectedtracks.push(scope.track);    
+                        $rootScope.selectedtracks.push(scope.track);
                     }
                     
+                }
+                else if(event.shiftKey === true){
+                    if($rootScope.selectedtracks.length === 0 || scope.surrounding.length < 2)
+                        return;
+
+                    var start = $rootScope.selectedtracks[0].id;
+                    var end = scope.track.id;
+                    
+                    $rootScope.selectedtracks = [];
+
+                    _.each(scope.surrounding, function(track){
+                        if(track.id >= start && track.id <= end)
+                            $rootScope.selectedtracks.push(track);
+                    });
+
                 }
                 else{
                     $rootScope.selectedtracks = [scope.track];
@@ -73,8 +93,8 @@ angular.module('mopify.widgets.directive.track', [
             scope.$watch(function() {
                 return $rootScope.selectedtracks;
             }, function() {
-                var found = _.findWhere($rootScope.selectedtracks, { uri: scope.track.uri });
-                
+                var found = _.findWhere($rootScope.selectedtracks, { id: scope.track.id });
+
                 if(found !== undefined)
                     scope.selected = true;
                 else 
@@ -151,7 +171,9 @@ angular.module('mopify.widgets.directive.track', [
              * Add selected tracks in the queue
              */
             scope.addToQueue = function(){
-                mopidyservice.addToTracklist({ tracks: $rootScope.selectedtracks }).then(function(response){
+                var uris = _.pluck($rootScope.selectedtracks, 'uri');
+
+                mopidyservice.addToTracklist({ uris: uris }).then(function(response){
                     // Broadcast event
                     $rootScope.$broadcast("mopidy:event:tracklistChanged", {});
                 });
