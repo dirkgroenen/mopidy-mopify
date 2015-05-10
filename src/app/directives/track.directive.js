@@ -171,7 +171,11 @@ angular.module('mopify.widgets.directive.track', [
              * Add selected tracks in the queue
              */
             scope.addToQueue = function(){
-                var uris = _.pluck($rootScope.selectedtracks, 'uri');
+                var selected = _.sortBy($rootScope.selectedtracks, function(item){
+                    return item.id;
+                });
+
+                var uris = _.pluck(selected, 'uri');
 
                 mopidyservice.addToTracklist({ uris: uris }).then(function(response){
                     // Broadcast event
