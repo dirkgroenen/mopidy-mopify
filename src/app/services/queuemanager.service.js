@@ -89,6 +89,13 @@ angular.module("mopify.services.queuemanager", [
             that.loadData();
         });
 
+        $rootScope.$on("mopidy:event:tracklistChanged", function(){
+            that.all().then(function(response){
+                console.log("changed");
+                that.version = response.version;
+            });
+        });
+
         $rootScope.$on('queuemanager:event:changed', function(){
             that.loadData();
         });
