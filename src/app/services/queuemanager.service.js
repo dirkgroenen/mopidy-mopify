@@ -184,11 +184,10 @@ angular.module("mopify.services.queuemanager", [
         var that = this;
 
         // Get shuffle information
-        request("get_shuffle").then(function(response){
-            that.version = response.version;
-            that.shuffle = response.data;
+        request("get_shuffle").then(function(shuffle){
+            that.shuffle = shuffle;
 
-            deferred.resolve(response.tracks);
+            deferred.resolve(shuffle);
         });
 
         return deferred.promise;

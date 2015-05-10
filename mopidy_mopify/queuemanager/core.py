@@ -25,7 +25,7 @@ class QueueManager:
 
 
     def add_to_queue(self, tracks):
-        self.queue.extend(tracks);
+        self.queue.extend(tracks)
         self.version += 1
 
         return {
@@ -34,7 +34,7 @@ class QueueManager:
         }
 
     def add_play_next(self, tracks):
-        self.queue.insert(0, tracks[0]);
+        self.queue.insert(0, tracks[0])
         self.version += 1
 
         return {
@@ -61,10 +61,10 @@ class QueueManager:
         }
 
     def remove_from_tracklist(self, tlids):
-        self.remove_from_playlist(tlids);
-        self.remove_from_queue(tlids);
+        self.remove_from_playlist(tlids)
+        self.remove_from_queue(tlids)
 
-        return self.get_all();
+        return self.get_all()
 
     def clear_queue(self, tracks):
         self.queue = []
@@ -87,18 +87,18 @@ class QueueManager:
     def shuffle_playlist(self, tracks):
         self.shufflememory = self.playlist
         self.playlist = tracks
-        shuffled = True
+        self.shuffled = True
         self.version += 1
 
-        return self.get_all();
+        return self.get_all()
 
     def shuffle_reset(self):
-        shuffled = False
+        self.shuffled = False
         self.playlist = self.shufflememory
         self.shufflememory = []
         self.version += 1
 
-        return self.get_all();
+        return self.get_all()
 
     def replace_all(self, playlist=[], queue=[]):
         self.version += 1
