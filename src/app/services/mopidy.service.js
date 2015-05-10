@@ -367,8 +367,7 @@ angular.module('mopify.services.mopidy', [
 
         setRandom: function (setShuffle) {
             var self = this;
-            var 
-            deferred = $q.defer(); 
+            var deferred = $q.defer(); 
 
             // Always set mopidy's random mode to false
             self.mopidy.tracklist.setRandom([false]);

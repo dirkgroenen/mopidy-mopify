@@ -325,11 +325,6 @@ angular.module("mopify.services.queuemanager", [
         var action = (shuffle) ? "shuffle_playlist" : "shuffle_reset";
         var data;
 
-        // Remove unplayable tracks
-        tracks = _.filter(tracks, function(tltrack){
-            return tltrack.track.name.indexOf("[unplayable]") < 0;
-        });
-
         if(tracks === undefined )
             data = {};
         else
