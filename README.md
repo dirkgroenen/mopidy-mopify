@@ -18,6 +18,7 @@ Some of the features that are included in Mopify:
   taste profile.
 - [Synchronize](https://github.com/dirkgroenen/mopidy-mopify/wiki/Services#sync) with other Mopify clients in your network
 - Automatic updating
+- Improved Queue manager which works like Spotify's one
 
 At the moment, Mopify only works with
 [mopidy-spotify](https://github.com/mopidy/mopidy-spotify). This may change in
@@ -90,9 +91,10 @@ Problems or ideas? Please submit a new [issue](https://github.com/dirkgroenen/mo
 ![http://i.imgur.com/8Ya5rwY.png](http://i.imgur.com/8Ya5rwY.png)
 ![http://i.imgur.com/AQIJBbr.jpg](http://i.imgur.com/AQIJBbr.jpg)
 ![http://i.imgur.com/t1PevJf.jpg](http://i.imgur.com/t1PevJf.jpg)
-![http://i.imgur.com/RyoV1Is.png](http://i.imgur.com/RyoV1Is.png)
+![http://i.imgur.com/3WGFyU4.png](http://i.imgur.com/3WGFyU4.png)
 ![http://i.imgur.com/U8iv9W4.png](http://i.imgur.com/U8iv9W4.png)
 ![http://i.imgur.com/JtUfVSV.png](http://i.imgur.com/JtUfVSV.png)
+![http://i.imgur.com/f3ezdAi.png](http://i.imgur.com/f3ezdAi.png)
 
 ![http://i.imgur.com/ti0vQ2C.png](http://i.imgur.com/ti0vQ2C.png)
 ![http://i.imgur.com/Aj4fWNV.png](http://i.imgur.com/Aj4fWNV.png)
