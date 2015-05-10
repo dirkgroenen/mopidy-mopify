@@ -24,7 +24,7 @@ At the moment, Mopify only works with
 [mopidy-spotify](https://github.com/mopidy/mopidy-spotify). This may change in
 the future depending on how popular Mopify becomes!
 
-![http://i.imgur.com/lLTKjiQ.jpg](http://i.imgur.com/lLTKjiQ.jpg)
+![http://i.imgur.com/EKPXw5b.jpg](http://i.imgur.com/EKPXw5b.jpg)
 
 ---------
 
