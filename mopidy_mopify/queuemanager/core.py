@@ -44,6 +44,8 @@ class QueueManager:
 
     def remove_from_queue(self, tlids):
         self.queue = [tltrack for tltrack in self.queue if tltrack["tlid"] not in tlids]
+        self.shufflememory = [tltrack for tltrack in self.shufflememory if tltrack["tlid"] not in tlids]
+        
         self.version += 1
 
         return {
@@ -53,6 +55,8 @@ class QueueManager:
 
     def remove_from_playlist(self, tlids):
         self.playlist = [tltrack for tltrack in self.playlist if tltrack["tlid"] not in tlids]
+        self.shufflememory = [tltrack for tltrack in self.shufflememory if tltrack["tlid"] not in tlids]
+
         self.version += 1
 
         return {
