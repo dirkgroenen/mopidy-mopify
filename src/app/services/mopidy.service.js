@@ -200,7 +200,7 @@ angular.module('mopify.services.mopidy', [
 
             if(surroundingTracks === undefined)
                 surroundingTracks = [];
-            
+
             // Get the current queue
             QueueManager.all().then(function(queuedata){
 
