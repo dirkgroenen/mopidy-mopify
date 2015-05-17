@@ -194,7 +194,7 @@ angular.module('mopify.services.mopidy', [
             return wrapMopidyFunc("mopidy.library.lookup", this)({ uris: uris });
         },
 
-        playTrack: function(track, surroundingTracks) {
+        playTrack: function(track, surroundingTracks, preventShuffle) {
             var self = this;
             var deferred = $q.defer();
 
@@ -226,8 +226,6 @@ angular.module('mopify.services.mopidy', [
                         var trackstoadd = surroundingTracks.slice(trackindex, surroundingTracks.length);
                         var trackstoskip = surroundingTracks.slice(0, trackindex);
 
-                        console.log(trackstoskip);
-
                         _.forEach(trackstoadd, function(tta){
                             uris.push(tta.uri);
                         });
@@ -256,7 +254,7 @@ angular.module('mopify.services.mopidy', [
                             
                                 QueueManager.getShuffle().then(function(shuffle){
 
-                                    if(shuffle){
+                                    if(shuffle && preventShuffle !== true){
                                         self.setRandom(true).then(function(){
                                             deferred.resolve(track);    
                                         });

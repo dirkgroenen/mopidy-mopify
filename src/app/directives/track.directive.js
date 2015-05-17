@@ -13,7 +13,7 @@ angular.module('mopify.widgets.directive.track', [
     "hmTouchEvents"
 ])
 
-.directive('mopifyTrack', function mopifyTrack($routeParams, $rootScope, $modal, mopidyservice, stationservice, util, notifier, PlaylistManager, Spotify, SpotifyLogin, ServiceManager) {
+.directive('mopifyTrack', function mopifyTrack($routeParams, $rootScope, $modal, $location, mopidyservice, stationservice, util, notifier, PlaylistManager, Spotify, SpotifyLogin, ServiceManager) {
 
     return {
         restrict: 'E',
@@ -132,17 +132,21 @@ angular.module('mopify.widgets.directive.track', [
                  * Check if this is the only selected track and play it
                  */
                 if($rootScope.selectedtracks.length === 1){
+                    // Get the index of the clicked track
+                    _.each(scope.surrounding, function(iTrack, index){
+                        if(track.uri == iTrack.uri){
+                            clickedindex = index;
+                            return;
+                        }
+                    });
+
+                    // Check if we are in tracklist view
+                    var inTracklistView = ($location.path() == "/music/tracklist/mopidy:current");
+
                     if(track.__model__ == "Track"){
-                        mopidyservice.playTrack(track, scope.surrounding);    
+                        mopidyservice.playTrack(track, scope.surrounding, inTracklistView);    
                     }
                     else{
-                        _.each(scope.surrounding, function(iTrack, index){
-                            if(track.uri == iTrack.uri){
-                                clickedindex = index;
-                                return;
-                            }
-                        });
-
                         // Play the clicked and surrounding tracks
                         mopidyservice.playTrack(scope.surrounding[clickedindex], scope.surrounding);
                     }    
