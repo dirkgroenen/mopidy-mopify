@@ -223,10 +223,16 @@ angular.module('mopify.services.mopidy', [
                         });
                             
                         // Get all uris from the tracks after the selected track
-                        var trackstoadd = surroundingTracks.slice(trackindex, surroundingTracks.length);
+                        var trackstoadd = surroundingTracks.splice(trackindex, surroundingTracks.length);
+                        var trackstoskip = surroundingTracks;
+
                         _.forEach(trackstoadd, function(tta){
                             uris.push(tta.uri);
                         });
+
+                        // Get tracklist IDs from trackstoskip and parse to queuemanager
+                        if(trackstoskip.length > 1)
+                            QueueManager.remove(_.pluck(trackstoskip, "tlid"));
                     }
                     
                     // Add the selected track as next
@@ -245,7 +251,19 @@ angular.module('mopify.services.mopidy', [
 
                             // Start playing the track
                             self.mopidy.playback.play({ tl_track: tltracks[0] }).then(function(track){
-                                deferred.resolve(track);
+                            
+                                QueueManager.getShuffle().then(function(shuffle){
+
+                                    if(shuffle){
+                                        self.setRandom(true).then(function(){
+                                            deferred.resolve(track);    
+                                        });
+                                    }
+                                    else{
+                                        deferred.resolve(track);
+                                    }
+                                });                            
+
                             });
                         });
                     });
