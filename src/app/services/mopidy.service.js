@@ -223,8 +223,10 @@ angular.module('mopify.services.mopidy', [
                         });
                             
                         // Get all uris from the tracks after the selected track
-                        var trackstoadd = surroundingTracks.splice(trackindex, surroundingTracks.length);
-                        var trackstoskip = surroundingTracks;
+                        var trackstoadd = surroundingTracks.slice(trackindex, surroundingTracks.length);
+                        var trackstoskip = surroundingTracks.slice(0, trackindex);
+
+                        console.log(trackstoskip);
 
                         _.forEach(trackstoadd, function(tta){
                             uris.push(tta.uri);
