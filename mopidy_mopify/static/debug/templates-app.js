@@ -1310,7 +1310,7 @@ angular.module("music/library/playlists/playlists.tmpl.html", []).run(["$templat
     "<div id=\"header\" class=\"small row\">\n" +
     "    <div class=\"backgroundimage\" style=\"background-image: url('./assets/images/playlists-header.jpg');\"></div>\n" +
     "    <div class=\"col-md-12\">\n" +
-    "        <div class=\"albumart\">\n" +
+    "        <div class=\"albumart hidden-xs hidden-sm\">\n" +
     "            <img src=\"./assets/images/playlists-header.jpg\" />\n" +
     "        </div>\n" +
     "        <div class=\"lefttext\">\n" +
