@@ -139,7 +139,7 @@ v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
-v1.5.0 (UNRELEASED)
+v1.5.0 (19-05-2015)
 -------------------
 
 - Added master mode to Sync service [#71](https://github.com/dirkgroenen/mopidy-mopify/issues/71)
