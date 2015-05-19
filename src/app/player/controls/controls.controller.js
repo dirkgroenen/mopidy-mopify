@@ -100,10 +100,10 @@ angular.module('mopify.player.controls', [
         });
     };
 
-    $scope.volumebarMouseClick = function(event){
+    $scope.volumebarMouseClick = function(event, mobile){
         var layerX = event.layerX;
         var target = event.target || event.srcElement;
-        var volumebarWidth = angular.element(target).parent()[0].clientWidth;
+        var volumebarWidth = (mobile) ? angular.element(target).parent()[0].clientWidth : target.clientWidth;
         
         var volume = (layerX / volumebarWidth) * 100;
 
@@ -123,11 +123,11 @@ angular.module('mopify.player.controls', [
         dragging = false;
     };
 
-    $scope.volumebarMouseMove = function(event){
+    $scope.volumebarMouseMove = function(event, mobile){
         var target = event.target || event.srcElement;
         if(dragging && event.layerY >= 0 && event.layerY <= target.clientHeight){
             var layerX = event.layerX;
-            var volumebarWidth = angular.element(target).parent()[0].clientWidth;
+            var volumebarWidth = (mobile) ? angular.element(target).parent()[0].clientWidth : target.clientWidth;
 
             var volume = (layerX / volumebarWidth) * 100;
 

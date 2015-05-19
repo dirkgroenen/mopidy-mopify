@@ -20,7 +20,7 @@
 <div class="volumeoverlay" ng-show="volumeopened">
     <div class="close" ng-click="closeVolumeOverlay()"><i class="ss-icon ss-delete"></i></div>
     <div class="text">Click on the bar below to change the volume.</div>
-    <div class="volumebar" ng-click="volumebarMouseClick($event)" ng-mousedown="volumebarMouseDown($event)" ng-mouseup="volumebarMouseUp($event)" ng-mousemove="volumebarMouseMove($event)">
+    <div class="volumebar" ng-click="volumebarMouseClick($event, true)" ng-mousedown="volumebarMouseDown($event, true)">
         <div class="outer">
             <div class="inner" style="width: {{ volume }}%;"></div>
         </div>
