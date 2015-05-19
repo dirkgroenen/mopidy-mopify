@@ -29,9 +29,16 @@ angular.module('mopify.player.seekbar', [
         });
     });
 
+    // Start the increaser and get the track length when a track starts
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
         getTrackLength();
         startIncreaser();
+    });
+
+    // Reset interval and timePositionMs when a track ended
+    $scope.$on('mopidy:event:trackPlaybackEnded', function(event, data) {
+        $interval.cancel(increaseCurrentTimeInterval);
+        timePositionMS = 0;
     });
 
     $scope.$on('mopify:player:updatePlayerInformation', function(event, data) {
@@ -142,6 +149,9 @@ angular.module('mopify.player.seekbar', [
         isSeeking = true;
         mopidyservice.seek(ms).then(function(){
             isSeeking = false;
+
+            // Set time position 
+            timePositionMS = ms;
         });
     };
 
