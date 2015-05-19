@@ -156,6 +156,9 @@ v1.5.0 (UNRELEASED)
 
 - Added volume control in mobile interface [#96](https://github.com/dirkgroenen/mopidy-mopify/issues/96)
 
+- Removed 'Please connect to Spotify first' notification when service is enabled
+
+- Some other small bug fixes
 
 v1.4.2 (19-04-2015)
 ------------------
