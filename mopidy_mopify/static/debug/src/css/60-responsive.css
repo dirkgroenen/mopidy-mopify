@@ -162,6 +162,8 @@
 
     #application #player .controlwrap.right{
         width: 35%;
+        padding-left: 0;
+        padding-right: 15px;
     }
 
     #application #player .controlwrap .iconwrap{

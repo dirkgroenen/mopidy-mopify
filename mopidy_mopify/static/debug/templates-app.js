@@ -1232,7 +1232,7 @@ angular.module("music/library/albums/albums.tmpl.html", []).run(["$templateCache
     "<div id=\"header\" class=\"small row\">\n" +
     "    <div class=\"backgroundimage\" style=\"background-image: url('./assets/images/playlists-header.jpg');\"></div>\n" +
     "    <div class=\"col-md-12\">\n" +
-    "        <div class=\"albumart\">\n" +
+    "        <div class=\"albumart hidden-xs hidden-sm\">\n" +
     "            <img src=\"./assets/images/playlists-header.jpg\" />\n" +
     "        </div>\n" +
     "        <div class=\"lefttext\">\n" +
@@ -1271,7 +1271,7 @@ angular.module("music/library/artists/artists.tmpl.html", []).run(["$templateCac
     "<div id=\"header\" class=\"small row\">\n" +
     "    <div class=\"backgroundimage\" style=\"background-image: url('./assets/images/playlists-header.jpg');\"></div>\n" +
     "    <div class=\"col-md-12\">\n" +
-    "        <div class=\"albumart\">\n" +
+    "        <div class=\"albumart hidden-xs hidden-sm\">\n" +
     "            <img src=\"./assets/images/playlists-header.jpg\" />\n" +
     "        </div>\n" +
     "        <div class=\"lefttext\">\n" +
@@ -1591,19 +1591,29 @@ angular.module("player/controls/controls.right.tmpl.html", []).run(["$templateCa
   $templateCache.put("player/controls/controls.right.tmpl.html",
     "<div class=\"row\">\n" +
     "    <div class=\"iconwrap\">\n" +
-    "        <div class=\"col-sm-2 col-xs-6\">\n" +
+    "        <div class=\"col-sm-2 col-xs-4\">\n" +
     "            <i class=\"ss-icon ss-shuffle\" ng-class=\"{ 'active': isRandom }\" ng-click=\"toggleShuffle();\"></i>\n" +
     "        </div>\n" +
-    "        <div class=\"col-sm-2 col-xs-6\">\n" +
+    "        <div class=\"col-sm-2 col-xs-4\">\n" +
     "            <i class=\"ss-icon ss-repeat\" ng-class=\"{ 'active': isRepeat }\" ng-click=\"toggleRepeat();\"></i>\n" +
     "        </div>\n" +
-    "        <div class=\"col-sm-8 hidden-xs\">\n" +
-    "            <i class=\"ss-icon {{ volumeIcon }}\"></i>\n" +
-    "            <div class=\"volumebar\" ng-click=\"volumebarMouseClick($event)\" ng-mousedown=\"volumebarMouseDown($event)\" ng-mouseup=\"volumebarMouseUp($event)\" ng-mousemove=\"volumebarMouseMove($event)\">\n" +
+    "        <div class=\"col-sm-8 col-xs-4\">\n" +
+    "            <i class=\"ss-icon {{ volumeIcon }}\" ng-click=\"openVolumeOverlay()\"></i>\n" +
+    "            <div class=\"volumebar hidden-xs\" ng-click=\"volumebarMouseClick($event)\" ng-mousedown=\"volumebarMouseDown($event)\" ng-mouseup=\"volumebarMouseUp($event)\" ng-mousemove=\"volumebarMouseMove($event)\">\n" +
     "                <div class=\"outer\">\n" +
     "                    <div class=\"inner\" style=\"width: {{ volume }}%;\"></div>\n" +
     "                </div>\n" +
     "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n" +
+    "<div class=\"volumeoverlay\" ng-show=\"volumeopened\">\n" +
+    "    <div class=\"close\" ng-click=\"closeVolumeOverlay()\"><i class=\"ss-icon ss-delete\"></i></div>\n" +
+    "    <div class=\"text\">Click on the bar below to change the volume.</div>\n" +
+    "    <div class=\"volumebar\" ng-click=\"volumebarMouseClick($event, true)\" ng-mousedown=\"volumebarMouseDown($event, true)\">\n" +
+    "        <div class=\"outer\">\n" +
+    "            <div class=\"inner\" style=\"width: {{ volume }}%;\"></div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>");
