@@ -154,6 +154,8 @@ v1.5.0 (UNRELEASED)
 
 - Use SHIFT so select a range of tracks [#99](https://github.com/dirkgroenen/mopidy-mopify/issues/99)
 
+- Added volume control in mobile interface [#96](https://github.com/dirkgroenen/mopidy-mopify/issues/96)
+
 
 v1.4.2 (19-04-2015)
 ------------------
