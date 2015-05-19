@@ -11,6 +11,8 @@
     "inject": false,
     "_": false,
     "console": false,
-    "Mopidy": false
+    "Mopidy": false,
+    "document": false,
+    "window": false
   }
 }

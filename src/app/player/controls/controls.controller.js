@@ -10,7 +10,7 @@ angular.module('mopify.player.controls', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlayerControlsController", function PlayerControlsController($scope, $rootScope, mopidyservice, stationservice, hotkeys, QueueManager){
+.controller("PlayerControlsController", function PlayerControlsController($scope, $window, $rootScope, mopidyservice, stationservice, hotkeys, QueueManager){
     $scope.volume = 0;
     $scope.isRandom = false;
     $scope.isPlaying = false;
@@ -103,8 +103,8 @@ angular.module('mopify.player.controls', [
     $scope.volumebarMouseClick = function(event){
         var layerX = event.layerX;
         var target = event.target || event.srcElement;
-        var volumebarWidth = target.clientWidth;
-
+        var volumebarWidth = angular.element(target).parent()[0].clientWidth;
+        
         var volume = (layerX / volumebarWidth) * 100;
 
         // Set in scope and send to mopidy
@@ -127,7 +127,7 @@ angular.module('mopify.player.controls', [
         var target = event.target || event.srcElement;
         if(dragging && event.layerY >= 0 && event.layerY <= target.clientHeight){
             var layerX = event.layerX;
-            var volumebarWidth = target.clientWidth;
+            var volumebarWidth = angular.element(target).parent()[0].clientWidth;
 
             var volume = (layerX / volumebarWidth) * 100;
 
@@ -155,6 +155,26 @@ angular.module('mopify.player.controls', [
     $scope.toggleRepeat = function(){
         $scope.isRepeat = !$scope.isRepeat;
         mopidyservice.setRepeat($scope.isRepeat);
+    };
+
+    /**
+     * Open the volume overlay when on a mobile device
+     * 
+     * @return {void}
+     */
+    $scope.openVolumeOverlay = function(){
+        if($window.innerWidth <= 768){
+            $scope.volumeopened = true;
+        }
+    };
+
+    /**
+     * Close the volume overlay
+     * 
+     * @return {void}
+     */
+    $scope.closeVolumeOverlay = function(){
+        $scope.volumeopened = false;
     };
 
     /**

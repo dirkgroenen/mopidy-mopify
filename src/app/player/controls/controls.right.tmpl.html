@@ -1,18 +1,28 @@
 <div class="row">
     <div class="iconwrap">
-        <div class="col-sm-2 col-xs-6">
+        <div class="col-sm-2 col-xs-4">
             <i class="ss-icon ss-shuffle" ng-class="{ 'active': isRandom }" ng-click="toggleShuffle();"></i>
         </div>
-        <div class="col-sm-2 col-xs-6">
+        <div class="col-sm-2 col-xs-4">
             <i class="ss-icon ss-repeat" ng-class="{ 'active': isRepeat }" ng-click="toggleRepeat();"></i>
         </div>
-        <div class="col-sm-8 hidden-xs">
-            <i class="ss-icon {{ volumeIcon }}"></i>
-            <div class="volumebar" ng-click="volumebarMouseClick($event)" ng-mousedown="volumebarMouseDown($event)" ng-mouseup="volumebarMouseUp($event)" ng-mousemove="volumebarMouseMove($event)">
+        <div class="col-sm-8 col-xs-4">
+            <i class="ss-icon {{ volumeIcon }}" ng-click="openVolumeOverlay()"></i>
+            <div class="volumebar hidden-xs" ng-click="volumebarMouseClick($event)" ng-mousedown="volumebarMouseDown($event)" ng-mouseup="volumebarMouseUp($event)" ng-mousemove="volumebarMouseMove($event)">
                 <div class="outer">
                     <div class="inner" style="width: {{ volume }}%;"></div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="volumeoverlay" ng-show="volumeopened">
+    <div class="close" ng-click="closeVolumeOverlay()"><i class="ss-icon ss-delete"></i></div>
+    <div class="text">Click on the bar below to change the volume.</div>
+    <div class="volumebar" ng-click="volumebarMouseClick($event)" ng-mousedown="volumebarMouseDown($event)" ng-mouseup="volumebarMouseUp($event)" ng-mousemove="volumebarMouseMove($event)">
+        <div class="outer">
+            <div class="inner" style="width: {{ volume }}%;"></div>
         </div>
     </div>
 </div>
