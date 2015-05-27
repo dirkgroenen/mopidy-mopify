@@ -139,6 +139,12 @@ v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
+v1.5.1 (27-05-2015)
+
+- Fixed saving albums [#104](https://github.com/dirkgroenen/mopidy-mopify/issues/104)
+
+- Force cursor to be at the end of an input field [https://github.com/dirkgroenen/mopidy-mopify/issues/105](https://github.com/dirkgroenen/mopidy-mopify/issues/105)
+
 v1.5.0 (19-05-2015)
 -------------------
 
