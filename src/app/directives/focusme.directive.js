@@ -11,6 +11,13 @@ angular.module('mopify.widgets.directive.focusme', [
                 if(value === true) { 
                     $timeout(function() {
                         element[0].focus(); 
+
+                        // Reset the value so we can be sure that the cursor is at the end of the input field
+                        var value = element[0].value;
+                        if(value.length > 0){
+                            element[0].value = "";
+                            element[0].value = value;
+                        }
                     });
                 }
             });
