@@ -1382,7 +1382,7 @@ angular.module("music/menu.tmpl.html", []).run(["$templateCache", function($temp
 
 angular.module("music/stations/stations.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("music/stations/stations.tmpl.html",
-    "<div id=\"header\" class=\"row\" ng-class=\"headerSize\" style=\"background-image: url('./assets/images/stations-header.jpg');\">\n" +
+    "<div id=\"header\" class=\"row stationheader\" ng-class=\"headerSize\" style=\"background-image: url('./assets/images/stations-header.jpg');\">\n" +
     "    <div class=\"col-md-4 lefttext\" ng-hide=\"creatingRadio\">\n" +
     "        <div class=\"inner\"><i class=\"ss-icon ss-wifi\"></i>  Stations</div>\n" +
     "    </div>\n" +

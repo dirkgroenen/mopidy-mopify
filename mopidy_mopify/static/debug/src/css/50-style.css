@@ -493,6 +493,10 @@ img[src=""] {
     overflow: hidden;
 }
 
+#application #header.stationheader{
+    overflow: inherit;
+}
+
 #application #header .backgroundimage{
     position: absolute;
     background-size: cover;

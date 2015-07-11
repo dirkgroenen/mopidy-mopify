@@ -139,6 +139,12 @@ v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
+v1.5.2 (12-07-2015)
+
+- Fixed hidden 'new radio' search results [#107](https://github.com/dirkgroenen/mopidy-mopify/issues/107)
+
+- Added manifest for WebApp [https://github.com/dirkgroenen/mopidy-mopify/issues/98](https://github.com/dirkgroenen/mopidy-mopify/issues/98)
+
 v1.5.1 (27-05-2015)
 
 - Fixed saving albums [#104](https://github.com/dirkgroenen/mopidy-mopify/issues/104)
