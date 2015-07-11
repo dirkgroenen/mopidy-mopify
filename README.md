@@ -139,6 +139,11 @@ v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
+v1.5.3 (12-07-2015)
+-------------------
+
+- Fixed manifest URL
+
 v1.5.2 (12-07-2015)
 -------------------
 

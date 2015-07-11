@@ -12,7 +12,7 @@ from queuemanager import requesthandler
 
 from mopidy import config, ext
 
-__version__ = '1.5.2'
+__version__ = '1.5.3'
 __ext_name__ = 'mopify'
 __verbosemode__ = False
 
