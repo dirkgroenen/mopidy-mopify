@@ -139,12 +139,7 @@ v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
-v1.5.3 (12-07-2015)
--------------------
-
-- Fixed manifest URL
-
-v1.5.2 (12-07-2015)
+v1.5.4 (12-07-2015)
 -------------------
 
 - Fixed hidden 'new radio' search results [#107](https://github.com/dirkgroenen/mopidy-mopify/issues/107)
