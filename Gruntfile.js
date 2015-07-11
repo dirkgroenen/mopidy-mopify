@@ -104,8 +104,8 @@ module.exports = function ( grunt ) {
                 files: [
                     {
                         src: [ '**' ],
-                        dest: '<%= build_dir %>/assets/images/',
-                        cwd: 'src/assets/images',
+                        dest: '<%= build_dir %>/assets/',
+                        cwd: 'src/assets',
                         expand: true
                     }
                 ]
