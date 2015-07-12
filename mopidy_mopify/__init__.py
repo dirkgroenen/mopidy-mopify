@@ -3,12 +3,18 @@ from __future__ import unicode_literals
 import logging
 import os
 import tornado.web
-import sync
-import update 
+
 import mem
-from queuemanager import core
-from queuemanager import frontend
-from queuemanager import requesthandler
+
+from services.sync import sync
+from services.autoupdate import update 
+
+from services.localfiles import core as LocalFilesCore
+from services.localfiles import requesthandler as LocalFilesRequestHandler
+
+from services.queuemanager import core as QueueManagerCore
+from services.queuemanager import frontend
+from services.queuemanager import requesthandler as QueueManagerRequestHandler
 
 from mopidy import config, ext
 
@@ -35,7 +41,9 @@ class MopifyExtension(ext.Extension):
     def setup(self, registry):
         syncinstance = sync.Sync();
         
-        mem.queuemanager = core.QueueManager()
+        # Create instances
+        mem.queuemanager = QueueManagerCore.QueueManager()
+        mem.localfiles = LocalFilesCore.LocalFiles()
 
         # Add Queuemanager Frontend class
         registry.add('frontend', frontend.QueueManagerFrontend)
@@ -54,7 +62,8 @@ def mopify_client_factory(config, core):
 
     return [
         ('/sync/(.*)', sync.RootRequestHandler, {'core': core, 'config': config}),
-        ('/queuemanager/(.*)', requesthandler.RequestHandler, {'core': core, 'config': config, 'instance': mem.queuemanager}),
+        ('/queuemanager/(.*)', QueueManagerRequestHandler.RequestHandler, {'core': core, 'config': config}),
+        ('/localfiles/(.*)', LocalFilesRequestHandler.RequestHandler, {'core': core, 'config': config}),
         ('/update', update.UpdateRequestHandler, {'core': core, 'config': config}),
         (r'/(.*)', tornado.web.StaticFileHandler, {
             "path": mopifypath,

@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 import os
 
-from .. import mem
+from ... import mem
 
 class QueueManager:
     # Initialize the tracklist

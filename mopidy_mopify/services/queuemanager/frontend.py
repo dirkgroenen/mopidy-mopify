@@ -4,7 +4,7 @@ from mopidy.core import CoreListener
 import pykka
 import logging
 
-from .. import mem
+from ... import mem
 
 class QueueManagerFrontend(pykka.ThreadingActor, CoreListener):
 

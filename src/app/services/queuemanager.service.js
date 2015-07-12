@@ -302,9 +302,10 @@ angular.module("mopify.services.queuemanager", [
      * Set the given tracks as the current playlist
      * 
      * @param  {Array} tracks
+     * @param  {string} name
      * @return {Promise}
      */
-    QueueManager.prototype.setPlaylist = function(tracks){
+    QueueManager.prototype.setPlaylist = function(tracks, name){
         var that = this;
         var deferred = $q.defer();
 
@@ -314,7 +315,8 @@ angular.module("mopify.services.queuemanager", [
         });
 
         return request("set_playlist", {
-            tracks: tracks
+            tracks: tracks,
+            name: name
         });
     };
 

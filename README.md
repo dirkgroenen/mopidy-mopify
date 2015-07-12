@@ -139,6 +139,11 @@ v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
+v1.5.5 (UNRELEASED)
+-------------------
+
+- Show all track's artists in player 
+
 v1.5.4 (12-07-2015)
 -------------------
 
