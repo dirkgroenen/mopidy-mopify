@@ -8,6 +8,7 @@ angular.module('mopify', [
     'mopify.services.mopidy',
     'mopify.services.versionmanager',
     'mopify.services.autoupdate',
+    'mopify.account.services.localfiles',
     'spotify',
     'mopify.dashboard',
     'mopify.search',
@@ -34,7 +35,8 @@ angular.module('mopify', [
     'templates-app',
     'llNotifier',
     'ErrorCatcher',
-    'cgPrompt'
+    'cgPrompt',
+    'ngFileUpload'
 ])
 
 .config(function($routeProvider, $httpProvider, localStorageServiceProvider, EchonestProvider, SpotifyProvider, $injector){
@@ -52,7 +54,7 @@ angular.module('mopify', [
     $httpProvider.interceptors.push('SpotifyAuthenticationIntercepter');
 })
 
-.controller("AppController", function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier, VersionManager, localStorageService, AutoUpdate, prompt){
+.controller("AppController", function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier, VersionManager, localStorageService, AutoUpdate, prompt, LocalFiles, ServiceManager){
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
@@ -109,7 +111,7 @@ angular.module('mopify', [
         $window.ga('send', 'pageview', { page: $location.path() });
     });
 
-    // Set current app version
+        // Set current app version
     $window.ga('set', {
         'appName': 'mopidy-mopify',
         'appVersion': VersionManager.version
@@ -169,5 +171,25 @@ angular.module('mopify', [
             input: false,
             buttons: [{ label: 'Ok', primary: true }]
         }); 
+    });
+
+    // Check if localfiles is enabled
+    $scope.localfilesEnabled = ServiceManager.isEnabled("localfiles");
+
+    // Watch the files scope for changes
+    $scope.$watch("files", function(files){
+        if(!$scope.localfilesEnabled)
+            return false;
+
+        // Upload the files
+        if(files !== undefined && files !== null && files.length > 0){
+            _.each(files, function(file){
+                LocalFiles.upload(file).then(function(response){
+                    // This has to be changed to a nice window somewhere in the screen
+                    notifier.notify({type: "custom", template: response.message[0], delay: 2500});
+                });
+            });
+        }
+
     });
 });

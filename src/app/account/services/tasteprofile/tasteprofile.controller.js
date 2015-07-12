@@ -9,7 +9,7 @@ angular.module("mopify.account.services.tasteprofile", [
     $routeProvider.when("/account/services/tasteprofile", {
         templateUrl: "account/services/tasteprofile/tasteprofile.tmpl.html",
         controller: "TasteProfileServiceController"
-    }); 
+    });
 })
 
 

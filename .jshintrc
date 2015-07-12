@@ -13,6 +13,7 @@
     "console": false,
     "Mopidy": false,
     "document": false,
-    "window": false
+    "window": false,
+    "formdata": false
   }
 }

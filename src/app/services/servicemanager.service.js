@@ -30,13 +30,13 @@ angular.module("mopify.services.servicemanager", [
                 description: "Sync the settings and authorization tokens with every Mopify client within your network.",
                 image: "./assets/images/sync-icon.png",
                 hasSettings: true
+            },
+            {
+                name: "Local Files",
+                description: "Upload and manage your local music via Mopify.",
+                image: "./assets/images/localfiles-icon.png",
+                hasSettings: true
             }
-            /*{
-                name: "Facebook",
-                description: "Get more music based on your Facebook likes.",
-                image: "http://www.ednfoundation.org/wp-content/uploads/facebook-logo-square.png",
-                connected: ($scope.connectedServices !== null) ? $scope.connectedServices.facebook : false
-            }*/
         ];
 
        this.initializeSavedObject();

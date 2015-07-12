@@ -1,0 +1,34 @@
+<div id="header" class="small row" style="background-image: url('./assets/images/localfiles-header.jpg');">
+    <div class="col-md-10 lefttext">
+        <div class="inner"><i class="ss-icon ss-settings"></i>  Settings</div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Service <span class="sub">Local Files</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Description</label>
+            </div>
+            <div class="description col-md-8">
+                <p>With the Local Files service you're able to upload new songs to your Mopidy installation via Mopify. Just <b>Drag and Drop</b> your songs in Mopify and they will be uploaded to your choosen media_dir.</p>
+            </div>
+        </div>
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Media Dir</label>
+            </div>
+            <div class="input col-md-4">
+                <input name="media_dir" ng-model="localfiles.media_dir" class="field" readonly="readonly" />
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>The directory where new files will be uploaded to. This option can be changed in your Mopidy config file.</p>
+            </div>
+        </div>
+    </div>
+</div>

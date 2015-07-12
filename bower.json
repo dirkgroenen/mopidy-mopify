@@ -20,5 +20,8 @@
     "angular-toggle-switch": "~1.0.0",
     "ryanmullins-angular-hammer": "~2.1.10",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.5"
+  },
+  "devDependencies": {
+    "ng-file-upload": "~5.0.9"
   }
 }
