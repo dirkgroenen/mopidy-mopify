@@ -49,7 +49,7 @@ Install using PIP:
 sudo pip install Mopidy-Mopify
 ```
 
-Install on Arch Linux ([AUR](https://aur.archlinux.org/packages/mopidy-mopify/)):
+Install on Arch Linux ([AUR](https://aur4.archlinux.org/packages/mopidy-mopify/)):
 ```bash
 yaourt -S mopidy-mopify
 ```
