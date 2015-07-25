@@ -1,14 +1,11 @@
 from __future__ import unicode_literals
-import os
 
-from ... import mem
-
-class QueueManager:
+class QueueManager(object):
     # Initialize the tracklist
     queue = []
     playlist = []
     shufflememory = []
-    
+
     shuffled = False
     version = 0
 
@@ -23,14 +20,13 @@ class QueueManager:
     def get_shuffle(self):
         return self.shuffled
 
-
     def add_to_queue(self, tracks):
         self.queue.extend(tracks)
         self.version += 1
 
         return {
             'queue': self.queue,
-            'version': self.version            
+            'version': self.version
         }
 
     def add_play_next(self, tracks):
@@ -39,18 +35,18 @@ class QueueManager:
 
         return {
             'queue': self.queue,
-            'version': self.version            
+            'version': self.version
         }
 
     def remove_from_queue(self, tlids):
         self.queue = [tltrack for tltrack in self.queue if tltrack["tlid"] not in tlids]
         self.shufflememory = [tltrack for tltrack in self.shufflememory if tltrack["tlid"] not in tlids]
-        
+
         self.version += 1
 
         return {
             'queue': self.queue,
-            'version': self.version            
+            'version': self.version
         }
 
     def remove_from_playlist(self, tlids):
@@ -61,7 +57,7 @@ class QueueManager:
 
         return {
             'playlist': self.playlist,
-            'version': self.version            
+            'version': self.version
         }
 
     def remove_from_tracklist(self, tlids):
@@ -76,7 +72,7 @@ class QueueManager:
 
         return {
             'queue': self.queue,
-            'version': self.version            
+            'version': self.version
         }
 
     def set_playlist(self, tracks):
@@ -85,7 +81,7 @@ class QueueManager:
 
         return {
             'playlist': self.playlist,
-            'version': self.version            
+            'version': self.version
         }
 
     def shuffle_playlist(self, tracks):

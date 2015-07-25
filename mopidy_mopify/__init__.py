@@ -24,6 +24,7 @@ __verbosemode__ = False
 
 logger = logging.getLogger(__ext_name__)
 
+
 class MopifyExtension(ext.Extension):
     dist_name = 'Mopidy-Mopify'
     ext_name = __ext_name__
@@ -39,7 +40,7 @@ class MopifyExtension(ext.Extension):
         return schema
 
     def setup(self, registry):
-        syncinstance = sync.Sync();
+        sync.Sync();
         
         # Create instances
         mem.queuemanager = QueueManagerCore.QueueManager()
@@ -51,13 +52,14 @@ class MopifyExtension(ext.Extension):
         # Add web extension
         registry.add('http:app', {
             'name': self.ext_name,
-            'factory': mopify_client_factory  
+            'factory': mopify_client_factory
         })
 
         logger.info('Setup Mopify')
 
+
 def mopify_client_factory(config, core):
-    directory = 'debug' if (config.get(__ext_name__)['debug'] == True) else 'min'
+    directory = 'debug' if config.get(__ext_name__)['debug'] is True else 'min'
     mopifypath = os.path.join(os.path.dirname(__file__), 'static', directory)
 
     return [

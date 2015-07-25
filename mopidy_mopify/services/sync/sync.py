@@ -2,11 +2,11 @@ from __future__ import unicode_literals
 import os
 
 import tornado.web
-from tornado.escape import json_encode
 
-from configobj import ConfigObj, ConfigObjError
+from configobj import ConfigObj
 
-class Sync:
+
+class Sync(object):
     # Define variables
     userhome = os.getenv("HOME")
     directory = ".config/mopidy-mopify"
@@ -31,29 +31,28 @@ class RootRequestHandler(tornado.web.RequestHandler):
     def get(self, service):
         response = {}
 
-        if(service == "spotify"):
+        if service == "spotify":
             spotify = Spotify()
             response = spotify.read()
 
-        if(service == "tasteprofile"):
+        if service == "tasteprofile":
             tasteprofile = TasteProfile()
             response = tasteprofile.read()
-                        
-        if(service == "clients"):
-            clients = Clients()
-            response = clients.read();
 
-        if(service == "settings"):
+        if service == "clients":
+            clients = Clients()
+            response = clients.read()
+
+        if service == "settings":
             settings = Settings()
-            response = settings.read();
-            
+            response = settings.read()
 
         self.write({"response": response})
 
     def post(self, service):
         response = {}
 
-        if(service == "spotify"):
+        if service == "spotify":
             spotify = Spotify()
             response = spotify.write({
                 'refresh_token': self.get_argument('refresh_token', default=''),
@@ -61,27 +60,26 @@ class RootRequestHandler(tornado.web.RequestHandler):
                 'client_id': self.get_argument('client_id', default='')
             })
 
-        if(service == "tasteprofile"):
+        if service == "tasteprofile":
             tasteprofile = TasteProfile()
             response = tasteprofile.write({
                 'id': self.get_argument('id', default=''),
                 'client_id': self.get_argument('client_id', default='')
             })
-                        
-        if(service == "clients"):
+
+        if service == "clients":
             clients = Clients()
             response = clients.write({
                 'name': self.get_argument("name", default=''),
                 'client_id': self.get_argument("client_id", default=''),
                 'master': self.get_argument("master", default=False)
-            });
+            })
 
-        if(service == "settings"):
+        if service == "settings":
             settings = Settings()
             response = settings.write({
                 'forcesync': self.get_argument("forcesync", default='')
-            });
-            
+            })
 
         self.write({"response": response})
 
@@ -116,7 +114,7 @@ class Spotify(Sync):
         self.syncini.write()
 
         return self.syncini['spotify']
-        
+
 
 class TasteProfile(Sync):
 
@@ -133,7 +131,7 @@ class TasteProfile(Sync):
         try:
             tasteprofile = self.syncini['tasteprofile']
             tasteprofile['client'] = self.syncini['accounts'][tasteprofile['client_id']]
-            
+
             resp = tasteprofile
         except KeyError:
             resp = "No data available"
@@ -164,16 +162,11 @@ class Clients(Sync):
         return self.syncini["accounts"]
 
     def write(self, arguments):
-        exists = True
-
         accounts = self.syncini["accounts"]
 
-        try:
-            client = accounts[arguments["client_id"]]
-        except KeyError:
-            exists = False
+        client = accounts.get(arguments["client_id"])
 
-        if exists == False:
+        if not client:
             accounts[arguments["client_id"]] = arguments
             self.syncini.write()
 
@@ -204,7 +197,7 @@ class Settings(Sync):
     def read(self):
         try:
             settings = self.syncini['settings']
-            
+
             resp = settings
         except KeyError:
             resp = "No data available"

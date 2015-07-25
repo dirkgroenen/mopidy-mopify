@@ -2,7 +2,6 @@ from __future__ import unicode_literals
 
 from mopidy.core import CoreListener
 import pykka
-import logging
 
 from ... import mem
 

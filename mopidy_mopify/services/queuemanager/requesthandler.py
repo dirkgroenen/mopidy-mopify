@@ -1,9 +1,7 @@
 from __future__ import unicode_literals
-import os
 import logging
 
 import tornado.websocket
-from tornado.escape import json_encode
 
 import json
 
@@ -11,10 +9,12 @@ from ... import mem
 
 logger = logging.getLogger(__name__)
 
+
 class RequestHandler(tornado.websocket.WebSocketHandler):
-    
-    def initialize(self, core, config):
+
+    def initialize(self, core, config, instance):
         self.core = core
+        self.instance = instance
 
     def check_origin(self, origin):
         return True
@@ -34,7 +34,7 @@ class RequestHandler(tornado.websocket.WebSocketHandler):
             args = data['data']
         else:
             args = {}
-            
+
         call = getattr(mem.queuemanager, data['method'])(**args)
 
         result = {
