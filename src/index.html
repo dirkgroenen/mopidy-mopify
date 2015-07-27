@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="mopify" ng-controller="AppController" ngf-drop ng-model="files" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'audio/*'">
+<html ng-app="mopify" ng-controller="AppController">
     <head>
         <title ng-bind-template="&#9654; {{ pageTitle }}">Mopify</title>
         
@@ -25,7 +25,7 @@
     <body>
 
         <!-- Main application --> 
-        <div id="application" class="fullheight">
+        <div id="application" class="fullheight" ngf-drop ng-model="files" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'audio/*'">
             <div class="dragdrop-overlay" ng-if="localfilesEnabled">
                 <div class="text">Drag & Drop your songs to start uploading</div>
             </div>
