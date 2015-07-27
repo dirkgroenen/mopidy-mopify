@@ -12,9 +12,8 @@ logger = logging.getLogger(__name__)
 
 class RequestHandler(tornado.websocket.WebSocketHandler):
 
-    def initialize(self, core, config, instance):
+    def initialize(self, core, config):
         self.core = core
-        self.instance = instance
 
     def check_origin(self, origin):
         return True
