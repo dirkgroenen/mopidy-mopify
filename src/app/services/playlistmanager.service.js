@@ -62,6 +62,8 @@ angular.module("mopify.services.playlistmanager", [
         this.playlists = [];
         this.orderedPlaylists = {};
 
+        console.log(this.playlists);
+
         // Get the spotify loadplaylists setting
         var loadspotifyplaylists = false;
 
@@ -156,16 +158,20 @@ angular.module("mopify.services.playlistmanager", [
     PlaylistManager.prototype.loadMorePlaylists = function(next){
         var that = this; 
 
+        console.log("Loading more playlists");
+
         Spotify.api(next.replace("https://api.spotify.com/v1", ""), 'GET', null, {}, {
             'Authorization': 'Bearer ' + Spotify.authToken,
             'Content-Type': 'application/json'
         }).then(function(data){
+            // Concat items
+            that.playlists = sortPlaylists(that.playlists.concat(data.items));
+
             // Starts loading more playlists if needed
             if(data.next !== null){
                 that.loadMorePlaylists(data.next);
             }
             else{
-                that.playlists = sortPlaylists(that.playlists.concat(data.items));
                 that.loading = false;
             }
         });
