@@ -126,11 +126,16 @@ angular.module('mopify.search', [
         });
 
         mopidyservice.search($scope.query).then(function(data){
-            console.log(data);
+            var tracks = [];
+
+            // Go through each data source
+            _.each(data, function(source){
+                if(source.tracks !== undefined)
+                    tracks = tracks.concat(source.tracks);
+            });
             
-            if(data[0].tracks !== undefined){
-                $scope.results.tracks = data[0].tracks.splice(0,100);
-            }
+            // Set tracks
+            $scope.results.tracks = tracks;
 
             // Check if all data is loaded and if it is; calculate the topresult
             resultsloaded++;
