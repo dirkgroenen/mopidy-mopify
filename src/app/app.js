@@ -36,7 +36,8 @@ angular.module('mopify', [
     'llNotifier',
     'ErrorCatcher',
     'cgPrompt',
-    'ngFileUpload'
+    'ngFileUpload',
+    'mopify.widgets.directive.uploadprogress'
 ])
 
 .config(function($routeProvider, $httpProvider, localStorageServiceProvider, EchonestProvider, SpotifyProvider, $injector){
@@ -183,12 +184,7 @@ angular.module('mopify', [
 
         // Upload the files
         if(files !== undefined && files !== null && files.length > 0){
-            _.each(files, function(file){
-                LocalFiles.upload(file).then(function(response){
-                    // This has to be changed to a nice window somewhere in the screen
-                    notifier.notify({type: "custom", template: response.message[0], delay: 2500});
-                });
-            });
+            LocalFiles.startUploading(files);
         }
 
     });

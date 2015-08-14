@@ -1,0 +1,8 @@
+<div class="upload-progress" ng-show="queue.length > 0">
+    <header>Uploading...</header>
+    <section class="items">
+        <ul>
+            <li ng-repeat="file in queue"><spinner></spinner> <span class="filename">{{ file.name }}</span> <span class="status">Uploading...</span></li>
+        </ul>
+    </section>
+</div>

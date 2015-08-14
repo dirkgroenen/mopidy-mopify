@@ -73,6 +73,8 @@ angular.module("mopify.services.localfiles", [
 
     function LocalFiles(){
         var that = this;
+
+        that.queue = [];
     }
 
     /**
@@ -88,6 +90,30 @@ angular.module("mopify.services.localfiles", [
         });
 
         return deferred.promise;
+    };
+
+    /**
+     * Start the upload process for the given files
+     * 
+     * @param  {array} files
+     * @return {void}
+     */
+    LocalFiles.prototype.startUploading = function(files) {
+        var that = this;
+
+        that.uploading = true;
+        that.queue = files;
+
+        _.each(files, function(file){
+            that.upload(file).then(function(response){
+                that.queue = _.reject(that.queue, function(item){
+                    return item.name == file.name;
+                });
+
+                if(that.queue.length === 0)
+                    that.uploading = false;
+            });
+        });
     };
 
     /**

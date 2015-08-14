@@ -1526,6 +1526,62 @@ img[src=""] {
     background-color: white;
 }
 
+#application .upload-progress{
+    position: fixed;
+    z-index: 1000;
+    bottom: 0;
+    width: 375px;
+    right: 25px;
+    background-color: white;
+    border: 1px solid #e4e6e8;
+}
+
+#application .upload-progress header{
+    background-color: #f8f8f8;
+    font-size: 16px;
+    color: #777;
+    font-weight: 300;
+    padding: 7px 15px;
+}
+
+#application .upload-progress .items ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#application .upload-progress .items ul li{
+    margin: 0;
+    padding: 8px 15px 6px 15px;
+    border-top: 1px solid #ccc; 
+    font-size: 14px;
+}
+
+#application .upload-progress .items ul li .filename{
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 240px;
+    display: inline-block;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+}
+
+#application .upload-progress .items ul li .spinner{
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
+#application .upload-progress .items ul li .status{
+    color: #777;
+    padding-left: 5px;
+    font-size: 13px;
+    display: inline-block;
+    font-style: italic;
+}
+
 .search-overlay{
     position: fixed;
     top: 0;
