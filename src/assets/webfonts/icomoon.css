@@ -23,6 +23,9 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-local:before {
+	content: "\e603";
+}
 .icon-soundcloud:before {
 	content: "\e600";
 }
