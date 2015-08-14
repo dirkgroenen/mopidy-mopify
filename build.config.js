@@ -82,7 +82,8 @@ module.exports = {
         assets: [
         ],
         fonts: [
-            'src/assets/webfonts/ss-standard.*'
+            'src/assets/webfonts/ss-standard.*',
+            'src/assets/webfonts/icomoon.*'
         ]
     },
 };

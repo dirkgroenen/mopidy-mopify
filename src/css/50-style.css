@@ -1188,6 +1188,12 @@ img[src=""] {
     padding-right: 10px;
 }
 
+#application #overview .pagecontent #tracklist .track .name .type-icon{
+    display: inline-block;
+    padding-right: 5px;
+    color: #888;
+}
+
 #application #overview .pagecontent #tracklist .track .artists,
 #application #overview .pagecontent #tracklist .track .album{
     color: #777;

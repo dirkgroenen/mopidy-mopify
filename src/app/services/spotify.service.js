@@ -332,7 +332,6 @@ angular.module("mopify.services.spotifylogin", [
 
     // Handler on message
     window.addEventListener("message", function(e){
-
         // Check origin
         if (e.origin != "http://mopify.bitlabs.nl") {
             return;
