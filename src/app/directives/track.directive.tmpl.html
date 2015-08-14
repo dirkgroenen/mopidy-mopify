@@ -38,18 +38,18 @@
             Remove from queue
         </li>
         <li class="divider"></li>
-        <li ng-click="startStation()">
+        <li ng-click="startStation()" ng-if="track.type == 'spotify'">
             Start station
         </li>
-        <li class="divider"></li>
-        <li ng-click="showPlaylists()">
+        <li class="divider" ng-if="track.type == 'spotify'"></li>
+        <li ng-click="showPlaylists()" ng-if="track.type == 'spotify'">
             Add to playlist
         </li>
-        <li ng-if="$parent.isowner" ng-click="removeFromPlaylist()">
+        <li ng-if="$parent.isowner" ng-click="removeFromPlaylist()" ng-if="track.type == 'spotify'">
             Remove from playlist
         </li>
-        <li class="divider"></li>
-        <li ng-click="toggleSaveTrack()" ng-show='showSaveTrack'>
+        <li class="divider" ng-if="track.type == 'spotify'"></li>
+        <li ng-click="toggleSaveTrack()" ng-show='showSaveTrack' ng-if="track.type == 'spotify'">
             {{ (trackAlreadySaved) ? 'Remove track from library' : 'Save track in library' }}
         </li>
     </ul>
