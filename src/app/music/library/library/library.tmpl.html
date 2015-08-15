@@ -1,0 +1,34 @@
+<div id="header" class="small row">
+    <div class="backgroundimage" style="background-image: url('./assets/images/playlists-header.jpg');"></div>
+    <div class="col-md-12">
+        <div class="albumart hidden-xs hidden-sm">
+            <img src="./assets/images/playlists-header.jpg" />
+        </div>
+        <div class="lefttext">
+            <div class="inner"> 
+                <i class="ss-icon ss-list"></i> Your music: Library
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="overview" class="row">
+    <div class="pagetitle row">
+        <div class="col-md-3">
+            Your Music <span class="sub">Library <span ng-if="foldername">></span> {{ foldername }}</span>
+        </div>
+        <div class="col-md-6 col-md-offset-3 alignright">
+            
+        </div>
+    </div>
+
+    <div class="pagecontent row">
+        <div id="tileview">
+            <div class="row">
+                <p ng-repeat="item in results">
+                    <a href="/#/music/library/{{ item.uri }}">{{ item.name }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

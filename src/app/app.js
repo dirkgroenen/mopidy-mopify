@@ -12,6 +12,7 @@ angular.module('mopify', [
     'spotify',
     'mopify.dashboard',
     'mopify.search',
+    'mopify.music.library',
     'mopify.music.artist',
     'mopify.music.playlists',
     'mopify.music.stations',
