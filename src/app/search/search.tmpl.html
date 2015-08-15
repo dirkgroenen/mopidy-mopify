@@ -72,7 +72,12 @@
                 </div>
                 <div class="col-lg-4 col-md-3 col-sm-12 column">
                     <div class="title">
-                        <h2>Tracks</h2>
+                        <h2>
+                            Tracks
+                            <span class="sources">
+                                <i ng-repeat="source in tracksources" ng-class="{ selected: source.checked }" class="icon-{{ source.name }}" ng-click="toggleSource(source);"></i>
+                            </span>
+                        </h2>
                         <div ng-click="searchLimitsToggle('tracks')">
                             <span class="more" ng-show="searchLimits.tracks != 50">More</span>
                             <span class="more" ng-show="searchLimits.tracks == 50">Less</span>

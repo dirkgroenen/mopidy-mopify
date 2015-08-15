@@ -31,6 +31,7 @@ angular.module('mopify.search', [
 
     $scope.query = $routeParams.query;
     var typingTimeout = null;
+    var tracksbase = [];
 
     // Set focus on input
     $rootScope.focussearch = true;
@@ -104,6 +105,9 @@ angular.module('mopify.search', [
         var searchableItems = (!SpotifyLogin.connected) ? "album,artist" : "album,artist,playlist";
         var resultsloaded = 0;
 
+        // Reset sources
+        $scope.tracksources = [];
+
         Spotify.search($scope.query, searchableItems, {
             market: Settings.get("country", "US"),
             limit: "50"
@@ -130,12 +134,20 @@ angular.module('mopify.search', [
 
             // Go through each data source
             _.each(data, function(source){
+                // Add source
+                $scope.tracksources.push({
+                    uri: source.uri,
+                    name: source.uri.split(':')[0],
+                    checked: (source.tracks !== undefined)
+                });
+
                 if(source.tracks !== undefined)
                     tracks = tracks.concat(source.tracks);
             });
             
             // Set tracks
             $scope.results.tracks = tracks;
+            tracksbase = tracks;
 
             // Check if all data is loaded and if it is; calculate the topresult
             resultsloaded++;
@@ -187,6 +199,36 @@ angular.module('mopify.search', [
         else
             $scope.searchLimits[item] = 50;
     };
+
+    /**
+     * Toggle the source and filter the tracks
+     * 
+     * @param  {obejct} source
+     * @return {void}
+     */
+    $scope.toggleSource = function(source) {
+        source.checked = !source.checked;
+
+        // Filter tracks by source
+        filterTracksBySource();
+    };
+
+    /**
+     * Filter the tracklist based on the checked sources
+     * 
+     * @return {void}
+     */
+    function filterTracksBySource() {
+        var sources = {};
+
+        _.each($scope.tracksources, function(source){
+            sources[source.name] = source.checked;
+        });
+
+        $scope.results.tracks = _.reject(tracksbase, function(track){
+            return !sources[track.uri.split(":")[0]];
+        });
+    }
 
     /**
      * Get the top matching resutls from the given batch

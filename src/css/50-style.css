@@ -1678,6 +1678,23 @@ img[src=""] {
     margin: 0;
 }
 
+.search-overlay .inner .resultwrap .column .title h2 .sources i{
+    display: inline-block;
+    padding: 0 5px;
+    margin: 0 1px;
+    cursor: pointer;
+    font-size: 15px;
+    opacity: .3;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.search-overlay .inner .resultwrap .column .title h2 .sources i:hover,
+.search-overlay .inner .resultwrap .column .title h2 .sources i.selected{
+    opacity: 1;
+}
+
 .search-overlay .inner .resultwrap .column .title .more{
     position: absolute;
     right: 0;

@@ -163,6 +163,10 @@ angular.module('mopify.services.mopidy', [
             return wrapMopidyFunc("mopidy.library.search", this)({ any : [ query ] });
         },
 
+        browse: function(uri) {
+            return wrapMopidyFunc("mopidy.library.browse", this)({ uri : uri });
+        },
+
         getCurrentTrack: function() {
             return wrapMopidyFunc("mopidy.playback.getCurrentTrack", this)();
         },
