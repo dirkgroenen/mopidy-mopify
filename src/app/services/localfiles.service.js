@@ -63,7 +63,10 @@ angular.module("mopify.services.localfiles", [
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).success(function(data){
-            deferred.resolve(data.response);
+            if(data === null)
+                deferred.reject("Unknown error.");
+            else
+                deferred.resolve(data.response);
         }).error(function(data){
             deferred.reject(data.response);
         });
@@ -101,17 +104,17 @@ angular.module("mopify.services.localfiles", [
     LocalFiles.prototype.startUploading = function(files) {
         var that = this;
 
-        that.uploading = true;
         that.queue = files;
 
         _.each(files, function(file){
             that.upload(file).then(function(response){
-                that.queue = _.reject(that.queue, function(item){
-                    return item.name == file.name;
+                that.removeFromQueue(file);
+            }, function(err){
+                _.each(that.queue, function(item){
+                    if(item.name == file.name){
+                        item.error = true;
+                    }
                 });
-
-                if(that.queue.length === 0)
-                    that.uploading = false;
             });
         });
     };
@@ -134,6 +137,20 @@ angular.module("mopify.services.localfiles", [
         });
 
         return deferred.promise;
+    };
+
+    /**
+     * Remove the given item from the queue
+     * 
+     * @param  {object} file
+     * @return {void}
+     */
+    LocalFiles.prototype.removeFromQueue = function(file) {
+        var that = this;
+
+        that.queue = _.reject(that.queue, function(item){
+            return item.name == file.name;
+        });
     };
 
     /**

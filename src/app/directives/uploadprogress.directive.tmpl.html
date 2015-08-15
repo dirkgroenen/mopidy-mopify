@@ -2,7 +2,7 @@
     <header>Uploading...</header>
     <section class="items">
         <ul>
-            <li ng-repeat="file in queue"><spinner></spinner> <span class="filename">{{ file.name }}</span> <span class="status">Uploading...</span></li>
+            <li ng-repeat="file in queue" ng-class="{ failed: file.error }" ng-click="removeFromQueue(file)"><spinner ng-hide="file.error"></spinner> <span class="filename">{{ file.name }}</span> <span class="status"><span ng-hide="file.error">Uploading...</span><span ng-show="file.error">Failed</span></li>
         </ul>
     </section>
 </div>

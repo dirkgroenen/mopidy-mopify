@@ -23,6 +23,16 @@ angular.module('mopify.widgets.directive.uploadprogress', [
                 scope.queue = queue;
             }, true);
 
+            /**
+             * Remove from queue
+             * 
+             * @param  {object} file
+             * @return {void}
+             */
+            scope.removeFromQueue = function(file) {
+                LocalFiles.removeFromQueue(file);
+            };
+
         }
     };
 

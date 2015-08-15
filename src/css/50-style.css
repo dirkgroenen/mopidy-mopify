@@ -1557,6 +1557,11 @@ img[src=""] {
     font-size: 14px;
 }
 
+#application .upload-progress .items ul li.failed{
+    opacity: .5;
+    cursor: pointer;
+}
+
 #application .upload-progress .items ul li .filename{
     overflow: hidden;
     white-space: nowrap;
