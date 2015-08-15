@@ -61,3 +61,20 @@ class LocalFiles:
             'error': False,
             'message': response    
         }
+
+    # Get space left on device for directory
+    def get_freespace(self):
+        # Check if media dir has been specified
+        if(self.media_dir == False):
+            return {
+                'error': True,
+                'message': 'No media_dir specified'
+            }
+
+        # get free space for media dir
+        st = os.statvfs( self.media_dir )
+        freespace = st.f_bavail * st.f_frsize / 1024 / 1024
+        return {
+            'error': False,
+            'message': freespace
+        }

@@ -117,6 +117,26 @@ angular.module("mopify.services.localfiles", [
     };
 
     /**
+     * Get the available free space
+     * 
+     * @return {Promise}
+     */
+    LocalFiles.prototype.getFreeSpace = function() {
+        var deferred = $q.defer();
+
+        get("freespace").then(function(response){
+            if(response.error === false){
+                deferred.resolve(response.message);
+            }
+            else{
+                deferred.resolve(0);
+            }
+        });
+
+        return deferred.promise;
+    };
+
+    /**
      * Upload the provided file
      *
      * @param {array} file

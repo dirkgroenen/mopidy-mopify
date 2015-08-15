@@ -25,4 +25,16 @@ angular.module("mopify.account.services.localfiles", [
     LocalFiles.getMediaDir().then(function(data){
         $scope.localfiles.media_dir = data;
     });
+
+    // Get free space
+    LocalFiles.getFreeSpace().then(function(mb){
+        var size;
+
+        if(mb > 999)
+            size = Math.round(mb / 1000) + " GB";
+        else
+            size = mb + " MB";
+
+        $scope.localfiles.freespace = size;
+    });
 });

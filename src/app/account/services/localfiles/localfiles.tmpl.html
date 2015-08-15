@@ -30,5 +30,17 @@
                 <p>The directory where new files will be uploaded to. This option can be changed in your Mopidy config file.</p>
             </div>
         </div>
+
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Available space</label>
+            </div>
+            <div class="input col-md-4">
+                <input name="freespace" ng-model="localfiles.freespace" class="field" readonly="readonly" />
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>The available space for the selected media dir.</p>
+            </div>
+        </div>
     </div>
 </div>
