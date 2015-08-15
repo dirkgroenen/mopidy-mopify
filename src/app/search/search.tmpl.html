@@ -21,12 +21,12 @@
             <div class="row">
                 <div class="col-lg-2 col-sm-6 column hidden-md hidden-sm">
                     <div class="title">
-                        <h2>Best match: {{ topresult.item.name }}</h2>
+                        <h2>Best match: {{ results.bestmatch.item.name }}</h2>
                     </div>
                     <div id="featured">
                         <div id="searchview" class="topresult">
                             <div class="cover">
-                                <a href="{{ topresult.link }}"><img ng-src="{{ topresult.item.images[0].url }}" /></a>
+                                <a href="{{ results.bestmatch.link }}"><img ng-src="{{ results.bestmatch.item.images[0].url }}" /></a>
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         <h2>
                             Tracks
                             <span class="sources">
-                                <i ng-repeat="source in tracksources" ng-class="{ selected: source.checked }" class="icon-{{ source.name }}" ng-click="toggleSource(source);"></i>
+                                <i ng-repeat="source in results.tracks.sources" ng-class="{ selected: source.checked }" class="icon-{{ source.name }}" ng-click="toggleSource(source);"></i>
                             </span>
                         </h2>
                         <div ng-click="searchLimitsToggle('tracks')">
@@ -85,8 +85,8 @@
                     </div>
                     <div id="searchview">
                         <div id="tracklist" class="row">
-                            <div class="noresults" ng-show="results.tracks.length == 0">No results</div>
-                            <mopify-track track="track" surrounding="results.tracks" <div ng-repeat="track in results.tracks | limitTo:searchLimits.tracks">> </mopify-track>
+                            <div class="noresults" ng-show="results.tracks.items.length == 0">No results</div>
+                            <mopify-track track="track" surrounding="results.tracks.items" <div ng-repeat="track in results.tracks.items | limitTo:searchLimits.tracks">> </mopify-track>
                         </div>
                     </div>
                 </div>
