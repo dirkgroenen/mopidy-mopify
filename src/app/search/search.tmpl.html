@@ -86,7 +86,7 @@
                     <div id="searchview">
                         <div id="tracklist" class="row">
                             <div class="noresults" ng-show="results.tracks.items.length == 0">No results</div>
-                            <mopify-track track="track" surrounding="results.tracks.items" <div ng-repeat="track in results.tracks.items | limitTo:searchLimits.tracks">> </mopify-track>
+                            <mopify-track track="track" surrounding="results.tracks.items" ng-repeat="track in results.tracks.items | limitTo:searchLimits.tracks"> </mopify-track>
                         </div>
                     </div>
                 </div>

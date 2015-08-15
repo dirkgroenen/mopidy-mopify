@@ -95,6 +95,7 @@ angular.module('mopify.search', [
     $scope.performSearch = function performSearch(){
         SearchService.search($scope.query).then(function(response){
             $scope.results = response;
+            tracksbase = response.tracks.items;
             $scope.loading = false;
         });
     };
