@@ -20,9 +20,10 @@ Some of the features that are included in Mopify:
 - Automatic updating
 - Improved [Queue manager](https://github.com/dirkgroenen/mopidy-mopify/wiki/Queuemanager) which works like Spotify's one
 
-At the moment, Mopify only works with
+~~At the moment, Mopify only works with
 [mopidy-spotify](https://github.com/mopidy/mopidy-spotify). This may change in
-the future depending on how popular Mopify becomes!
+the future depending on how popular Mopify becomes!~~
+I'm working on the new version with some major changes. One of them: support for multiple music sources. Keep an eye on the [v2.0 branch](https://github.com/dirkgroenen/mopidy-mopify/tree/v2.0), my [Twitter account](https://twitter.com/dirkgroenen) or [my blog](http://dirkgroenen.nl) and stay updated.
 
 ![http://i.imgur.com/EKPXw5b.jpg](http://i.imgur.com/EKPXw5b.jpg)
 
