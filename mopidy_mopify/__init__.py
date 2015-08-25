@@ -4,7 +4,7 @@ import logging
 import os
 import tornado.web
 import sync
-import update 
+import update
 import mem
 from queuemanager import core
 from queuemanager import frontend
@@ -17,6 +17,7 @@ __ext_name__ = 'mopify'
 __verbosemode__ = False
 
 logger = logging.getLogger(__ext_name__)
+
 
 class MopifyExtension(ext.Extension):
     dist_name = 'Mopidy-Mopify'
@@ -33,8 +34,8 @@ class MopifyExtension(ext.Extension):
         return schema
 
     def setup(self, registry):
-        syncinstance = sync.Sync();
-        
+        sync.Sync()
+
         mem.queuemanager = core.QueueManager()
 
         # Add Queuemanager Frontend class
@@ -43,13 +44,14 @@ class MopifyExtension(ext.Extension):
         # Add web extension
         registry.add('http:app', {
             'name': self.ext_name,
-            'factory': mopify_client_factory  
+            'factory': mopify_client_factory
         })
 
         logger.info('Setup Mopify')
 
+
 def mopify_client_factory(config, core):
-    directory = 'debug' if (config.get(__ext_name__)['debug'] == True) else 'min'
+    directory = 'debug' if config.get(__ext_name__)['debug'] is True else 'min'
     mopifypath = os.path.join(os.path.dirname(__file__), 'static', directory)
 
     return [

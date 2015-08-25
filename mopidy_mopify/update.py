@@ -1,9 +1,9 @@
 import os
-import sys
 import tornado.web
 
 from tornado.escape import json_encode
 import subprocess
+
 
 class UpdateRequestHandler(tornado.web.RequestHandler):
     isroot = False
@@ -23,15 +23,12 @@ class UpdateRequestHandler(tornado.web.RequestHandler):
 
     def post(self):
         if not self.isroot:
-            resp = 'Mopidy needs to run as root user to perform an auto-update' 
+            resp = 'Mopidy needs to run as root user to perform an auto-update'
         else:
             try:
                 subprocess.check_call(["pip", "install", "--upgrade", "mopidy-mopify"])
-
-                restart = True
-                resp = 'Update succesfull'
+                resp = 'Update succesful'
             except subprocess.CalledProcessError:
-                restart = False
                 resp = "The auto-update failed"
 
         self.write(json_encode({'response': resp}))
