@@ -150,6 +150,8 @@ v1.5.5 (25-08-2015)
 
 - Fixed playing items from browse [#123](https://github.com/dirkgroenen/mopidy-mopify/issues/123)
 
+- Show all artists in player
+
 v1.5.4 (12-07-2015)
 -------------------
 
