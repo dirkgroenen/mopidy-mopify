@@ -133,11 +133,12 @@ angular.module('mopify.services.playlistmanager', [
         'Authorization': 'Bearer ' + Spotify.authToken,
         'Content-Type': 'application/json'
       }).then(function (data) {
+        // Concat items
+        that.playlists = sortPlaylists(that.playlists.concat(data.items));
         // Starts loading more playlists if needed
         if (data.next !== null) {
           that.loadMorePlaylists(data.next);
         } else {
-          that.playlists = sortPlaylists(that.playlists.concat(data.items));
           that.loading = false;
         }
       });

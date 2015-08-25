@@ -141,6 +141,15 @@ v2.0.0 (UNRELEASED)
 
 - Add support for multiple library sources (Local, SoundCloud, Google Play)
 
+v1.5.5 (25-08-2015)
+-------------------
+
+- Fixes problems when loading +100 Spotify playlists [#122](https://github.com/dirkgroenen/mopidy-mopify/issues/122) [#124](https://github.com/dirkgroenen/mopidy-mopify/issues/124)
+
+- Added dynamic Websocket protocol [#125](https://github.com/dirkgroenen/mopidy-mopify/issues/125)
+
+- Fixed playing items from browse [#123](https://github.com/dirkgroenen/mopidy-mopify/issues/123)
+
 v1.5.4 (12-07-2015)
 -------------------
 

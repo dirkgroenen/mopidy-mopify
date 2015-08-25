@@ -41,8 +41,9 @@ angular.module('mopify.widgets.directive.browse', [
         }
         // Play the suggestion
         scope.play = function () {
-          mopidyservice.lookup(scope.spotifyuri).then(function (tracks) {
-            var playtracks = tracks.splice(0, 50);
+          mopidyservice.lookup(scope.spotifyuri).then(function (result) {
+            var tracks = result[scope.spotifyuri];
+            var playtracks = tracks.splice(0, 20);
             var tracktoplay = playtracks[0];
             if (scope.item.type == 'echonest') {
               _.each(playtracks, function (track, index) {
