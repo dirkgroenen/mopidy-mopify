@@ -62,8 +62,6 @@ angular.module("mopify.services.playlistmanager", [
         this.playlists = [];
         this.orderedPlaylists = {};
 
-        console.log(this.playlists);
-
         // Get the spotify loadplaylists setting
         var loadspotifyplaylists = false;
 
@@ -157,8 +155,6 @@ angular.module("mopify.services.playlistmanager", [
      */
     PlaylistManager.prototype.loadMorePlaylists = function(next){
         var that = this; 
-
-        console.log("Loading more playlists");
 
         Spotify.api(next.replace("https://api.spotify.com/v1", ""), 'GET', null, {}, {
             'Authorization': 'Bearer ' + Spotify.authToken,
