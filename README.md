@@ -137,9 +137,11 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
-v2.0.0 (UNRELEASED)
+v1.5.6 (27-08-2015)
 
-- Add support for multiple library sources (Local, SoundCloud, Google Play)
+- Moved all requests to https:// (where possible). [#129](https://github.com/dirkgroenen/mopidy-mopify/issues/129)
+
+- Rounded volume integer [#127](https://github.com/dirkgroenen/mopidy-mopify/issues/127)
 
 v1.5.5 (25-08-2015)
 -------------------
