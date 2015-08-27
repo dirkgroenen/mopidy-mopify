@@ -182,6 +182,7 @@ angular.module('mopify.services.mopidy', [
         },
 
         setVolume: function(volume) {
+            volume = Math.round(volume);
             return wrapMopidyFunc("mopidy.mixer.setVolume", this)({ volume: volume });
         },
 
