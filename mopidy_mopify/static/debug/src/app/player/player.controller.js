@@ -2,8 +2,7 @@
 angular.module('mopify.player', [
   'spotify',
   'mopify.services.mopidy',
-  'mopify.services.history',
-  'mopify.services.util'
+  'mopify.services.history'
 ]).controller('PlayerController', [
   '$scope',
   '$rootScope',
@@ -13,8 +12,7 @@ angular.module('mopify.player', [
   'Spotify',
   'mopidyservice',
   'History',
-  'util',
-  function PlayerController($scope, $rootScope, $timeout, $interval, $window, Spotify, mopidyservice, History, util) {
+  function PlayerController($scope, $rootScope, $timeout, $interval, $window, Spotify, mopidyservice, History) {
     $scope.trackTitle = '';
     $scope.trackArtist = '';
     $scope.albumUri = '';
@@ -95,7 +93,7 @@ angular.module('mopify.player', [
     function updatePlayerInformation(track) {
       if (track !== undefined && track !== null) {
         if (track.uri !== previousTrackUri) {
-          $scope.trackArtist = util.artistsToString(track.artists, false);
+          $scope.trackArtist = track.artists[0].name;
           $scope.trackTitle = track.name;
           $scope.albumUri = track.album.uri;
           $scope.albumName = track.album.name;

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from mopidy.core import CoreListener
 import pykka
 
-from .. import mem
+from ... import mem
 
 class QueueManagerFrontend(pykka.ThreadingActor, CoreListener):
 

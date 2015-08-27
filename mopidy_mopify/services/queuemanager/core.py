@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 
-
 class QueueManager(object):
     # Initialize the tracklist
     queue = []

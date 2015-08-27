@@ -23,7 +23,7 @@ angular.module('mopify.services.tasteprofile', [
         };
       $http({
         method: 'JSONP',
-        url: 'https://bitlabs.nl/mopify/api/post/',
+        url: 'http://mopify.bitlabs.nl/api/post/',
         params: postdata
       }).success(function (result) {
         deferred.resolve(result.response);

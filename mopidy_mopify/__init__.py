@@ -3,20 +3,24 @@ from __future__ import unicode_literals
 import logging
 import os
 import tornado.web
-import sync
-import update 
+
 import mem
-from queuemanager import core
-from queuemanager import frontend
-from queuemanager import requesthandler
+
+from services.sync import sync
+from services.autoupdate import update 
+
+from services.queuemanager import core as QueueManagerCore
+from services.queuemanager import frontend
+from services.queuemanager import requesthandler as QueueManagerRequestHandler
 
 from mopidy import config, ext
 
-__version__ = '1.5.6'
+__version__ = '1.5.4'
 __ext_name__ = 'mopify'
 __verbosemode__ = False
 
 logger = logging.getLogger(__ext_name__)
+
 
 class MopifyExtension(ext.Extension):
     dist_name = 'Mopidy-Mopify'
@@ -33,9 +37,10 @@ class MopifyExtension(ext.Extension):
         return schema
 
     def setup(self, registry):
-        syncinstance = sync.Sync();
+        sync.Sync();
         
-        mem.queuemanager = core.QueueManager()
+        # Create instances
+        mem.queuemanager = QueueManagerCore.QueueManager()
 
         # Add Queuemanager Frontend class
         registry.add('frontend', frontend.QueueManagerFrontend)
@@ -43,18 +48,19 @@ class MopifyExtension(ext.Extension):
         # Add web extension
         registry.add('http:app', {
             'name': self.ext_name,
-            'factory': mopify_client_factory  
+            'factory': mopify_client_factory
         })
 
         logger.info('Setup Mopify')
 
+
 def mopify_client_factory(config, core):
-    directory = 'debug' if (config.get(__ext_name__)['debug'] == True) else 'min'
+    directory = 'debug' if config.get(__ext_name__)['debug'] is True else 'min'
     mopifypath = os.path.join(os.path.dirname(__file__), 'static', directory)
 
     return [
         ('/sync/(.*)', sync.RootRequestHandler, {'core': core, 'config': config}),
-        ('/queuemanager/(.*)', requesthandler.RequestHandler, {'core': core, 'config': config, 'instance': mem.queuemanager}),
+        ('/queuemanager/(.*)', QueueManagerRequestHandler.RequestHandler, {'core': core, 'config': config}),
         ('/update', update.UpdateRequestHandler, {'core': core, 'config': config}),
         (r'/(.*)', tornado.web.StaticFileHandler, {
             "path": mopifypath,

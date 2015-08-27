@@ -95,9 +95,8 @@ angular.module('mopify.services.mopidy', [
         var mopidyport = Settings.get('mopidyport', '6680');
         // Initialize mopidy
         try {
-          var protocol = typeof document !== 'undefined' && document.location.protocol === 'https:' ? 'wss://' : 'ws://';
           this.mopidy = new Mopidy({
-            webSocketUrl: protocol + mopidyip + ':' + mopidyport + '/mopidy/ws',
+            webSocketUrl: 'ws://' + mopidyip + ':' + mopidyport + '/mopidy/ws',
             callingConvention: 'by-position-or-by-name'
           });
         } catch (e) {
@@ -163,7 +162,6 @@ angular.module('mopify.services.mopidy', [
         return wrapMopidyFunc('mopidy.mixer.getVolume', this)();
       },
       setVolume: function (volume) {
-        volume = Math.round(volume);
         return wrapMopidyFunc('mopidy.mixer.setVolume', this)({ volume: volume });
       },
       getState: function () {
