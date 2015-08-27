@@ -185,6 +185,8 @@ angular.module('mopify.music.tracklist', [
                 else{
                     $scope.loadedTracks = angular.copy(tracks);
 
+                    console.log($scope.loadedTracks);
+
                     var random = Math.floor((Math.random() * tracks.length) + 0);
 
                     if($scope.type == "Album")
