@@ -12,7 +12,7 @@ angular.module("mopify.services.sync", [
     var mopidyip = Settings.get("mopidyip", $location.host());
     var mopidyport = Settings.get("mopidyport", "6680");
 
-    var apiUrl = "http://" + mopidyip + ":" +  mopidyport + "/mopify/sync/";
+    var apiUrl = $location.protocol() + "://" + mopidyip + ":" +  mopidyport + "/mopify/sync/";
 
     /**
      * Do a post request to the sync server
