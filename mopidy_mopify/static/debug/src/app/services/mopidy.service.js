@@ -95,8 +95,9 @@ angular.module('mopify.services.mopidy', [
         var mopidyport = Settings.get('mopidyport', '6680');
         // Initialize mopidy
         try {
+          var protocol = typeof document !== 'undefined' && document.location.protocol === 'https:' ? 'wss://' : 'ws://';
           this.mopidy = new Mopidy({
-            webSocketUrl: 'ws://' + mopidyip + ':' + mopidyport + '/mopidy/ws',
+            webSocketUrl: protocol + mopidyip + ':' + mopidyport + '/mopidy/ws',
             callingConvention: 'by-position-or-by-name'
           });
         } catch (e) {
