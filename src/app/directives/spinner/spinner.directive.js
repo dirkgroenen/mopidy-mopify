@@ -9,7 +9,7 @@ angular.module('mopify.widgets.directive.spinner', [
     return {
         restrict: 'EA',
         replace: true,
-        templateUrl: 'directives/spinner.directive.tmpl.html'
+        templateUrl: 'directives/spinner/spinner.directive.tmpl.html'
     };
 
 });

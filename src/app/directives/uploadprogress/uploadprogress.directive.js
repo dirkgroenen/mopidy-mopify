@@ -11,7 +11,7 @@ angular.module('mopify.widgets.directive.uploadprogress', [
         restrict: 'E',
         scope: {},
         replace: true,
-        templateUrl: 'directives/uploadprogress.directive.tmpl.html',
+        templateUrl: 'directives/uploadprogress/uploadprogress.directive.tmpl.html',
         link: function(scope, element, attrs) {
 
             /**

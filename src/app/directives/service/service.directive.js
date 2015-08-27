@@ -11,7 +11,7 @@ angular.module('mopify.widgets.directive.service', [
         scope: {
             service: '='
         },
-        templateUrl: 'directives/service.directive.tmpl.html',
+        templateUrl: 'directives/service/service.directive.tmpl.html',
         link: function(scope, element, attrs) {
                 
             /**

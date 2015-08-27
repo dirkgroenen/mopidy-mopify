@@ -13,7 +13,7 @@ angular.module('mopify.widgets.directive.station', [
             station: '=',
             index: '='
         },
-        templateUrl: 'directives/station.directive.tmpl.html',
+        templateUrl: 'directives/station/station.directive.tmpl.html',
         link: function(scope, element, attrs) {
 
             scope.visible = true;

@@ -14,7 +14,7 @@ angular.module('mopify.widgets.directive.browse', [
         scope: {
             item: '='
         },
-        templateUrl: 'directives/browse.directive.tmpl.html',
+        templateUrl: 'directives/browse/browse.directive.tmpl.html',
         link: function(scope, element, attrs) {
             scope.spotifyuri = null;
            
