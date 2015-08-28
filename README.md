@@ -137,6 +137,14 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
+v1.5.7 (28-08-2015)
+
+- Fixed last protocol URL issues [#129](https://github.com/dirkgroenen/mopidy-mopify/issues/129)
+
+- Add all tracks when clicking in a tracklist [#130](https://github.com/dirkgroenen/mopidy-mopify/issues/130)
+
+- Tested proper working with Mopidy 1.1.0
+
 v1.5.6 (27-08-2015)
 
 - Moved all requests to https:// (where possible). [#129](https://github.com/dirkgroenen/mopidy-mopify/issues/129)
