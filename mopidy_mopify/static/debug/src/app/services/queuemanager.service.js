@@ -14,7 +14,8 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
     var mopidyip = Settings.get('mopidyip', $location.host());
     var mopidyport = Settings.get('mopidyport', '6680');
     // Setup websoclet
-    var ws = new WebSocket('ws://' + mopidyip + ':' + mopidyport + '/mopify/queuemanager/');
+    var protocol = typeof document !== 'undefined' && document.location.protocol === 'https:' ? 'wss://' : 'ws://';
+    var ws = new WebSocket(protocol + mopidyip + ':' + mopidyport + '/mopify/queuemanager/');
     /**
      * Send a request to the server's queuemanager class
      * 

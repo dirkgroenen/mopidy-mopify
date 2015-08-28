@@ -6,12 +6,13 @@ angular.module('mopify.services.tasteprofile', [
   '$http',
   '$q',
   '$rootScope',
+  '$location',
   'localStorageService',
   'notifier',
   'ServiceManager',
-  function ($http, $q, $rootScope, localStorageService, notifier, ServiceManager) {
+  function ($http, $q, $rootScope, $location, localStorageService, notifier, ServiceManager) {
     'use strict';
-    var apiUrl = 'http://developer.echonest.com/api/v4/';
+    var apiUrl = $location.protocol() + '://developer.echonest.com/api/v4/';
     var apiKey = 'UVUDDM7M0S5MWNQFV';
     var post = function (url, data) {
       var deferred = $q.defer();
@@ -23,7 +24,7 @@ angular.module('mopify.services.tasteprofile', [
         };
       $http({
         method: 'JSONP',
-        url: 'http://mopify.bitlabs.nl/api/post/',
+        url: 'https://bitlabs.nl/mopify/api/post/',
         params: postdata
       }).success(function (result) {
         deferred.resolve(result.response);

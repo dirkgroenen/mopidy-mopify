@@ -1560,7 +1560,7 @@ angular.module("music/tracklist/tracklist.tmpl.html", []).run(["$templateCache",
     "    <div class=\"pagecontent row\">\n" +
     "        <div id=\"tracklist\" infinite-scroll=\"getMoreTracks()\" infinite-scroll-distance=\"1\">\n" +
     "            <div class=\"row\" ng-repeat=\"track in tracks track by $index\">\n" +
-    "                <mopify-track track=\"track\" currentplayingtrack=\"currentPlayingTrack\" surrounding=\"tracks\" type=\"type\"></mopify-track>\n" +
+    "                <mopify-track track=\"track\" currentplayingtrack=\"currentPlayingTrack\" surrounding=\"loadedTracks\" type=\"type\"></mopify-track>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
