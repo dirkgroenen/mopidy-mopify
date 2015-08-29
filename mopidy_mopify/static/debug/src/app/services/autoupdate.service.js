@@ -19,7 +19,7 @@ angular.module('mopify.services.autoupdate', ['mopify.services.settings']).facto
     AutoUpdate.prototype.check = function () {
       var deferred = $q.defer();
       // Make request
-      $http.get('http://' + mopidyip + ':' + mopidyport + '/mopify/update').success(function (data) {
+      $http.get($location.protocol() + '://' + mopidyip + ':' + mopidyport + '/mopify/update').success(function (data) {
         canupdate = data.response;
         deferred.resolve(canupdate);
       }).error(function (data) {
@@ -37,7 +37,7 @@ angular.module('mopify.services.autoupdate', ['mopify.services.settings']).facto
       // Check if we can update
       if (canupdate) {
         // Make request
-        $http.post('http://' + mopidyip + ':' + mopidyport + '/mopify/update').success(function (data) {
+        $http.post($location.protocol() + '://' + mopidyip + ':' + mopidyport + '/mopify/update').success(function (data) {
           deferred.resolve(data);
           // Broadcast update message
           $rootScope.$broadcast('mopify:update:succesfull', data);

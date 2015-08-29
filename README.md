@@ -20,9 +20,11 @@ Some of the features that are included in Mopify:
 - Automatic updating
 - Improved [Queue manager](https://github.com/dirkgroenen/mopidy-mopify/wiki/Queuemanager) which works like Spotify's one
 
-At the moment, Mopify only works with
+~~At the moment, Mopify only works with
 [mopidy-spotify](https://github.com/mopidy/mopidy-spotify). This may change in
-the future depending on how popular Mopify becomes!
+the future depending on how popular Mopify becomes!~~
+
+I'm working on the new version with some major changes. One of them: support for multiple music sources. Keep an eye on the [v2.0 branch](https://github.com/dirkgroenen/mopidy-mopify/tree/v2.0), my [Twitter account](https://twitter.com/dirkgroenen) or [my blog](http://dirkgroenen.nl) and stay updated.
 
 ![http://i.imgur.com/EKPXw5b.jpg](http://i.imgur.com/EKPXw5b.jpg)
 
@@ -135,9 +137,22 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
-v2.0.0 (UNRELEASED)
+v1.5.6 (27-08-2015)
 
-- Add support for multiple library sources (Local, SoundCloud, Google Play)
+- Moved all requests to https:// (where possible). [#129](https://github.com/dirkgroenen/mopidy-mopify/issues/129)
+
+- Rounded volume integer [#127](https://github.com/dirkgroenen/mopidy-mopify/issues/127)
+
+v1.5.5 (25-08-2015)
+-------------------
+
+- Fixes problems when loading +100 Spotify playlists [#122](https://github.com/dirkgroenen/mopidy-mopify/issues/122) [#124](https://github.com/dirkgroenen/mopidy-mopify/issues/124)
+
+- Added dynamic Websocket protocol [#125](https://github.com/dirkgroenen/mopidy-mopify/issues/125)
+
+- Fixed playing items from browse [#123](https://github.com/dirkgroenen/mopidy-mopify/issues/123)
+
+- Show all artists in player
 
 v1.5.5 (UNRELEASED)
 -------------------

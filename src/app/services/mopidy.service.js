@@ -90,8 +90,10 @@ angular.module('mopify.services.mopidy', [
             
 			// Initialize mopidy
             try{
+                var protocol = (typeof document !== "undefined" && document.location.protocol === "https:") ? "wss://" : "ws://";
+
     			this.mopidy = new Mopidy({
-    				webSocketUrl: "ws://" + mopidyip + ":" + mopidyport + "/mopidy/ws", // FOR DEVELOPING 
+    				webSocketUrl: protocol + mopidyip + ":" + mopidyport + "/mopidy/ws",
     				callingConvention: 'by-position-or-by-name'
     			});
             }
@@ -184,6 +186,7 @@ angular.module('mopify.services.mopidy', [
         },
 
         setVolume: function(volume) {
+            volume = Math.round(volume);
             return wrapMopidyFunc("mopidy.mixer.setVolume", this)({ volume: volume });
         },
 

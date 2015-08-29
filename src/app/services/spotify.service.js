@@ -18,7 +18,7 @@ angular.module("mopify.services.spotifylogin", [
     // Create the iframe in the document
     function createFrame(service){
         frame = document.createElement("iframe"); 
-        frame.setAttribute("src", "http://mopify.bitlabs.nl/auth/" + service + "/frame/#" + window.location.host); 
+        frame.setAttribute("src", "https://bitlabs.nl/mopify/auth/" + service + "/frame/#" + window.location.host); 
         frame.style.width = 1 + "px"; 
         frame.style.height = 1 + "px"; 
 
@@ -155,7 +155,7 @@ angular.module("mopify.services.spotifylogin", [
 
             $http({
                 method: 'JSONP',
-                url: "http://mopify.bitlabs.nl/auth/spotify/refresh/",
+                url: "https://bitlabs.nl/mopify/auth/spotify/refresh/",
                 params: postdata
             }).success(function(result) {
                 
@@ -333,7 +333,7 @@ angular.module("mopify.services.spotifylogin", [
     // Handler on message
     window.addEventListener("message", function(e){
         // Check origin
-        if (e.origin != "http://mopify.bitlabs.nl") {
+        if (e.origin != "https://bitlabs.nl") {
             return;
         }
 
