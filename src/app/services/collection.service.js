@@ -8,6 +8,7 @@ angular.module("mopify.services.collectionservice", [
     function CollectionService(){
         var that = this;
 
+        this.deferred = $q.defer();
         this.tree = {};
 
         // Initialize the collection tree model, this needs a valid mopidy connection
@@ -21,6 +22,15 @@ angular.module("mopify.services.collectionservice", [
     }
 
     /**
+     * Hook for when the service is ready to use
+     *
+     * @return {promise}
+     */
+    CollectionService.prototype.whenReady = function(){
+        return this.deferred.promise;
+    };
+
+    /**
      * Load the root directories
      *
      * @return {void}
@@ -30,6 +40,7 @@ angular.module("mopify.services.collectionservice", [
 
         mopidyservice.browse( null ).then(function(response){
             that.buildDirectory(null, response);
+            that.deferred.resolve();
         });
     };
 
@@ -63,6 +74,13 @@ angular.module("mopify.services.collectionservice", [
                     full: that.tree,
                     new: response
                 });
+            });
+        }
+        else{
+            // Resolve full tree and newly added items
+            deferred.resolve({
+                full: that.tree,
+                new: that.tree
             });
         }
 
@@ -103,7 +121,7 @@ angular.module("mopify.services.collectionservice", [
         var that = this;
         var loaded = true;
 
-        directories = that.pathToDirArray(path);
+        var directories = that.pathToDirArray(path);
 
         // Loop through the tree and check if the full path is loaded
         var map = that.tree;
@@ -128,7 +146,7 @@ angular.module("mopify.services.collectionservice", [
         var that = this;
         var promises = [];
 
-        directories = that.pathToDirArray(path);
+        var directories = that.pathToDirArray(path);
 
         // Get dirs to process
         var dirstoprocess = directories.slice(0, directories.length - 1);
@@ -156,13 +174,13 @@ angular.module("mopify.services.collectionservice", [
             // Initialize first level
             _.each(data, function(item){
                 if(!(item.uri in that.tree)){
-                    that.tree[item.uri] = {};
+                    that.tree[item.uri] = item;
                 }
             });
         }
         else{
             // Add new directory at depth
-            directories = that.pathToDirArray(path);
+            var directories = that.pathToDirArray(path);
 
             var map = that.tree;
             _.each(directories, function(dir, index){
