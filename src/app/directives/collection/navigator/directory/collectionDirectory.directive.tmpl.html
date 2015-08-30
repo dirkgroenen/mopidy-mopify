@@ -1,0 +1,19 @@
+<div>
+    <a href="#/music/collection?uri={{ directory.uri }}" class="list-item directory" context-menu data-target="{{ directory.uri }}">
+
+        <div class="icon">
+            <i class="ss-folder"></i>
+        </div>
+        <div class="name">
+            {{ directory.name }}
+        </div>
+    </a>
+
+    <div class="contextmenu position-fixed" id="{{ directory.uri }}">
+        <ul class="dropdown-menu" role="menu">
+            <li ng-click="directory.addAsSchortcut();">
+                Add as shortcut
+            </li>
+        </ul>
+    </div>
+</div>

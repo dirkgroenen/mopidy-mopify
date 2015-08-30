@@ -39,7 +39,7 @@ img[src=""] {
 .aligncenter{
     text-align: center;
 }
-    
+
 .button{
     padding: 10px 15px;
     text-transform: none;
@@ -213,7 +213,7 @@ img[src=""] {
 
 /* Start app styles */
 #application{
-    height: 100%;   
+    height: 100%;
     width: 100%;
     overflow: hidden;
 }
@@ -436,7 +436,7 @@ img[src=""] {
     width: 45px;
     height: 45px;
     float: left;
-    background-color: rgba(0,0,0,.1); 
+    background-color: rgba(0,0,0,.1);
 }
 
 #application #leftside #accounts .account .profileimage img{
@@ -452,7 +452,7 @@ img[src=""] {
 #application #leftside #accounts .account .content{
     padding-left: 15px;
     overflow: hidden;
-    white-space: nowrap; 
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
 
@@ -461,7 +461,7 @@ img[src=""] {
     color: #a2a2a2;
     display: block;
     overflow: hidden;
-    white-space: nowrap; 
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
 
@@ -612,13 +612,13 @@ img[src=""] {
 
 #application #header.small .lefttext i{
     margin: 4px 9px 0 0;
-    float: left;    
+    float: left;
 }
 
 #application #header.small .centertext{
     color: white;
     padding: 140px 0 0 0;
-    text-shadow: 0 0 2px rgba(0,0,0,.3);   
+    text-shadow: 0 0 2px rgba(0,0,0,.3);
     text-align: center;
     font-weight: bold;
 }
@@ -806,7 +806,7 @@ img[src=""] {
 
 #application #header #radiosearch .resultswrap ul li .thumb img{
     width: 100%;
-    margin-top: -50%;        
+    margin-top: -50%;
     -webkit-transform: translateY(25%);
     -moz-transform: translateY(25%);
     transform: translateY(25%);
@@ -905,7 +905,7 @@ img[src=""] {
     color: #ccc;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
-    transition: all .3s ease;   
+    transition: all .3s ease;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
@@ -931,7 +931,7 @@ img[src=""] {
     opacity: 0;
     webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
-    transition: all .3s ease; 
+    transition: all .3s ease;
 }
 
 #application #featured .playlist:hover .hoverwrap{
@@ -1139,7 +1139,7 @@ img[src=""] {
 #application #overview .pagecontent #tileview .single-tile .tileinfo span{
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
-    transition: all .3s ease;   
+    transition: all .3s ease;
 }
 
 #application #overview .pagecontent #tileview .single-tile .tileinfo span.year{
@@ -1157,60 +1157,60 @@ img[src=""] {
     padding-left: 5px;
 }
 
-#application #overview .pagecontent #tracklist .track{
+#application #tracklist .track{
     padding: 7px 0;
     border-top: 1px solid #ccc;
     cursor: pointer;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
-    transition: all .3s ease;   
+    transition: all .3s ease;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
 }
 
-#application #overview .pagecontent #tracklist .track.loading{
+#application #tracklist .track.loading{
     cursor: default;
     color: #aaa;
     background-color: white !important;
 }
 
-#application #overview .pagecontent #tracklist .track.selected,
-#application #overview .pagecontent #tracklist .track:hover{
+#application #tracklist .track.selected,
+#application #tracklist .track:hover{
     background-color: #f2f2f2;
 }
 
-#application #overview .pagecontent #tracklist .track .nowplaying{
+#application #tracklist .track .nowplaying{
     background-image: url("../images/ani_equalizer_black.gif");
     background-repeat: no-repeat;
     background-position: right -7px;
 }
 
-#application #overview .pagecontent #tracklist .track .artists,
-#application #overview .pagecontent #tracklist .track .album,
-#application #overview .pagecontent #tracklist .track .name{
+#application #tracklist .track .artists,
+#application #tracklist .track .album,
+#application #tracklist .track .name{
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     padding-right: 10px;
 }
 
-#application #overview .pagecontent #tracklist .track .name .type-icon{
+#application #tracklist .track .name .type-icon{
     display: inline-block;
     padding-right: 5px;
     color: #888;
 }
 
-#application #overview .pagecontent #tracklist .track .artists,
-#application #overview .pagecontent #tracklist .track .album{
+#application #tracklist .track .artists,
+#application #tracklist .track .album{
     color: #777;
 }
 
-#application #overview .pagecontent #tracklist .track .length{
+#application #tracklist .track .length{
     color: #777;
 }
 
-#application #overview .pagecontent #tracklist .track a{
+#application #tracklist .track a{
     color: #404040;
     color: #777;
 }
@@ -1560,7 +1560,7 @@ img[src=""] {
 #application .upload-progress .items ul li{
     margin: 0;
     padding: 8px 15px 6px 15px;
-    border-top: 1px solid #ccc; 
+    border-top: 1px solid #ccc;
     font-size: 14px;
 }
 
@@ -1592,6 +1592,74 @@ img[src=""] {
     font-size: 13px;
     display: inline-block;
     font-style: italic;
+}
+
+#application .collection-navigator{
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
+    height: 100%;
+    white-space: nowrap;
+}
+
+#application .collection-navigator .lists-wrap{
+    height: 100%;
+    overflow-y: hidden;
+}
+
+#application .collection-navigator .lists-wrap .list{
+    height: 100%;
+    display: inline-block;
+    background-color: white;
+    border-right: 1px solid #f5f5f5;
+    vertical-align: top;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 300px;
+}
+
+#application .collection-navigator .lists-wrap .list::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+}
+
+#application .collection-navigator .lists-wrap .list::-webkit-scrollbar-track{
+    background: rgba(0, 0, 0, 0.1);
+}
+
+#application .collection-navigator .lists-wrap .list::-webkit-scrollbar-thumb{
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#application .collection-navigator .lists-wrap .list .list-item{
+    display: block;
+    color: #777;
+    text-decoration: none;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 10px 25px 7px 25px;
+    min-width: 300px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#application .collection-navigator .lists-wrap .list .list-item.directory .icon{
+    display: inline-block;
+}
+
+#application .collection-navigator .lists-wrap .list .list-item.directory .name{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#application .collection-navigator .lists-wrap .list .list-item#tracklist{
+    padding: 0;
+}
+
+#application .collection-navigator .lists-wrap .list .list-item#tracklist .track{
+    border: none;
+    padding-left: 25px;
+    padding-right: 25px;
+    min-width: 400px;
 }
 
 .search-overlay{

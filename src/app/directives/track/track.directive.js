@@ -32,12 +32,9 @@ angular.module('mopify.widgets.directive.track', [
             // Set scope.$id in track object
             scope.track.id = scope.$id;
 
-            // Set the type
-            scope.track.source = scope.track.uri.split(":")[0]; 
-
             /**
              * For some reason the scope.track.id get's replaced at some moment
-             * this $watch needs to keep track if this habbit and set the track's id 
+             * this $watch needs to keep track if this habbit and set the track's id
              * to it's previous value
              *
              * TODO: Search for a reason why this is happening
@@ -59,14 +56,6 @@ angular.module('mopify.widgets.directive.track', [
 
             if(scope.surrounding === undefined)
                 scope.surrounding = scope.$parent.loadedTracks;
-
-            scope.artistsString = function(){
-                return util.artistsToString(scope.track.artists, true);
-            };
-
-            scope.lengthHuman = function(){
-                return util.timeFromMilliSeconds(scope.track.length || scope.track.duration_ms);
-            };
 
             /**
              * Select the current track
@@ -91,7 +80,7 @@ angular.module('mopify.widgets.directive.track', [
 
                     var start = $rootScope.selectedtracks[0].id;
                     var end = scope.track.id;
-                    
+
                     $rootScope.selectedtracks = [];
 
                     _.each(scope.surrounding, function(track){
@@ -117,12 +106,12 @@ angular.module('mopify.widgets.directive.track', [
 
                 if(found !== undefined)
                     scope.selected = true;
-                else 
+                else
                     scope.selected = false;
             }, true);
 
             /*
-             * Play the track            
+             * Play the track
              */
             scope.play = function(){
                 var clickedindex = 0;
@@ -147,12 +136,12 @@ angular.module('mopify.widgets.directive.track', [
                     var inTracklistView = ($location.path() == "/music/tracklist/mopidy:current");
 
                     if(track.__model__ == "Track"){
-                        mopidyservice.playTrack(track, scope.surrounding, inTracklistView);    
+                        mopidyservice.playTrack(track, scope.surrounding, inTracklistView);
                     }
                     else{
                         // Play the clicked and surrounding tracks
                         mopidyservice.playTrack(scope.surrounding[clickedindex], scope.surrounding);
-                    }    
+                    }
                 }
                 else{
                     // Check if all the tracks are Mopidy tracks
@@ -176,7 +165,7 @@ angular.module('mopify.widgets.directive.track', [
                         // Play the clicked and surrounding tracks
                         mopidyservice.playTrack($rootScope.selectedtracks[clickedindex], $rootScope.selectedtracks);
                     }
-                }                
+                }
             };
 
             /**
@@ -229,7 +218,7 @@ angular.module('mopify.widgets.directive.track', [
              */
             scope.removeFromPlaylist = function(){
                 var playlistid = uri.split(":")[4];
-                    
+
                 var uris = _.map($rootScope.selectedtracks, function(track){
                     return track.uri;
                 });
@@ -281,25 +270,25 @@ angular.module('mopify.widgets.directive.track', [
                     if(scope.trackAlreadySaved){
                         // Remove
                         Spotify.removeUserTracks(scope.track.uri).then(function (data) {
-                            notifier.notify({type: "custom", template: "Track succesfully removed.", delay: 5000});   
+                            notifier.notify({type: "custom", template: "Track succesfully removed.", delay: 5000});
                             scope.visible = false;
 
                         }, function(data){
-                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
                         });
                     }
                     else{
                         // Save
                         Spotify.saveUserTracks(scope.track.uri).then(function (data) {
-                            notifier.notify({type: "custom", template: "Track succesfully saved.", delay: 5000});   
+                            notifier.notify({type: "custom", template: "Track succesfully saved.", delay: 5000});
                         }, function(data){
-                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
-                        });   
+                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
+                        });
                     }
 
                 }
                 else{
-                    notifier.notify({type: "custom", template: "Can't add track. Are you connected with Spotify?", delay: 5000});   
+                    notifier.notify({type: "custom", template: "Can't add track. Are you connected with Spotify?", delay: 5000});
                 }
             };
 

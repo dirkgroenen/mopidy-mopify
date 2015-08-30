@@ -33,7 +33,7 @@ angular.module('mopify.player', [
                     });
                 }
                 else{
-                    updatePlayerInformation(track);    
+                    updatePlayerInformation(track);
                 }
             }
         });
@@ -51,11 +51,11 @@ angular.module('mopify.player', [
         // Start an interval which checks the current playing track every
         // 15 seconds
         $interval(function(){
-            $rootScope.$broadcast('mopify:player:updatePlayerInformation');  
+            $rootScope.$broadcast('mopify:player:updatePlayerInformation');
         }, 15000);
     });
 
-    // Update information on a new track 
+    // Update information on a new track
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
         if(data.tl_track !== undefined && data.tl_track !== null){
             if(data.tl_track.track.name.indexOf("[loading]") > -1){
@@ -80,7 +80,7 @@ angular.module('mopify.player', [
                     });
                 }
                 else{
-                    updatePlayerInformation(track);    
+                    updatePlayerInformation(track);
                 }
             }
         });
@@ -105,21 +105,17 @@ angular.module('mopify.player', [
     function updatePlayerInformation(track){
         if(track !== undefined && track !== null){
             if(track.uri !== previousTrackUri){
-                $scope.trackArtist = util.artistsToString(track.artists, false);
-                $scope.trackTitle = track.name;
-                $scope.albumUri = track.album.uri;
-                $scope.albumName = track.album.name;
+                $scope.track = track;
 
-                // Get the background image from Spotify
-                Spotify.getTrack(track.uri).then(function (data) {
-                    $scope.playerBackground = data.album.images[0].url;
+                track.getImage().then(function(image){
+                    $scope.playerBackground = image.uri;
 
                     // Clear previous timeout and start new timer
                     // When timeout clears the current track is added to the history
                     $timeout.cancel(historyaddtimeout);
                     historyaddtimeout = $timeout(function(){
                         // Add to history
-                        addToHistory(track, data.album.images);
+                        addToHistory(track, image);
                     }, 10000);
                 });
 
@@ -132,12 +128,12 @@ angular.module('mopify.player', [
     /**
      * Add a track to the history data
      * @param {tl_tracl} track
-     * @param {array} images
+     * @param {array} image
      */
-    function addToHistory(track, images){
+    function addToHistory(track, image){
         if(track !== undefined && track !== null){
             History.addTrack(track, {
-                images: images
+                images: image
             });
         }
     }

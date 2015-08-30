@@ -5,18 +5,23 @@
 'use strict';
 
 angular.module('mopify.services.mopidy', [
-    "mopify.services.settings",
-    "mopify.services.queuemanager",
-    'llNotifier'
+    'mopify.services.settings',
+    'mopify.services.queuemanager',
+    'llNotifier',
+    'mopify.models.ref',
+    'mopify.models.track',
+    'mopify.models.artist',
+    'mopify.models.album',
+    'mopify.models.image'
 ])
 
-.factory("mopidyservice", function($q, $rootScope, $cacheFactory, $location, Settings, notifier, QueueManager){
+.factory("mopidyservice", function($q, $rootScope, $cacheFactory, $location, $injector, Settings, notifier, QueueManager){
 	// Create consolelog object for Mopidy to log it's logs on
     var consoleError = console.error.bind(console);
 
     /*
      * Wrap calls to the Mopidy API and convert the promise to Angular $q's promise.
-     * 
+     *
      * @param String functionNameToWrap
      * @param Object thisObj
      */
@@ -28,31 +33,21 @@ angular.module('mopify.services.mopidy', [
 
 			$rootScope.$broadcast('mopify:callingmopidy', { name: functionNameToWrap, args: args });
 
-			if (self.isConnected) {
-				executeFunctionByName(functionNameToWrap, self, args).then(function(data) {
-					deferred.resolve(data);
-					$rootScope.$broadcast('mopify:calledmopidy', { name: functionNameToWrap, args: args });
-				}, function(err) {
-					deferred.reject(err);
-					$rootScope.$broadcast('mopify:errormopidy', { name: functionNameToWrap, args: args, err: err });
-				});
-			}
-			else{
-				executeFunctionByName(functionNameToWrap, self, args).then(function(data) {
-					deferred.resolve(data);
-					$rootScope.$broadcast('mopify:calledmopidy', { name: functionNameToWrap, args: args });
-				}, function(err) {
-					deferred.reject(err);
-					$rootScope.$broadcast('mopify:errormopidy', { name: functionNameToWrap, args: args, err: err });
-				});
-			}
+			executeFunctionByName(functionNameToWrap, self, args).then(function(data) {
+				deferred.resolve(data);
+				$rootScope.$broadcast('mopify:calledmopidy', { name: functionNameToWrap, args: args });
+			}, function(err) {
+				deferred.reject(err);
+				$rootScope.$broadcast('mopify:errormopidy', { name: functionNameToWrap, args: args, err: err });
+			});
+
 			return deferred.promise;
 		};
 	}
 
 	/*
      * Execute the given function
-     * 
+     *
      * @param String functionName
      * @param Object thisObj
 	 * @param Array args
@@ -60,15 +55,74 @@ angular.module('mopify.services.mopidy', [
 	function executeFunctionByName(functionName, context, args) {
 		var namespaces = functionName.split(".");
 		var func = namespaces.pop();
+        var deferred = $q.defer();
 
 		for(var i = 0; i < namespaces.length; i++) {
 			context = context[namespaces[i]];
 		}
 
-		return context[func].apply(context, args);
+		context[func].apply(context, args).then(function(data){
+            if( Object.prototype.toString.call( data ) === '[object Array]' || Object.prototype.toString.call( data ) === '[object Object]' ){
+                data = buildModelResponse(data);
+            }
+
+            deferred.resolve(data);
+        });
+
+        return deferred.promise;
 	}
 
+    /**
+     * Converts all the items/models in the response to
+     * the corresponding Mopify model
+     *
+     * @param  {array|object} data
+     * @return {array|object}
+     */
+    function buildModelResponse(data) {
 
+        // Handle arrays
+        if(Object.prototype.toString.call( data ) === '[object Array]'){
+            for(var x = 0; x < data.length; x++)
+                data[x] = buildModelResponse(data[x]);
+        }
+
+        // Handle objects
+        if(Object.prototype.toString.call( data ) === '[object Object]'){
+            // Simple first depth model, convert
+            if(data.__model__ !== undefined){
+                data = convertObjectToModel(data);
+            }
+            else{
+                for(var key in data){
+                    data[key] = buildModelResponse(data[key]);
+                }
+            }
+        }
+
+        return data;
+    }
+
+    /**
+     * Converts the object to the correct model, and drops
+     * a warning when the model doesn't exist.
+     *
+     * @param  {object} data
+     * @return {Model}
+     */
+    function convertObjectToModel(data){
+        var Model;
+
+        try{
+            Model = $injector.get(data.__model__);
+        }
+        catch(err){
+            console.warn("Model " + data.__model__ + " does not exist", err);
+            Model = $injector.get("Model");
+        }
+
+        return new Model(data);
+    }
 
 	return {
 		mopidy: {},
@@ -87,7 +141,7 @@ angular.module('mopify.services.mopidy', [
             // Get mopidy ip and port from settigns
             var mopidyip = Settings.get("mopidyip", $location.host());
             var mopidyport = Settings.get("mopidyport", "6680");
-            
+
 			// Initialize mopidy
             try{
                 var protocol = (typeof document !== "undefined" && document.location.protocol === "https:") ? "wss://" : "ws://";
@@ -197,8 +251,15 @@ angular.module('mopify.services.mopidy', [
         lookup: function(uris){
             if(typeof(uris) === "string")
                 uris = [uris];
-            
+
             return wrapMopidyFunc("mopidy.library.lookup", this)({ uris: uris });
+        },
+
+        getImages: function(uris){
+            if(typeof(uris) === "string")
+                uris = [uris];
+
+            return wrapMopidyFunc("mopidy.library.getImages", this)({ uris: uris });
         },
 
         playTrack: function(track, surroundingTracks, preventShuffle) {
@@ -228,7 +289,7 @@ angular.module('mopify.services.mopidy', [
                             if(track.uri === surtrack.uri)
                                 trackindex = index + 1;
                         });
-                            
+
                         // Get all uris from the tracks after the selected track
                         var trackstoadd = surroundingTracks.slice(trackindex, surroundingTracks.length);
                         var trackstoskip = surroundingTracks.slice(0, trackindex);
@@ -241,7 +302,7 @@ angular.module('mopify.services.mopidy', [
                         if(trackstoskip.length > 1)
                             QueueManager.remove(_.pluck(trackstoskip, "tlid"));
                     }
-                    
+
                     // Add the selected track as next
                     self.mopidy.tracklist.add({ uris: uris }).then(function(tltracks){
                         var start = queuedata.queue.length + 1;
@@ -258,18 +319,18 @@ angular.module('mopify.services.mopidy', [
 
                             // Start playing the track
                             self.mopidy.playback.play({ tl_track: tltracks[0] }).then(function(track){
-                            
+
                                 QueueManager.getShuffle().then(function(shuffle){
 
                                     if(shuffle && preventShuffle !== true){
                                         self.setRandom(true).then(function(){
-                                            deferred.resolve(track);    
+                                            deferred.resolve(track);
                                         });
                                     }
                                     else{
                                         deferred.resolve(track);
                                     }
-                                });                            
+                                });
 
                             });
                         });
@@ -302,7 +363,7 @@ angular.module('mopify.services.mopidy', [
                     playlist: []
                 }).then(function(){
                     deferred.resolve();
-                });    
+                });
             });
 
             return deferred.promise;
@@ -321,7 +382,7 @@ angular.module('mopify.services.mopidy', [
         getTracklist: function(){
             return wrapMopidyFunc("mopidy.tracklist.getTlTracks", this)();
         },
-        
+
         playNext: function(uris){
             var deferred = $q.defer();
 
@@ -331,7 +392,7 @@ angular.module('mopify.services.mopidy', [
             this.mopidy.tracklist.add({uris: uris, at_position: 1}).then(function(response){
                 // Add to QueueManager
                 QueueManager.next(response).then(function(){
-                    // Resolve 
+                    // Resolve
                     deferred.resolve(response);
 
                     // Broadcast change
@@ -378,7 +439,7 @@ angular.module('mopify.services.mopidy', [
                     });
                 }
             });
-            
+
             return deferred.promise;
         },
 
@@ -392,8 +453,8 @@ angular.module('mopify.services.mopidy', [
 
         setRandom: function (setShuffle) {
             var self = this;
-            var deferred = $q.defer(); 
-            
+            var deferred = $q.defer();
+
             // Always set mopidy's random mode to false
             self.mopidy.tracklist.setRandom([false]);
 
@@ -439,7 +500,7 @@ angular.module('mopify.services.mopidy', [
                 QueueManager.all().then(function(response){
                     var start = response.queue.length + 1;
                     var end = response.playlist.length + 1;
-                    
+
                     if(end >= start){
                         // Send shuffle to mopidy
                         self.mopidy.tracklist.shuffle({ start: start, end: end }).then(function(resp){
@@ -452,14 +513,14 @@ angular.module('mopify.services.mopidy', [
 
                                 deferred.resolve(tltracks);
                             });
-                        });    
+                        });
                     }
                     else{
                         deferred.reject();
                     }
-                    
+
                 });
-                
+
             }
 
             return deferred.promise;

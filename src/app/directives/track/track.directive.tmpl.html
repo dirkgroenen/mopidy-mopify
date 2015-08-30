@@ -8,16 +8,16 @@
     <div class="row" ng-class="{'nowplaying': ($parent.currentPlayingTrack.uri == track.uri)}">
         <div class="col-sm-4 col-xs-12 name">
             <span class="type-icon icon-{{ track.source }}" ng-class="track.source"></span>
-            {{ track.name }} 
+            {{ track.name }}
         </div>
         <div class="col-sm-3 col-xs-6 artists">
-            <span ng-bind-html="artistsString()"></span>
+            <span ng-bind-html="track.artistsString()"></span>
         </div>
         <div class="col-sm-4 col-xs-6 album">
             <a href="#/music/tracklist/{{ track.album.uri }}/{{ track.album.name }}">{{ track.album.name }}</a>
         </div>
         <div class="col-sm-1 visible-lg-block visible-md-block visible-sm-blocklength">
-            {{ lengthHuman() }}
+            {{ track.lengthHuman() }}
         </div>
     </div>
 </div>

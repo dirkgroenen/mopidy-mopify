@@ -63,17 +63,23 @@ angular.module("mopify.services.collectionservice", [
                 if( !that.pathFullyLoaded(path) ){
                     that.backwardsLoadPath(path).then(function(){
                         that.buildDirectory(path, response);
+
+                        // Resolve full tree and newly added items
+                        deferred.resolve({
+                            full: that.tree,
+                            new: response
+                        });
                     });
                 }
                 else{
                     that.buildDirectory(path, response);
-                }
 
-                // Resolve full tree and newly added items
-                deferred.resolve({
-                    full: that.tree,
-                    new: response
-                });
+                    // Resolve full tree and newly added items
+                    deferred.resolve({
+                        full: that.tree,
+                        new: response
+                    });
+                }
             });
         }
         else{

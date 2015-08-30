@@ -1,4 +1,4 @@
-<div>
-    <a href="/#/music/collection/{{ item.uri }}" ng-repeat="item in list" ng-if="item.type == 'directory'">{{ item.name }}</a>
-    <span ng-repeat="item in list" ng-if="item.type != 'directory'">{{ item.name }}</span>
+<div class="list">
+    <collection-directory ng-repeat="item in list" directory="item" ng-if="item.type == 'directory'"></collection-directory>
+    <collection-track ng-repeat="item in list" surrounding="list" track="item" ng-if="item.type == 'track'"></collection-track>
 </div>

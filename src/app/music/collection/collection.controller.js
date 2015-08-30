@@ -8,14 +8,10 @@ angular.module('mopify.music.collection', [
  * Every controller start with defining its own routes.
  */
 .config(function($routeProvider) {
-    $routeProvider.when("/music/collection/:uri*", {
-        templateUrl: "music/collection/collection.tmpl.html",
-        controller: "CollectionController"
-    });
-
     $routeProvider.when("/music/collection", {
         templateUrl: "music/collection/collection.tmpl.html",
-        controller: "CollectionController"
+        controller: "CollectionController",
+        reloadOnSearch: false
     });
 })
 

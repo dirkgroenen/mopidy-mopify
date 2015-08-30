@@ -1,6 +1,8 @@
 'use strict';
 
 angular.module('mopify.widgets.collection.navigator.list', [
+    'mopify.widgets.collection.navigator.directory',
+    'mopify.widgets.collection.navigator.track'
 ])
 
 .directive('collectionList', function collectionList() {
