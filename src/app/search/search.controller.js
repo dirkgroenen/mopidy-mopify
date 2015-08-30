@@ -77,8 +77,8 @@ angular.module('mopify.search', [
             $location.search("query", $scope.query);
 
             if($scope.query.trim().length > 1)
-                $scope.performSearch();    
-        }, 1000);   
+                $scope.performSearch();
+        }, 1000);
     };
 
     /**
@@ -100,21 +100,11 @@ angular.module('mopify.search', [
         });
     };
 
-    // Run on load
-    $scope.$on("mopidy:state:online", function(){
-        typingTimeout = $timeout(function(){
-            if($scope.query.trim().length > 1)
-                $scope.performSearch();    
-        }, 250);   
-    });
+    typingTimeout = $timeout(function(){
+        if($scope.query.trim().length > 1)
+            $scope.performSearch();
+    }, 250);
 
-    if(mopidyservice.isConnected){
-        typingTimeout = $timeout(function(){
-            if($scope.query.trim().length > 1)
-                $scope.performSearch();    
-        }, 250);   
-    }
-        
     /**
      * Play the songs that are given in the bestmatch
      */
@@ -146,7 +136,7 @@ angular.module('mopify.search', [
 
     /**
      * Toggle the source and filter the tracks
-     * 
+     *
      * @param  {obejct} source
      * @return {void}
      */
@@ -159,7 +149,7 @@ angular.module('mopify.search', [
 
     /**
      * Filter the tracklist based on the checked sources
-     * 
+     *
      * @return {void}
      */
     function filterTracksBySource() {
@@ -191,7 +181,7 @@ angular.module('mopify.search', [
 
         previous = $scope.query;
     };
-    
+
     $scope.query = $routeParams.query;
 
     // Add search hotkey

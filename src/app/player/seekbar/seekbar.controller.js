@@ -20,13 +20,12 @@ angular.module('mopify.player.seekbar', [
     $scope.timeCurrent = "0:00";
     $scope.timeTotal = "0:00";
 
-    $scope.$on('mopidy:state:online', function() {
-        getTrackLength();
 
-        mopidyservice.getState().then(function (state) {
-            if (state === 'playing')
-                startIncreaser();                
-        });
+    getTrackLength();
+
+    mopidyservice.getState().then(function (state) {
+        if (state === 'playing')
+            startIncreaser();
     });
 
     // Start the increaser and get the track length when a track starts
@@ -86,7 +85,7 @@ angular.module('mopify.player.seekbar', [
         // Start interval for every second
         increaseCurrentTimeInterval = $interval(function(){
             // Increate timePosition with 1 second
-            timePositionMS += 1000; 
+            timePositionMS += 1000;
 
             // Calculate the seekbarWidth and convert the MS time to human time
             $scope.seekbarWidth = (timePositionMS / trackLength) * 100;
@@ -108,7 +107,7 @@ angular.module('mopify.player.seekbar', [
             $interval.cancel(checkPositionInterval);
             checkPositionInterval = $interval(function() {
                 checkTimePosition();
-            }, 10000);                
+            }, 10000);
         });
     }
 
@@ -143,14 +142,14 @@ angular.module('mopify.player.seekbar', [
 
         // Set in scope and send to mopidy
         $scope.seekbarWidth = seek;
-    
+
         var ms = Math.round(trackLength * (seek / 100));
 
         isSeeking = true;
         mopidyservice.seek(ms).then(function(){
             isSeeking = false;
 
-            // Set time position 
+            // Set time position
             timePositionMS = ms;
         });
     };

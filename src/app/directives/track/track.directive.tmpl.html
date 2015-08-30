@@ -5,7 +5,7 @@
     ng-click="selectTrack($event)"
     ng-show="visible">
 
-    <div class="row" ng-class="{'nowplaying': ($parent.currentPlayingTrack.uri == track.uri)}">
+    <div class="row" ng-class="{'nowplaying': track.checkIsNowPlaying()}">
         <div class="col-sm-4 col-xs-12 name">
             <span class="source-icon icon-{{ track.source }}" ng-class="track.source"></span>
             {{ track.name }}

@@ -19,7 +19,7 @@ angular.module("mopify.services.playlistmanager", [
 
         // Load playlists via Spotify or Mopidy depending on the settings
         var loadspotifyplaylists = false;
-        
+
         if(Settings.get("spotify") !== undefined)
             loadspotifyplaylists = Settings.get("spotify").loadspotifyplaylists;
 
@@ -33,13 +33,7 @@ angular.module("mopify.services.playlistmanager", [
             });
         }
         else{
-            $rootScope.$on("mopidy:state:online", function(){
-                that.loadPlaylists();
-            });
-
-            if(mopidyservice.isConnected){
-                that.loadPlaylists();
-            }
+            that.loadPlaylists();
         }
 
         // Load playlists on playlists:change event
@@ -54,7 +48,7 @@ angular.module("mopify.services.playlistmanager", [
      */
     PlaylistManager.prototype.loadPlaylists = function() {
         var that = this;
-        
+
         // Set loading
         this.loading = true;
 
@@ -109,7 +103,7 @@ angular.module("mopify.services.playlistmanager", [
         var that = this;
 
         options = options || {};
-        
+
         if(!that.loading){
             var playlists = that.playlists;
 
@@ -121,7 +115,7 @@ angular.module("mopify.services.playlistmanager", [
                     return (playlist.uri.indexOf(that.spotifyuserid) > 0);
                 });
             }
-            
+
             deferred.resolve(playlists);
         }
         else{
@@ -149,12 +143,12 @@ angular.module("mopify.services.playlistmanager", [
     };
 
     /**
-     * Load more playlists 
+     * Load more playlists
      * This is used when spotify playlists are loaded and the next attribute is present
      * @param {string} next The url of the next page
      */
     PlaylistManager.prototype.loadMorePlaylists = function(next){
-        var that = this; 
+        var that = this;
 
         Spotify.api(next.replace("https://api.spotify.com/v1", ""), 'GET', null, {}, {
             'Authorization': 'Bearer ' + Spotify.authToken,
@@ -177,7 +171,7 @@ angular.module("mopify.services.playlistmanager", [
      * Remove a track from a playlist
      * @param  {string} playlistid The id of the spotify playlist
      * @param  {string} trackuri   The spotify track URI
-     * @return {$q.defer}          
+     * @return {$q.defer}
      */
     PlaylistManager.prototype.removeTrack = function(playlistid, trackuri){
         var deferred = $q.defer();
@@ -190,7 +184,7 @@ angular.module("mopify.services.playlistmanager", [
         else{
             deferred.reject();
         }
-        
+
         return deferred.promise;
     };
 
@@ -198,7 +192,7 @@ angular.module("mopify.services.playlistmanager", [
      * Add a track to a playlist
      * @param  {string} playlistid The id of the spotify playlist
      * @param  {string} trackuri   The spotify track URI
-     * @return {$q.defer}          
+     * @return {$q.defer}
      */
     PlaylistManager.prototype.addTrack = function(playlistid, trackuri){
         var deferred = $q.defer();
@@ -211,7 +205,7 @@ angular.module("mopify.services.playlistmanager", [
         else{
             deferred.reject();
         }
-        
+
         return deferred.promise;
     };
 
@@ -219,7 +213,7 @@ angular.module("mopify.services.playlistmanager", [
      * Add a album to the playlist
      * @param  {string} playlistid The id of the spotify playlist
      * @param  {string} albumuri   The spotify album URI
-     * @return {$q.defer}          
+     * @return {$q.defer}
      */
     PlaylistManager.prototype.addAlbum = function(playlistid, albumuri){
         var deferred = $q.defer();
@@ -237,12 +231,12 @@ angular.module("mopify.services.playlistmanager", [
                     deferred.resolve(response);
                 });
             });
-            
+
         }
         else{
             deferred.reject();
         }
-        
+
         return deferred.promise;
     };
 
@@ -264,20 +258,20 @@ angular.module("mopify.services.playlistmanager", [
         else{
             deferred.reject();
         }
-        
+
         return deferred.promise;
     };
 
     /**
      * Create an array containing all the folders
      * //TODO: Add support for multi dimmension folders
-     * 
+     *
      * @param {array} playlists array containing playlists
      * @return {object}          object containing folders and playlists
      */
     function orderPlaylists(playlists){
         var resultfolders = {rest: []};
-        
+
         _.each(playlists, function(playlist){
             // Check if we have to create the folder
             var splittedname = playlist.name.split("/", 2);
@@ -286,7 +280,7 @@ angular.module("mopify.services.playlistmanager", [
             if(splittedname.length > 1){
                 // Override the playlist name
                 playlist.name = splittedname[1];
-                
+
                 // Create a folder and add the playlist, or add it to the existing folder
                 if(resultfolders[foldername] === undefined)
                     resultfolders[foldername] = [playlist];

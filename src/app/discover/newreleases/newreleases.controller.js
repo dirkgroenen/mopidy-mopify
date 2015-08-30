@@ -50,8 +50,7 @@ angular.module("mopify.discover.newreleases", [
                 $scope.titletext = $scope.headeralbum.name;
 
                 // Load the tracks for the featured header album
-                if(mopidyservice.isConnected)
-                    loadHeaderAlbumTracks();
+                loadHeaderAlbumTracks();
             });
         }
         else{
@@ -78,7 +77,7 @@ angular.module("mopify.discover.newreleases", [
             else
                 $timeout(loadHeaderAlbumTracks, 1000);
         });
-        
+
     }
 
     $scope.playHeaderAlbum = function(){

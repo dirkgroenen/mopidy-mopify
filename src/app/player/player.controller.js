@@ -22,38 +22,35 @@ angular.module('mopify.player', [
     var historyaddtimeout = null;
     var previousTrackUri = null;
 
-    // If Mopidy is online we collect the init data about playback, volume and shuffle mode
-    $scope.$on('mopidy:state:online', function(){
-        // Get the current track
-        mopidyservice.getCurrentTrack().then(function(track){
-            if(track !== null && track !== undefined){
-                if(track.name.indexOf("[loading]") > -1){
-                    mopidyservice.lookup(track.uri).then(function(result){
-                        updatePlayerInformation(result[0]);
-                    });
-                }
-                else{
-                    updatePlayerInformation(track);
-                }
+    // Get the current track
+    mopidyservice.getCurrentTrack().then(function(track){
+        if(track !== null && track !== undefined){
+            if(track.name.indexOf("[loading]") > -1){
+                mopidyservice.lookup(track.uri).then(function(result){
+                    updatePlayerInformation(result[0]);
+                });
             }
-        });
-
-        // Get playback state
-        mopidyservice.getState().then(function(state){
-            $scope.isPlaying = (state === 'playing');
-        });
-
-        // Get schuffle
-        mopidyservice.getRandom().then(function(random){
-            $scope.isRandom = (random === true);
-        });
-
-        // Start an interval which checks the current playing track every
-        // 15 seconds
-        $interval(function(){
-            $rootScope.$broadcast('mopify:player:updatePlayerInformation');
-        }, 15000);
+            else{
+                updatePlayerInformation(track);
+            }
+        }
     });
+
+    // Get playback state
+    mopidyservice.getState().then(function(state){
+        $scope.isPlaying = (state === 'playing');
+    });
+
+    // Get schuffle
+    mopidyservice.getRandom().then(function(random){
+        $scope.isRandom = (random === true);
+    });
+
+    // Start an interval which checks the current playing track every
+    // 15 seconds
+    $interval(function(){
+        $rootScope.$broadcast('mopify:player:updatePlayerInformation');
+    }, 15000);
 
     // Update information on a new track
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {

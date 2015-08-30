@@ -27,38 +27,36 @@ angular.module('mopify.player.controls', [
         $scope.volume = data.volume;
     });
 
-    // If Mopidy is online we collect the init data about playback, volume and shuffle mode
-    $scope.$on('mopidy:state:online', function(){
-        // Get volume
-        mopidyservice.getVolume().then(function(volume){
-            $scope.volume = volume;
+    // Get volume
+    mopidyservice.getVolume().then(function(volume){
+        $scope.volume = volume;
 
-            if(volume > 50)
-                $scope.volumeIcon = "ss-highvolume";
-            else if(volume > 0)
-                $scope.volumeIcon = "ss-lowvolume";
-            else
-                $scope.volumeIcon = "ss-volume";    
-        });
-
-        // Get playback state
-        mopidyservice.getState().then(function(state){
-            $scope.isPlaying = (state === 'playing');
-            $scope.stateIcon = (state === 'playing') ? 'ss-pause' : "ss-play";
-        });
-
-        // Watch shuffle boolean in QueueManager
-        $scope.$watch(function(){
-            return QueueManager.shuffle;
-        }, function(value){
-            $scope.isRandom = value;
-        });
-
-        // Get repeat
-        mopidyservice.getRepeat().then(function(repeat){
-            $scope.isRepeat = (repeat === true);
-        });
+        if(volume > 50)
+            $scope.volumeIcon = "ss-highvolume";
+        else if(volume > 0)
+            $scope.volumeIcon = "ss-lowvolume";
+        else
+            $scope.volumeIcon = "ss-volume";
     });
+
+    // Get playback state
+    mopidyservice.getState().then(function(state){
+        $scope.isPlaying = (state === 'playing');
+        $scope.stateIcon = (state === 'playing') ? 'ss-pause' : "ss-play";
+    });
+
+    // Watch shuffle boolean in QueueManager
+    $scope.$watch(function(){
+        return QueueManager.shuffle;
+    }, function(value){
+        $scope.isRandom = value;
+    });
+
+    // Get repeat
+    mopidyservice.getRepeat().then(function(repeat){
+        $scope.isRepeat = (repeat === true);
+    });
+
 
     /*
      * Set correct states on controls change
@@ -77,13 +75,13 @@ angular.module('mopify.player.controls', [
 
     $scope.next = function(){
         mopidyservice.next().then(function(data){
-            $rootScope.$broadcast("mopify:player:updatePlayerInformation");  
+            $rootScope.$broadcast("mopify:player:updatePlayerInformation");
         });
     };
 
     $scope.prev = function(){
         mopidyservice.previous().then(function(data){
-            $rootScope.$broadcast("mopify:player:updatePlayerInformation");  
+            $rootScope.$broadcast("mopify:player:updatePlayerInformation");
         });
     };
 
@@ -104,7 +102,7 @@ angular.module('mopify.player.controls', [
         var layerX = event.layerX;
         var target = event.target || event.srcElement;
         var volumebarWidth = (mobile) ? angular.element(target).parent()[0].clientWidth : target.clientWidth;
-        
+
         var volume = (layerX / volumebarWidth) * 100;
 
         // Set in scope and send to mopidy
@@ -159,7 +157,7 @@ angular.module('mopify.player.controls', [
 
     /**
      * Open the volume overlay when on a mobile device
-     * 
+     *
      * @return {void}
      */
     $scope.openVolumeOverlay = function(){
@@ -170,7 +168,7 @@ angular.module('mopify.player.controls', [
 
     /**
      * Close the volume overlay
-     * 
+     *
      * @return {void}
      */
     $scope.closeVolumeOverlay = function(){

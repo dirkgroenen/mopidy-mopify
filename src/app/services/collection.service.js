@@ -14,14 +14,7 @@ angular.module("mopify.services.collectionservice", [
 
         this.shortcuts = this.getShortcuts();
 
-        // Initialize the collection tree model, this needs a valid mopidy connection
-        if(mopidyservice.isConnected)
-            that.initialize();
-
-        // Wait for the online signal
-        $rootScope.$on("mopidy:state:online", function(){
-            that.initialize();
-        });
+        that.initialize();
     }
 
     /**

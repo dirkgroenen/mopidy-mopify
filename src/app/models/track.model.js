@@ -5,10 +5,12 @@ angular.module("mopify.models.track", [
     'spotify'
 ])
 
-.factory("Track", function($q, Model, Spotify, mopidyservice, util){
+.factory("Track", function($q, $rootScope, Model, Spotify, mopidyservice, util){
     "use strict";
 
     function Track(attrs){
+        var that = this;
+
         // Inherit the base model class
         Model.apply(this, arguments);
 
@@ -74,6 +76,15 @@ angular.module("mopify.models.track", [
         Spotify.userTracksContains(that.uri).then(function(following){
             that.inSpotifyLibrary = following[0];
         });
+    };
+
+    /**
+     * Check if the current track is now playing
+     *
+     * @return {boolean}
+     */
+    Track.prototype.checkIsNowPlaying = function(){
+        return (mopidyservice.nowPlaying !== null) ? (mopidyservice.nowPlaying.uri == this.uri) : false;
     };
 
     return Track;

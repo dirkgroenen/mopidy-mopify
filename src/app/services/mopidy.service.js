@@ -14,12 +14,14 @@ angular.module('mopify.services.mopidy', [
     'mopify.models.artist',
     'mopify.models.album',
     'mopify.models.image',
-    'mopify.models.directory'
+    'mopify.models.directory',
+    'mopify.models.tlTrack'
 ])
 
-.factory("mopidyservice", function($q, $rootScope, $cacheFactory, $location, $injector, Settings, notifier, QueueManager, util){
+.factory("mopidyservice", function($q, $rootScope, $cacheFactory, $location, $injector, $timeout, Settings, notifier, QueueManager, util){
 	// Create consolelog object for Mopidy to log it's logs on
     var consoleError = console.error.bind(console);
+    var queue = [];
 
     /*
      * Wrap calls to the Mopidy API and convert the promise to Angular $q's promise.
@@ -59,20 +61,80 @@ angular.module('mopify.services.mopidy', [
 		var func = namespaces.pop();
         var deferred = $q.defer();
 
-		for(var i = 0; i < namespaces.length; i++) {
-			context = context[namespaces[i]];
-		}
-
-		context[func].apply(context, args).then(function(data){
-            if( Object.prototype.toString.call( data ) === '[object Array]' || Object.prototype.toString.call( data ) === '[object Object]' ){
-                data = buildModelResponse(data);
+        // Save requests in queue if no connection with mopidy
+        if(!context.isConnected){
+            putRequestInQueue(functionName, context, args, deferred);
+        }
+        else{
+            for(var i = 0; i < namespaces.length; i++) {
+                context = context[namespaces[i]];
             }
 
-            deferred.resolve(data);
-        });
+            context[func].apply(context, args).then(function(data){
+                if( Object.prototype.toString.call( data ) === '[object Array]' || Object.prototype.toString.call( data ) === '[object Object]' ){
+                    data = buildModelResponse(data);
+                }
+
+                deferred.resolve(data);
+            });
+        }
 
         return deferred.promise;
 	}
+
+    /**
+     * Put a new request in the queue
+     *
+     * @param  {string}   fn
+     * @param  {object}   ctx
+     * @param  {array}    args
+     * @param  {Defer}    deferred
+     * @return {void}
+     */
+    function putRequestInQueue(fn, ctx, args, deferred){
+        queue.push({
+            fn: fn,
+            ctx: ctx,
+            args: args,
+            deferred: deferred,
+            done: false
+        });
+    }
+
+    /**
+     * Process the queue
+     *
+     * @return {void}
+     */
+    function processQueue(){
+        _.each(queue, function(request, index){
+            if(request.ctx.isConnected && request.done === false){
+                executeFunctionByName(request.fn, request.ctx, request.args).then(function(response){
+                    request.deferred.resolve(response);
+                    request.done = true;
+                }, function(response){
+                    request.reject.resolve(response);
+                    request.done = true;
+                });
+            }
+        });
+
+        // Clean queue and recall the process function
+        cleanQueue();
+        $timeout(processQueue, 1000);
+    }
+    processQueue();
+
+    /**
+     * Clean the queue of requests that have already been completed
+     *
+     * @return {void}
+     */
+    function cleanQueue(){
+        queue = _.reject(queue, function(request){
+            return request.done;
+        });
+    }
 
     /**
      * Converts all the items/models in the response to
@@ -132,6 +194,7 @@ angular.module('mopify.services.mopidy', [
 		mopidy: {},
 		isConnected: false,
 		currentTlTracks: [],
+        nowPlaying: null,
 
 		/*
 		 * Method to start the Mopidy conneciton
@@ -166,11 +229,16 @@ angular.module('mopify.services.mopidy', [
 
 			// Convert Mopidy events to Angular events
 			this.mopidy.on(function(ev, args) {
+                args = buildModelResponse(args);
 				$rootScope.$broadcast('mopidy:' + ev, args);
-				if (ev === 'state:online') {
+
+                if(ev === 'event:trackPlaybackStarted'){
+                    self.nowPlaying = args.tl_track.track;
+                }
+				if(ev === 'state:online'){
 					self.isConnected = true;
 				}
-				if (ev === 'state:offline') {
+				if(ev === 'state:offline'){
 					self.isConnected = false;
 				}
 			});
@@ -231,7 +299,15 @@ angular.module('mopify.services.mopidy', [
         },
 
         getCurrentTrack: function() {
-            return wrapMopidyFunc("mopidy.playback.getCurrentTrack", this)();
+            var that = this;
+            var deferred = $q.defer();
+
+            wrapMopidyFunc("mopidy.playback.getCurrentTrack", this)().then(function(response){
+                that.nowPlaying = response;
+                deferred.resolve(response);
+            });
+
+            return deferred.promise;
         },
 
         getTimePosition: function() {

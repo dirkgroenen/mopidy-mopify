@@ -35,15 +35,9 @@ angular.module('mopify.music.tracklist', [
     // Set default coverimage
     $scope.coverImage = "./assets/images/playlists-header.jpg";
 
-    // Check mopidy state and call loadtracks function
-    $scope.$on("mopidy:state:online", loadTracks);
-    $scope.$on("mopidy:state:online", loadCurrentTrack);
-    
-    // Load tracks when connected
-    if(mopidyservice.isConnected){
-        loadTracks();
-        loadCurrentTrack();
-    }
+    // Load tracklist data
+    loadTracks();
+    loadCurrentTrack();
 
     var albumtracks = [];
 
@@ -58,7 +52,7 @@ angular.module('mopify.music.tracklist', [
     }
 
     if(uri.indexOf(":album:") > -1){
-        $scope.type = "Album";    
+        $scope.type = "Album";
 
         $scope.albumAlreadySaved = false;
 
@@ -80,7 +74,7 @@ angular.module('mopify.music.tracklist', [
     }
 
     if(uri.indexOf("mopidy:current") > -1){
-        $scope.type = "tracklist";    
+        $scope.type = "tracklist";
         $scope.coverImage = "./assets/images/tracklist-header.jpg";
 
         // Load tracks when queuemanager version changes
@@ -92,7 +86,7 @@ angular.module('mopify.music.tracklist', [
     }
 
     if(uri.indexOf("spotify:library:songs") > -1){
-        $scope.type = "My Music - Songs";    
+        $scope.type = "My Music - Songs";
         $scope.coverImage = "./assets/images/tracklist-header.jpg";
     }
 
@@ -123,7 +117,7 @@ angular.module('mopify.music.tracklist', [
 
     // Load the user's library tracks if the type equals songs
     if($scope.type == "My Music - Songs"){
-        
+
         $rootScope.$on("mopify:spotify:connected", function(){
             loadSpotifyLibraryTracks();
         });
@@ -170,7 +164,7 @@ angular.module('mopify.music.tracklist', [
         if(uri.indexOf("spotify:") > -1){
             mopidyservice.lookup(uri).then(function(response){
                 var tracks = response[uri];
-                
+
                 // Check if the $scope.tracks contains loading tracks
                 var loadingTracks = false;
 
@@ -214,7 +208,7 @@ angular.module('mopify.music.tracklist', [
             Spotify.getPlaylist(ownerid, playlistid).then(function(data){
                 $scope.coverImage = data.images[0].url;
                 $scope.name = data.name + " from " + data.owner.id;
-            });    
+            });
 
             // Check if user is following the playlist
             $scope.followingPlaylist = false;
@@ -241,7 +235,7 @@ angular.module('mopify.music.tracklist', [
             $scope.currentPlayingTrack = track;
         });
 
-        // Update information on a new track 
+        // Update information on a new track
         $scope.$on('mopidy:event:trackPlaybackEnded', function(event, data) {
             if(data.tl_track !== undefined)
                 $scope.currentPlayingTrack = data.tl_track.track;
@@ -254,7 +248,7 @@ angular.module('mopify.music.tracklist', [
 
     /**
      * Load the user's Spotify Library tracks
-     * 
+     *
      * @param {int} offset the offset to load the track, will be zero if not defined
      * @return {void}
      */
@@ -308,25 +302,25 @@ angular.module('mopify.music.tracklist', [
                 if($scope.albumAlreadySaved){
                     // Remove
                     Spotify.removeUserTracks(albumtracks).then(function (data) {
-                        notifier.notify({type: "custom", template: "Album succesfully removed.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Album succesfully removed.", delay: 5000});
                         $scope.albumAlreadySaved = false;
                     }, function(data){
-                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
                     });
                 }
                 else{
                     // Save
                     Spotify.saveUserTracks(albumtracks).then(function (data) {
-                        notifier.notify({type: "custom", template: "Album succesfully saved.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Album succesfully saved.", delay: 5000});
                         $scope.albumAlreadySaved = true;
                     }, function(data){
-                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
-                    });   
+                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
+                    });
                 }
 
             }
             else{
-                notifier.notify({type: "custom", template: "Can't add album. Are you connected with Spotify?", delay: 5000});   
+                notifier.notify({type: "custom", template: "Can't add album. Are you connected with Spotify?", delay: 5000});
             }
         }
     };
@@ -342,25 +336,25 @@ angular.module('mopify.music.tracklist', [
                 if($scope.followingPlaylist){
                     // Unfollow
                     Spotify.unfollowPlaylist(ownerid, playlistid).then(function (data) {
-                        notifier.notify({type: "custom", template: "Playlist succesfully unfollowed.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Playlist succesfully unfollowed.", delay: 5000});
                         $scope.followingPlaylist = false;
                     }, function(data){
-                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
                     });
                 }
                 else{
                     // Follow
                     Spotify.followPlaylist(ownerid, playlistid, true).then(function (data) {
-                        notifier.notify({type: "custom", template: "Playlist succesfully followed.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Playlist succesfully followed.", delay: 5000});
                         $scope.followingPlaylist = true;
                     }, function(data){
-                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
-                    });   
+                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
+                    });
                 }
 
             }
             else{
-                notifier.notify({type: "custom", template: "Can't follow playlist. Are you connected with Spotify?", delay: 5000});   
+                notifier.notify({type: "custom", template: "Can't follow playlist. Are you connected with Spotify?", delay: 5000});
             }
         }
     };
@@ -369,20 +363,17 @@ angular.module('mopify.music.tracklist', [
      * Add the current tracks to the tracklist, shuffle them and play
      */
     $scope.shuffle = function(){
-        if(mopidyservice.isConnected){
-            // Clear tracklist
-            mopidyservice.clearTracklist().then(function(){
-                // Add track to tracklist
-                mopidyservice.playTrack($scope.loadedTracks[0], $scope.loadedTracks).then(function(){
-                    // Set random to true
-                    mopidyservice.setRandom(true).then(function(){
-                        // Broadcast control change
-                        $rootScope.$broadcast("mopify:playercontrols:changed");
-                    });
+        // Clear tracklist
+        mopidyservice.clearTracklist().then(function(){
+            // Add track to tracklist
+            mopidyservice.playTrack($scope.loadedTracks[0], $scope.loadedTracks).then(function(){
+                // Set random to true
+                mopidyservice.setRandom(true).then(function(){
+                    // Broadcast control change
+                    $rootScope.$broadcast("mopify:playercontrols:changed");
                 });
-
             });
-        }
+        });
     };
 
     /**
@@ -407,7 +398,7 @@ angular.module('mopify.music.tracklist', [
         if($scope.loadedTracks.length > (tracksPerCall * callRun)){
             var current = $scope.tracks;
             var toAdd = $scope.loadedTracks.slice((callRun * tracksPerCall), (callRun * tracksPerCall) + tracksPerCall);
-            
+
             $scope.tracks = current.concat(toAdd);
 
             callRun++;
@@ -416,7 +407,7 @@ angular.module('mopify.music.tracklist', [
 
     /**
      * Reset the track loading batch value to their start values
-     * 
+     *
      * @return {void}
      */
     function resetTrackBatchLoading(){
