@@ -9,7 +9,12 @@ angular.module('mopify.music.collection', [
  * Every controller start with defining its own routes.
  */
 .config(function($routeProvider) {
-    $routeProvider.when("/music/collection/:uri?", {
+    $routeProvider.when("/music/collection/:uri*", {
+        templateUrl: "collection/collection.tmpl.html",
+        controller: "CollectionController"
+    });
+
+    $routeProvider.when("/music/collection", {
         templateUrl: "collection/collection.tmpl.html",
         controller: "CollectionController"
     });
@@ -36,7 +41,7 @@ angular.module('mopify.music.collection', [
         var path = $routeParams.uri || null;
 
         CollectionService.open( path ).then(function(response){
-            console.log( response) ;
+            console.log( response ) ;
         });
     }
 
