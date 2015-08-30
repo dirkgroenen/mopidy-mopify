@@ -40,11 +40,6 @@ angular.module('mopify.player.seekbar', [
         timePositionMS = 0;
     });
 
-    $scope.$on('mopify:player:updatePlayerInformation', function(event, data) {
-        getTrackLength();
-        startIncreaser();
-    });
-
     $scope.$on('mopidy:event:playbackStateChanged', function(event, data) {
         // Get the current timeposition
         checkTimePosition();

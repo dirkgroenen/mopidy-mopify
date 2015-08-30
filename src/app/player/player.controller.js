@@ -66,6 +66,10 @@ angular.module('mopify.player', [
         }
     });
 
+    $scope.$on('mopidy:event:trackPlaybackEnded', function(event, data) {
+        $scope.track = undefined;
+    });
+
     // Update the player's track information by fetching the track
     // from mopidy
     $scope.$on('mopify:player:updatePlayerInformation', function() {
