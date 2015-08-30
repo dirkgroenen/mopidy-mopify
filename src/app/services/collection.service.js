@@ -1,8 +1,9 @@
 angular.module("mopify.services.collectionservice", [
-    'mopify.services.mopidy'
+    'mopify.services.mopidy',
+    'mopify.services.settings'
 ])
 
-.factory("CollectionService", function($q, $rootScope, mopidyservice){
+.factory("CollectionService", function($q, $rootScope, mopidyservice, Settings){
     "use strict";
 
     function CollectionService(){
@@ -10,6 +11,8 @@ angular.module("mopify.services.collectionservice", [
 
         this.deferred = $q.defer();
         this.tree = {};
+
+        this.shortcuts = this.getShortcuts();
 
         // Initialize the collection tree model, this needs a valid mopidy connection
         if(mopidyservice.isConnected)
@@ -20,6 +23,24 @@ angular.module("mopify.services.collectionservice", [
             that.initialize();
         });
     }
+
+    /**
+     * Get the saved shortcuts
+     *
+     * @return {void}
+     */
+    CollectionService.prototype.getShortcuts = function(){
+        var settings = Settings.get("collection");
+
+        if(settings === undefined || settings.shortcuts === undefined){
+            this.shortcuts = [];
+        }
+        else{
+            this.shortcuts = settings.shortcuts || [];
+        }
+
+        return this.shortcuts;
+    };
 
     /**
      * Hook for when the service is ready to use
@@ -204,6 +225,36 @@ angular.module("mopify.services.collectionservice", [
                 map = map[dir];
             });
         }
+    };
+
+    /**
+     * Add the provided directory as a shortcut
+     *
+     * @param {Directory} directory
+     * @return {void}
+     */
+    CollectionService.prototype.addShortcut = function(directory) {
+        this.shortcuts.push(directory);
+
+        Settings.set("collection", {
+            shortcuts: this.shortcuts
+        }, true);
+    };
+
+    /**
+     * Add the provided directory as a shortcut
+     *
+     * @param {Directory} directory
+     * @return {void}
+     */
+    CollectionService.prototype.removeShortcut = function(directory) {
+        this.shortcuts = _.reject(this.shortcuts, function(shortcut){
+            return shortcut.uri == directory.uri;
+        });
+
+        Settings.set("collection", {
+            shortcuts: this.shortcuts
+        }, true);
     };
 
     return new CollectionService();

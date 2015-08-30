@@ -1,0 +1,9 @@
+<a href="#/music/collection?uri={{ directory.uri }}" context-menu data-target="{{ directory.uri }}">{{ directory.name }}</a>
+
+<div class="contextmenu position-fixed" id="{{ directory.uri }}">
+    <ul class="dropdown-menu" role="menu">
+        <li ng-click="directory.removeAsShortcut();">
+            Remove as shortcut
+        </li>
+    </ul>
+</div>

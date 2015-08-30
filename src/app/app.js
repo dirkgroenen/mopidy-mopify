@@ -13,6 +13,7 @@ angular.module('mopify', [
     'mopify.dashboard',
     'mopify.search',
     'mopify.music.collection',
+    'mopify.music.collection.menu',
     'mopify.music.artist',
     'mopify.music.stations',
     'mopify.player',

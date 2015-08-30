@@ -1,10 +1,11 @@
 angular.module("mopify.models.track", [
     'mopify.models.base',
     'mopify.services.util',
-    'mopify.services.mopidy'
+    'mopify.services.mopidy',
+    'spotify'
 ])
 
-.factory("Track", function($q, Model, mopidyservice, util){
+.factory("Track", function($q, Model, Spotify, mopidyservice, util){
     "use strict";
 
     function Track(attrs){
@@ -60,6 +61,19 @@ angular.module("mopify.models.track", [
         }
 
         return deferred.promise;
+    };
+
+    /**
+     * Check if the track is in the user's spotify library
+     *
+     * @return {void}
+     */
+    Track.prototype.checkIfInSpotifyLibrary = function(){
+        var that = this;
+
+        Spotify.userTracksContains(that.uri).then(function(following){
+            that.inSpotifyLibrary = following[0];
+        });
     };
 
     return Track;

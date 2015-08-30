@@ -1,9 +1,9 @@
 angular.module("mopify.models.directory", [
     'mopify.models.base',
-    'mopify.services.settings'
+    'mopify.services.collectionservice'
 ])
 
-.factory("Directory", function(Model, Settings){
+.factory("Directory", function(Model, CollectionService){
     "use strict";
 
     function Directory(attrs){
@@ -20,7 +20,16 @@ angular.module("mopify.models.directory", [
      * @return {void}
      */
     Directory.prototype.addAsShortcut = function(){
+        CollectionService.addShortcut(this);
+    };
 
+    /**
+     * Remove the directory from the shurtcut list
+     *
+     * @return {void}
+     */
+    Directory.prototype.removeAsShortcut = function(){
+        CollectionService.removeShortcut(this);
     };
 
     return Directory;

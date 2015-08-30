@@ -16,6 +16,22 @@ angular.module('mopify.widgets.collection.navigator.list', [
         templateUrl: 'directives/collection/navigator/list/collectionList.directive.tmpl.html',
         link: function(scope, element, attrs) {
 
+            /**
+             * Checks if the list is empty
+             *
+             * @return {Boolean}
+             */
+            scope.isEmpty = function(){
+                var keys = Object.keys(scope.list).length;
+
+                for(var key in scope.list){
+                    if( typeof(scope.list[key]) === "string" )
+                        keys--;
+                }
+
+                return (keys === 0);
+            };
+
         }
     };
 

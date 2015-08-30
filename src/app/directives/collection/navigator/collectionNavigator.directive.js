@@ -25,6 +25,10 @@ angular.module('mopify.widgets.collection.navigator', [
 
             scope.columns = [];
 
+            // Header and player elements, used for calculating the correct height
+            var header = document.querySelector("#application #header.small");
+            var player = document.querySelector("#application #player");
+
             /**
              * Load the given path from the collection service
              *
@@ -65,17 +69,22 @@ angular.module('mopify.widgets.collection.navigator', [
              * @return {[type]} [description]
              */
             function fillWindowHeight(){
-                var header = document.querySelector("#application #header.small");
-                var player = document.querySelector("#application #player");
-
                 element.css({
                     height: (window.innerHeight - header.offsetHeight - player.offsetHeight) + "px"
                 });
             }
 
-            scope.$watch(function(){
-                return window.innerHeight;
-            }, function(){
+            scope.$watchGroup([
+                function(){
+                    return window.innerHeight;
+                },
+                function(){
+                    return header.offsetHeight;
+                },
+                function(){
+                    return player.offsetHeight;
+                }
+            ], function(){
                 fillWindowHeight();
             });
         }

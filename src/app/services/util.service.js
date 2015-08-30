@@ -20,7 +20,7 @@ angular.module(['mopify.services.util'], [])
         artistsToString: function(artists, link){
             if(artists !== undefined){
                 var artistNames = artists.map(function(artist){
-                    return (link) ? "<a href='#/music/artist/" + artist.uri + "'>" + artist.name + "</a>" : artist.name;
+                    return (link && artist.uri !== undefined) ? "<a href='#/music/artist?uri=" + artist.uri + "'>" + artist.name + "</a>" : artist.name;
                 });
 
                 return artistNames.join(", ");
@@ -39,13 +39,13 @@ angular.module(['mopify.services.util'], [])
 
         /**
          * Simply compares two string version values.
-         * 
+         *
          * Example:
          * versionCompare('1.1', '1.2') => -1
          * versionCompare('1.1', '1.1') =>  0
          * versionCompare('1.2', '1.1') =>  1
          * versionCompare('2.23.3', '2.22.3') => 1
-         * 
+         *
          * Returns:
          * -1 = left is LOWER than right
          *  0 = they are equal
@@ -62,11 +62,11 @@ angular.module(['mopify.services.util'], [])
         versionCompare: function(left, right) {
             if (typeof left + typeof right != 'stringstring')
                 return false;
-            
+
             var a = left.split('.');
             var b = right.split('.');
             var i = 0, len = Math.max(a.length, b.length);
-                
+
             for (; i < len; i++) {
                 if ((a[i] && !b[i] && parseInt(a[i]) > 0) || (parseInt(a[i]) > parseInt(b[i]))) {
                     return 1;
@@ -74,8 +74,18 @@ angular.module(['mopify.services.util'], [])
                     return -1;
                 }
             }
-            
+
             return 0;
+        },
+
+        /**
+         * Capitalize the first letter
+         *
+         * @param  {string} string
+         * @return {string}
+         */
+        capitalizeFirstLetter: function(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
         }
     };
 });

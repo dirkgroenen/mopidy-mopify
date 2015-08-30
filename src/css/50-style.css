@@ -15,6 +15,19 @@ body, html{
     box-sizing: border-box;
 }
 
+::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track{
+    background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb{
+    background: rgba(0, 0, 0, 0.3);
+}
+
 img[src=""] {
    display: none;
 }
@@ -131,11 +144,14 @@ img[src=""] {
     cursor: pointer;
     font-size: 14px;
     color: #777;
+    font-weight: normal;
+    text-transform: none;
 }
 
 .contextmenu ul li a{
     color: #777;
     text-decoration: none;
+    text-transform: none;
 }
 
 .contextmenu ul li.divider{
@@ -314,36 +330,36 @@ img[src=""] {
     text-decoration: none;
 }
 
-#application #leftside #menu .block .content ul{
+#application #leftside #menu .block .content ul.menuitems{
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-#application #leftside #menu .block .content ul li{
+#application #leftside #menu .block .content ul.menuitems li.menu-item{
     margin: 0;
     padding: 3px 0 4px 0;
 }
 
-#application #leftside #menu .block .content ul li.divider{
+#application #leftside #menu .block .content ul.menuitems li.divider{
     border-top: 1px solid #e3e3e3;
     padding: 0;
     margin: 5px 0;
     width: 70%;
 }
 
-#application #leftside #menu .block .content ul li ul.submenu{
+#application #leftside #menu .block .content ul.menuitems li.menu-item ul.submenu{
     padding-left: 15px;
     margin: 5px 0;
     font-size: 14px;
     position: relative;
 }
 
-#application #leftside #menu .block .content ul li ul.submenu li{
+#application #leftside #menu .block .content ul.menuitems li.menu-item ul.submenu li{
     padding: 1px 0;
 }
 
-#application #leftside #menu .block .content ul li ul.submenu.playlists{
+#application #leftside #menu .block .content ul.menuitems li.menu-item ul.submenu.playlists{
     overflow: hidden;
     max-height: 400px;
     -webkit-transition: all .5s ease;
@@ -351,11 +367,11 @@ img[src=""] {
     transition: all .5s ease;
 }
 
-#application #leftside #menu .block .content ul li ul.submenu.playlists.small{
+#application #leftside #menu .block .content ul.menuitems li.menu-item ul.submenu.playlists.small{
     max-height: 17px;
 }
 
-#application #leftside #menu .block .content ul li ul.submenu .shadow{
+#application #leftside #menu .block .content ul.menuitems li.menu-item ul.submenu .shadow{
     position: absolute;
     bottom: -20px;
     left: 0;
@@ -370,7 +386,7 @@ img[src=""] {
     transition: all .5s ease;
 }
 
-#application #leftside #menu .block .content ul li ul.submenu.playlists.small .shadow{
+#application #leftside #menu .block .content ul.menuitems li.menu-item ul.submenu.playlists.small .shadow{
     bottom: -8px;
 }
 
@@ -1595,8 +1611,7 @@ img[src=""] {
 }
 
 #application .collection-navigator{
-    overflow-y: hidden;
-    overflow-x: scroll;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     white-space: nowrap;
@@ -1618,17 +1633,12 @@ img[src=""] {
     min-width: 300px;
 }
 
-#application .collection-navigator .lists-wrap .list::-webkit-scrollbar{
-    width: 5px;
-    height: 5px;
-}
-
-#application .collection-navigator .lists-wrap .list::-webkit-scrollbar-track{
-    background: rgba(0, 0, 0, 0.1);
-}
-
-#application .collection-navigator .lists-wrap .list::-webkit-scrollbar-thumb{
-    background: rgba(0, 0, 0, 0.3);
+#application .collection-navigator .lists-wrap .list .empty{
+    padding: 10px 25px;
+    text-align: center;
+    font-weight: 300;
+    font-size: 14px;
+    font-style: italic;
 }
 
 #application .collection-navigator .lists-wrap .list .list-item{

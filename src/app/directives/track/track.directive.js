@@ -52,7 +52,6 @@ angular.module('mopify.widgets.directive.track', [
             scope.visible = true;
 
             scope.showSaveTrack = false;
-            scope.trackAlreadySaved = false;
 
             if(scope.surrounding === undefined)
                 scope.surrounding = scope.$parent.loadedTracks;
@@ -267,12 +266,10 @@ angular.module('mopify.widgets.directive.track', [
             scope.toggleSaveTrack = function(){
                 if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
 
-                    if(scope.trackAlreadySaved){
+                    if(scope.track.inSpotifyLibrary){
                         // Remove
                         Spotify.removeUserTracks(scope.track.uri).then(function (data) {
                             notifier.notify({type: "custom", template: "Track succesfully removed.", delay: 5000});
-                            scope.visible = false;
-
                         }, function(data){
                             notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
                         });
@@ -294,19 +291,18 @@ angular.module('mopify.widgets.directive.track', [
 
             /**
              * On context show callback checks if the user is following the current track
-             * @return {[type]} [description]
+             *
+             * @return {void}
              */
             scope.onContextShow = function(){
+                // Check if only one track is selected
                 if($rootScope.selectedtracks.length > 1){
                     $rootScope.showSaveTrack = false;
                     return;
                 }
 
-                if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
-                    Spotify.userTracksContains(scope.track.uri).then(function (following) {
-                        scope.trackAlreadySaved = following[0];
-                    });
-
+                if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected && scope.track.source == "spotify"){
+                    scope.track.checkIfInSpotifyLibrary();
                     scope.showSaveTrack = true;
                 }
                 else{

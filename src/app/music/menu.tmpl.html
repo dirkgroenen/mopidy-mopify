@@ -1,9 +1,10 @@
 <div class="block row" id="yourmusic">
     <div class="title">Your music</div>
     <div class="content">
-        <ul>
-            <li><a href="#/music/collection">Collection</a></li>
+        <ul class="menuitems" ng-controller="CollectionMenuController">
+            <li class="menu-item"><a href="#/music/collection">Collection</a></li>
             <li class="divider"></li>
+            <li class="menu-item" collection-shortcut directory="directory" ng-repeat="directory in shortcuts"></li>
         </ul>
     </div>
 </div>
@@ -11,8 +12,8 @@
 <div class="block row" id="stations">
     <div class="title">Stations</div>
     <div class="content">
-        <ul>
-            <li><a href="#/music/stations">Stations</a></li>      
+        <ul class="menuitems">
+            <li class="menu-item"><a href="#/music/stations">Stations</a></li>
         </ul>
     </div>
 </div>

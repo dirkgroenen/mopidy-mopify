@@ -1,4 +1,8 @@
 <div class="list">
-    <collection-directory ng-repeat="item in list" directory="item" ng-if="item.type == 'directory'"></collection-directory>
-    <collection-track ng-repeat="item in list" surrounding="list" track="item" ng-if="item.type == 'track'"></collection-track>
+    <div ng-repeat="item in list">
+        <collection-directory directory="item" ng-if="item.type == 'directory'"></collection-directory>
+        <collection-track surrounding="list" track="item" ng-if="item.type == 'track'"></collection-track>
+    </div>
+    <div ng-if="isEmpty()" class="empty">No items</div>
+
 </div>

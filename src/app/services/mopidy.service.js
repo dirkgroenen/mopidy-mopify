@@ -7,15 +7,17 @@
 angular.module('mopify.services.mopidy', [
     'mopify.services.settings',
     'mopify.services.queuemanager',
+    'mopify.services.util',
     'llNotifier',
     'mopify.models.ref',
     'mopify.models.track',
     'mopify.models.artist',
     'mopify.models.album',
-    'mopify.models.image'
+    'mopify.models.image',
+    'mopify.models.directory'
 ])
 
-.factory("mopidyservice", function($q, $rootScope, $cacheFactory, $location, $injector, Settings, notifier, QueueManager){
+.factory("mopidyservice", function($q, $rootScope, $cacheFactory, $location, $injector, Settings, notifier, QueueManager, util){
 	// Create consolelog object for Mopidy to log it's logs on
     var consoleError = console.error.bind(console);
 
@@ -93,10 +95,11 @@ angular.module('mopify.services.mopidy', [
             if(data.__model__ !== undefined){
                 data = convertObjectToModel(data);
             }
-            else{
-                for(var key in data){
+
+            // Build depth models
+            for(var key in data){
+                if( Object.prototype.toString.call( data[key] ) !== "[object Function]" )
                     data[key] = buildModelResponse(data[key]);
-                }
             }
         }
 
@@ -112,9 +115,10 @@ angular.module('mopify.services.mopidy', [
      */
     function convertObjectToModel(data){
         var Model;
+        var modelkey = (data.type == "directory") ? util.capitalizeFirstLetter( data.type ) : data.__model__;
 
         try{
-            Model = $injector.get(data.__model__);
+            Model = $injector.get(modelkey);
         }
         catch(err){
             console.warn("Model " + data.__model__ + " does not exist", err);
@@ -216,7 +220,10 @@ angular.module('mopify.services.mopidy', [
         },
 
         search: function(query) {
-            return wrapMopidyFunc("mopidy.library.search", this)({ any : [ query ] });
+            if(typeof(query) === "string")
+                query = { any : [ query ] };
+
+            return wrapMopidyFunc("mopidy.library.search", this)(query);
         },
 
         browse: function(uri) {
