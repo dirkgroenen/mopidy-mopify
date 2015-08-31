@@ -2,10 +2,11 @@ angular.module("mopify.services.playlistmanager", [
     'mopify.services.mopidy',
     'mopify.services.servicemanager',
     'mopify.services.settings',
-    "spotify"
+    'mopify.models.assigner',
+    'spotify'
 ])
 
-.factory("PlaylistManager", function($rootScope, $q, $interval, ServiceManager, Spotify, mopidyservice, Settings){
+.factory("PlaylistManager", function($rootScope, $q, $interval, ServiceManager, Spotify, mopidyservice, Settings, ModelAssigner){
     "use strict";
 
     function PlaylistManager(){
@@ -69,7 +70,7 @@ angular.module("mopify.services.playlistmanager", [
 
             // Get user's playlists
             Spotify.getUserPlaylists(that.spotifyuserid, { limit: 50 }).then(function(data){
-                that.playlists = data.items;
+                that.playlists = ModelAssigner.build(data.items);
 
                 // Starts loading more playlists if needed
                 if(data.next !== null){
@@ -155,7 +156,7 @@ angular.module("mopify.services.playlistmanager", [
             'Content-Type': 'application/json'
         }).then(function(data){
             // Concat items
-            that.playlists = sortPlaylists(that.playlists.concat(data.items));
+            that.playlists = sortPlaylists(that.playlists.concat( ModelAssigner.build(data.items) ));
 
             // Starts loading more playlists if needed
             if(data.next !== null){

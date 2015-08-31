@@ -12,7 +12,7 @@ angular.module('mopify.widgets.collection.navigator.directory', [
             directory: "="
         },
         replace: true,
-        templateUrl: 'directives/collection/navigator/directory/collectionDirectory.directive.tmpl.html',
+        templateUrl: 'directives/collection/navigator/list/directory/collectionDirectory.directive.tmpl.html',
         link: function(scope, element, attrs) {
 
         }

@@ -2,7 +2,8 @@
 
 angular.module('mopify.widgets.collection.navigator.list', [
     'mopify.widgets.collection.navigator.directory',
-    'mopify.widgets.collection.navigator.track'
+    'mopify.widgets.collection.navigator.track',
+    'mopify.widgets.collection.navigator.playlist'
 ])
 
 .directive('collectionList', function collectionList() {

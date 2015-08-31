@@ -1185,6 +1185,10 @@ img[src=""] {
     -ms-user-select: none;      /* IE 10+ */
 }
 
+#application #tracklist .track .row{
+    padding-right: 30px;
+}
+
 #application #tracklist .track.loading{
     cursor: default;
     color: #aaa;
@@ -1197,9 +1201,9 @@ img[src=""] {
 }
 
 #application #tracklist .track .nowplaying{
-    background-image: url("../images/ani_equalizer_black.gif");
+    background-image: url(data:image/gif;base64,R0lGODlhKAAoAIAAADExMf///yH/C05FVFNDQVBFMi4wAwEAAAAh+QQJBQABACwLAA4AEQANAAACIIwPmcet2+IDUb7qLkZ6h/l1nBKSGQmeS8qAk3u98awUACH5BAUFAAEALAsADwARAAwAAAIejA+Zx63b4gNRvjCtwtfd7G0gk03lZ4poSp0spyoFACH5BAkFAAEALAsADwARAAwAAAIUjI+pG+DO0IOx2jPBzXv2D15iVQAAIfkEBQUAAQAsCwAOABEADQAAAiCMjwa76cFaigDSaFm+le77fd7INWQZliamdqyawudSAAAh+QQJBQABACwLAAwAEQAPAAACFYyPBrvpwSJ7SVJkr968+w+G4kg+BQAh+QQJBQABACwLAA0AEQAOAAACIIyPBrvpwSJ7UsJ4a7N68g5kGyiGoImdZfl5ZKutKgwUACH5BAkFAAEALAsADwARAAwAAAIdjA+ZhwrhXozQ1bkoVjdvaX0gJ3YjZppa+KXlqhQAIfkECQUAAQAsCwAPABEADAAAAh+MD5mHCuEeg46qaVfM8e1efaAWjl45cpx4mWdrqlEBACH5BAkFAAEALAsADgARAA0AAAIgjA+Zx63b4gNRvupuVmH2eXlgSI6UaJ7l+HGp6qbtMhUAIfkECQUAAQAsCwAOABEADQAAAiCMD5nHrdviA/KFWdW1zuKuYZPojWFpUmS6nexqtstUAAAh+QQJBQABACwLAA4AEQANAAACIIwPmcet2+ID8oVZ1bXO4q59DCYi3jmFaEqR7OK+m6oUACH5BAkFAAEALAsAEAARAAsAAAIdhB2HwayQVGsvnulkfVvz231Q+FmIeHqiOaIsWwAAIfkECQUAAQAsCwAPABEADAAAAh2EHambhwwdgEFKal3V+WzfIVc4jeEnnmaHlirnFAAh+QQJBQABACwLAA4AEQANAAACH4QdqZuHDB2AQUpqHc6P8b580yVWWkl+5rFm7aimRwEAIfkECQUAAQAsCwAOABEADQAAAh+MjwbLndriC1G+6i5e1G0ufUDHkJg5iigaet+qtkwBACH5BAkFAAEALAsADwARAAwAAAIdhB2pcX2rnGONSjTvyxpY3H1eN1akKHJbqF6oUwAAIfkECQUAAQAsCwAQABEACwAAAhmEHYfKkPragvLEWa+ruDetMSC3Udx4ikwBACH5BAkFAAEALAsADgARAA0AAAIfjA+Zx63b4gNhzvqwXXcrzXlUJ4JjSXqmmYZqa61TAQAh+QQFBQABACwLAA8AEQAMAAACHowPmYcK4R6DjiobV8SZ8w1mVyg+pOiVWqWarJo6BQAh+QQJBQABACwLAA8AEQAMAAACEYQdqXG4n5qDtNqLs968+48VACH5BAUFAAEALAsADgARAA0AAAIfjI8Gy53aYpCRunozBlPjzoCftYnctpgmmaKnV6lRAQAh+QQJBQABACwLAA0AEQAOAAACEIyPBsudD6OctNqLs9685wIAIfkECQUAAQAsCwAPABEADAAAAh2Mjwa76cEie1LCeGuzevIOZBsohqCJnWX5eWS7FAAh+QQJBQABACwLABAAEQALAAACHYwPmcet+0ALkb5ZY76a+y5toKWQnRmCaamu0FMAACH5BAkFAAEALAsADwARAAwAAAIejA+Zx63b4gNRvjCtwtfd7G0gk03lZ4poSp0spyoFADs=);
     background-repeat: no-repeat;
-    background-position: right -7px;
+    background-position: right -8px;
 }
 
 #application #tracklist .track .artists,
@@ -1653,10 +1657,17 @@ img[src=""] {
     font-size: 14px;
 }
 
+#application .collection-navigator .lists-wrap .list .list-item.playlist .image,
 #application .collection-navigator .lists-wrap .list .list-item.directory .icon{
     display: inline-block;
 }
 
+#application .collection-navigator .lists-wrap .list .list-item.playlist .image img{
+    max-width: 30px;
+    height: auto;
+}
+
+#application .collection-navigator .lists-wrap .list .list-item.playlist .name,
 #application .collection-navigator .lists-wrap .list .list-item.directory .name{
     display: inline-block;
     margin-left: 10px;

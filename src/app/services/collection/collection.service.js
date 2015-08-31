@@ -1,9 +1,11 @@
 angular.module("mopify.services.collectionservice", [
     'mopify.services.mopidy',
-    'mopify.services.settings'
+    'mopify.services.settings',
+    'mopify.services.collectionservice.extensions.spotify',
+    'mopify.services.collectionservice.extensions.mopidy'
 ])
 
-.factory("CollectionService", function($q, $rootScope, mopidyservice, Settings){
+.factory("CollectionService", function($q, $rootScope, mopidyservice, Settings, SpotifyCollection, MopidyCollection){
     "use strict";
 
     function CollectionService(){
@@ -16,6 +18,25 @@ angular.module("mopify.services.collectionservice", [
 
         that.initialize();
     }
+
+    /**
+     * Load the service collection based on the key
+     * or return the default browser if it doesn't
+     * have an override
+     *
+     * @param {string} service
+     * @return {void}
+     */
+    CollectionService.prototype.getCollection = function(service){
+        var overrides = {
+            spotify: SpotifyCollection
+        };
+
+        if( overrides[service] !== undefined)
+            return overrides[service];
+        else
+            return MopidyCollection;
+    };
 
     /**
      * Get the saved shortcuts
@@ -52,7 +73,7 @@ angular.module("mopify.services.collectionservice", [
     CollectionService.prototype.initialize = function(){
         var that = this;
 
-        mopidyservice.browse( null ).then(function(response){
+        this.browse( null ).then(function(response){
             that.buildDirectory(null, response);
             that.deferred.resolve();
         });
@@ -109,13 +130,15 @@ angular.module("mopify.services.collectionservice", [
 
     /**
      * Bridge between collectionservice and mopidyservice
-     * to browse the given path
+     * to browse the given path. This gives us the abillity
+     * to tweak some services.
      *
      * @param  {string} path
      * @return {object}
      */
     CollectionService.prototype.browse = function(path){
-        return mopidyservice.browse(path);
+        var service = (path !== null) ? path.split(":")[0] : null;
+        return this.getCollection(service).browse(path);
     };
 
     /**
