@@ -51,5 +51,12 @@
         <li ng-click="toggleSaveTrack()" ng-show='showSaveTrack'>
             {{ (trackAlreadySaved) ? 'Remove track from library' : 'Save track in library' }}
         </li>
+        <li class="divider"></li>
+        <li class="clip-text" data-clipboard-text="{{ track.uri }}" ng-hide="multipleselected">
+            Copy Spotify URI
+        </li>
+        <li class="clip-text" data-clipboard-text="{{ track.http_uri }}" ng-hide="multipleselected">
+            Copy HTTP Link
+        </li>
     </ul>
 </div>
