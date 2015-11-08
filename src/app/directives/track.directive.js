@@ -32,6 +32,11 @@ angular.module('mopify.widgets.directive.track', [
             // Set scope.$id in track object
             scope.track.id = scope.$id;
 
+            // Set custom link property
+            Spotify.getTrack(scope.track.uri).then(function (data) {
+                scope.track.http_uri = data.external_urls.spotify;
+            });
+
             /**
              * For some reason the scope.track.id get's replaced at some moment
              * this $watch needs to keep track if this habbit and set the track's id 
@@ -174,6 +179,13 @@ angular.module('mopify.widgets.directive.track', [
                         mopidyservice.playTrack($rootScope.selectedtracks[clickedindex], $rootScope.selectedtracks);
                     }
                 }                
+            };
+
+            /**
+             * Copy Track URI
+             */
+            scope.copyURI = function(){
+                console.log(scope.track.uri);
             };
 
             /**
