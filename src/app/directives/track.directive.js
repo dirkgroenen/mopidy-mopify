@@ -32,7 +32,7 @@ angular.module('mopify.widgets.directive.track', [
             // Set scope.$id in track object
             scope.track.id = scope.$id;
 
-            // Set custom link property
+            // Set custom http link property
             Spotify.getTrack(scope.track.uri).then(function (data) {
                 scope.track.http_uri = data.external_urls.spotify;
             });
@@ -179,13 +179,6 @@ angular.module('mopify.widgets.directive.track', [
                         mopidyservice.playTrack($rootScope.selectedtracks[clickedindex], $rootScope.selectedtracks);
                     }
                 }                
-            };
-
-            /**
-             * Copy Track URI
-             */
-            scope.copyURI = function(){
-                console.log(scope.track.uri);
             };
 
             /**
