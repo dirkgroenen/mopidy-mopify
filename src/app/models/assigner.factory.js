@@ -7,7 +7,8 @@ angular.module("mopify.models.assigner", [
     'mopify.models.image',
     'mopify.models.directory',
     'mopify.models.tlTrack',
-    'mopify.models.playlist'
+    'mopify.models.playlist',
+    'mopify.models.user'
 ])
 
 .factory("ModelAssigner", function($injector, util){

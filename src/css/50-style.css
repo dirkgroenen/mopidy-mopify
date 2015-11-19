@@ -1653,6 +1653,7 @@ img[src=""] {
     border-bottom: 1px solid #f0f0f0;
     padding: 10px 25px 7px 25px;
     min-width: 300px;
+    max-width: 450px;
     cursor: pointer;
     font-size: 14px;
 }

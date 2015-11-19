@@ -86,6 +86,32 @@ angular.module(['mopify.services.util'], [])
          */
         capitalizeFirstLetter: function(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
+        },
+
+        /**
+         * Slice a part from an object (like Array.slice())
+         *
+         * @param  {Object} object
+         * @param  {int}    start
+         * @param  {int}    number
+         * @return {Object}
+         */
+        objectSlice: function(object, start, number){
+            var newobj = {};
+            var index = 0;
+
+            for(var key in object){
+                if(index >= start && index < start + number){
+                    newobj[key] = object[key];
+                }
+
+                if(index > start + number)
+                    break;
+
+                index++;
+            }
+
+            return newobj;
         }
     };
 });

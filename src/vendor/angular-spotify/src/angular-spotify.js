@@ -373,6 +373,18 @@
         /**
           ====================== Following =====================
          */
+        NgSpotify.prototype.getFollowingArtists = function (type, ids) {
+          var deferred = $q.defer();
+
+          this.api('/me/following?type=artist', 'GET', null, null, {
+            'Authorization': 'Bearer ' + this.authToken
+          }).then(function(response){
+            deferred.resolve(response.artists);
+          });
+
+          return deferred.promise;
+        };
+
         NgSpotify.prototype.follow = function (type, ids) {
           return this.api('/me/following', 'PUT', { type: type, ids: ids }, null, {
             'Authorization': 'Bearer ' + this.authToken
@@ -442,13 +454,13 @@
             'Spotify',
             'menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,width=' + w + ',height=' + h + ',top=' + top + ',left=' + left
           );
-          
+
           /*
            * Checking the returned code is done in other servives and pages
            *
            * MOPIFY: RESPONSE CHECKING IS HAPPENING IN THE SPOTIFYLOGIN SERVICE
            */
-          
+
           return deferred.promise;
         };
 

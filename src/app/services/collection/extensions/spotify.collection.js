@@ -1,20 +1,30 @@
 angular.module("mopify.services.collectionservice.extensions.spotify", [
     'mopify.services.mopidy',
     'mopify.services.collectionservice.extensions.mopidy',
-    'mopify.services.playlistmanager'
+    'mopify.services.playlistmanager',
+    'mopify.services.spotifyusercollection'
 ])
 
-.factory("SpotifyCollection", function($q, mopidyservice, MopidyCollection, PlaylistManager){
+.factory("SpotifyCollection", function($q, mopidyservice, MopidyCollection, PlaylistManager, SpotifyUserCollection){
     "use strict";
 
     function SpotifyCollection(){
         this.overrides = {
             "^spotify:directory$": "browseRoot",
             "^spotify:directory:playlists$": "getPlaylists",
-            "^spotify:directory:playlists:(.*?)$": "getPlaylistTracks"
+            "^spotify:directory:playlists:(.*?)$": "getPlaylistTracks",
+            "^spotify:directory:albums$": "getUserAlbums",
+            "^spotify:directory:artists$": "getUserArtists",
+            "^spotify:directory:tracks$": "getUserTracks",
         };
     }
 
+    /**
+     * Overwritten browse function
+     *
+     * @param  {string} path
+     * @return {Defer}
+     */
     SpotifyCollection.prototype.browse = function(path){
         var that = this;
         var match = null;
@@ -38,16 +48,34 @@ angular.module("mopify.services.collectionservice.extensions.spotify", [
     SpotifyCollection.prototype.browseRoot = function(){
         var deferred = $q.defer();
 
-        MopidyCollection.browse("spotify:directory").then(function(response){
-            response.push({
+        var response = [
+            {
                 __model__: "Ref",
                 name: "Playlists",
                 type: "directory",
                 uri: "spotify:directory:playlists"
-            });
+            },
+            {
+                __model__: "Ref",
+                name: "Artists",
+                type: "directory",
+                uri: "spotify:directory:artists"
+            },
+            {
+                __model__: "Ref",
+                name: "Albums",
+                type: "directory",
+                uri: "spotify:directory:albums"
+            },
+            {
+                __model__: "Ref",
+                name: "Tracks",
+                type: "directory",
+                uri: "spotify:directory:tracks"
+            }
+        ];
 
-            deferred.resolve(response);
-        });
+        deferred.resolve(response);
 
         return deferred.promise;
     };
@@ -76,6 +104,12 @@ angular.module("mopify.services.collectionservice.extensions.spotify", [
         return deferred.promise;
     };
 
+    /**
+     * Return the given playlist's tracks
+     *
+     * @param  {array} match
+     * @return {Defer}
+     */
     SpotifyCollection.prototype.getPlaylistTracks = function(match){
         var deferred = $q.defer();
         var s = match[1].split("-");
@@ -86,6 +120,33 @@ angular.module("mopify.services.collectionservice.extensions.spotify", [
         });
 
         return deferred.promise;
+    };
+
+    /**
+     * Get the user's saved albums
+     *
+     * @return {Defer}
+     */
+    SpotifyCollection.prototype.getUserAlbums = function(){
+        return SpotifyUserCollection.getAlbums();
+    };
+
+    /**
+     * Get the user's saved albums
+     *
+     * @return {Defer}
+     */
+    SpotifyCollection.prototype.getUserArtists = function(){
+        return SpotifyUserCollection.getArtists();
+    };
+
+    /**
+     * Get the user's saved albums
+     *
+     * @return {Defer}
+     */
+    SpotifyCollection.prototype.getUserTracks = function(){
+        return SpotifyUserCollection.getTracks();
     };
 
     return new SpotifyCollection();
