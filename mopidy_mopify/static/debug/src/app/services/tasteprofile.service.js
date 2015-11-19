@@ -6,12 +6,13 @@ angular.module('mopify.services.tasteprofile', [
   '$http',
   '$q',
   '$rootScope',
+  '$location',
   'localStorageService',
   'notifier',
   'ServiceManager',
-  function ($http, $q, $rootScope, localStorageService, notifier, ServiceManager) {
+  function ($http, $q, $rootScope, $location, localStorageService, notifier, ServiceManager) {
     'use strict';
-    var apiUrl = 'http://developer.echonest.com/api/v4/';
+    var apiUrl = $location.protocol() + '://developer.echonest.com/api/v4/';
     var apiKey = 'UVUDDM7M0S5MWNQFV';
     var post = function (url, data) {
       var deferred = $q.defer();

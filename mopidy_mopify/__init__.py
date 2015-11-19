@@ -7,7 +7,7 @@ import tornado.web
 import mem
 
 from services.sync import sync
-from services.autoupdate import update 
+from services.autoupdate import update
 
 from services.localfiles import core as LocalFilesCore
 from services.localfiles import requesthandler as LocalFilesRequestHandler
@@ -18,11 +18,12 @@ from services.queuemanager import requesthandler as QueueManagerRequestHandler
 
 from mopidy import config, ext
 
-__version__ = '1.5.6'
+__version__ = '1.5.7'
 __ext_name__ = 'mopify'
 __verbosemode__ = False
 
 logger = logging.getLogger(__ext_name__)
+
 
 class MopifyExtension(ext.Extension):
     dist_name = 'Mopidy-Mopify'
@@ -40,7 +41,7 @@ class MopifyExtension(ext.Extension):
 
     def setup(self, registry):
         sync.Sync();
-        
+
         # Create instances
         mem.queuemanager = QueueManagerCore.QueueManager()
         mem.localfiles = LocalFilesCore.LocalFiles()
@@ -51,13 +52,14 @@ class MopifyExtension(ext.Extension):
         # Add web extension
         registry.add('http:app', {
             'name': self.ext_name,
-            'factory': mopify_client_factory  
+            'factory': mopify_client_factory
         })
 
         logger.info('Setup Mopify')
 
+
 def mopify_client_factory(config, core):
-    directory = 'debug' if (config.get(__ext_name__)['debug'] == True) else 'min'
+    directory = 'debug' if config.get(__ext_name__)['debug'] is True else 'min'
     mopifypath = os.path.join(os.path.dirname(__file__), 'static', directory)
 
     return [

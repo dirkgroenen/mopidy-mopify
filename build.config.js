@@ -24,7 +24,7 @@ module.exports = {
         js: [ 'src/app/**/*.js' ],
 
         css: [ 'src/css/**/*.css' ],
-        
+
         atpl: [ 'src/app/**/*.tmpl.html' ],
 
         html: [ 'src/index.html' ]
@@ -70,6 +70,7 @@ module.exports = {
             'src/vendor/ryanmullins-angular-hammer/angular.hammer.js',
             'src/vendor/angular-hotkeys/build/hotkeys.js',
             'src/vendor/ng-file-upload/ng-file-upload.js'
+            'src/vendor/clipboard/dist/clipboard.min.js'
         ],
         css: [
             'src/vendor/html5-boilerplate/css/normalize.css',
