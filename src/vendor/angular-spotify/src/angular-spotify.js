@@ -373,10 +373,12 @@
         /**
           ====================== Following =====================
          */
-        NgSpotify.prototype.getFollowingArtists = function (type, ids) {
+        NgSpotify.prototype.getFollowingArtists = function (options) {
           var deferred = $q.defer();
 
-          this.api('/me/following?type=artist', 'GET', null, null, {
+          options.type = "artist";
+
+          this.api('/me/following', 'GET', options, null, {
             'Authorization': 'Bearer ' + this.authToken
           }).then(function(response){
             deferred.resolve(response.artists);
