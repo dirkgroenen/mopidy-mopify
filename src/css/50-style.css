@@ -1635,7 +1635,6 @@ img[src=""] {
     overflow-y: auto;
     overflow-x: hidden;
     min-width: 300px;
-    max-width: 600px;
 }
 
 #application .collection-navigator .lists-wrap .list .empty{
