@@ -5,6 +5,7 @@ angular.module('mopify.widgets.collection.navigator.list', [
     'mopify.widgets.collection.navigator.track',
     'mopify.widgets.collection.navigator.playlist',
     'mopify.widgets.collection.navigator.artist',
+    'mopify.widgets.collection.navigator.album',
     'infinite-scroll',
     'mopify.services.util'
 ])
@@ -19,6 +20,8 @@ angular.module('mopify.widgets.collection.navigator.list', [
         replace: true,
         templateUrl: 'directives/collection/navigator/list/collectionList.directive.tmpl.html',
         link: function(scope, element, attrs) {
+
+            console.log(scope.list);
 
             /**
              * Object holding infinitelist data

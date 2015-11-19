@@ -1,0 +1,9 @@
+<a href="#/music/tracklist/{{ album.uri }}" class="list-item album">
+    <div class="image">
+        <img ng-src="{{ album.images[album.images.length - 1].url }}"/>
+    </div>
+    <div class="name">
+        {{ album.name }}
+        <div class="sub" ng-bind-html="artists_string"></div>
+    </div>
+</a>

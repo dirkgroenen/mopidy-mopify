@@ -129,11 +129,11 @@ angular.module("mopify.services.spotifyusercollection", [
 
         // Add artists to each album based on the tracks
         _.each(albums, function(album){
-            var tracks = _.filter(tracks, function(item){
+            var albumtracks = _.filter(tracks, function(item){
                 return item.album.id === album.id;
             });
 
-            var artists = _.flatten(_.map(tracks, function(item){
+            var artists = _.flatten(_.map(albumtracks, function(item){
                 return item.artists;
             }));
 

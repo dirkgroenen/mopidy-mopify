@@ -1685,7 +1685,17 @@ img[src=""] {
 
 #application .collection-navigator .lists-wrap .list .list-item .name{
     display: inline-block;
+    vertical-align: middle;
     margin-left: 10px;
+}
+
+#application .collection-navigator .lists-wrap .list .list-item .name .sub{
+    color: #7f7f7f;
+    font-size: 0.9em;
+}
+
+#application .collection-navigator .lists-wrap .list .list-item .name .sub a{
+    color: #777;
 }
 
 #application .collection-navigator .lists-wrap .list .list-item#tracklist{

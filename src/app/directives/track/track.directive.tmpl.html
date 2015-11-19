@@ -56,11 +56,13 @@
             <span class="source-icon icon-spotify"></span>
             {{ (track.inSpotifyLibrary) ? 'Remove track from library' : 'Save track in library' }}
         </li>
-        <li class="divider"></li>
-        <li class="clip-text" data-clipboard-text="{{ track.uri }}" ng-hide="multipleselected">
+        <li class="divider" ng-if="track.source == 'spotify'"></li>
+        <li class="clip-text" data-clipboard-text="{{ track.uri }}" ng-hide="multipleselected" ng-if="track.source == 'spotify'">
+            <span class="source-icon icon-spotify"></span>
             Copy Spotify URI
         </li>
-        <li class="clip-text" data-clipboard-text="{{ track.http_uri }}" ng-hide="multipleselected">
+        <li class="clip-text" data-clipboard-text="{{ track.http_uri }}" ng-hide="multipleselected" ng-if="track.source == 'spotify'">
+            <span class="source-icon icon-spotify"></span>
             Copy HTTP Link
         </li>
     </ul>

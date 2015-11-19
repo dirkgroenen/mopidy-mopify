@@ -2,10 +2,11 @@ angular.module("mopify.services.collectionservice.extensions.spotify", [
     'mopify.services.mopidy',
     'mopify.services.collectionservice.extensions.mopidy',
     'mopify.services.playlistmanager',
-    'mopify.services.spotifyusercollection'
+    'mopify.services.spotifyusercollection',
+    'mopify.models.assigner'
 ])
 
-.factory("SpotifyCollection", function($q, mopidyservice, MopidyCollection, PlaylistManager, SpotifyUserCollection){
+.factory("SpotifyCollection", function($q, mopidyservice, MopidyCollection, PlaylistManager, SpotifyUserCollection, ModelAssigner){
     "use strict";
 
     function SpotifyCollection(){
@@ -48,7 +49,7 @@ angular.module("mopify.services.collectionservice.extensions.spotify", [
     SpotifyCollection.prototype.browseRoot = function(){
         var deferred = $q.defer();
 
-        var response = [
+        var response = ModelAssigner.build([
             {
                 __model__: "Ref",
                 name: "Playlists",
@@ -73,7 +74,7 @@ angular.module("mopify.services.collectionservice.extensions.spotify", [
                 type: "directory",
                 uri: "spotify:directory:tracks"
             }
-        ];
+        ]);
 
         deferred.resolve(response);
 

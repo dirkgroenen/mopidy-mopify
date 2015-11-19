@@ -2,10 +2,11 @@ angular.module("mopify.services.collectionservice", [
     'mopify.services.mopidy',
     'mopify.services.settings',
     'mopify.services.collectionservice.extensions.spotify',
-    'mopify.services.collectionservice.extensions.mopidy'
+    'mopify.services.collectionservice.extensions.mopidy',
+    'mopify.services.collectionservice.extensions.local'
 ])
 
-.factory("CollectionService", function($q, $rootScope, mopidyservice, Settings, SpotifyCollection, MopidyCollection){
+.factory("CollectionService", function($q, $rootScope, mopidyservice, Settings, SpotifyCollection, LocalCollection, MopidyCollection){
     "use strict";
 
     function CollectionService(){
@@ -29,7 +30,8 @@ angular.module("mopify.services.collectionservice", [
      */
     CollectionService.prototype.getCollection = function(service){
         var overrides = {
-            spotify: SpotifyCollection
+            spotify: SpotifyCollection,
+            local: LocalCollection
         };
 
         if( overrides[service] !== undefined)
