@@ -5,17 +5,17 @@
             <img ng-src="{{ artist.coverimage }}" />
         </div>
         <div class="lefttext">
-            <div class="inner"> 
+            <div class="inner">
                 <i class="ss-icon ss-list"></i> {{ artist.name }}
             </div>
         </div>
     </div>
     <div class="col-md-6 col-lg-4 col-sm-9 centertext">
         <div class="row">
-            <div class="col-xs-4 music"><a href="#/music/artist/{{ artistId }}" ng-class="{ 'active': currentview.id == 'music' }" ng-click="setView('music')">Music</a></div>
-            <div class="col-xs-4 biography"><a href="#/music/artist/{{ artistId }}" ng-class="{ 'active': currentview.id == 'bio' }" ng-click="setView('bio')">Biography</a></div>
-            <div class="col-xs-4 related"><a href="#/music/artist/{{ artistId }}" ng-class="{ 'active': currentview.id == 'related' }" ng-click="setView('related')">Related Artists</a></div>
-        </div>  
+            <div class="col-xs-4 music"><a href="#/music/artist/?uri={{ artistId }}" ng-class="{ 'active': currentview.id == 'music' }" ng-click="setView($event, 'music')">Music</a></div>
+            <div class="col-xs-4 biography"><a href="#/music/artist/?uri={{ artistId }}" ng-class="{ 'active': currentview.id == 'bio' }" ng-click="setView($event, 'bio')">Biography</a></div>
+            <div class="col-xs-4 related"><a href="#/music/artist/?uri={{ artistId }}" ng-class="{ 'active': currentview.id == 'related' }" ng-click="setView($event, 'related')">Related Artists</a></div>
+        </div>
     </div>
 </div>
 
@@ -27,12 +27,12 @@
         <div class="col-md-6 col-md-offset-3 alignright" >
             <div class="button white" ng-click="startStation()">
                 <span class="text">Start station</span>
-                <i class="ss-icon ss-wifi"></i> 
+                <i class="ss-icon ss-wifi"></i>
             </div>
             <div class="button white" ng-click="toggleFollowArtist()">
                 <span class="text">{{ (followingArtist) ? 'Unfollow' : 'follow' }} artist</span>
-                <i class="ss-icon ss-check" ng-show="!followingArtist"></i> 
-                <i class="ss-icon ss-delete" ng-show="followingArtist"></i> 
+                <i class="ss-icon ss-check" ng-show="!followingArtist"></i>
+                <i class="ss-icon ss-delete" ng-show="followingArtist"></i>
             </div>
         </div>
     </div>
@@ -52,13 +52,13 @@
         <div class="col-md-6 col-md-offset-3 alignright" ng-if="currentview.id != 'music'">
             <div class="button white" ng-click="startStation()">
                 <span class="text">Start station</span>
-                <i class="ss-icon ss-wifi"></i> 
+                <i class="ss-icon ss-wifi"></i>
             </div>
         </div>
     </div>
     <div class="pagecontent row">
         <div id="tileview" ng-if="currentview.id == 'music'">
-            <div ng-repeat="album in albums"> 
+            <div ng-repeat="album in albums">
                 <mopify-album album="album" class="single-tile col-lg-2 col-md-3 col-sm-4 col-xs-6"></mopify-album>
                 <div ng-if="($index + 1) % 6 == 0" class="clearfix visible-lg-block"></div>
                 <div ng-if="($index + 1) % 4 == 0" class="clearfix visible-md-block"></div>
@@ -71,7 +71,7 @@
         </div>
 
         <div id="tileview" ng-if="currentview.id == 'related'">
-            <div ng-repeat="relatedartist in related"> 
+            <div ng-repeat="relatedartist in related">
                 <mopify-artist artist="relatedartist" class="single-tile col-lg-2 col-md-3 col-sm-4 col-xs-6"></mopify-artist>
                 <div ng-if="($index + 1) % 6 == 0" class="clearfix visible-lg-block"></div>
                 <div ng-if="($index + 1) % 4 == 0" class="clearfix visible-md-block"></div>

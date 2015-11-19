@@ -38,7 +38,9 @@ angular.module('mopify.music.artist', [
     $scope.followingArtist = false;
 
     // Define the view
-    $scope.setView = function(name){
+    $scope.setView = function(event, name){
+        event.preventDefault();
+
         switch(name){
             case "music":
                 $scope.currentview = {
@@ -73,7 +75,7 @@ angular.module('mopify.music.artist', [
 
     // Get data from echonest
     Echonest.artists.get({
-        id: $routeParams.artistId
+        id: $scope.artistId
     }).then(function(artist){
         $scope.artist = artist;
 
