@@ -69,7 +69,7 @@ module.exports = {
             'src/vendor/hammerjs/hammer.js',
             'src/vendor/ryanmullins-angular-hammer/angular.hammer.js',
             'src/vendor/angular-hotkeys/build/hotkeys.js',
-            'src/vendor/ng-file-upload/ng-file-upload.js'
+            'src/vendor/ng-file-upload/ng-file-upload.js',
             'src/vendor/clipboard/dist/clipboard.min.js'
         ],
         css: [

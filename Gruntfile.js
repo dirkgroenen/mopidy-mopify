@@ -304,7 +304,7 @@ module.exports = function ( grunt ) {
             options: {
                 livereload: true
             },
-            
+
             /**
             * When our JavaScript source files change, we want to run lint them and
             * run our unit tests.
@@ -375,7 +375,7 @@ module.exports = function ( grunt ) {
         },
 
         /**
-          * With connect we start a webserver on port 8000 which will have the build 
+          * With connect we start a webserver on port 8000 which will have the build
           * directory as it's root
           */
         connect: {
@@ -416,22 +416,22 @@ module.exports = function ( grunt ) {
 			globals: {}
 		},
 
-        /**
-          * `ng-min` annotates the sources before minifying. That is, it allows us
-          * to code without the array syntax.
-          */
-        ngmin: {
-            compile: {
-                files: [
-                    {
-                        src: [ '<%= app_files.js %>' ],
-                        cwd: '<%= build_dir %>',
-                        dest: '<%= build_dir %>',
-                        expand: true
-                    }
-                ]
-            }
-        },
+    /**
+      * `ng-min` annotates the sources before minifying. That is, it allows us
+      * to code without the array syntax.
+      */
+    ngmin: {
+        compile: {
+            files: [
+                {
+                    src: [ '<%= app_files.js %>' ],
+                    cwd: '<%= build_dir %>',
+                    dest: '<%= build_dir %>',
+                    expand: true
+                }
+            ]
+        }
+    },
 
     };
 
@@ -522,7 +522,7 @@ module.exports = function ( grunt ) {
         grunt.file.copy('ext.conf', grunt.config( 'mopidy_package_dir' ) + '/ext.conf');
     });
 
-    
+
     /**
       * A utility function to get all app JavaScript sources.
       */
@@ -537,7 +537,7 @@ module.exports = function ( grunt ) {
       */
     function filterForCSS ( files ) {
         return files.filter( function ( file ) {
-            return file.match( /\.css$/ ); 
+            return file.match( /\.css$/ );
         });
     }
 };
