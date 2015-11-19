@@ -4,6 +4,7 @@
             <collection-directory directory="item" ng-if="item.type == 'directory'"></collection-directory>
             <collection-track surrounding="list" track="item" ng-if="item.type == 'track'"></collection-track>
             <collection-playlist playlist="item" ng-if="item.type == 'playlist'"></collection-playlist>
+            <collection-artist artist="item" ng-if="item.type == 'artist'"></collection-artist>
         </div>
     </div>
     <div ng-if="isEmpty()" class="empty">No items</div>

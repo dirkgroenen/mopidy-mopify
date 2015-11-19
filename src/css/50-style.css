@@ -1658,18 +1658,33 @@ img[src=""] {
     font-size: 14px;
 }
 
-#application .collection-navigator .lists-wrap .list .list-item.playlist .image,
-#application .collection-navigator .lists-wrap .list .list-item.directory .icon{
+#application .collection-navigator .lists-wrap .list .list-item .image,
+#application .collection-navigator .lists-wrap .list .list-item .icon{
     display: inline-block;
 }
 
-#application .collection-navigator .lists-wrap .list .list-item.playlist .image img{
-    max-width: 30px;
-    height: auto;
+#application .collection-navigator .lists-wrap .list .list-item .image{
+    width: 35px;
+    height: 35px;
+    overflow: hidden;
+    position: relative;
+    vertical-align: middle;
+    background-color: #f0f0f0;
 }
 
-#application .collection-navigator .lists-wrap .list .list-item.playlist .name,
-#application .collection-navigator .lists-wrap .list .list-item.directory .name{
+#application .collection-navigator .lists-wrap .list .list-item .image img{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#application .collection-navigator .lists-wrap .list .list-item .name{
     display: inline-block;
     margin-left: 10px;
 }

@@ -4,6 +4,7 @@ angular.module('mopify.widgets.collection.navigator.list', [
     'mopify.widgets.collection.navigator.directory',
     'mopify.widgets.collection.navigator.track',
     'mopify.widgets.collection.navigator.playlist',
+    'mopify.widgets.collection.navigator.artist',
     'infinite-scroll',
     'mopify.services.util'
 ])
