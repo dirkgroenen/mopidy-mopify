@@ -15,6 +15,7 @@ angular.module("mopify.services.collectionservice.extensions.spotify", [
             "^spotify:directory:playlists$": "getPlaylists",
             "^spotify:directory:playlists:(.*?)$": "getPlaylistTracks",
             "^spotify:directory:albums$": "getUserAlbums",
+            "^spotify:directory:albums:(.*?)$": "getAlbumTracks",
             "^spotify:directory:artists$": "getUserArtists",
             "^spotify:directory:tracks$": "getUserTracks",
         };
@@ -113,6 +114,7 @@ angular.module("mopify.services.collectionservice.extensions.spotify", [
      */
     SpotifyCollection.prototype.getPlaylistTracks = function(match){
         var deferred = $q.defer();
+
         var s = match[1].split("-");
         var uri = "spotify:user:" + s[0] + ":playlist:" + s[1];
 
@@ -130,6 +132,19 @@ angular.module("mopify.services.collectionservice.extensions.spotify", [
      */
     SpotifyCollection.prototype.getUserAlbums = function(){
         return SpotifyUserCollection.getAlbums();
+    };
+
+    SpotifyCollection.prototype.getAlbumTracks = function(match){
+        var deferred = $q.defer();
+
+        var s = match[1];
+        var uri = "spotify:album:" + s;
+
+        mopidyservice.lookup( uri ).then(function(response){
+            deferred.resolve( response[uri] );
+        });
+
+        return deferred.promise;
     };
 
     /**

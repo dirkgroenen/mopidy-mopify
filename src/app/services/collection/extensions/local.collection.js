@@ -16,8 +16,17 @@ angular.module("mopify.services.collectionservice.extensions.local", [
         var deferred = $q.defer();
 
         mopidyservice.browse("local:directory").then(function(res){
-            console.log(res);
-            deferred.resolve(res);
+            var uris = _.pluck(res, "uri");
+
+            mopidyservice.lookup(uris).then(function(results){
+                var tracks = _.map(results, function(item){
+                    return item[0];
+                });
+
+                console.log(tracks);
+
+                deferred.resolve(tracks);
+            });
         });
 
         return deferred.promise;

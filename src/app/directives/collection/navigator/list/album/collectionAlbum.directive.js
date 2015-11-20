@@ -14,6 +14,13 @@ angular.module('mopify.widgets.collection.navigator.album', [])
         link: function(scope){
 
             /**
+             * URI for the collection browsing
+             * 0
+             * @type {string}
+             */
+            scope.collectionUri = "spotify:directory:albums:" + scope.album.getDirectoryUri();
+
+            /**
              * Get all artists as a string and link to
              * their artists pages
              *

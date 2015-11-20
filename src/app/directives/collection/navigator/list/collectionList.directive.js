@@ -6,11 +6,12 @@ angular.module('mopify.widgets.collection.navigator.list', [
     'mopify.widgets.collection.navigator.playlist',
     'mopify.widgets.collection.navigator.artist',
     'mopify.widgets.collection.navigator.album',
+    'mopify.widgets.collection.navigator.ref',
     'infinite-scroll',
     'mopify.services.util'
 ])
 
-.directive('collectionList', function collectionList(util) {
+.directive('collectionList', function collectionList($filter, util) {
 
     return {
         restrict: 'E',
@@ -20,8 +21,6 @@ angular.module('mopify.widgets.collection.navigator.list', [
         replace: true,
         templateUrl: 'directives/collection/navigator/list/collectionList.directive.tmpl.html',
         link: function(scope, element, attrs) {
-
-            console.log(scope.list);
 
             /**
              * Object holding infinitelist data
@@ -34,7 +33,6 @@ angular.module('mopify.widgets.collection.navigator.list', [
                 perpage: 30,
                 disabled: false
             };
-
 
             /**
              * Load more items from the list to the infinite list

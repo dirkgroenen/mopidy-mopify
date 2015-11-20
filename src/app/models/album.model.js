@@ -24,5 +24,17 @@ angular.module("mopify.models.album", [
         return util.artistsToString(this.artists, links);
     };
 
+
+    /**
+     * Returns a directory friendly uri used in the
+     * colleciton navigator
+     *
+     * @return {string}
+     */
+    Album.prototype.getDirectoryUri = function(){
+        var s = this.uri.split(":");
+        return s[2];
+    };
+
     return Album;
 });

@@ -1686,7 +1686,7 @@ img[src=""] {
 #application .collection-navigator .lists-wrap .list .list-item .name{
     display: inline-block;
     vertical-align: middle;
-    margin-left: 10px;
+    padding-left: 10px;
 }
 
 #application .collection-navigator .lists-wrap .list .list-item .name .sub{
