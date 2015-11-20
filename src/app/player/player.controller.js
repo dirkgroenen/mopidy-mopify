@@ -109,6 +109,11 @@ angular.module('mopify.player', [
                 $scope.track = track;
 
                 track.getImage().then(function(image){
+                    if(image === undefined){
+                        $scope.playerBackground = false;
+                        return false;
+                    }
+
                     $scope.playerBackground = image.uri;
 
                     // Clear previous timeout and start new timer

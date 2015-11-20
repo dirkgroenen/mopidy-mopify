@@ -23,8 +23,6 @@ angular.module("mopify.services.collectionservice.extensions.local", [
                     return item[0];
                 });
 
-                console.log(tracks);
-
                 deferred.resolve(tracks);
             });
         });
