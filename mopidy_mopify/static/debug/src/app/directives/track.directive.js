@@ -38,6 +38,8 @@ angular.module('mopify.widgets.directive.track', [
         var uri = $routeParams.uri;
         // Set scope.$id in track object
         scope.track.id = scope.$id;
+        // Set custom http link property
+        scope.track.http_uri = 'https://open.spotify.com/track/' + scope.track.uri.split(':')[2];
         /**
              * For some reason the scope.track.id get's replaced at some moment
              * this $watch needs to keep track if this habbit and set the track's id 

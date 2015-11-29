@@ -903,6 +903,13 @@ angular.module("directives/track.directive.tmpl.html", []).run(["$templateCache"
     "        <li ng-click=\"toggleSaveTrack()\" ng-show='showSaveTrack'>\n" +
     "            {{ (trackAlreadySaved) ? 'Remove track from library' : 'Save track in library' }}\n" +
     "        </li>\n" +
+    "        <li class=\"divider\"></li>\n" +
+    "        <li class=\"clip-text\" data-clipboard-text=\"{{ track.uri }}\" ng-hide=\"multipleselected\">\n" +
+    "            Copy Spotify URI\n" +
+    "        </li>\n" +
+    "        <li class=\"clip-text\" data-clipboard-text=\"{{ track.http_uri }}\" ng-hide=\"multipleselected\">\n" +
+    "            Copy HTTP Link\n" +
+    "        </li>\n" +
     "    </ul>\n" +
     "</div>");
 }]);

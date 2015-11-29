@@ -8,7 +8,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <meta name="version" content="1.5.7">
+        <meta name="version" content="1.5.8">
 
         <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="assets/webfonts/ss-standard.css">
@@ -82,6 +82,7 @@
         <script type="text/javascript" src="src/vendor/hammerjs/hammer.js"></script>  
         <script type="text/javascript" src="src/vendor/ryanmullins-angular-hammer/angular.hammer.js"></script>  
         <script type="text/javascript" src="src/vendor/angular-hotkeys/build/hotkeys.js"></script>  
+        <script type="text/javascript" src="src/vendor/clipboard/dist/clipboard.min.js"></script>  
         <script type="text/javascript" src="src/app/account/services/facebook/facebook.controller.js"></script>  
         <script type="text/javascript" src="src/app/account/services/facebook/facebook.test.js"></script>  
         <script type="text/javascript" src="src/app/account/services/services.controller.js"></script>  
@@ -154,6 +155,11 @@
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
           })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
           ga('create', 'UA-58065427-1', 'auto');
+        </script>
+
+        <!-- Start our clipboard handler -->
+        <script type="text/javascript">
+            new Clipboard('.clip-text');
         </script>
 
     </body>
