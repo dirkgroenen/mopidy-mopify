@@ -7,18 +7,25 @@ from configobj import ConfigObj
 
 
 class Sync(object):
+
     # Define variables
     userhome = os.getenv("HOME")
     directory = ".config/mopidy-mopify"
     filename = "sync.ini"
 
-    # build path
-    syncfile = os.path.join(userhome, directory, filename)
+    syncfile = None
 
     # check if path exists, otherwise create it
     def __init__(self):
-        if not os.path.exists(os.path.join(self.userhome, self.directory)):
-            os.makedirs(os.path.join(self.userhome, self.directory))
+        if self.userhome is not None:
+            # build path
+            self.syncfile = os.path.join(self.userhome, self.directory, self.filename)
+
+            if not os.path.exists(os.path.join(self.userhome, self.directory)):
+                os.makedirs(os.path.join(self.userhome, self.directory))
+        else:
+            raise ValueError("Mopify sync extension wasn't able to create a directory.")
+
 
 
 class RootRequestHandler(tornado.web.RequestHandler):
