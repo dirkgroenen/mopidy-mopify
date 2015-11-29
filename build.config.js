@@ -68,7 +68,8 @@ module.exports = {
             'src/vendor/angular-toggle-switch/angular-toggle-switch.min.js',
             'src/vendor/hammerjs/hammer.js',
             'src/vendor/ryanmullins-angular-hammer/angular.hammer.js',
-            'src/vendor/angular-hotkeys/build/hotkeys.js'
+            'src/vendor/angular-hotkeys/build/hotkeys.js',
+            'src/vendor/clipboard/dist/clipboard.min.js'
         ],
         css: [
             'src/vendor/html5-boilerplate/css/normalize.css',
