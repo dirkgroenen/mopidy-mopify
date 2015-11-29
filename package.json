@@ -1,7 +1,7 @@
 {
   "name": "mopidy-mopify",
   "author": "Dirk Groenen",
-  "version": "1.5.7",
+  "version": "1.5.8",
   "description": "Webclient for Mopidy",
   "repository": "https://github.com/dirkgroenen/mopidy-mopify",
   "licenses": {
