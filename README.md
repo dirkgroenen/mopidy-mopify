@@ -137,6 +137,13 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
+v1.5.8 (29-09-2015)
+-------------------
+
+- Fixed Mopidy tests to fail [#119](https://github.com/dirkgroenen/mopidy-mopify/issues/119)
+
+- Added Spotify share links [#144](https://github.com/dirkgroenen/mopidy-mopify/pull/144)
+
 v1.5.7 (28-08-2015)
 -------------------
 
