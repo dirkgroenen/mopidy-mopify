@@ -308,19 +308,19 @@ angular.module('mopify.music.tracklist', [
                 if($scope.albumAlreadySaved){
                     // Remove
                     Spotify.removeUserTracks(albumtracks).then(function (data) {
-                        notifier.notify({type: "custom", template: "Album succesfully removed.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Album successfully removed.", delay: 5000});
                         $scope.albumAlreadySaved = false;
                     }, function(data){
-                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Something went wrong, please try again.", delay: 5000});
                     });
                 }
                 else{
                     // Save
                     Spotify.saveUserTracks(albumtracks).then(function (data) {
-                        notifier.notify({type: "custom", template: "Album succesfully saved.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Album successfully saved.", delay: 5000});
                         $scope.albumAlreadySaved = true;
                     }, function(data){
-                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Something went wrong, please try again.", delay: 5000});
                     });   
                 }
 
@@ -335,26 +335,26 @@ angular.module('mopify.music.tracklist', [
      * Follow or unfollow the playlist
      * @return void
      */
-    $scope.toglgeFollowPlaylist = function(){
+    $scope.toggleFollowPlaylist = function(){
         if($scope.type == "Playlist"){
             if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
 
                 if($scope.followingPlaylist){
                     // Unfollow
                     Spotify.unfollowPlaylist(ownerid, playlistid).then(function (data) {
-                        notifier.notify({type: "custom", template: "Playlist succesfully unfollowed.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Playlist successfully unfollowed.", delay: 5000});
                         $scope.followingPlaylist = false;
                     }, function(data){
-                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Something went wrong, please try again.", delay: 5000});
                     });
                 }
                 else{
                     // Follow
                     Spotify.followPlaylist(ownerid, playlistid, true).then(function (data) {
-                        notifier.notify({type: "custom", template: "Playlist succesfully followed.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Playlist successfully followed.", delay: 5000});
                         $scope.followingPlaylist = true;
                     }, function(data){
-                        notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                        notifier.notify({type: "custom", template: "Something went wrong, please try again.", delay: 5000});
                     });   
                 }
 

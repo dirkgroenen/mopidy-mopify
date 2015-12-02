@@ -26,7 +26,7 @@
                 <i class="ss-icon ss-check" ng-show="!albumAlreadySaved"></i> 
                 <i class="ss-icon ss-delete" ng-show="albumAlreadySaved"></i> 
             </div>
-            <div class="button white" ng-click="toglgeFollowPlaylist()" ng-show="type == 'Playlist' &&!isowner">
+            <div class="button white" ng-click="toggleFollowPlaylist()" ng-show="type == 'Playlist' &&!isowner">
                 <span class="text">{{ (followingPlaylist) ? 'Unfollow' : 'Follow' }} playlist</span>
                 <i class="ss-icon ss-check" ng-show="!followingPlaylist"></i> 
                 <i class="ss-icon ss-delete" ng-show="followingPlaylist"></i> 
