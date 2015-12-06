@@ -136,7 +136,10 @@ angular.module('mopify.player.seekbar', [
 
     $scope.seekbarMouseClick = function(event){
         var layerX = event.layerX;
-        var target = event.target || event.srcElement;
+
+        // Use event.currentTarget rather than event.target to make sure we
+        // are referring to the full volume bar, not just the inner div
+        var target = event.currentTarget || event.srcElement;
         var barwidth = target.clientWidth;
 
         var seek = (layerX / barwidth) * 100;
@@ -167,7 +170,10 @@ angular.module('mopify.player.seekbar', [
     $scope.seekbarMouseMove = function(event){
         if(isSeeking){
             var layerX = event.layerX;
-            var target = event.target || event.srcElement;
+
+            // Use event.currentTarget rather than event.target to make sure we
+            // are referring to the full volume bar, not just the inner div
+            var target = event.currentTarget || event.srcElement;
             var barwidth = target.clientWidth;
 
             var seek = (layerX / barwidth) * 100;
