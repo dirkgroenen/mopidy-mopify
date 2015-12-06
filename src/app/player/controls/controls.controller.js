@@ -102,8 +102,11 @@ angular.module('mopify.player.controls', [
 
     $scope.volumebarMouseClick = function(event, mobile){
         var layerX = event.layerX;
-        var target = event.target || event.srcElement;
-        var volumebarWidth = (mobile) ? angular.element(target).parent()[0].clientWidth : target.clientWidth;
+
+        // Use event.currentTarget rather than event.target to make sure we
+        // are referring to the full volume bar, not just the inner div
+        var target = event.currentTarget || event.srcElement;
+        var volumebarWidth = target.clientWidth;
         
         var volume = (layerX / volumebarWidth) * 100;
 
@@ -124,10 +127,13 @@ angular.module('mopify.player.controls', [
     };
 
     $scope.volumebarMouseMove = function(event, mobile){
-        var target = event.target || event.srcElement;
+
+        // Use event.currentTarget rather than event.target to make sure we
+        // are referring to the full volume bar, not just the inner div
+        var target = event.currentTarget || event.srcElement;
         if(dragging && event.layerY >= 0 && event.layerY <= target.clientHeight){
             var layerX = event.layerX;
-            var volumebarWidth = (mobile) ? angular.element(target).parent()[0].clientWidth : target.clientWidth;
+            var volumebarWidth = target.clientWidth;
 
             var volume = (layerX / volumebarWidth) * 100;
 
