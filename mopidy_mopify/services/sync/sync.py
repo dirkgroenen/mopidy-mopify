@@ -4,12 +4,12 @@ import os
 import tornado.web
 
 from configobj import ConfigObj
-
+from os.path import expanduser
 
 class Sync(object):
 
     # Define variables
-    userhome = os.getenv("HOME")
+    userhome = expanduser("~")
     directory = ".config/mopidy-mopify"
     filename = "sync.ini"
 
