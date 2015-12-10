@@ -16,7 +16,7 @@ angular.module('mopify.services.mopidy', [
 
     /*
      * Wrap calls to the Mopidy API and convert the promise to Angular $q's promise.
-     * 
+     *
      * @param String functionNameToWrap
      * @param Object thisObj
      */
@@ -52,7 +52,7 @@ angular.module('mopify.services.mopidy', [
 
 	/*
      * Execute the given function
-     * 
+     *
      * @param String functionName
      * @param Object thisObj
 	 * @param Array args
@@ -86,8 +86,8 @@ angular.module('mopify.services.mopidy', [
 
             // Get mopidy ip and port from settigns
             var mopidyip = Settings.get("mopidyip", $location.host());
-            var mopidyport = Settings.get("mopidyport", "6680");
-            
+            var mopidyport = Settings.get("mopidyport", $location.port());
+
 			// Initialize mopidy
             try{
                 var protocol = (typeof document !== "undefined" && document.location.protocol === "https:") ? "wss://" : "ws://";
@@ -193,7 +193,7 @@ angular.module('mopify.services.mopidy', [
         lookup: function(uris){
             if(typeof(uris) === "string")
                 uris = [uris];
-            
+
             return wrapMopidyFunc("mopidy.library.lookup", this)({ uris: uris });
         },
 
@@ -224,7 +224,7 @@ angular.module('mopify.services.mopidy', [
                             if(track.uri === surtrack.uri)
                                 trackindex = index + 1;
                         });
-                            
+
                         // Get all uris from the tracks after the selected track
                         var trackstoadd = surroundingTracks.slice(trackindex, surroundingTracks.length);
                         var trackstoskip = surroundingTracks.slice(0, trackindex);
@@ -237,7 +237,7 @@ angular.module('mopify.services.mopidy', [
                         if(trackstoskip.length > 1)
                             QueueManager.remove(_.pluck(trackstoskip, "tlid"));
                     }
-                    
+
                     // Add the selected track as next
                     self.mopidy.tracklist.add({ uris: uris }).then(function(tltracks){
                         var start = queuedata.queue.length + 1;
@@ -254,18 +254,18 @@ angular.module('mopify.services.mopidy', [
 
                             // Start playing the track
                             self.mopidy.playback.play({ tl_track: tltracks[0] }).then(function(track){
-                            
+
                                 QueueManager.getShuffle().then(function(shuffle){
 
                                     if(shuffle && preventShuffle !== true){
                                         self.setRandom(true).then(function(){
-                                            deferred.resolve(track);    
+                                            deferred.resolve(track);
                                         });
                                     }
                                     else{
                                         deferred.resolve(track);
                                     }
-                                });                            
+                                });
 
                             });
                         });
@@ -298,7 +298,7 @@ angular.module('mopify.services.mopidy', [
                     playlist: []
                 }).then(function(){
                     deferred.resolve();
-                });    
+                });
             });
 
             return deferred.promise;
@@ -317,7 +317,7 @@ angular.module('mopify.services.mopidy', [
         getTracklist: function(){
             return wrapMopidyFunc("mopidy.tracklist.getTlTracks", this)();
         },
-        
+
         playNext: function(uris){
             var deferred = $q.defer();
 
@@ -327,7 +327,7 @@ angular.module('mopify.services.mopidy', [
             this.mopidy.tracklist.add({uris: uris, at_position: 1}).then(function(response){
                 // Add to QueueManager
                 QueueManager.next(response).then(function(){
-                    // Resolve 
+                    // Resolve
                     deferred.resolve(response);
 
                     // Broadcast change
@@ -374,7 +374,7 @@ angular.module('mopify.services.mopidy', [
                     });
                 }
             });
-            
+
             return deferred.promise;
         },
 
@@ -388,8 +388,8 @@ angular.module('mopify.services.mopidy', [
 
         setRandom: function (setShuffle) {
             var self = this;
-            var deferred = $q.defer(); 
-            
+            var deferred = $q.defer();
+
             // Always set mopidy's random mode to false
             self.mopidy.tracklist.setRandom([false]);
 
@@ -435,7 +435,7 @@ angular.module('mopify.services.mopidy', [
                 QueueManager.all().then(function(response){
                     var start = response.queue.length + 1;
                     var end = response.playlist.length + 1;
-                    
+
                     if(end >= start){
                         // Send shuffle to mopidy
                         self.mopidy.tracklist.shuffle({ start: start, end: end }).then(function(resp){
@@ -448,14 +448,14 @@ angular.module('mopify.services.mopidy', [
 
                                 deferred.resolve(tltracks);
                             });
-                        });    
+                        });
                     }
                     else{
                         deferred.reject();
                     }
-                    
+
                 });
-                
+
             }
 
             return deferred.promise;
