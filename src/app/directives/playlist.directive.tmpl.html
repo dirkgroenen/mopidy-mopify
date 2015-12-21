@@ -1,16 +1,14 @@
-<div class="tileart" context-menu
-     data-target="menu-{{ playlist.uri }}"
-     ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
-    <div class="hoverwrap">
+<div class="tileart" context-menu data-target="menu-{{ playlist.uri }}" ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
+    <div class="hoverwrap" ng-click="openPlaylistTracklist()">
         <div class="iconwrap row">
             <div class="icon small col-xs-4" title="Show playlist's tracks">
-                <a href="{{ tracklistUrl }}"><i class="ss-icon ss-list"></i></a>
+                <a href="/#{{ tracklistUrl }}"><i class="ss-icon ss-list"></i></a>
             </div>
             <div class="icon col-xs-4" title="Play playlist">
-                <i class="ss-icon ss-play" ng-click="play()"></i>
+                <i class="ss-icon ss-play" ng-click="play()" stop-propagation></i>
             </div>
             <div class="icon small col-xs-4" title="Start new station for: {{ playlist.name }}">
-                <i class="ss-icon ss-wifi" ng-click="startStation()"></i>
+                <i class="ss-icon ss-wifi" ng-click="startStation()" stop-propagation></i>
             </div>
         </div>
     </div>
@@ -18,7 +16,7 @@
     <img ng-src="{{ coverImage }}" />
 </div>
 <div class="tileinfo clickable">
-    <a href="{{ tracklistUrl }}">
+    <a href="/#{{ tracklistUrl }}">
         <span class="name">{{ playlist.name}}</span>
         <span class="year">{{ playlist.tracks.length || playlist.tracks.total }} tracks</span>
     </a>

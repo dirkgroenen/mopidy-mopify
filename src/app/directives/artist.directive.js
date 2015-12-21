@@ -6,10 +6,11 @@ angular.module('mopify.widgets.directive.artist', [
     "mopify.services.spotifylogin",
     "mopify.services.servicemanager",
     "llNotifier",
-    "spotify"
+    "spotify",
+    "mopify.widgets.directive.stoppropagation"
 ])
 
-.directive('mopifyArtist', function mopifyArtist(mopidyservice, stationservice, notifier, Spotify, SpotifyLogin, ServiceManager) {
+.directive('mopifyArtist', function mopifyArtist($location, mopidyservice, stationservice, notifier, Spotify, SpotifyLogin, ServiceManager) {
 
     return {
         restrict: 'E',
@@ -28,9 +29,9 @@ angular.module('mopify.widgets.directive.artist', [
             scope.play = function(){
                 mopidyservice.getArtist(scope.artist.uri).then(function(tracks){
                     mopidyservice.playTrack(tracks[0], tracks.splice(0, 50));
-                }); 
+                });
             };
-            
+
             /**
              * Start a station from the given artist
              */
@@ -58,21 +59,21 @@ angular.module('mopify.widgets.directive.artist', [
                         Spotify.unfollow('artist', scope.artist.id).then(function (data) {
                             notifier.notify({type: "custom", template: "Artist succesfully unfollowed.", delay: 5000});
                         }, function(data){
-                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
                         });
                     }
                     else{
                         // follow
                         Spotify.follow('artist', scope.artist.id).then(function (data) {
-                            notifier.notify({type: "custom", template: "Artist succesfully followed.", delay: 5000});   
+                            notifier.notify({type: "custom", template: "Artist succesfully followed.", delay: 5000});
                         }, function(data){
-                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
-                        });   
+                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
+                        });
                     }
 
                 }
                 else{
-                    notifier.notify({type: "custom", template: "Can't follow/unfollow artist. Are you connected with Spotify?", delay: 5000});   
+                    notifier.notify({type: "custom", template: "Can't follow/unfollow artist. Are you connected with Spotify?", delay: 5000});
                 }
             };
 
@@ -91,6 +92,15 @@ angular.module('mopify.widgets.directive.artist', [
                 else{
                     scope.showFollowArtist = false;
                 }
+            };
+
+            /**
+             * Open the artist's detail page
+             *
+             * @return {void}
+             */
+            scope.openArtistPage = function() {
+                $location.path("/music/artist/" + scope.artist.uri);
             };
         }
     };

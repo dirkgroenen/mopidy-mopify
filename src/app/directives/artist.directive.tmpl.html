@@ -1,16 +1,14 @@
-<div class="tileart" context-menu="onContextShow()"
-     data-target="menu-{{ artist.uri }}"
-     ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
+<div class="tileart" context-menu="onContextShow()" data-target="menu-{{ artist.uri }}" ng-class="{ 'highlight': highlight, 'expanded' : expanded }" ng-click="openArtistPage()">
     <div class="hoverwrap">
         <div class="iconwrap row">
             <div class="icon small col-xs-4" title="Show artist's tracks">
                 <a href="#/music/artist/{{ artist.uri }}"><i class="ss-icon ss-list"></i></a>
             </div>
             <div class="icon col-xs-4" title="Play artist">
-                <i class="ss-icon ss-play" ng-click="play()"></i>
+                <i class="ss-icon ss-play" ng-click="play()" stop-propagation></i>
             </div>
             <div class="icon small col-xs-4" title="Start new station for: {{ artist.name }}">
-                <i class="ss-icon ss-wifi" ng-click="startStation()"></i>
+                <i class="ss-icon ss-wifi" ng-click="startStation()" stop-propagation></i>
             </div>
         </div>
     </div>

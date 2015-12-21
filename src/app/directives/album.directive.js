@@ -9,10 +9,11 @@ angular.module('mopify.widgets.directive.album', [
     "spotify",
     'mopify.services.spotifylogin',
     'mopify.services.servicemanager',
-    "llNotifier"
+    "llNotifier",
+    "mopify.widgets.directive.stoppropagation"
 ])
 
-.directive('mopifyAlbum', function mopifyAlbum($modal, mopidyservice, stationservice, prompt, util, PlaylistManager, notifier, Spotify, SpotifyLogin, ServiceManager) {
+.directive('mopifyAlbum', function mopifyAlbum($modal, $location, mopidyservice, stationservice, prompt, util, PlaylistManager, notifier, Spotify, SpotifyLogin, ServiceManager) {
 
     return {
         restrict: 'E',
@@ -24,7 +25,7 @@ angular.module('mopify.widgets.directive.album', [
         link: function(scope, element, attrs) {
 
             var encodedname = encodeURIComponent( scope.album.name.replace(/\//g, "-") );
-            scope.tracklistUrl = "#/music/tracklist/" + scope.album.uri + "/" + encodedname;
+            scope.tracklistUrl = "/music/tracklist/" + scope.album.uri + "/" + encodedname;
 
             scope.showSaveAlbum = false;
             scope.albumAlreadySaved = false;
@@ -38,20 +39,20 @@ angular.module('mopify.widgets.directive.album', [
                 }
                 else{
                     scope.artiststring = "Various Artists";
-                }    
+                }
             }
 
             var albumtracks = [];
 
             /*
-             * Play the album            
+             * Play the album
              */
             scope.play = function(){
                 mopidyservice.getAlbum(scope.album.uri).then(function(tracks){
                     mopidyservice.playTrack(tracks[0], tracks);
-                }); 
+                });
             };
-            
+
             /**
              * Start a new station from the album's URI
              */
@@ -63,13 +64,13 @@ angular.module('mopify.widgets.directive.album', [
              * Add album to queue
              */
             scope.addToQueue = function(){
-                mopidyservice.addToTracklist({ uri: scope.album.uri });    
+                mopidyservice.addToTracklist({ uri: scope.album.uri });
             };
 
             /**
              * Show the available playlists
              */
-            scope.showPlaylists = function(){ 
+            scope.showPlaylists = function(){
                 // Open the playlist select modal
                 var modalInstance = $modal.open({
                     templateUrl: 'modals/playlistselect.tmpl.html',
@@ -100,25 +101,25 @@ angular.module('mopify.widgets.directive.album', [
                     if(scope.albumAlreadySaved){
                         // Remove
                         Spotify.removeUserTracks(albumtracks).then(function (data) {
-                            notifier.notify({type: "custom", template: "Album succesfully removed.", delay: 5000});   
+                            notifier.notify({type: "custom", template: "Album succesfully removed.", delay: 5000});
                             scope.visible = false;
 
                         }, function(data){
-                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
                         });
                     }
                     else{
                         // Save
                         Spotify.saveUserTracks(albumtracks).then(function (data) {
-                            notifier.notify({type: "custom", template: "Album succesfully saved.", delay: 5000});   
+                            notifier.notify({type: "custom", template: "Album succesfully saved.", delay: 5000});
                         }, function(data){
-                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
-                        });   
+                            notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
+                        });
                     }
 
                 }
                 else{
-                    notifier.notify({type: "custom", template: "Can't add album. Are you connected with Spotify?", delay: 5000});   
+                    notifier.notify({type: "custom", template: "Can't add album. Are you connected with Spotify?", delay: 5000});
                 }
             };
 
@@ -145,6 +146,15 @@ angular.module('mopify.widgets.directive.album', [
                 else{
                     scope.showSaveAlbum = false;
                 }
+            };
+
+            /**
+             * Go to the album's tracklist page
+             *
+             * @return {void}
+             */
+            scope.openAlbumTracklist = function() {
+                $location.path(scope.tracklistUrl);
             };
         }
     };

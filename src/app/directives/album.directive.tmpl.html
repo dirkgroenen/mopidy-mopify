@@ -1,16 +1,15 @@
 <div ng-show="visible">
-    <div class="tileart" context-menu="onContextShow()"
-        data-target="menu-{{ album.uri }}">
+    <div class="tileart" context-menu="onContextShow()" data-target="menu-{{ album.uri }}" ng-click="openAlbumTracklist()">
         <div class="hoverwrap">
             <div class="iconwrap row">
                 <div class="icon small col-xs-4" title="Show album's tracks">
-                    <a href="{{ tracklistUrl }}"><i class="ss-icon ss-list"></i></a>
+                    <a href="/#{{ tracklistUrl }}"><i class="ss-icon ss-list"></i></a>
                 </div>
                 <div class="icon col-xs-4" title="Play album">
-                    <i class="ss-icon ss-play" ng-click="play()"></i>
+                    <i class="ss-icon ss-play" ng-click="play()" stop-propagation></i>
                 </div>
                 <div class="icon small col-xs-4" title="Start new station for: {{ album.name }}">
-                    <i class="ss-icon ss-wifi" ng-click="startStation()"></i>
+                    <i class="ss-icon ss-wifi" ng-click="startStation()" stop-propagation></i>
                 </div>
             </div>
         </div>
@@ -19,7 +18,7 @@
     </div>
     <div class="tileinfo clickable" context-menu="onContextShow()"
         data-target="menu-{{ album.uri }}">
-        <a href="{{ tracklistUrl }}">
+        <a href="/#{{ tracklistUrl }}">
             <span class="name">{{ album.name}}</span>
             <span class="year ng-binding">{{ artiststring }}</span>
         </a>
