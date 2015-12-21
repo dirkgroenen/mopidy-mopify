@@ -33,7 +33,7 @@ angular.module('mopify.player', [
                     });
                 }
                 else{
-                    updatePlayerInformation(track);    
+                    updatePlayerInformation(track);
                 }
             }
         });
@@ -51,11 +51,22 @@ angular.module('mopify.player', [
         // Start an interval which checks the current playing track every
         // 15 seconds
         $interval(function(){
-            $rootScope.$broadcast('mopify:player:updatePlayerInformation');  
+            $rootScope.$broadcast('mopify:player:updatePlayerInformation');
         }, 15000);
+
+        $scope.$watch(function(){
+            return mopidyservice.handlingRequest;
+        }, function(val){
+            if(val === true){
+                $scope.showLoading = true;
+            }
+            else{
+                $scope.showLoading = false;
+            }
+        });
     });
 
-    // Update information on a new track 
+    // Update information on a new track
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
         if(data.tl_track !== undefined && data.tl_track !== null){
             if(data.tl_track.track.name.indexOf("[loading]") > -1){
@@ -80,7 +91,7 @@ angular.module('mopify.player', [
                     });
                 }
                 else{
-                    updatePlayerInformation(track);    
+                    updatePlayerInformation(track);
                 }
             }
         });

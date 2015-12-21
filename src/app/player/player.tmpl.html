@@ -7,8 +7,11 @@
         <ng-include src="'player/controls/controls.left.tmpl.html'"></ng-include>
     </div>
     <div class="seekwrap column" id="seekbar">
-        <a class="trackname" href="#/music/tracklist/{{ albumUri }}/{{ albumName }}">
+        <a class="trackname" href="#/music/tracklist/{{ albumUri }}/{{ albumName }}" ng-hide="showLoading">
             <span class="title">{{ trackTitle }}</span> <span class="delimiter">-</span> <span class="artist">{{ trackArtist }}</span>
+        </a>
+        <a href="#" class="trackname" ng-show="showLoading">
+            <span class="title">Loading tracks</span> <span class="delimiter">-</span> <span class="artist">Please wait...</span>
         </a>
         <div ng-controller="PlayerSeekbarController">
             <ng-include src="'player/seekbar/seekbar.tmpl.html'"></ng-include>

@@ -74,6 +74,7 @@ angular.module('mopify.services.mopidy', [
 		mopidy: {},
 		isConnected: false,
 		currentTlTracks: [],
+        handlingRequest: false,
 
 		/*
 		 * Method to start the Mopidy conneciton
@@ -204,6 +205,9 @@ angular.module('mopify.services.mopidy', [
             if(surroundingTracks === undefined)
                 surroundingTracks = [];
 
+            $rootScope.$broadcast("mopify:player:loadingtracks");
+            self.handlingRequest = true;
+
             // Get the current queue
             QueueManager.all().then(function(queuedata){
 
@@ -254,6 +258,7 @@ angular.module('mopify.services.mopidy', [
 
                             // Start playing the track
                             self.mopidy.playback.play({ tl_track: tltracks[0] }).then(function(track){
+                                self.handlingRequest = false;
 
                                 QueueManager.getShuffle().then(function(shuffle){
 
