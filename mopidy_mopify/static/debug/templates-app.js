@@ -543,7 +543,7 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label>Support</label>\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-6\">\n" +
-    "                <p>Mopify is just like many other Open Source projects maintained in my free time. If you like it and want to support this project you can make a <a href=\"https://pledgie.com/campaigns/28130\" target=\"_blank\">donation via Pledgie</a>, or directly via <a href=\"https://www.paypal.com/us/cgi-bin/webscr?cmd=_flow&SESSION=vFdWMOLqpZK4Aw2AiOns44fWPW6fF-LmLmdzukqwjmG7UhVCA_NtBSeBOzO&dispatch=5885d80a13c0db1f8e263663d3faee8da8649a435e198e44a05ba053bc68d12e\" target=\"_blank\">PayPal</a>.</p>\n" +
+    "                <p>Mopify is just like many other Open Source projects maintained in my free time. If you like it and want to support this project you can make a <a href=\"https://pledgie.com/campaigns/28130\" target=\"_blank\">donation via Pledgie</a>, or directly via <a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QUDAJBCJVP2G6\" target=\"_blank\">PayPal</a>.</p>\n" +
     "                <p>Don't want to donate? No hard feelings! You can also help me a lot by giving me your feedback. You can do this via the <a href=\"https://github.com/dirkgroenen/mopidy-mopify/issues\" target=\"_blank\">Github Issues</a> page, or just send me an e-mail. </p>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -608,7 +608,8 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
-    "</div>");
+    "</div>\n" +
+    "");
 }]);
 
 angular.module("dashboard/dashboard.tmpl.html", []).run(["$templateCache", function($templateCache) {
@@ -619,18 +620,17 @@ angular.module("dashboard/dashboard.tmpl.html", []).run(["$templateCache", funct
 angular.module("directives/album.directive.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("directives/album.directive.tmpl.html",
     "<div ng-show=\"visible\">\n" +
-    "    <div class=\"tileart\" context-menu=\"onContextShow()\"\n" +
-    "        data-target=\"menu-{{ album.uri }}\">\n" +
+    "    <div class=\"tileart\" context-menu=\"onContextShow()\" data-target=\"menu-{{ album.uri }}\" ng-click=\"openAlbumTracklist()\">\n" +
     "        <div class=\"hoverwrap\">\n" +
     "            <div class=\"iconwrap row\">\n" +
     "                <div class=\"icon small col-xs-4\" title=\"Show album's tracks\">\n" +
-    "                    <a href=\"{{ tracklistUrl }}\"><i class=\"ss-icon ss-list\"></i></a>\n" +
+    "                    <a href=\"/#{{ tracklistUrl }}\"><i class=\"ss-icon ss-list\"></i></a>\n" +
     "                </div>\n" +
     "                <div class=\"icon col-xs-4\" title=\"Play album\">\n" +
-    "                    <i class=\"ss-icon ss-play\" ng-click=\"play()\"></i>\n" +
+    "                    <i class=\"ss-icon ss-play\" ng-click=\"play()\" stop-propagation></i>\n" +
     "                </div>\n" +
     "                <div class=\"icon small col-xs-4\" title=\"Start new station for: {{ album.name }}\">\n" +
-    "                    <i class=\"ss-icon ss-wifi\" ng-click=\"startStation()\"></i>\n" +
+    "                    <i class=\"ss-icon ss-wifi\" ng-click=\"startStation()\" stop-propagation></i>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -639,7 +639,7 @@ angular.module("directives/album.directive.tmpl.html", []).run(["$templateCache"
     "    </div>\n" +
     "    <div class=\"tileinfo clickable\" context-menu=\"onContextShow()\"\n" +
     "        data-target=\"menu-{{ album.uri }}\">\n" +
-    "        <a href=\"{{ tracklistUrl }}\">\n" +
+    "        <a href=\"/#{{ tracklistUrl }}\">\n" +
     "            <span class=\"name\">{{ album.name}}</span>\n" +
     "            <span class=\"year ng-binding\">{{ artiststring }}</span>\n" +
     "        </a>\n" +
@@ -672,19 +672,17 @@ angular.module("directives/album.directive.tmpl.html", []).run(["$templateCache"
 
 angular.module("directives/artist.directive.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("directives/artist.directive.tmpl.html",
-    "<div class=\"tileart\" context-menu=\"onContextShow()\"\n" +
-    "     data-target=\"menu-{{ artist.uri }}\"\n" +
-    "     ng-class=\"{ 'highlight': highlight, 'expanded' : expanded }\">\n" +
+    "<div class=\"tileart\" context-menu=\"onContextShow()\" data-target=\"menu-{{ artist.uri }}\" ng-class=\"{ 'highlight': highlight, 'expanded' : expanded }\" ng-click=\"openArtistPage()\">\n" +
     "    <div class=\"hoverwrap\">\n" +
     "        <div class=\"iconwrap row\">\n" +
     "            <div class=\"icon small col-xs-4\" title=\"Show artist's tracks\">\n" +
     "                <a href=\"#/music/artist/{{ artist.uri }}\"><i class=\"ss-icon ss-list\"></i></a>\n" +
     "            </div>\n" +
     "            <div class=\"icon col-xs-4\" title=\"Play artist\">\n" +
-    "                <i class=\"ss-icon ss-play\" ng-click=\"play()\"></i>\n" +
+    "                <i class=\"ss-icon ss-play\" ng-click=\"play()\" stop-propagation></i>\n" +
     "            </div>\n" +
     "            <div class=\"icon small col-xs-4\" title=\"Start new station for: {{ artist.name }}\">\n" +
-    "                <i class=\"ss-icon ss-wifi\" ng-click=\"startStation()\"></i>\n" +
+    "                <i class=\"ss-icon ss-wifi\" ng-click=\"startStation()\" stop-propagation></i>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -750,19 +748,17 @@ angular.module("directives/browse.directive.tmpl.html", []).run(["$templateCache
 
 angular.module("directives/playlist.directive.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("directives/playlist.directive.tmpl.html",
-    "<div class=\"tileart\" context-menu\n" +
-    "     data-target=\"menu-{{ playlist.uri }}\"\n" +
-    "     ng-class=\"{ 'highlight': highlight, 'expanded' : expanded }\">\n" +
-    "    <div class=\"hoverwrap\">\n" +
+    "<div class=\"tileart\" context-menu data-target=\"menu-{{ playlist.uri }}\" ng-class=\"{ 'highlight': highlight, 'expanded' : expanded }\">\n" +
+    "    <div class=\"hoverwrap\" ng-click=\"openPlaylistTracklist()\">\n" +
     "        <div class=\"iconwrap row\">\n" +
     "            <div class=\"icon small col-xs-4\" title=\"Show playlist's tracks\">\n" +
-    "                <a href=\"{{ tracklistUrl }}\"><i class=\"ss-icon ss-list\"></i></a>\n" +
+    "                <a href=\"/#{{ tracklistUrl }}\"><i class=\"ss-icon ss-list\"></i></a>\n" +
     "            </div>\n" +
     "            <div class=\"icon col-xs-4\" title=\"Play playlist\">\n" +
-    "                <i class=\"ss-icon ss-play\" ng-click=\"play()\"></i>\n" +
+    "                <i class=\"ss-icon ss-play\" ng-click=\"play()\" stop-propagation></i>\n" +
     "            </div>\n" +
     "            <div class=\"icon small col-xs-4\" title=\"Start new station for: {{ playlist.name }}\">\n" +
-    "                <i class=\"ss-icon ss-wifi\" ng-click=\"startStation()\"></i>\n" +
+    "                <i class=\"ss-icon ss-wifi\" ng-click=\"startStation()\" stop-propagation></i>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -770,7 +766,7 @@ angular.module("directives/playlist.directive.tmpl.html", []).run(["$templateCac
     "    <img ng-src=\"{{ coverImage }}\" />\n" +
     "</div>\n" +
     "<div class=\"tileinfo clickable\">\n" +
-    "    <a href=\"{{ tracklistUrl }}\">\n" +
+    "    <a href=\"/#{{ tracklistUrl }}\">\n" +
     "        <span class=\"name\">{{ playlist.name}}</span>\n" +
     "        <span class=\"year\">{{ playlist.tracks.length || playlist.tracks.total }} tracks</span>\n" +
     "    </a>\n" +
@@ -1503,7 +1499,7 @@ angular.module("music/tracklist/tracklist.tmpl.html", []).run(["$templateCache",
     "                <i class=\"ss-icon ss-check\" ng-show=\"!albumAlreadySaved\"></i> \n" +
     "                <i class=\"ss-icon ss-delete\" ng-show=\"albumAlreadySaved\"></i> \n" +
     "            </div>\n" +
-    "            <div class=\"button white\" ng-click=\"toglgeFollowPlaylist()\" ng-show=\"type == 'Playlist' &&!isowner\">\n" +
+    "            <div class=\"button white\" ng-click=\"toggleFollowPlaylist()\" ng-show=\"type == 'Playlist' &&!isowner\">\n" +
     "                <span class=\"text\">{{ (followingPlaylist) ? 'Unfollow' : 'Follow' }} playlist</span>\n" +
     "                <i class=\"ss-icon ss-check\" ng-show=\"!followingPlaylist\"></i> \n" +
     "                <i class=\"ss-icon ss-delete\" ng-show=\"followingPlaylist\"></i> \n" +
@@ -1637,8 +1633,11 @@ angular.module("player/player.tmpl.html", []).run(["$templateCache", function($t
     "        <ng-include src=\"'player/controls/controls.left.tmpl.html'\"></ng-include>\n" +
     "    </div>\n" +
     "    <div class=\"seekwrap column\" id=\"seekbar\">\n" +
-    "        <a class=\"trackname\" href=\"#/music/tracklist/{{ albumUri }}/{{ albumName }}\">\n" +
+    "        <a class=\"trackname\" href=\"#/music/tracklist/{{ albumUri }}/{{ albumName }}\" ng-hide=\"showLoading\">\n" +
     "            <span class=\"title\">{{ trackTitle }}</span> <span class=\"delimiter\">-</span> <span class=\"artist\">{{ trackArtist }}</span>\n" +
+    "        </a>\n" +
+    "        <a href=\"#\" class=\"trackname\" ng-show=\"showLoading\">\n" +
+    "            <span class=\"title\">Loading tracks</span> <span class=\"delimiter\">-</span> <span class=\"artist\">Please wait...</span>\n" +
     "        </a>\n" +
     "        <div ng-controller=\"PlayerSeekbarController\">\n" +
     "            <ng-include src=\"'player/seekbar/seekbar.tmpl.html'\"></ng-include>\n" +

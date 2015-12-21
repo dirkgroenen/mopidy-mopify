@@ -5,15 +5,17 @@ angular.module('mopify.widgets.directive.artist', [
   'mopify.services.spotifylogin',
   'mopify.services.servicemanager',
   'llNotifier',
-  'spotify'
+  'spotify',
+  'mopify.widgets.directive.stoppropagation'
 ]).directive('mopifyArtist', [
+  '$location',
   'mopidyservice',
   'stationservice',
   'notifier',
   'Spotify',
   'SpotifyLogin',
   'ServiceManager',
-  function mopifyArtist(mopidyservice, stationservice, notifier, Spotify, SpotifyLogin, ServiceManager) {
+  function mopifyArtist($location, mopidyservice, stationservice, notifier, Spotify, SpotifyLogin, ServiceManager) {
     return {
       restrict: 'E',
       scope: { artist: '=' },
@@ -100,6 +102,14 @@ angular.module('mopify.widgets.directive.artist', [
           } else {
             scope.showFollowArtist = false;
           }
+        };
+        /**
+             * Open the artist's detail page
+             *
+             * @return {void}
+             */
+        scope.openArtistPage = function () {
+          $location.path('/music/artist/' + scope.artist.uri);
         };
       }
     };

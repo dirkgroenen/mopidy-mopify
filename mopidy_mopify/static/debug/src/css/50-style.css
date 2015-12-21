@@ -39,7 +39,7 @@ img[src=""] {
 .aligncenter{
     text-align: center;
 }
-    
+
 .button{
     padding: 10px 15px;
     text-transform: none;
@@ -71,6 +71,12 @@ img[src=""] {
 .button.white:hover{
     background-color: #fafafa;
     color: #777;
+}
+
+.button.white:focus,
+.button.white:active{
+    background-color: #dadada;
+    color: #555;
 }
 
 .button.white .text{
@@ -186,7 +192,7 @@ img[src=""] {
 
 /* Start app styles */
 #application{
-    height: 100%;   
+    height: 100%;
     width: 100%;
     overflow: hidden;
 }
@@ -402,7 +408,7 @@ img[src=""] {
     width: 45px;
     height: 45px;
     float: left;
-    background-color: rgba(0,0,0,.1); 
+    background-color: rgba(0,0,0,.1);
 }
 
 #application #leftside #accounts .account .profileimage img{
@@ -418,7 +424,7 @@ img[src=""] {
 #application #leftside #accounts .account .content{
     padding-left: 15px;
     overflow: hidden;
-    white-space: nowrap; 
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
 
@@ -427,7 +433,7 @@ img[src=""] {
     color: #a2a2a2;
     display: block;
     overflow: hidden;
-    white-space: nowrap; 
+    white-space: nowrap;
     text-overflow: ellipsis;
 }
 
@@ -578,13 +584,13 @@ img[src=""] {
 
 #application #header.small .lefttext i{
     margin: 4px 9px 0 0;
-    float: left;    
+    float: left;
 }
 
 #application #header.small .centertext{
     color: white;
     padding: 140px 0 0 0;
-    text-shadow: 0 0 2px rgba(0,0,0,.3);   
+    text-shadow: 0 0 2px rgba(0,0,0,.3);
     text-align: center;
     font-weight: bold;
 }
@@ -772,7 +778,7 @@ img[src=""] {
 
 #application #header #radiosearch .resultswrap ul li .thumb img{
     width: 100%;
-    margin-top: -50%;        
+    margin-top: -50%;
     -webkit-transform: translateY(25%);
     -moz-transform: translateY(25%);
     transform: translateY(25%);
@@ -871,7 +877,7 @@ img[src=""] {
     color: #ccc;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
-    transition: all .3s ease;   
+    transition: all .3s ease;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
@@ -897,7 +903,7 @@ img[src=""] {
     opacity: 0;
     webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
-    transition: all .3s ease; 
+    transition: all .3s ease;
 }
 
 #application #featured .playlist:hover .hoverwrap{
@@ -1105,7 +1111,7 @@ img[src=""] {
 #application #overview .pagecontent #tileview .single-tile .tileinfo span{
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
-    transition: all .3s ease;   
+    transition: all .3s ease;
 }
 
 #application #overview .pagecontent #tileview .single-tile .tileinfo span.year{
@@ -1129,7 +1135,7 @@ img[src=""] {
     cursor: pointer;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
-    transition: all .3s ease;   
+    transition: all .3s ease;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */

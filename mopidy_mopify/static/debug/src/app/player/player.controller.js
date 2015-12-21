@@ -50,8 +50,17 @@ angular.module('mopify.player', [
       $interval(function () {
         $rootScope.$broadcast('mopify:player:updatePlayerInformation');
       }, 15000);
+      $scope.$watch(function () {
+        return mopidyservice.handlingRequest;
+      }, function (val) {
+        if (val === true) {
+          $scope.showLoading = true;
+        } else {
+          $scope.showLoading = false;
+        }
+      });
     });
-    // Update information on a new track 
+    // Update information on a new track
     $scope.$on('mopidy:event:trackPlaybackStarted', function (event, data) {
       if (data.tl_track !== undefined && data.tl_track !== null) {
         if (data.tl_track.track.name.indexOf('[loading]') > -1) {

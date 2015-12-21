@@ -20,7 +20,7 @@ angular.module('mopify.services.mopidy', [
     var consoleError = console.error.bind(console);
     /*
      * Wrap calls to the Mopidy API and convert the promise to Angular $q's promise.
-     * 
+     *
      * @param String functionNameToWrap
      * @param Object thisObj
      */
@@ -69,7 +69,7 @@ angular.module('mopify.services.mopidy', [
     }
     /*
      * Execute the given function
-     * 
+     *
      * @param String functionName
      * @param Object thisObj
 	 * @param Array args
@@ -86,13 +86,14 @@ angular.module('mopify.services.mopidy', [
       mopidy: {},
       isConnected: false,
       currentTlTracks: [],
+      handlingRequest: false,
       start: function () {
         var self = this;
         // Emit message that we're starting the Mopidy service
         $rootScope.$broadcast('mopify:startingmopidy');
         // Get mopidy ip and port from settigns
         var mopidyip = Settings.get('mopidyip', $location.host());
-        var mopidyport = Settings.get('mopidyport', '6680');
+        var mopidyport = Settings.get('mopidyport', $location.port());
         // Initialize mopidy
         try {
           var protocol = typeof document !== 'undefined' && document.location.protocol === 'https:' ? 'wss://' : 'ws://';
@@ -179,6 +180,8 @@ angular.module('mopify.services.mopidy', [
         var deferred = $q.defer();
         if (surroundingTracks === undefined)
           surroundingTracks = [];
+        $rootScope.$broadcast('mopify:player:loadingtracks');
+        self.handlingRequest = true;
         // Get the current queue
         QueueManager.all().then(function (queuedata) {
           // Clear full list
@@ -218,6 +221,7 @@ angular.module('mopify.services.mopidy', [
               }).then(function () {
                 // Start playing the track
                 self.mopidy.playback.play({ tl_track: tltracks[0] }).then(function (track) {
+                  self.handlingRequest = false;
                   QueueManager.getShuffle().then(function (shuffle) {
                     if (shuffle && preventShuffle !== true) {
                       self.setRandom(true).then(function () {
@@ -277,7 +281,7 @@ angular.module('mopify.services.mopidy', [
         }).then(function (response) {
           // Add to QueueManager
           QueueManager.next(response).then(function () {
-            // Resolve 
+            // Resolve
             deferred.resolve(response);
             // Broadcast change
             $rootScope.$broadcast('mopidy:event:tracklistChanged');

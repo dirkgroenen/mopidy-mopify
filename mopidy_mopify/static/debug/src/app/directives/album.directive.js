@@ -8,9 +8,11 @@ angular.module('mopify.widgets.directive.album', [
   'spotify',
   'mopify.services.spotifylogin',
   'mopify.services.servicemanager',
-  'llNotifier'
+  'llNotifier',
+  'mopify.widgets.directive.stoppropagation'
 ]).directive('mopifyAlbum', [
   '$modal',
+  '$location',
   'mopidyservice',
   'stationservice',
   'prompt',
@@ -20,7 +22,7 @@ angular.module('mopify.widgets.directive.album', [
   'Spotify',
   'SpotifyLogin',
   'ServiceManager',
-  function mopifyAlbum($modal, mopidyservice, stationservice, prompt, util, PlaylistManager, notifier, Spotify, SpotifyLogin, ServiceManager) {
+  function mopifyAlbum($modal, $location, mopidyservice, stationservice, prompt, util, PlaylistManager, notifier, Spotify, SpotifyLogin, ServiceManager) {
     return {
       restrict: 'E',
       scope: { album: '=' },
@@ -28,7 +30,7 @@ angular.module('mopify.widgets.directive.album', [
       templateUrl: 'directives/album.directive.tmpl.html',
       link: function (scope, element, attrs) {
         var encodedname = encodeURIComponent(scope.album.name.replace(/\//g, '-'));
-        scope.tracklistUrl = '#/music/tracklist/' + scope.album.uri + '/' + encodedname;
+        scope.tracklistUrl = '/music/tracklist/' + scope.album.uri + '/' + encodedname;
         scope.showSaveAlbum = false;
         scope.albumAlreadySaved = false;
         scope.visible = true;
@@ -42,7 +44,7 @@ angular.module('mopify.widgets.directive.album', [
         }
         var albumtracks = [];
         /*
-             * Play the album            
+             * Play the album
              */
         scope.play = function () {
           mopidyservice.getAlbum(scope.album.uri).then(function (tracks) {
@@ -155,6 +157,14 @@ angular.module('mopify.widgets.directive.album', [
           } else {
             scope.showSaveAlbum = false;
           }
+        };
+        /**
+             * Go to the album's tracklist page
+             *
+             * @return {void}
+             */
+        scope.openAlbumTracklist = function () {
+          $location.path(scope.tracklistUrl);
         };
       }
     };

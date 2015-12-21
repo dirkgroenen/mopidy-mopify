@@ -137,6 +137,13 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
+v1.5.9 (21-12-2015)
+    
+- Make complete tile clickable [#162](https://github.com/dirkgroenen/mopidy-mopify/issues/162)
+- Show feedback when adding request [#159](https://github.com/dirkgroenen/mopidy-mopify/issues/159)
+- Fix wrong behaviour of volume control [#155](https://github.com/dirkgroenen/mopidy-mopify/issues/155)
+- Add dynamic port as fallback [#110](https://github.com/dirkgroenen/mopidy-mopify/issues/110)
+
 v1.5.8 (29-09-2015)
 -------------------
 

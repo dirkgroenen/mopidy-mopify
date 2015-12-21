@@ -1,9 +1,10 @@
 'use strict';
-angular.module('mopify.widgets.directive.playlist', []).directive('mopifyPlaylist', [
+angular.module('mopify.widgets.directive.playlist', ['mopify.widgets.directive.stoppropagation']).directive('mopifyPlaylist', [
+  '$location',
   'Spotify',
   'mopidyservice',
   'stationservice',
-  function (Spotify, mopidyservice, stationservice) {
+  function ($location, Spotify, mopidyservice, stationservice) {
     var defaultAlbumImageUrl = '';
     return {
       restrict: 'E',
@@ -30,7 +31,7 @@ angular.module('mopify.widgets.directive.playlist', []).directive('mopifyPlaylis
         }
         /**
              * Replace the current tracklist with the given playlist
-             * 
+             *
              * @param  {Playlist} playlist
              * @return {void}
              */
@@ -45,10 +46,10 @@ angular.module('mopify.widgets.directive.playlist', []).directive('mopifyPlaylis
           }
         };
         var encodedname = encodeURIComponent(scope.playlist.name.replace(/\//g, '-'));
-        scope.tracklistUrl = '#/music/tracklist/' + scope.playlist.uri + '/' + encodedname;
+        scope.tracklistUrl = '/music/tracklist/' + scope.playlist.uri + '/' + encodedname;
         /**
              * Start a station from the current playlist
-             * 
+             *
              * @return {void}
              */
         scope.startStation = function () {
@@ -61,6 +62,14 @@ angular.module('mopify.widgets.directive.playlist', []).directive('mopifyPlaylis
              */
         scope.addToQueue = function () {
           mopidyservice.addToTracklist({ uris: [scope.playlist.uri] });
+        };
+        /**
+             * Go to the playlist's tracklist page
+             *
+             * @return {void}
+             */
+        scope.openPlaylistTracklist = function () {
+          $location.path(scope.tracklistUrl);
         };
       }
     };
