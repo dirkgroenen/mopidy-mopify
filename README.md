@@ -138,6 +138,7 @@ This will create a new `Mopidy-Mopify` web extension package.
 ## Changelog
 
 v1.5.9 (21-12-2015)
+-------------------
     
 - Make complete tile clickable [#162](https://github.com/dirkgroenen/mopidy-mopify/issues/162)
 - Show feedback when adding request [#159](https://github.com/dirkgroenen/mopidy-mopify/issues/159)
