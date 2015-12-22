@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"tracklist",
+				"tracklistUrl"
+			],
+			[
 				"block",
 				"block_id"
 			],
@@ -510,10 +514,6 @@
 			[
 				"nowpl",
 				"nowplaying"
-			],
-			[
-				"NowPlain",
-				"nowplaying"
 			]
 		]
 	},
@@ -566,10 +566,36 @@
 	"expanded_folders":
 	[
 		"/home/dirk/github/mopidy-mopify/src",
-		"/home/dirk/github/mopidy-mopify/mopidy_mopify"
+		"/home/dirk/github/mopidy-mopify/src/app",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/sync"
 	],
 	"file_history":
 	[
+		"/home/dirk/github/mopidy-mopify/src/app/search/search.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/search/menu.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/search/search.controller.js",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/playlist.directive.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/artist.directive.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/album.directive.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/music/artist/artist.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/music/library/albums/albums.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/modals/playlistselect.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/README.md",
+		"/home/dirk/github/mopidy-mopify/src/css/50-style.css",
+		"/home/dirk/github/mopidy-mopify/src/app/player/player.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/services/mopidy.service.js",
+		"/home/dirk/github/mopidy-mopify/src/app/player/player.controller.js",
+		"/home/dirk/github/mopidy-mopify/src/app/player/controls/controls.controller.js",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/artist.directive.js",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/album.directive.js",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/playlist.directive.js",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/stoppropagation.directive.js",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/focusme.directive.js",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/sync/sync.py",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/__init__.py",
+		"/home/dirk/github/mopidy-mopify/mopify.sublime-project",
 		"/home/dirk/github/bopster/sync-frontend/src/app/components/scheduler/editor/editor.scss",
 		"/home/dirk/github/bopster/sync-frontend/src/app/components/scheduler/calendar/calendar.api.js",
 		"/home/dirk/github/bopster/sync-frontend/src/app/components/scheduler/editor/add.tmpl.html",
@@ -674,30 +700,7 @@
 		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/user/registration/registration.controller.coffee",
 		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/application.main.coffee",
 		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/user/registration/registration.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/lists/lists.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/shared/components/focusme/focusme.directive.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/shared/core/focusme.directive.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/index.routes.js",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/lists/lists.controller.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/local/local.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/user/user.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/artist/artist.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/genres/genres.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/search/search.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/schedule/schedule.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/playlists/playlists.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/collection/collection.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/favourites/favourites.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/index.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/local/local.controller.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/local/local.api.coffee",
-		"/home/dirk/github/bopster/sync/app/controllers/api/v1/onboarding_controller.rb",
-		"/home/dirk/github/bopster/sync/config/routes.rb",
-		"/home/dirk/github/bopster/sync/db/structure.sql",
-		"/home/dirk/github/bopster/sync/spec/api/v1/favourites_spec.rb",
-		"/home/dirk/github/bopster/sync/spec/api/v1/queue_spec.rb",
-		"/home/dirk/github/bopster/sync/spec/api/v1/update_d8_spec.rb",
-		"/home/dirk/github/bopster/sync/app/controllers/api/v1/admin/franchises_controller.rb"
+		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/lists/lists.routes.coffee"
 	],
 	"find":
 	{
@@ -715,6 +718,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"play:",
+			"tracklist",
+			"'",
 			"newsource",
 			".render",
 			"scheduleBlock",
@@ -845,6 +851,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\"",
 			".update",
 			"dayblock",
 			"\"",
@@ -957,6 +964,98 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"searchcon",
+				"src/app/search/search.controller.js"
+			],
+			[
+				"menutmpl",
+				"src/app/search/menu.tmpl.html"
+			],
+			[
+				"searchtmpl",
+				"src/app/search/search.tmpl.html"
+			],
+			[
+				"albumdiretm",
+				"src/app/directives/album.directive.tmpl.html"
+			],
+			[
+				"artistdiretm",
+				"src/app/directives/artist.directive.tmpl.html"
+			],
+			[
+				"playlistdiretmpl",
+				"src/app/directives/playlist.directive.tmpl.html"
+			],
+			[
+				"playlisttmpl",
+				"src/app/modals/playlistselect.tmpl.html"
+			],
+			[
+				"albumtmpl",
+				"src/app/music/library/albums/albums.tmpl.html"
+			],
+			[
+				"artisttmpl",
+				"src/app/music/artist/artist.tmpl.html"
+			],
+			[
+				"controlscontro.",
+				"src/app/player/controls/controls.controller.js"
+			],
+			[
+				"playertmpl",
+				"src/app/player/player.tmpl.html"
+			],
+			[
+				"style",
+				"src/css/50-style.css"
+			],
+			[
+				"playerm",
+				"src/app/player/player.tmpl.html"
+			],
+			[
+				"playercontro",
+				"src/app/player/player.controller.js"
+			],
+			[
+				"mopidyser",
+				"src/app/services/mopidy.service.js"
+			],
+			[
+				"artistditmpl",
+				"src/app/directives/artist.directive.tmpl.html"
+			],
+			[
+				"artist",
+				"src/app/directives/artist.directive.js"
+			],
+			[
+				"albumdire",
+				"src/app/directives/album.directive.js"
+			],
+			[
+				"playlistdire",
+				"src/app/directives/playlist.directive.js"
+			],
+			[
+				"controller",
+				"src/app/search/search.controller.js"
+			],
+			[
+				"direci",
+				"src/app/directives/focusme.directive.js"
+			],
+			[
+				"albumditm",
+				"src/app/directives/album.directive.tmpl.html"
+			],
+			[
+				"init",
+				"mopidy_mopify/__init__.py"
+			],
 			[
 				"dayblockmo",
 				"src/app/models/dayblock.model.js"
@@ -1376,98 +1475,6 @@
 			[
 				"favoriapi",
 				"src/app/components/music/favorites/favorites.api.js"
-			],
-			[
-				"favoser",
-				"src/app/components/music/favorites/favorites.service.js"
-			],
-			[
-				"favoapi",
-				"src/app/components/music/favorites/favorites.api.js"
-			],
-			[
-				"trackliscon",
-				"src/app/components/music/lists/tracklist/tracklist.controller.js"
-			],
-			[
-				"tracckdire",
-				"src/app/components/music/lists/tracklist/tracklist.directive.js"
-			],
-			[
-				"remote",
-				"src/app/components/lists/remote-infinite.list.js"
-			],
-			[
-				"favorou",
-				"src/app/components/music/favorites/favorites.router.js"
-			],
-			[
-				"favotmpl",
-				"src/app/components/music/favorites/favorites.tmpl.html"
-			],
-			[
-				"colelctiontmpl",
-				"src/app/components/music/collection/collection.tmpl.html"
-			],
-			[
-				"collectintmpl",
-				"src/app/components/music/collection/collection.tmpl.html"
-			],
-			[
-				"remotein",
-				"src/app/components/lists/remote-infinite.list.js"
-			],
-			[
-				"favocontro",
-				"src/app/components/music/favorites/favorites.controller.js"
-			],
-			[
-				"trackcontrol",
-				"src/app/components/music/lists/tracklist/tracklist.controller.js"
-			],
-			[
-				"collectionapi",
-				"src/app/components/music/collection/collection.api.js"
-			],
-			[
-				"favorapi",
-				"src/app/components/music/favorites/favorites.api.js"
-			],
-			[
-				"favorser",
-				"src/app/components/music/favorites/favorites.service.js"
-			],
-			[
-				"favro",
-				"src/app/components/music/favorites/favorites.api.js"
-			],
-			[
-				"favor",
-				"src/app/components/music/favorites/favorites.api.js"
-			],
-			[
-				"playlistser",
-				"src/app/components/music/playlist/playlist.service.js"
-			],
-			[
-				"tracklistcontro",
-				"src/app/components/music/lists/tracklist/tracklist.controller.js"
-			],
-			[
-				"navigob",
-				"src/app/components/navigation/nav-items.object.js"
-			],
-			[
-				"artistscs",
-				"app/components/music/artist/artist.scss"
-			],
-			[
-				"indexscs",
-				"app/index.scss"
-			],
-			[
-				"queueser",
-				"app/components/music/player/queue/queue.service.js"
 			]
 		],
 		"width": 0.0

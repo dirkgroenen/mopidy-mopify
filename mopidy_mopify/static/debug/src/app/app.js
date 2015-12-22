@@ -46,7 +46,7 @@ angular.module('mopify', [
     EchonestProvider.setApiKey('UVUDDM7M0S5MWNQFV');
     SpotifyProvider.setClientId('b6b699a5595b406d9bfba11bee303aa4');
     SpotifyProvider.setRedirectUri('https://bitlabs.nl/mopify/auth/spotify/callback/');
-    SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public user-library-read user-library-modify user-follow-modify user-follow-read');
+    SpotifyProvider.setScope('playlist-read-collaborative playlist-read-private playlist-modify-private playlist-modify-public user-library-read user-library-modify user-follow-modify user-follow-read');
     $routeProvider.otherwise({ redirectTo: '/' });
     $httpProvider.interceptors.push('SpotifyAuthenticationIntercepter');
   }
@@ -114,7 +114,7 @@ angular.module('mopify', [
     mopidyservice.start();
     /**
      * Update the page title with the current playing track
-     * @param object track 
+     * @param object track
      */
     function updateTitle(track) {
       if (track !== null && track !== undefined) {

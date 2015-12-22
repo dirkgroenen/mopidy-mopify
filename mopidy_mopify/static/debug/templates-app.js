@@ -624,7 +624,7 @@ angular.module("directives/album.directive.tmpl.html", []).run(["$templateCache"
     "        <div class=\"hoverwrap\">\n" +
     "            <div class=\"iconwrap row\">\n" +
     "                <div class=\"icon small col-xs-4\" title=\"Show album's tracks\">\n" +
-    "                    <a href=\"/#{{ tracklistUrl }}\"><i class=\"ss-icon ss-list\"></i></a>\n" +
+    "                    <a href=\"#{{ tracklistUrl }}\"><i class=\"ss-icon ss-list\"></i></a>\n" +
     "                </div>\n" +
     "                <div class=\"icon col-xs-4\" title=\"Play album\">\n" +
     "                    <i class=\"ss-icon ss-play\" ng-click=\"play()\" stop-propagation></i>\n" +
@@ -639,7 +639,7 @@ angular.module("directives/album.directive.tmpl.html", []).run(["$templateCache"
     "    </div>\n" +
     "    <div class=\"tileinfo clickable\" context-menu=\"onContextShow()\"\n" +
     "        data-target=\"menu-{{ album.uri }}\">\n" +
-    "        <a href=\"/#{{ tracklistUrl }}\">\n" +
+    "        <a href=\"#{{ tracklistUrl }}\">\n" +
     "            <span class=\"name\">{{ album.name}}</span>\n" +
     "            <span class=\"year ng-binding\">{{ artiststring }}</span>\n" +
     "        </a>\n" +
@@ -752,7 +752,7 @@ angular.module("directives/playlist.directive.tmpl.html", []).run(["$templateCac
     "    <div class=\"hoverwrap\" ng-click=\"openPlaylistTracklist()\">\n" +
     "        <div class=\"iconwrap row\">\n" +
     "            <div class=\"icon small col-xs-4\" title=\"Show playlist's tracks\">\n" +
-    "                <a href=\"/#{{ tracklistUrl }}\"><i class=\"ss-icon ss-list\"></i></a>\n" +
+    "                <a href=\"#{{ tracklistUrl }}\"><i class=\"ss-icon ss-list\"></i></a>\n" +
     "            </div>\n" +
     "            <div class=\"icon col-xs-4\" title=\"Play playlist\">\n" +
     "                <i class=\"ss-icon ss-play\" ng-click=\"play()\" stop-propagation></i>\n" +
@@ -766,7 +766,7 @@ angular.module("directives/playlist.directive.tmpl.html", []).run(["$templateCac
     "    <img ng-src=\"{{ coverImage }}\" />\n" +
     "</div>\n" +
     "<div class=\"tileinfo clickable\">\n" +
-    "    <a href=\"/#{{ tracklistUrl }}\">\n" +
+    "    <a href=\"#{{ tracklistUrl }}\">\n" +
     "        <span class=\"name\">{{ playlist.name}}</span>\n" +
     "        <span class=\"year\">{{ playlist.tracks.length || playlist.tracks.total }} tracks</span>\n" +
     "    </a>\n" +
@@ -1678,8 +1678,8 @@ angular.module("search/menu.tmpl.html", []).run(["$templateCache", function($tem
 
 angular.module("search/search.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("search/search.tmpl.html",
-    "<div class=\"search-overlay\" id=\"overview\" > \n" +
-    "    <div class=\"close\" ng-click=\"closeSearch();\"><i class=\"ss-icon ss-delete\"></i></div>  \n" +
+    "<div class=\"search-overlay\" id=\"overview\" >\n" +
+    "    <div class=\"close\" ng-click=\"closeSearch();\"><i class=\"ss-icon ss-delete\"></i></div>\n" +
     "    <div class=\"inner\">\n" +
     "        <div class=\"inputwrap\">\n" +
     "            <span class=\"instructions\">Start typing to search</span>\n" +

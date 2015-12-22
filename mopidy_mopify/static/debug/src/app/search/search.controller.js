@@ -171,7 +171,7 @@ angular.module('mopify.search', [
       var bestmatch = null;
       var resultitem = {};
       var items = [];
-      // Override results with angular copy of results 
+      // Override results with angular copy of results
       results = angular.copy(results);
       // Loop through all results and create an array with all items
       _.each(results, function (result, key) {
@@ -218,8 +218,8 @@ angular.module('mopify.search', [
     }
     /**
      * Compute the edit distance between the two given strings
-     * @param  {string} a 
-     * @param  {string} b 
+     * @param  {string} a
+     * @param  {string} b
      * @return {int}   the number that represents the distance
      */
     function levenshteinDistance(a, b) {

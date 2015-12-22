@@ -43,7 +43,7 @@ angular.module('mopify', [
 
     SpotifyProvider.setClientId('b6b699a5595b406d9bfba11bee303aa4');
     SpotifyProvider.setRedirectUri('https://bitlabs.nl/mopify/auth/spotify/callback/');
-    SpotifyProvider.setScope('user-read-private playlist-read-private playlist-modify-private playlist-modify-public user-library-read user-library-modify user-follow-modify user-follow-read');
+    SpotifyProvider.setScope('playlist-read-collaborative playlist-read-private playlist-modify-private playlist-modify-public user-library-read user-library-modify user-follow-modify user-follow-read');
 
     $routeProvider.otherwise({
         redirectTo: "/"
@@ -62,12 +62,12 @@ angular.module('mopify', [
 
     $scope.showmobilemenu = false;
 
-    $rootScope.selectedtracks = []; 
+    $rootScope.selectedtracks = [];
 
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         $scope.showmobilemenu = false;
 
-        $rootScope.selectedtracks = []; 
+        $rootScope.selectedtracks = [];
     });
 
     // Set version in the rootscope
@@ -120,7 +120,7 @@ angular.module('mopify', [
 
     /**
      * Update the page title with the current playing track
-     * @param object track 
+     * @param object track
      */
     function updateTitle(track){
         if(track !== null && track !== undefined){
@@ -144,7 +144,7 @@ angular.module('mopify', [
 
                     // Run auto-update
                     AutoUpdate.runUpdate().then(function(){
-                        notifier.notify({type: "custom", template: "Update succesfull. You might need to restart Mopidy before changes are visible. ", delay: 3000});        
+                        notifier.notify({type: "custom", template: "Update succesfull. You might need to restart Mopidy before changes are visible. ", delay: 3000});
                     }, function(data){
                         notifier.notify({type: "custom", template: "Update failed. Mopify returned: " + data.response, delay: 5000});
                     });
@@ -152,7 +152,7 @@ angular.module('mopify', [
                 else{
                     notifier.notify({type: "custom", template: "Mopify version " + version + " is available. Use the <a href='https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md#updating' target='_blank'>README</a> on how to update.", delay: 5000});
                 }
-            });            
+            });
         }
         else{
             notifier.notify({type: "custom", template: "Mopify version " + version + " is available. Use the <a href='https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md#updating' target='_blank'>README</a> on how to update, or use the <a href='/#/account/settings'>auto-update</a> feature.", delay: 7500});
@@ -162,12 +162,12 @@ angular.module('mopify', [
     // Listen for the update:successfull message which will show the changelog
     $scope.$on("mopify:update:succesfull", function(e, data){
         var changelog = VersionManager.getChangelog();
-        
+
         prompt({
             title: 'New version: ' + VersionManager.lastversion,
             message: '<p>Mopify just updated to version ' + VersionManager.lastversion + '. The following changes have been made:</p><pre style="font-size: 10px;">' + changelog + '</pre>',
             input: false,
             buttons: [{ label: 'Ok', primary: true }]
-        }); 
+        });
     });
 });

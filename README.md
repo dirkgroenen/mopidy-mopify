@@ -137,6 +137,12 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
+v1.5.10 (22-12-2015)
+-------------------
+    
+- Fix tracklist icon links [#166](https://github.com/dirkgroenen/mopidy-mopify/issues/166) [#168](https://github.com/dirkgroenen/mopidy-mopify/issues/168)
+- Add collabrative playlists [#169](https://github.com/dirkgroenen/mopidy-mopify/issues/169)
+
 v1.5.9 (21-12-2015)
 -------------------
     
