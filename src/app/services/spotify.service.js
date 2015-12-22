@@ -17,10 +17,10 @@ angular.module("mopify.services.spotifylogin", [
 
     // Create the iframe in the document
     function createFrame(service){
-        frame = document.createElement("iframe"); 
-        frame.setAttribute("src", "https://bitlabs.nl/mopify/auth/" + service + "/frame/#" + window.location.host); 
-        frame.style.width = 1 + "px"; 
-        frame.style.height = 1 + "px"; 
+        frame = document.createElement("iframe");
+        frame.setAttribute("src", "https://bitlabs.nl/mopify/auth/" + service + "/frame/#" + window.location.host);
+        frame.style.width = 1 + "px";
+        frame.style.height = 1 + "px";
 
         // Add to body and register in frames object
         body.append(frame);
@@ -74,10 +74,10 @@ angular.module("mopify.services.spotifylogin", [
         if((this.expires === null || this.expires === undefined || Date.now() >= this.expires) && ServiceManager.isEnabled("spotify")){
             if(this.refresh_token !== null){
                 this.refresh();
-            }   
+            }
             else{
                 this.login(true);
-            } 
+            }
         }
 
         // Run this check again after 10 seconds
@@ -87,7 +87,7 @@ angular.module("mopify.services.spotifylogin", [
     };
 
     /**
-     * Get the current login status from Spotify and return 
+     * Get the current login status from Spotify and return
      * if we're connected or not
      * @return {$q.defer().promise}
      */
@@ -130,7 +130,7 @@ angular.module("mopify.services.spotifylogin", [
             }
             else{
                 deferred.resolve({ status: "connected" });
-            }    
+            }
         }
 
         return deferred.promise;
@@ -158,7 +158,7 @@ angular.module("mopify.services.spotifylogin", [
                 url: "https://bitlabs.nl/mopify/auth/spotify/refresh/",
                 params: postdata
             }).success(function(result) {
-                
+
                 that.access_token = result.access_token;
                 that.expires = Date.now() + (result.expires_in * 1000);
 
@@ -187,7 +187,7 @@ angular.module("mopify.services.spotifylogin", [
      * permisions for these scopes
      */
     SpotifyLogin.prototype.checkOldToken = function(){
-        var minversion = '1.4.0';
+        var minversion = '1.5.10';
         var compare = util.versionCompare(minversion, this.mopifyversion);
 
         // If the minversion is greater than the token's version
@@ -240,7 +240,7 @@ angular.module("mopify.services.spotifylogin", [
                 if(that.access_token !== undefined){
                     // Set the auth token
                     Spotify.setAuthToken(that.access_token);
-                        
+
                     // Check if the auth token works
                     Spotify.getCurrentUser().then(function(data){
                         that.connected = true;
@@ -254,7 +254,7 @@ angular.module("mopify.services.spotifylogin", [
                             expires: that.expires,
                             user: that.user,
                             mopifyversion: VersionManager.version
-                        };  
+                        };
 
                         // Save token and resolve
                         localStorageService.set(tokenStorageKey, tokens);
@@ -301,8 +301,8 @@ angular.module("mopify.services.spotifylogin", [
     /**
      * Request a key from spotify.
      * This is done by sending a request to the bitlabs server which will return the saved spotify key
-     * @param  {$.defer} deferred 
-     * @return {$.defer().promise}        
+     * @param  {$.defer} deferred
+     * @return {$.defer().promise}
      */
     SpotifyLogin.prototype.requestKey = function(deferred){
         var that = this;
@@ -339,7 +339,7 @@ angular.module("mopify.services.spotifylogin", [
         }
 
         var response = e.data;
-    
+
         if(response.service == "spotify"){
             if(response.key !== null){
                 // Parse json
@@ -362,7 +362,7 @@ angular.module("mopify.services.spotifylogin", [
 /*
  * Authentication Intercepter which checks spotify's requests results for a 401 error
  */
-.factory('SpotifyAuthenticationIntercepter', function SpotifyAuthenticationIntercepter($q, $rootScope, $injector) { 
+.factory('SpotifyAuthenticationIntercepter', function SpotifyAuthenticationIntercepter($q, $rootScope, $injector) {
     "use strict";
     var spotifyErrors = 0;
     var retrystarted = false;
@@ -371,7 +371,7 @@ angular.module("mopify.services.spotifylogin", [
         responseError: function(response) {
             if(response.status === 401 && response.config.url == "https://api.spotify.com/v1/me"){
                 spotifyErrors++;
-                
+
                 if(spotifyErrors >= 3 && !retrystarted){
                     retrystarted = true;
 
@@ -383,7 +383,7 @@ angular.module("mopify.services.spotifylogin", [
                         $injector.get('SpotifyLogin').getLoginStatus().then(function(resp){
                             $rootScope.$broadcast("mopify:spotify:connected");
                             return response;
-                        }); 
+                        });
                     });
                 }
 

@@ -1678,8 +1678,8 @@ angular.module("search/menu.tmpl.html", []).run(["$templateCache", function($tem
 
 angular.module("search/search.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("search/search.tmpl.html",
-    "<div class=\"search-overlay\" id=\"overview\" > \n" +
-    "    <div class=\"close\" ng-click=\"closeSearch();\"><i class=\"ss-icon ss-delete\"></i></div>  \n" +
+    "<div class=\"search-overlay\" id=\"overview\" >\n" +
+    "    <div class=\"close\" ng-click=\"closeSearch();\"><i class=\"ss-icon ss-delete\"></i></div>\n" +
     "    <div class=\"inner\">\n" +
     "        <div class=\"inputwrap\">\n" +
     "            <span class=\"instructions\">Start typing to search</span>\n" +
