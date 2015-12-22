@@ -85,8 +85,8 @@ angular.module('mopify.search', [
             $location.search("query", $scope.query);
 
             if($scope.query.trim().length > 1)
-                $scope.performSearch();    
-        }, 1000);   
+                $scope.performSearch();
+        }, 1000);
     };
 
     /**
@@ -141,17 +141,17 @@ angular.module('mopify.search', [
     $scope.$on("mopidy:state:online", function(){
         typingTimeout = $timeout(function(){
             if($scope.query.trim().length > 1)
-                $scope.performSearch();    
-        }, 250);   
+                $scope.performSearch();
+        }, 250);
     });
 
     if(mopidyservice.isConnected){
         typingTimeout = $timeout(function(){
             if($scope.query.trim().length > 1)
-                $scope.performSearch();    
-        }, 250);   
+                $scope.performSearch();
+        }, 250);
     }
-        
+
     /**
      * Play the songs that are given in the topresult
      */
@@ -190,8 +190,8 @@ angular.module('mopify.search', [
         var bestmatch = null;
         var resultitem = {};
         var items = [];
-        
-        // Override results with angular copy of results 
+
+        // Override results with angular copy of results
         results = angular.copy(results);
 
         // Loop through all results and create an array with all items
@@ -219,7 +219,7 @@ angular.module('mopify.search', [
                 var stringtocheck = item.name.toLowerCase();
 
                 var distance = levenshteinDistance(search, stringtocheck);
-                
+
                 // Check with previous bestmatch and update if needed
                 if(bestmatch === null || bestmatch > distance){
                     bestmatch = distance;
@@ -235,7 +235,7 @@ angular.module('mopify.search', [
             else
                 resultitem.link = "#/music/tracklist/" + resultitem.item.uri;
         }
-        
+
         // Set topresult and stop loading
         $scope.loading = false;
         $scope.topresult = resultitem;
@@ -243,13 +243,13 @@ angular.module('mopify.search', [
 
     /**
      * Compute the edit distance between the two given strings
-     * @param  {string} a 
-     * @param  {string} b 
+     * @param  {string} a
+     * @param  {string} b
      * @return {int}   the number that represents the distance
      */
     function levenshteinDistance(a, b) {
-        if(a.length === 0) return b.length; 
-        if(b.length === 0) return a.length; 
+        if(a.length === 0) return b.length;
+        if(b.length === 0) return a.length;
 
         var matrix = [];
 
@@ -270,7 +270,7 @@ angular.module('mopify.search', [
             for(j = 1; j <= a.length; j++){
                 if(b.charAt(i-1) == a.charAt(j-1)){
                     matrix[i][j] = matrix[i-1][j-1];
-                } 
+                }
                 else {
                     matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, // substitution
                                    Math.min(matrix[i][j-1] + 1, // insertion
@@ -300,7 +300,7 @@ angular.module('mopify.search', [
 
         previous = $scope.query;
     };
-    
+
     $scope.query = $routeParams.query;
 
     // Add search hotkey

@@ -566,12 +566,22 @@
 	"expanded_folders":
 	[
 		"/home/dirk/github/mopidy-mopify/src",
+		"/home/dirk/github/mopidy-mopify/src/app",
 		"/home/dirk/github/mopidy-mopify/mopidy_mopify",
 		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services",
 		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/sync"
 	],
 	"file_history":
 	[
+		"/home/dirk/github/mopidy-mopify/src/app/search/search.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/search/menu.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/search/search.controller.js",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/playlist.directive.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/artist.directive.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/album.directive.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/music/artist/artist.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/music/library/albums/albums.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/modals/playlistselect.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/README.md",
 		"/home/dirk/github/mopidy-mopify/src/css/50-style.css",
 		"/home/dirk/github/mopidy-mopify/src/app/player/player.tmpl.html",
@@ -581,13 +591,8 @@
 		"/home/dirk/github/mopidy-mopify/src/app/directives/artist.directive.js",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/album.directive.js",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/playlist.directive.js",
-		"/home/dirk/github/mopidy-mopify/src/app/directives/album.directive.tmpl.html",
-		"/home/dirk/github/mopidy-mopify/src/app/directives/artist.directive.tmpl.html",
-		"/home/dirk/github/mopidy-mopify/src/app/directives/playlist.directive.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/stoppropagation.directive.js",
-		"/home/dirk/github/mopidy-mopify/src/app/search/search.controller.js",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/focusme.directive.js",
-		"/home/dirk/github/mopidy-mopify/src/app/music/library/albums/albums.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/sync/sync.py",
 		"/home/dirk/github/mopidy-mopify/mopidy_mopify/__init__.py",
 		"/home/dirk/github/mopidy-mopify/mopify.sublime-project",
@@ -695,11 +700,7 @@
 		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/user/registration/registration.controller.coffee",
 		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/application.main.coffee",
 		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/user/registration/registration.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/lists/lists.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/shared/components/focusme/focusme.directive.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/shared/core/focusme.directive.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/index.routes.js",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/lists/lists.controller.coffee"
+		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/lists/lists.routes.coffee"
 	],
 	"find":
 	{
@@ -964,6 +965,42 @@
 		"selected_items":
 		[
 			[
+				"searchcon",
+				"src/app/search/search.controller.js"
+			],
+			[
+				"menutmpl",
+				"src/app/search/menu.tmpl.html"
+			],
+			[
+				"searchtmpl",
+				"src/app/search/search.tmpl.html"
+			],
+			[
+				"albumdiretm",
+				"src/app/directives/album.directive.tmpl.html"
+			],
+			[
+				"artistdiretm",
+				"src/app/directives/artist.directive.tmpl.html"
+			],
+			[
+				"playlistdiretmpl",
+				"src/app/directives/playlist.directive.tmpl.html"
+			],
+			[
+				"playlisttmpl",
+				"src/app/modals/playlistselect.tmpl.html"
+			],
+			[
+				"albumtmpl",
+				"src/app/music/library/albums/albums.tmpl.html"
+			],
+			[
+				"artisttmpl",
+				"src/app/music/artist/artist.tmpl.html"
+			],
+			[
 				"controlscontro.",
 				"src/app/player/controls/controls.controller.js"
 			],
@@ -1000,10 +1037,6 @@
 				"src/app/directives/album.directive.js"
 			],
 			[
-				"playlistdiretmpl",
-				"src/app/directives/playlist.directive.tmpl.html"
-			],
-			[
 				"playlistdire",
 				"src/app/directives/playlist.directive.js"
 			],
@@ -1018,10 +1051,6 @@
 			[
 				"albumditm",
 				"src/app/directives/album.directive.tmpl.html"
-			],
-			[
-				"albumtmpl",
-				"src/app/music/library/albums/albums.tmpl.html"
 			],
 			[
 				"init",
@@ -1446,34 +1475,6 @@
 			[
 				"favoriapi",
 				"src/app/components/music/favorites/favorites.api.js"
-			],
-			[
-				"favoser",
-				"src/app/components/music/favorites/favorites.service.js"
-			],
-			[
-				"favoapi",
-				"src/app/components/music/favorites/favorites.api.js"
-			],
-			[
-				"trackliscon",
-				"src/app/components/music/lists/tracklist/tracklist.controller.js"
-			],
-			[
-				"tracckdire",
-				"src/app/components/music/lists/tracklist/tracklist.directive.js"
-			],
-			[
-				"remote",
-				"src/app/components/lists/remote-infinite.list.js"
-			],
-			[
-				"favorou",
-				"src/app/components/music/favorites/favorites.router.js"
-			],
-			[
-				"favotmpl",
-				"src/app/components/music/favorites/favorites.tmpl.html"
 			]
 		],
 		"width": 0.0
