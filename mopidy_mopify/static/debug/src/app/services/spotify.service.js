@@ -81,7 +81,7 @@ angular.module('mopify.services.spotifylogin', [
       }, 30000);
     };
     /**
-     * Get the current login status from Spotify and return 
+     * Get the current login status from Spotify and return
      * if we're connected or not
      * @return {$q.defer().promise}
      */
@@ -160,7 +160,7 @@ angular.module('mopify.services.spotifylogin', [
      * permisions for these scopes
      */
     SpotifyLogin.prototype.checkOldToken = function () {
-      var minversion = '1.4.0';
+      var minversion = '1.5.10';
       var compare = util.versionCompare(minversion, this.mopifyversion);
       // If the minversion is greater than the token's version
       // we refresh the token
@@ -253,8 +253,8 @@ angular.module('mopify.services.spotifylogin', [
     /**
      * Request a key from spotify.
      * This is done by sending a request to the bitlabs server which will return the saved spotify key
-     * @param  {$.defer} deferred 
-     * @return {$.defer().promise}        
+     * @param  {$.defer} deferred
+     * @return {$.defer().promise}
      */
     SpotifyLogin.prototype.requestKey = function (deferred) {
       var that = this;
