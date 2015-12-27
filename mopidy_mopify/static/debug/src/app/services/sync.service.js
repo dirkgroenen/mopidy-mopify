@@ -15,12 +15,12 @@ angular.module('mopify.services.sync', [
   'TasteProfile',
   function SyncFactory($http, $q, $location, localStorageService, Settings, ServiceManager, SpotifyLogin, TasteProfile) {
     var mopidyip = Settings.get('mopidyip', $location.host());
-    var mopidyport = Settings.get('mopidyport', '6680');
+    var mopidyport = Settings.get('mopidyport', $location.port());
     var apiUrl = $location.protocol() + '://' + mopidyip + ':' + mopidyport + '/mopify/sync/';
     /**
      * Do a post request to the sync server
-     * @param  {string} url  
-     * @param  {object} data 
+     * @param  {string} url
+     * @param  {object} data
      */
     var post = function (url, data) {
       var deferred = $q.defer();
@@ -36,8 +36,8 @@ angular.module('mopify.services.sync', [
     };
     /**
      * Do a get request to the sync server
-     * @param  {string} url  
-     * @param  {object} data 
+     * @param  {string} url
+     * @param  {object} data
      */
     var get = function (url, data) {
       var deferred = $q.defer();
@@ -52,10 +52,10 @@ angular.module('mopify.services.sync', [
       return deferred.promise;
     };
     /**
-     * Run the force synchronisation which checks 
+     * Run the force synchronisation which checks
      * all services, enabled them and sets the right
      * credentials
-     * 
+     *
      * @return {void}
      */
     function runForceSynchronisation() {
@@ -108,7 +108,7 @@ angular.module('mopify.services.sync', [
     }
     /**
      * Check if the force sync setting is enabled
-     * 
+     *
      * @return {void}
      */
     Sync.prototype.checkForceSynchronisation = function () {

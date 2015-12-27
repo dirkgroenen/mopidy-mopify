@@ -200,7 +200,7 @@ angular.module('mopify.music.tracklist', [
       mopidyservice.getCurrentTrack().then(function (track) {
         $scope.currentPlayingTrack = track;
       });
-      // Update information on a new track 
+      // Update information on a new track
       $scope.$on('mopidy:event:trackPlaybackEnded', function (event, data) {
         if (data.tl_track !== undefined)
           $scope.currentPlayingTrack = data.tl_track.track;
@@ -212,7 +212,7 @@ angular.module('mopify.music.tracklist', [
     }
     /**
      * Load the user's Spotify Library tracks
-     * 
+     *
      * @param {int} offset the offset to load the track, will be zero if not defined
      * @return {void}
      */
@@ -392,7 +392,7 @@ angular.module('mopify.music.tracklist', [
     };
     /**
      * Reset the track loading batch value to their start values
-     * 
+     *
      * @return {void}
      */
     function resetTrackBatchLoading() {

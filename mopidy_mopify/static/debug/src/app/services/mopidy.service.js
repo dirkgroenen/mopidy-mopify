@@ -392,7 +392,14 @@ angular.module('mopify.services.mopidy', [
         return wrapMopidyFunc('mopidy.tracklist.getRepeat', this)();
       },
       setRepeat: function (isRepeat) {
-        return wrapMopidyFunc('mopidy.tracklist.setRepeat', this)([isRepeat]);
+        var deferred = $q.defer();
+        var that = this;
+        wrapMopidyFunc('mopidy.tracklist.setRepeat', that)([isRepeat]).then(function () {
+          wrapMopidyFunc('mopidy.tracklist.setSingle', that)([isRepeat]).then(function () {
+            deferred.resolve();
+          });
+        });
+        return deferred.promise;
       },
       removeFromTracklist: function (dict) {
         return wrapMopidyFunc('mopidy.tracklist.remove', this)(dict).then(function (tltracks) {

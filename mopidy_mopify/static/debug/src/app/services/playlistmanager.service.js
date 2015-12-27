@@ -86,6 +86,20 @@ angular.module('mopify.services.playlistmanager', [
       }
     };
     /**
+     * Search through the loaded playlists
+     *
+     * @param  {string} query
+     * @return {array
+     */
+    PlaylistManager.prototype.search = function (query) {
+      var playlists = this.playlists;
+      // Search through local playlists
+      var filtered = _.filter(playlists, function (list) {
+          return list.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+        });
+      return filtered;
+    };
+    /**
      * Return the previously loaded playlists
      * @param  {object} options extra options for the returned object
      * @return {array}         the playlists
@@ -123,7 +137,7 @@ angular.module('mopify.services.playlistmanager', [
       return deferred.promise;
     };
     /**
-     * Load more playlists 
+     * Load more playlists
      * This is used when spotify playlists are loaded and the next attribute is present
      * @param {string} next The url of the next page
      */
@@ -147,7 +161,7 @@ angular.module('mopify.services.playlistmanager', [
      * Remove a track from a playlist
      * @param  {string} playlistid The id of the spotify playlist
      * @param  {string} trackuri   The spotify track URI
-     * @return {$q.defer}          
+     * @return {$q.defer}
      */
     PlaylistManager.prototype.removeTrack = function (playlistid, trackuri) {
       var deferred = $q.defer();
@@ -164,7 +178,7 @@ angular.module('mopify.services.playlistmanager', [
      * Add a track to a playlist
      * @param  {string} playlistid The id of the spotify playlist
      * @param  {string} trackuri   The spotify track URI
-     * @return {$q.defer}          
+     * @return {$q.defer}
      */
     PlaylistManager.prototype.addTrack = function (playlistid, trackuri) {
       var deferred = $q.defer();
@@ -181,7 +195,7 @@ angular.module('mopify.services.playlistmanager', [
      * Add a album to the playlist
      * @param  {string} playlistid The id of the spotify playlist
      * @param  {string} albumuri   The spotify album URI
-     * @return {$q.defer}          
+     * @return {$q.defer}
      */
     PlaylistManager.prototype.addAlbum = function (playlistid, albumuri) {
       var deferred = $q.defer();
@@ -218,7 +232,7 @@ angular.module('mopify.services.playlistmanager', [
     /**
      * Create an array containing all the folders
      * //TODO: Add support for multi dimmension folders
-     * 
+     *
      * @param {array} playlists array containing playlists
      * @return {object}          object containing folders and playlists
      */
