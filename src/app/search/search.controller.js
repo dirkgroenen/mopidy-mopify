@@ -27,7 +27,7 @@ angular.module('mopify.search', [
     });
 })
 
-.controller("SearchController", function SearchController($rootScope, $scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, stationservice, util, Settings){
+.controller("SearchController", function SearchController($rootScope, $scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, stationservice, util, Settings, PlaylistManager){
 
     $scope.$watch(function() {
         return $routeParams.query;
@@ -111,6 +111,10 @@ angular.module('mopify.search', [
             market: Settings.get("country", "US"),
             limit: "50"
         }).then(function(data){
+            // Perform local search and put at beginning of playlist array
+            var localLists = PlaylistManager.search($scope.query);
+            data.playlists.items = localLists.concat(data.playlists.items);
+
             $scope.results.artists = data.artists;
             $scope.results.albums = data.albums;
             $scope.results.playlists = data.playlists;
