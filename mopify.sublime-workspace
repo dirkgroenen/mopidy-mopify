@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"local",
+				"localLists"
+			],
+			[
 				"tracklist",
 				"tracklistUrl"
 			],
@@ -274,10 +278,6 @@
 			[
 				"cur",
 				"cursor"
-			],
-			[
-				"local",
-				"localPromise"
 			],
 			[
 				"incl",
@@ -568,40 +568,49 @@
 		"/home/dirk/github/mopidy-mopify/src",
 		"/home/dirk/github/mopidy-mopify/src/app",
 		"/home/dirk/github/mopidy-mopify/src/app/services",
-		"/home/dirk/github/mopidy-mopify/src/vendor",
 		"/home/dirk/github/mopidy-mopify/src/vendor/angular-spotify",
-		"/home/dirk/github/mopidy-mopify/src/vendor/angular-spotify/src",
-		"/home/dirk/github/mopidy-mopify/mopidy_mopify",
-		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services",
-		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/sync"
+		"/home/dirk/github/mopidy-mopify/src/vendor/angular-spotify/src"
 	],
 	"file_history":
 	[
+		"/home/dirk/github/mopidy-mopify/CHANGELOG.md",
+		"/home/dirk/github/mopidy-mopify/bower.json",
+		"/home/dirk/github/mopidy-mopify/package.json",
+		"/home/dirk/github/mopidy-mopify/src/app/search/search.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/search/search.controller.js",
+		"/home/dirk/github/mopidy-mopify/src/app/services/playlistmanager.service.js",
 		"/home/dirk/github/mopidy-mopify/README.md",
+		"/home/dirk/github/mopidy-mopify/CHANGELOG.nd",
+		"/home/dirk/github/mopidy-mopify/src/app/app.js",
+		"/home/dirk/github/mopidy-mopify/src/app/player/player.controller.js",
+		"/home/dirk/github/mopidy-mopify/src/app/player/controls/controls.controller.js",
+		"/home/dirk/github/mopidy-mopify/src/app/services/mopidy.service.js",
+		"/home/dirk/github/mopidy-mopify/src/app/player/controls/controls.right.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/music/tracklist/tracklist.controller.js",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/track.directive.js",
+		"/home/dirk/github/mopidy-mopify/src/app/services/queuemanager.service.js",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/queuemanager/core.py",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/queuemanager/frontend.py",
+		"/home/dirk/github/mopidy-mopify/src/app/directives/track.directive.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/app/music/tracklist/tracklist.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/css/50-style.css",
+		"/home/dirk/github/mopidy-mopify/src/app/search/menu.tmpl.html",
+		"/home/dirk/github/mopidy-mopify/src/index.html",
+		"/home/dirk/github/mopidy-mopify/src/app/services/autoupdate.service.js",
+		"/home/dirk/github/mopidy-mopify/src/app/services/sync.service.js",
 		"/home/dirk/github/mopidy-mopify/mopidy_mopify/__init__.py",
 		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/__init__.py",
-		"/home/dirk/github/mopidy-mopify/src/app/app.js",
 		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/sync/sync.py",
-		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/queuemanager/frontend.py",
-		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/queuemanager/core.py",
 		"/home/dirk/github/mopidy-mopify/src/app/services/spotify.service.js",
 		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/mopify/auth/spotify/callback/index.php",
 		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/mopify/auth/spotify/frame/index.php",
-		"/home/dirk/github/mopidy-mopify/package.json",
-		"/home/dirk/github/mopidy-mopify/src/app/search/search.tmpl.html",
-		"/home/dirk/github/mopidy-mopify/src/app/search/menu.tmpl.html",
-		"/home/dirk/github/mopidy-mopify/src/app/search/search.controller.js",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/playlist.directive.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/artist.directive.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/album.directive.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/music/artist/artist.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/music/library/albums/albums.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/modals/playlistselect.tmpl.html",
-		"/home/dirk/github/mopidy-mopify/src/css/50-style.css",
 		"/home/dirk/github/mopidy-mopify/src/app/player/player.tmpl.html",
-		"/home/dirk/github/mopidy-mopify/src/app/services/mopidy.service.js",
-		"/home/dirk/github/mopidy-mopify/src/app/player/player.controller.js",
-		"/home/dirk/github/mopidy-mopify/src/app/player/controls/controls.controller.js",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/artist.directive.js",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/album.directive.js",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/playlist.directive.js",
@@ -691,20 +700,7 @@
 		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/vendor/dirkgroenen/pinterest-api-php/src/Pinterest/Transport/Request.php",
 		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/index.php",
 		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/callback.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/vendor/dirkgroenen/pinterest-api-php/src/Pinterest/Utils/CurlBuilder.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/vendor/dirkgroenen/pinterest-api-php/src/Pinterest/Auth/PinterestOAuth.php",
-		"/home/dirk/github/Pinterest-API-PHP/CHANGELOG.md",
-		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Auth/PinterestOAuth.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/vendor/dirkgroenen/pinterest-api-php/src/Pinterest/Transport/Response.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/vendor/dirkgroenen/pinterest-api-php/src/Pinterest/Exceptions/PinterestException.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/opera/index.php",
-		"/run/user/1000/gvfs/sftp:host=domo,user=root/etc/pilight/tzdata.json",
-		"/home/dirk/github/jQuery-viewport-checker/dist/jquery.viewportchecker.min.js",
-		"/home/dirk/github/jQuery-viewport-checker/src/jquery.viewportchecker.js",
-		"/home/dirk/.cache/.fr-10hbQq/jQuery-viewport-checker-1.8.6/dist/jquery.viewportchecker.min.js",
-		"/home/dirk/.cache/.fr-ao6hFK/jQuery-viewport-checker-1.8.6/src/jquery.viewportchecker.js",
-		"/home/dirk/.cache/.fr-91J6Dy/jQuery-viewport-checker-1.8.6/src/jquery.viewportchecker.js",
-		"/home/dirk/.cache/.fr-MUFZ1w/jQuery-viewport-checker-1.8.6/dist/jquery.viewportchecker.min.js"
+		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/vendor/dirkgroenen/pinterest-api-php/src/Pinterest/Utils/CurlBuilder.php"
 	],
 	"find":
 	{
@@ -722,6 +718,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"playingtrack = ",
+			"focuss",
+			"performsearch()",
+			"refer",
+			".refer",
+			"focussearch",
+			"search",
 			"authorize",
 			"play:",
 			"tracklist",
@@ -842,13 +845,7 @@
 			"build/css",
 			".css",
 			"server",
-			"uglify",
-			"nghtml",
-			"ngHtml2Js",
-			"express",
-			"/dist",
-			"'),\n",
-			"remove"
+			"uglify"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -970,6 +967,106 @@
 		"selected_items":
 		[
 			[
+				"searchtmpl",
+				"app/search/search.tmpl.html"
+			],
+			[
+				"playlistser",
+				"app/services/playlistmanager.service.js"
+			],
+			[
+				"serachcon",
+				"app/search/search.controller.js"
+			],
+			[
+				"app",
+				"app/app.js"
+			],
+			[
+				"mopidys",
+				"app/services/mopidy.service.js"
+			],
+			[
+				"playercon",
+				"app/player/controls/controls.controller.js"
+			],
+			[
+				"controlrighttm",
+				"app/player/controls/controls.right.tmpl.html"
+			],
+			[
+				"playercontr",
+				"app/player/player.controller.js"
+			],
+			[
+				"a",
+				"app/app.js"
+			],
+			[
+				"queue",
+				"app/services/queuemanager.service.js"
+			],
+			[
+				"trackdirectivetmpl",
+				"app/directives/track.directive.tmpl.html"
+			],
+			[
+				"tracktmpl",
+				"app/music/tracklist/tracklist.tmpl.html"
+			],
+			[
+				"trackdire",
+				"app/directives/track.directive.js"
+			],
+			[
+				"tracklistcon",
+				"app/music/tracklist/tracklist.controller.js"
+			],
+			[
+				"tracklisttmpl",
+				"app/music/tracklist/tracklist.tmpl.html"
+			],
+			[
+				"mopidyservice",
+				"app/services/mopidy.service.js"
+			],
+			[
+				"styles",
+				"css/50-style.css"
+			],
+			[
+				"stylecs",
+				"css/50-style.css"
+			],
+			[
+				"index",
+				"index.html"
+			],
+			[
+				"searchmenu",
+				"app/search/menu.tmpl.html"
+			],
+			[
+				"searchcontr",
+				"app/search/search.controller.js"
+			],
+			[
+				"mopidyser",
+				"app/services/mopidy.service.js"
+			],
+			[
+				"syncs",
+				"app/services/sync.service.js"
+			],
+			[
+				"auto",
+				"app/services/autoupdate.service.js"
+			],
+			[
+				"queuema",
+				"app/services/queuemanager.service.js"
+			],
+			[
 				"mopifyini",
 				"mopidy_mopify/services/__init__.py"
 			],
@@ -986,10 +1083,6 @@
 				"src/app/services/spotify.service.js"
 			],
 			[
-				"app",
-				"src/app/app.js"
-			],
-			[
 				"spotifys",
 				"src/app/services/spotify.service.js"
 			],
@@ -1000,10 +1093,6 @@
 			[
 				"menutmpl",
 				"src/app/search/menu.tmpl.html"
-			],
-			[
-				"searchtmpl",
-				"src/app/search/search.tmpl.html"
 			],
 			[
 				"albumdiretm",
@@ -1048,10 +1137,6 @@
 			[
 				"playercontro",
 				"src/app/player/player.controller.js"
-			],
-			[
-				"mopidyser",
-				"src/app/services/mopidy.service.js"
 			],
 			[
 				"artistditmpl",
@@ -1274,20 +1359,12 @@
 				"src/app/components/scheduler/calendar/calendar.controller.js"
 			],
 			[
-				"trackdire",
-				"src/app/components/music/lists/tracklist/track/track.directive.js"
-			],
-			[
 				"contextmenudire",
 				"src/app/components/contextmenu/contextmenu.directive.js"
 			],
 			[
 				"contxtmtmpl",
 				"src/app/components/music/collection/contextmenu.tmpl.html"
-			],
-			[
-				"tracktmpl",
-				"src/app/components/music/lists/tracklist/track/track.tmpl.html"
 			],
 			[
 				"dayblockdi",
@@ -1400,86 +1477,6 @@
 			[
 				"schedu",
 				"src/app/components/scheduler/scheduler.tmpl.html"
-			],
-			[
-				"trackscs",
-				"src/app/components/music/lists/tracklist/track/track.scss"
-			],
-			[
-				"songmode",
-				"src/app/models/song.model.js"
-			],
-			[
-				"playerscs",
-				"src/app/components/music/player/player.scss"
-			],
-			[
-				"playerser",
-				"src/app/components/music/player/player.service.js"
-			],
-			[
-				"traklistdire",
-				"src/app/components/music/lists/tracklist/tracklist.directive.js"
-			],
-			[
-				"tiledire",
-				"src/app/components/music/grids/albumgrid/album/tile.directive.js"
-			],
-			[
-				"queuetmpl",
-				"src/app/components/music/player/queue/queue.tmpl.html"
-			],
-			[
-				"tracklistdire",
-				"src/app/components/music/lists/tracklist/tracklist.directive.js"
-			],
-			[
-				"tracklisttmpl",
-				"src/app/components/music/lists/tracklist/tracklist.tmpl.html"
-			],
-			[
-				"inexrun",
-				"src/app/index.run.js"
-			],
-			[
-				"indexmod",
-				"src/app/index.module.js"
-			],
-			[
-				"indexjs",
-				"src/app/interceptors/index.js"
-			],
-			[
-				"indexrun",
-				"src/app/index.run.js"
-			],
-			[
-				"playercon",
-				"src/app/components/music/player/player.controller.js"
-			],
-			[
-				"playerobj",
-				"src/app/components/music/player/audio/audio.object.js"
-			],
-			[
-				"audioobj",
-				"src/app/components/music/player/audio/audio.object.js"
-			],
-			[
-				"collecitonapi",
-				"src/app/components/music/collection/collection.api.js"
-			],
-			[
-				"favapi",
-				"src/app/components/music/favorites/favorites.api.js"
-			],
-			[
-				"favseri",
-				"src/app/components/music/favorites/favorites.service.js"
-			],
-			[
-				"collectionser",
-				"src/app/components/music/collection/collection.service.js"
 			]
 		],
 		"width": 0.0

@@ -113,6 +113,11 @@ angular.module('mopify.search', [
         }).then(function(data){
             // Perform local search and put at beginning of playlist array
             var localLists = PlaylistManager.search($scope.query);
+
+            if(data.playlists === undefined){
+                data.playlists = {items: []};
+            }
+
             data.playlists.items = localLists.concat(data.playlists.items);
 
             $scope.results.artists = data.artists;
