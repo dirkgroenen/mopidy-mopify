@@ -12,7 +12,7 @@ angular.module("mopify.services.queuemanager", [
 
     // Get mopidy ip and post
     var mopidyip = Settings.get("mopidyip", $location.host());
-    var mopidyport = Settings.get("mopidyport", "6680");
+    var mopidyport = Settings.get("mopidyport", $location.port());
 
     // Setup websoclet
     var protocol = (typeof document !== "undefined" && document.location.protocol === "https:") ? "wss://" : "ws://";
@@ -20,7 +20,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Send a request to the server's queuemanager class
-     * 
+     *
      * @param  {string} method
      * @param  {data} data
      * @return {Promise}
@@ -57,7 +57,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Loops through the waitlist and recalls all requests
-     * 
+     *
      * @return {void}
      */
     function handleWaitlist(){
@@ -78,7 +78,7 @@ angular.module("mopify.services.queuemanager", [
         this.shuffle = false;
         this.playlist = [];
         this.queue =
-        
+
         // Setup websocket
         this.setupWebsocket();
 
@@ -103,7 +103,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Setup all the data needed for the websocket communication
-     * 
+     *
      * @return {void}
      */
     QueueManager.prototype.setupWebsocket = function(){
@@ -126,9 +126,9 @@ angular.module("mopify.services.queuemanager", [
             var response = angular.fromJson(evt.data);
 
             if(response.id !== undefined){
-                // Resolve 
+                // Resolve
                 requests[response.id].resolve(response.call);
-                
+
                 // Set version if included with response
                 if(response.call.version !== undefined){
                     that.version = response.call.version;
@@ -139,7 +139,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Load all data and set in the QueueManager class
-     * 
+     *
      * @return {void}
      */
     QueueManager.prototype.loadData = function(){
@@ -156,7 +156,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Get all data
-     * 
+     *
      * @return {Promise}
      */
     QueueManager.prototype.all = function(){
@@ -165,7 +165,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Get the queue
-     * 
+     *
      * @return {Promise}
      */
     QueueManager.prototype.queue = function(){
@@ -174,7 +174,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Get the playlist
-     * 
+     *
      * @return {Promise}
      */
     QueueManager.prototype.playlist = function(){
@@ -183,7 +183,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Get the shuffle boolean
-     * 
+     *
      * @return {Promise}
      */
     QueueManager.prototype.getShuffle = function(){
@@ -202,7 +202,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Set the given tracks as playnext
-     * 
+     *
      * @param  {Array} tracks
      * @return {Promise}
      */
@@ -222,7 +222,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Add the given tracks to the queue
-     * 
+     *
      * @param  {Array} tracks
      * @return {Promise}
      */
@@ -245,10 +245,10 @@ angular.module("mopify.services.queuemanager", [
 
         return deferred.promise;
     };
-    
+
     /**
      * Remove the given tlids from the queue and playlist
-     * 
+     *
      * @param  {Array} tlids
      * @return {Promise}
      */
@@ -269,7 +269,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Replace the queue and/or playlist with the given tracks
-     * 
+     *
      * @param  {Object} data      (object with queue and/or playlist)
      * @return {Promise}
      */
@@ -301,7 +301,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Set the given tracks as the current playlist
-     * 
+     *
      * @param  {Array} tracks
      * @return {Promise}
      */
@@ -321,7 +321,7 @@ angular.module("mopify.services.queuemanager", [
 
     /**
      * Set shuffle value
-     * 
+     *
      * @param  {Boolean} shuffle
      * @param  {Array} tracks
      * @return {Promise}

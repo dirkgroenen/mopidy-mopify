@@ -1,4 +1,4 @@
-angular.module("mopify.services.autoupdate", [
+    angular.module("mopify.services.autoupdate", [
     "mopify.services.settings"
 ])
 
@@ -8,7 +8,7 @@ angular.module("mopify.services.autoupdate", [
     var canupdate = false;
 
     var mopidyip = Settings.get("mopidyip", $location.host());
-    var mopidyport = Settings.get("mopidyport", "6680");
+    var mopidyport = Settings.get("mopidyport", $location.port());
 
     function AutoUpdate(){
         this.autoupdate = Settings.get("autoupdate", false);
@@ -54,7 +54,7 @@ angular.module("mopify.services.autoupdate", [
         }
         else{
             deferred.reject({"response": "Can't update since Mopidy isn't running as root."});
-        }  
+        }
 
         return deferred.promise;
     };
