@@ -567,12 +567,27 @@
 	[
 		"/home/dirk/github/mopidy-mopify/src",
 		"/home/dirk/github/mopidy-mopify/src/app",
+		"/home/dirk/github/mopidy-mopify/src/app/services",
+		"/home/dirk/github/mopidy-mopify/src/vendor",
+		"/home/dirk/github/mopidy-mopify/src/vendor/angular-spotify",
+		"/home/dirk/github/mopidy-mopify/src/vendor/angular-spotify/src",
 		"/home/dirk/github/mopidy-mopify/mopidy_mopify",
 		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services",
 		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/sync"
 	],
 	"file_history":
 	[
+		"/home/dirk/github/mopidy-mopify/README.md",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/__init__.py",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/__init__.py",
+		"/home/dirk/github/mopidy-mopify/src/app/app.js",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/sync/sync.py",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/queuemanager/frontend.py",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/queuemanager/core.py",
+		"/home/dirk/github/mopidy-mopify/src/app/services/spotify.service.js",
+		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/mopify/auth/spotify/callback/index.php",
+		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/mopify/auth/spotify/frame/index.php",
+		"/home/dirk/github/mopidy-mopify/package.json",
 		"/home/dirk/github/mopidy-mopify/src/app/search/search.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/search/menu.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/search/search.controller.js",
@@ -582,7 +597,6 @@
 		"/home/dirk/github/mopidy-mopify/src/app/music/artist/artist.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/music/library/albums/albums.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/modals/playlistselect.tmpl.html",
-		"/home/dirk/github/mopidy-mopify/README.md",
 		"/home/dirk/github/mopidy-mopify/src/css/50-style.css",
 		"/home/dirk/github/mopidy-mopify/src/app/player/player.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/services/mopidy.service.js",
@@ -593,8 +607,6 @@
 		"/home/dirk/github/mopidy-mopify/src/app/directives/playlist.directive.js",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/stoppropagation.directive.js",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/focusme.directive.js",
-		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/sync/sync.py",
-		"/home/dirk/github/mopidy-mopify/mopidy_mopify/__init__.py",
 		"/home/dirk/github/mopidy-mopify/mopify.sublime-project",
 		"/home/dirk/github/bopster/sync-frontend/src/app/components/scheduler/editor/editor.scss",
 		"/home/dirk/github/bopster/sync-frontend/src/app/components/scheduler/calendar/calendar.api.js",
@@ -692,15 +704,7 @@
 		"/home/dirk/.cache/.fr-10hbQq/jQuery-viewport-checker-1.8.6/dist/jquery.viewportchecker.min.js",
 		"/home/dirk/.cache/.fr-ao6hFK/jQuery-viewport-checker-1.8.6/src/jquery.viewportchecker.js",
 		"/home/dirk/.cache/.fr-91J6Dy/jQuery-viewport-checker-1.8.6/src/jquery.viewportchecker.js",
-		"/home/dirk/.cache/.fr-MUFZ1w/jQuery-viewport-checker-1.8.6/dist/jquery.viewportchecker.min.js",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/user/registration/registration.service.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/user/registration/registration.directive.coffee",
-		"/home/dirk/github/bopster/sync/public/views/user/registration/modal.html",
-		"/home/dirk/github/bopster/sync/app/assets/stylesheets/modules/_user_registration_modal.sass",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/user/registration/registration.controller.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/application.main.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/user/registration/registration.routes.coffee",
-		"/home/dirk/github/bopster/sync/app/assets/javascripts/angular_files/components/lists/lists.routes.coffee"
+		"/home/dirk/.cache/.fr-MUFZ1w/jQuery-viewport-checker-1.8.6/dist/jquery.viewportchecker.min.js"
 	],
 	"find":
 	{
@@ -718,6 +722,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"authorize",
 			"play:",
 			"tracklist",
 			"'",
@@ -964,6 +969,30 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"mopifyini",
+				"mopidy_mopify/services/__init__.py"
+			],
+			[
+				"queuepy",
+				"mopidy_mopify/services/queuemanager/frontend.py"
+			],
+			[
+				"appj",
+				"src/app/app.js"
+			],
+			[
+				"spotify",
+				"src/app/services/spotify.service.js"
+			],
+			[
+				"app",
+				"src/app/app.js"
+			],
+			[
+				"spotifys",
+				"src/app/services/spotify.service.js"
+			],
 			[
 				"searchcon",
 				"src/app/search/search.controller.js"
@@ -1451,30 +1480,6 @@
 			[
 				"collectionser",
 				"src/app/components/music/collection/collection.service.js"
-			],
-			[
-				"tracklistcon",
-				"src/app/components/music/lists/tracklist/tracklist.controller.js"
-			],
-			[
-				"tracklsicon",
-				"src/app/components/music/lists/tracklist/tracklist.controller.js"
-			],
-			[
-				"favoriteser",
-				"src/app/components/music/favorites/favorites.service.js"
-			],
-			[
-				"artistover",
-				"src/app/components/music/artist/overview/overview.tmpl.html"
-			],
-			[
-				"trackcontext",
-				"src/app/components/music/lists/tracklist/track/contextmenu.tmpl.html"
-			],
-			[
-				"favoriapi",
-				"src/app/components/music/favorites/favorites.api.js"
 			]
 		],
 		"width": 0.0

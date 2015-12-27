@@ -35,11 +35,15 @@ angular.module('mopify.search', [
   'stationservice',
   'util',
   'Settings',
-  function SearchController($rootScope, $scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, stationservice, util, Settings) {
-    $scope.query = $routeParams.query;
+  'PlaylistManager',
+  function SearchController($rootScope, $scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, stationservice, util, Settings, PlaylistManager) {
+    $scope.$watch(function () {
+      return $routeParams.query;
+    }, function (val) {
+      $scope.query = val;
+      $scope.typing();
+    });
     var typingTimeout = null;
-    // Set focus on input
-    $rootScope.focussearch = true;
     // Define empty result scope
     $scope.results = {
       artists: [],
@@ -64,7 +68,7 @@ angular.module('mopify.search', [
      */
     $scope.typing = function (event) {
       // Close the search overlay on ESC press
-      if (event.keyCode === 27)
+      if (event !== undefined && event.keyCode === 27)
         $scope.closeSearch();
       if ($scope.query.trim().length === 0 || $scope.query === previousQuery)
         return;
@@ -99,6 +103,9 @@ angular.module('mopify.search', [
         market: Settings.get('country', 'US'),
         limit: '50'
       }).then(function (data) {
+        // Perform local search and put at beginning of playlist array
+        var localLists = PlaylistManager.search($scope.query);
+        data.playlists.items = localLists.concat(data.playlists.items);
         $scope.results.artists = data.artists;
         $scope.results.albums = data.albums;
         $scope.results.playlists = data.playlists;
@@ -121,6 +128,8 @@ angular.module('mopify.search', [
         resultsloaded++;
         if (resultsloaded == 2)
           getTopMatchingResult($scope.query, $scope.results);
+        // Put focus on search
+        $rootScope.focussearch = true;
       });
     };
     // Run on load
@@ -265,8 +274,12 @@ angular.module('mopify.search', [
       if ($scope.query === undefined)
         return;
       if ($scope.query.trim().length > 0 && $scope.query !== previous) {
-        $location.url('/search?query=' + $scope.query + '&refer=' + $location.url());
-        $scope.query = '';
+        var refer;
+        if ($location.url().indexOf('/search') > -1)
+          refer = $routeParams.refer;
+        else
+          refer = $location.url();
+        $location.url('/search?query=' + $scope.query + '&refer=' + refer);
       }
       previous = $scope.query;
     };
@@ -279,6 +292,11 @@ angular.module('mopify.search', [
         event.preventDefault();
         $rootScope.focussearch = true;
       }
+    });
+    $scope.$watch(function () {
+      return $routeParams.query;
+    }, function (val) {
+      $scope.query = val;
     });
   }
 ]);

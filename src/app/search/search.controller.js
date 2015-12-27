@@ -27,13 +27,16 @@ angular.module('mopify.search', [
     });
 })
 
-.controller("SearchController", function SearchController($rootScope, $scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, stationservice, util, Settings){
+.controller("SearchController", function SearchController($rootScope, $scope, $routeParams, $route, $timeout, $location, Spotify, SpotifyLogin, mopidyservice, stationservice, util, Settings, PlaylistManager){
 
-    $scope.query = $routeParams.query;
+    $scope.$watch(function() {
+        return $routeParams.query;
+    }, function(val) {
+        $scope.query = val;
+        $scope.typing();
+    });
+
     var typingTimeout = null;
-
-    // Set focus on input
-    $rootScope.focussearch = true;
 
     // Define empty result scope
     $scope.results = {
@@ -64,7 +67,7 @@ angular.module('mopify.search', [
      */
     $scope.typing = function(event){
         // Close the search overlay on ESC press
-        if(event.keyCode === 27)
+        if(event !== undefined && event.keyCode === 27)
             $scope.closeSearch();
 
         if($scope.query.trim().length === 0 || $scope.query === previousQuery)
@@ -108,6 +111,10 @@ angular.module('mopify.search', [
             market: Settings.get("country", "US"),
             limit: "50"
         }).then(function(data){
+            // Perform local search and put at beginning of playlist array
+            var localLists = PlaylistManager.search($scope.query);
+            data.playlists.items = localLists.concat(data.playlists.items);
+
             $scope.results.artists = data.artists;
             $scope.results.albums = data.albums;
             $scope.results.playlists = data.playlists;
@@ -134,6 +141,9 @@ angular.module('mopify.search', [
             resultsloaded++;
             if(resultsloaded == 2)
                 getTopMatchingResult($scope.query, $scope.results);
+
+            // Put focus on search
+            $rootScope.focussearch = true;
         });
     };
 
@@ -294,8 +304,14 @@ angular.module('mopify.search', [
             return;
 
         if($scope.query.trim().length > 0 && $scope.query !== previous){
-            $location.url("/search?query=" + $scope.query + "&refer=" + $location.url());
-            $scope.query = "";
+            var refer;
+
+            if($location.url().indexOf("/search") > -1)
+                refer = $routeParams.refer;
+            else
+                refer = $location.url();
+
+            $location.url("/search?query=" + $scope.query + "&refer=" + refer);
         }
 
         previous = $scope.query;
@@ -311,6 +327,12 @@ angular.module('mopify.search', [
             event.preventDefault();
             $rootScope.focussearch = true;
         }
+    });
+
+    $scope.$watch(function() {
+        return $routeParams.query;
+    }, function(val) {
+        $scope.query = val;
     });
 
 });

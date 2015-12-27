@@ -39,10 +39,13 @@ angular.module('mopify.widgets.directive.track', [
         // Set scope.$id in track object
         scope.track.id = scope.$id;
         // Set custom http link property
-        scope.track.http_uri = 'https://open.spotify.com/track/' + scope.track.uri.split(':')[2];
+        if (scope.track.uri)
+          scope.track.http_uri = 'https://open.spotify.com/track/' + scope.track.uri.split(':')[2];
+        else
+          scope.track.http_uri = false;
         /**
              * For some reason the scope.track.id get's replaced at some moment
-             * this $watch needs to keep track if this habbit and set the track's id 
+             * this $watch needs to keep track if this habbit and set the track's id
              * to it's previous value
              *
              * TODO: Search for a reason why this is happening
@@ -110,7 +113,7 @@ angular.module('mopify.widgets.directive.track', [
             scope.selected = false;
         }, true);
         /*
-             * Play the track            
+             * Play the track
              */
         scope.play = function () {
           var clickedindex = 0;

@@ -855,7 +855,7 @@ angular.module("directives/track.directive.tmpl.html", []).run(["$templateCache"
     "\n" +
     "    <div class=\"row\" ng-class=\"{'nowplaying': ($parent.currentPlayingTrack.uri == track.uri)}\">\n" +
     "        <div class=\"col-sm-4 col-xs-12 name\">\n" +
-    "            {{ track.name }} \n" +
+    "            {{ track.name }}\n" +
     "        </div>\n" +
     "        <div class=\"col-sm-3 col-xs-6 artists\">\n" +
     "            <span ng-bind-html=\"artistsString()\"></span>\n" +
@@ -900,10 +900,10 @@ angular.module("directives/track.directive.tmpl.html", []).run(["$templateCache"
     "            {{ (trackAlreadySaved) ? 'Remove track from library' : 'Save track in library' }}\n" +
     "        </li>\n" +
     "        <li class=\"divider\"></li>\n" +
-    "        <li class=\"clip-text\" data-clipboard-text=\"{{ track.uri }}\" ng-hide=\"multipleselected\">\n" +
+    "        <li class=\"clip-text\" data-clipboard-text=\"{{ track.uri }}\" ng-hide=\"multipleselected\" ng-if=\"track.uri\">\n" +
     "            Copy Spotify URI\n" +
     "        </li>\n" +
-    "        <li class=\"clip-text\" data-clipboard-text=\"{{ track.http_uri }}\" ng-hide=\"multipleselected\">\n" +
+    "        <li class=\"clip-text\" data-clipboard-text=\"{{ track.http_uri }}\" ng-hide=\"multipleselected\" ng-if=\"track.http_uri\">\n" +
     "            Copy HTTP Link\n" +
     "        </li>\n" +
     "    </ul>\n" +

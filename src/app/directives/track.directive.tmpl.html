@@ -7,7 +7,7 @@
 
     <div class="row" ng-class="{'nowplaying': ($parent.currentPlayingTrack.uri == track.uri)}">
         <div class="col-sm-4 col-xs-12 name">
-            {{ track.name }} 
+            {{ track.name }}
         </div>
         <div class="col-sm-3 col-xs-6 artists">
             <span ng-bind-html="artistsString()"></span>
@@ -52,10 +52,10 @@
             {{ (trackAlreadySaved) ? 'Remove track from library' : 'Save track in library' }}
         </li>
         <li class="divider"></li>
-        <li class="clip-text" data-clipboard-text="{{ track.uri }}" ng-hide="multipleselected">
+        <li class="clip-text" data-clipboard-text="{{ track.uri }}" ng-hide="multipleselected" ng-if="track.uri">
             Copy Spotify URI
         </li>
-        <li class="clip-text" data-clipboard-text="{{ track.http_uri }}" ng-hide="multipleselected">
+        <li class="clip-text" data-clipboard-text="{{ track.http_uri }}" ng-hide="multipleselected" ng-if="track.http_uri">
             Copy HTTP Link
         </li>
     </ul>
