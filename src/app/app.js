@@ -92,9 +92,6 @@ angular.module('mopify', [
         mopidyservice.getCurrentTrack().then(function(track){
             updateTitle(track);
         });
-
-        // Set consume mode on
-        mopidyservice.setConsume();
     });
 
     // Listen for messages
