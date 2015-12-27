@@ -38,7 +38,7 @@ angular.module('mopify.music.tracklist', [
     // Check mopidy state and call loadtracks function
     $scope.$on("mopidy:state:online", loadTracks);
     $scope.$on("mopidy:state:online", loadCurrentTrack);
-    
+
     // Load tracks when connected
     if(mopidyservice.isConnected){
         loadTracks();
@@ -58,7 +58,7 @@ angular.module('mopify.music.tracklist', [
     }
 
     if(uri.indexOf(":album:") > -1){
-        $scope.type = "Album";    
+        $scope.type = "Album";
 
         $scope.albumAlreadySaved = false;
 
@@ -80,7 +80,7 @@ angular.module('mopify.music.tracklist', [
     }
 
     if(uri.indexOf("mopidy:current") > -1){
-        $scope.type = "tracklist";    
+        $scope.type = "tracklist";
         $scope.coverImage = "./assets/images/tracklist-header.jpg";
 
         // Load tracks when queuemanager version changes
@@ -92,7 +92,7 @@ angular.module('mopify.music.tracklist', [
     }
 
     if(uri.indexOf("spotify:library:songs") > -1){
-        $scope.type = "My Music - Songs";    
+        $scope.type = "My Music - Songs";
         $scope.coverImage = "./assets/images/tracklist-header.jpg";
     }
 
@@ -123,7 +123,7 @@ angular.module('mopify.music.tracklist', [
 
     // Load the user's library tracks if the type equals songs
     if($scope.type == "My Music - Songs"){
-        
+
         $rootScope.$on("mopify:spotify:connected", function(){
             loadSpotifyLibraryTracks();
         });
@@ -170,7 +170,7 @@ angular.module('mopify.music.tracklist', [
         if(uri.indexOf("spotify:") > -1){
             mopidyservice.lookup(uri).then(function(response){
                 var tracks = response[uri];
-                
+
                 // Check if the $scope.tracks contains loading tracks
                 var loadingTracks = false;
 
@@ -214,7 +214,7 @@ angular.module('mopify.music.tracklist', [
             Spotify.getPlaylist(ownerid, playlistid).then(function(data){
                 $scope.coverImage = data.images[0].url;
                 $scope.name = data.name + " from " + data.owner.id;
-            });    
+            });
 
             // Check if user is following the playlist
             $scope.followingPlaylist = false;
@@ -241,7 +241,7 @@ angular.module('mopify.music.tracklist', [
             $scope.currentPlayingTrack = track;
         });
 
-        // Update information on a new track 
+        // Update information on a new track
         $scope.$on('mopidy:event:trackPlaybackEnded', function(event, data) {
             if(data.tl_track !== undefined)
                 $scope.currentPlayingTrack = data.tl_track.track;
@@ -254,7 +254,7 @@ angular.module('mopify.music.tracklist', [
 
     /**
      * Load the user's Spotify Library tracks
-     * 
+     *
      * @param {int} offset the offset to load the track, will be zero if not defined
      * @return {void}
      */
@@ -321,12 +321,12 @@ angular.module('mopify.music.tracklist', [
                         $scope.albumAlreadySaved = true;
                     }, function(data){
                         notifier.notify({type: "custom", template: "Something went wrong, please try again.", delay: 5000});
-                    });   
+                    });
                 }
 
             }
             else{
-                notifier.notify({type: "custom", template: "Can't add album. Are you connected with Spotify?", delay: 5000});   
+                notifier.notify({type: "custom", template: "Can't add album. Are you connected with Spotify?", delay: 5000});
             }
         }
     };
@@ -355,12 +355,12 @@ angular.module('mopify.music.tracklist', [
                         $scope.followingPlaylist = true;
                     }, function(data){
                         notifier.notify({type: "custom", template: "Something went wrong, please try again.", delay: 5000});
-                    });   
+                    });
                 }
 
             }
             else{
-                notifier.notify({type: "custom", template: "Can't follow playlist. Are you connected with Spotify?", delay: 5000});   
+                notifier.notify({type: "custom", template: "Can't follow playlist. Are you connected with Spotify?", delay: 5000});
             }
         }
     };
@@ -407,7 +407,7 @@ angular.module('mopify.music.tracklist', [
         if($scope.loadedTracks.length > (tracksPerCall * callRun)){
             var current = $scope.tracks;
             var toAdd = $scope.loadedTracks.slice((callRun * tracksPerCall), (callRun * tracksPerCall) + tracksPerCall);
-            
+
             $scope.tracks = current.concat(toAdd);
 
             callRun++;
@@ -416,7 +416,7 @@ angular.module('mopify.music.tracklist', [
 
     /**
      * Reset the track loading batch value to their start values
-     * 
+     *
      * @return {void}
      */
     function resetTrackBatchLoading(){
