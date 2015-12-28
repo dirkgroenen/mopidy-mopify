@@ -2,11 +2,12 @@
 <html ng-app="mopify" ng-controller="AppController">
     <head>
         <title ng-bind-template="&#9654; {{ pageTitle }}">Mopify</title>
-        
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
 
         <meta name="version" content="<%= version %>">
 
@@ -15,8 +16,8 @@
 
         <link href="assets/images/favicon.ico" rel="icon" type="image/x-icon" />
 
-        <% styles.forEach( function ( file ) { %> 
-        <link rel="stylesheet" type="text/css" href="<%= file %>" /> <% 
+        <% styles.forEach( function ( file ) { %>
+        <link rel="stylesheet" type="text/css" href="<%= file %>" /> <%
         }); %>
 
         <link rel="manifest" href="assets/manifest.json">
@@ -24,7 +25,7 @@
 
     <body>
 
-        <!-- Main application --> 
+        <!-- Main application -->
         <div id="application" class="fullheight">
             <div class="container-fluid fullheight">
                 <div class="row fullheight">
@@ -35,7 +36,7 @@
                             <ng-include src="'music/menu.tmpl.html'"></ng-include>
                             <ng-include src="'account/menu.tmpl.html'"></ng-include>
                         </div>
-                        
+
                         <ng-include src="'account/services/services.menu.tmpl.html'"></ng-include>
                     </div>
 
@@ -54,8 +55,8 @@
         </div>
 
         <!-- Grunt will handle this part -->
-        <% scripts.forEach( function ( file ) { %> 
-        <script type="text/javascript" src="<%= file %>"></script> <% 
+        <% scripts.forEach( function ( file ) { %>
+        <script type="text/javascript" src="<%= file %>"></script> <%
         }); %>
 
         <script>
