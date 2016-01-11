@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"var",
+				"var_dump"
+			],
+			[
 				"local",
 				"localLists"
 			],
@@ -510,15 +514,22 @@
 			[
 				"nowpla",
 				"nowplaying"
-			],
-			[
-				"nowpl",
-				"nowplaying"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"contents": "<?php\n\n/**\n * SieveRules configuration file\n */\n\n// managesieve server address\n// The host can contain the following macros that will be expanded as follows:\n// %n - hostname ($_SERVER['SERVER_NAME'])\n// %t - hostname without the first part\n// %d - domain (http hostname $_SERVER['HTTP_HOST'] without the first part)\n// %s - domain name after the '@' from e-mail address provided at login screen\n// For example %n = mail.domain.tld, %t = domain.tld\n$config['sieverules_host'] = 'localhost';\n\n// managesieve server port\n$config['sieverules_port'] = 4190;\n\n// Log managesieve conversation to <log_dir>/sieverules or to syslog\n$config['sieverules_debug'] = false;\n\n// authentication method. Can be CRAM-MD5, DIGEST-MD5, PLAIN, LOGIN, EXTERNAL\n// or none. Optional, defaults to best method supported by server.\n$config['sieverules_auth_type'] = null;\n\n// optional managesieve authentication identifier to be used as authorization proxy,\n// authenticate as a different user but act on behalf of the logged in user,\n// works with PLAIN and DIGEST-MD5 auth.\n$config['sieverules_auth_cid'] = null;\n\n// optional managesieve authentication password to be used for sieverules_auth_cid\n$config['sieverules_auth_pw'] = null;\n\n// enable TLS for managesieve server connection\n$config['sieverules_usetls'] = FALSE;\n\n// Connection context options\n// See http://php.net/manual/en/context.ssl.php\n// The example below enables server certificate validation\n// $config['sieverules_conn_options'] = array(\n//   'ssl'         => array(\n//     'verify_peer'  => true,\n//     'verify_depth' => 3,\n//     'cafile'       => '/etc/openssl/certs/ca.crt',\n//   )\n// );\n$config['sieverules_conn_options'] = null;\n\n// folder delimiter - if your sieve system uses a different folder delimiter to\n// your IMAP server set it here, otherwise leave as null to use IMAP delimiter\n$config['sieverules_folder_delimiter'] = null;\n\n// Sieve RFC says that we should use UTF-8 encoding for mailbox names,\n// but some implementations do not covert UTF-8 to modified UTF-7.\n// set to null for default behaviour\n$config['sieverules_folder_encoding'] = null;\n\n// include the IMAP root in the folder path when creating the rules\n// set to false to never include the IMAP root in the folder path\n// set to null for default behaviour\n$config['sieverules_include_imap_root'] = null;\n\n// ruleset name\n$config['sieverules_ruleset_name'] = 'roundcube';\n\n// allow multiple actions\n$config['sieverules_multiple_actions'] = TRUE;\n\n// allowed actions\n$config['sieverules_allowed_actions'] = array(\n											'fileinto' => TRUE,\n											'vacation' => TRUE,\n											'reject' => TRUE,\n											'redirect' => TRUE,\n											'keep' => TRUE,\n											'discard' => TRUE,\n											'imapflags' => TRUE,\n											'notify' => TRUE,\n											'stop' => TRUE,\n											'editheaderadd' => TRUE,\n											'editheaderrem' => TRUE\n											);\n\n// headers listed as examples of \"Other headers\"\n$config['sieverules_other_headers'] = array(\n											'Bcc', 'Reply-To', 'List-Id', 'MailingList', 'Mailing-List',\n											'X-ML-Name', 'X-List', 'X-List-Name', 'X-Mailing-List',\n											'Resent-From', 'Resent-To', 'X-Mailer', 'X-MailingList',\n											'X-Spam-Status', 'X-Priority', 'Importance', 'X-MSMail-Priority',\n											'Precedence', 'Return-Path', 'Received', 'Auto-Submitted',\n											'X-Spam-Flag', 'X-Spam-Tests', 'Sender',\n											);\n\n// Predefined rules\n// each rule should be in it own array - examples provided in README\n// 'name' => name of the rule, displayed in the rule type select box\n// 'type' => one of: header, address, envelope, size\n// 'header' => name of the header to test\n// 'operator' => operator to use, for all possible values please see README\n// 'extra' => extra information needed for the rule in some cases\n// 'target' => value that the header is tested against\n$config['sieverules_predefined_rules'] = array();\n\n// Advanced editor\n// allows the user to edit the sieve file directly, without the restrictions of the normal UI\n// 0 - Disabled, option not shown in the UI\n// 1 - Enabled, option shown in the UI\n// 2 - Option shown in the UI and used by default\n$config['sieverules_adveditor'] = 0;\n\n// Allow users to use multiple rulesets\n$config['sieverules_multiplerules'] = FALSE;\n\n// Default (or global) sieve rule file\n$config['sieverules_default_file'] = '/etc/dovecot/sieve/default';\n\n// Auto load default sieve rule file if no rules exist and no import filters match\n$config['sieverules_auto_load_default'] = FALSE;\n\n// Example sieve rule file\n$config['sieverules_example_file'] = '/etc/dovecot/sieve/example';\n\n// By default the \"header\" command is used for email address based tests: from/to/cc/bcc\n// to use \"address\" command instead set this option to false\n$config['sieverules_address_rules'] = FALSE;\n\n// Force the :addresses line to always be added to new vacation rules\n// Some sieve setups require that the :address part of a vacation rule is always present for the message to be sent\n// Cyrus setups need this to option set to true\n$config['sieverules_force_vacto'] = FALSE;\n\n// Limit the selection of :addresses available to only those setup in as an identity\n// Setting this to false will give the user a textbox to enter in any address(es) they like, rather than a list of checkboxes\n$config['sieverules_limit_vacto'] = TRUE;\n\n// Allow users to set the :from option when creating new vacation rules, not all servers support this option\n// If your server supports the variables extension users also have an 'auto detect' option which will detect the address to which the message was sent\n// Else the user's default identity will be used as the default value\n$config['sieverules_show_vacfrom'] = FALSE;\n\n// Allow users to set the :handle option when creating new vacation rules, not all servers support this option\n$config['sieverules_show_vachandle'] = FALSE;\n\n// The rule file can be written as one IF/ELSIF statement or as a series of unrelated IF statements\n// TRUE - one IF/ELSIF statement\n// FALSE - a series of unrelated IF statements (default)\n$config['sieverules_use_elsif'] = FALSE;\n\n// Fileinto action options\n// 0 - List only subscribed folders\n// 1 - List subscribed and unsubscribed folders\n// 2 - List subscribed and unsubscribed folders and allow users to enter a folder name (for advanced users only, requires sieve mailbox extension)\n$config['sieverules_fileinto_options'] = 0;\n\n// Define the format of the :from option value for vacation and notify actions\n// 0 - Use only the email address - :from \"user@example.com\"\n// 1 - Use the name and email address, not all servers support this option - :from \"First Last <user@example.com>\"\n$config['sieverules_from_format'] = 0;\n\n// Display a shortcut on mail screen to create a rule based on the currently selected message(s)\n// 0 - No shortcut\n// 1 - Show icon on the mail toolbar\n// 2 - Show link in the more actions menu\n$config['sieverules_shortcut'] = 0;\n\n// Display option to add new criteria to an existing rule when creating a rule from the shortcut\n$config['sieverules_rule_setup'] = FALSE;\n\n// List of additional headers to use when creating a rule from the shortcut\n$config['sieverules_additional_headers'] = array('List-Id');\n\n// Show separate interface for setting auto reply message\n// Note: sieverules_multiplerules must be set to false and sieverules_use_elsif should be set to false\n$config['sieverules_autoreply_ui'] = FALSE;\n\n// For information on customising the rule file see \"The structure of the rule file\" in the README\n\n?>",
+			"file": "/run/user/1000/gvfs/sftp:host=mail.bitlabs.nl,user=mail.bitlabsbeta.nl/var/www/mail.bitlabsbeta.nl/public/plugins/sieverules/config.inc.php",
+			"file_size": 7522,
+			"file_write_time": 130969024810000000,
+			"settings":
+			{
+				"buffer_size": 7522,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -527,10 +538,22 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 33.0,
-		"last_filter": "",
+		"height": 54.0,
+		"last_filter": "build mark",
 		"selected_items":
 		[
+			[
+				"build mark",
+				"Build With: Markdown"
+			],
+			[
+				"markdown ",
+				"Build With: Markdown"
+			],
+			[
+				"packin",
+				"Package Control: Install Package"
+			],
 			[
 				"main tm",
 				"MarkdownEditing: Markdown Lint"
@@ -544,7 +567,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 449.0
+		"width": 575.0
 	},
 	"console":
 	{
@@ -567,17 +590,54 @@
 	[
 		"/home/dirk/github/mopidy-mopify/src",
 		"/home/dirk/github/mopidy-mopify/src/app",
-		"/home/dirk/github/mopidy-mopify/src/app/services",
-		"/home/dirk/github/mopidy-mopify/src/vendor/angular-spotify",
-		"/home/dirk/github/mopidy-mopify/src/vendor/angular-spotify/src"
+		"/home/dirk/github/mopidy-mopify/src/app/services"
 	],
 	"file_history":
 	[
+		"/run/user/1000/gvfs/sftp:host=mail.bitlabs.nl,user=mail.bitlabsbeta.nl/var/www/mail.bitlabsbeta.nl/public/config/config.inc.php",
+		"/run/user/1000/gvfs/sftp:host=mail.bitlabs.nl,user=dirk/var/www/mail.bitlabsbeta.nl/public/composer.json-dist",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Endpoints/Boards.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Transport/Request.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/Model.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/Board.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Auth/PinterestOAuth.php",
+		"/home/dirk/github/Pinterest-API-PHP/CHANGELOG.md",
+		"/home/dirk/github/Pinterest-API-PHP/README.md",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Pinterest.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Endpoints/Endpoint.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Endpoints/Following.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Endpoints/Pins.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Endpoints/Users.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Exceptions/InvalidEndpointException.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Exceptions/InvalidModelException.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Exceptions/PinterestException.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/Collection.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/Interest.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/Pin.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/User.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Transport/Response.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Utils/CurlBuilder.php",
+		"/home/dirk/github/Pinterest-API-PHP/.scrutinizer.yml",
+		"/home/dirk/github/Pinterest-API-PHP/.travis.yml",
+		"/home/dirk/github/Pinterest-API-PHP/tests/Pinterest/Utils/CurlBuilderMock.php",
+		"/home/dirk/github/Pinterest-API-PHP/tests/Pinterest/PinterestTest.php",
+		"/home/dirk/github/Pinterest-API-PHP/tests/Pinterest/Endpoints/AuthTest.php",
+		"/home/dirk/github/Pinterest-API-PHP/tests/Pinterest/bootstrap.php",
+		"/home/dirk/github/Pinterest-API-PHP/tests/Pinterest/responses/testGetMePinsWithExtraFields.json",
+		"/home/dirk/.config/sublime-text-3/Packages/User/Markdown.sublime-settings",
+		"/home/dirk/.config/sublime-text-3/Packages/MarkdownEditing/Markdown (Standard).sublime-settings",
+		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/callback.php",
+		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/index.php",
+		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/boot.php",
+		"/home/dirk/github/jack.spotify/index.php",
+		"/home/dirk/vagrant/github.local/puphpet/config.yaml",
+		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/jack/index.php",
+		"/home/dirk/Desktop/Track lengte voor Jack/index.html",
+		"/home/dirk/github/mopidy-mopify/src/app/search/search.controller.js",
 		"/home/dirk/github/mopidy-mopify/CHANGELOG.md",
 		"/home/dirk/github/mopidy-mopify/bower.json",
 		"/home/dirk/github/mopidy-mopify/package.json",
 		"/home/dirk/github/mopidy-mopify/src/app/search/search.tmpl.html",
-		"/home/dirk/github/mopidy-mopify/src/app/search/search.controller.js",
 		"/home/dirk/github/mopidy-mopify/src/app/services/playlistmanager.service.js",
 		"/home/dirk/github/mopidy-mopify/README.md",
 		"/home/dirk/github/mopidy-mopify/CHANGELOG.nd",
@@ -659,48 +719,9 @@
 		"/home/dirk/github/bopster/sync-frontend/src/app/components/scheduler/scheduler.tmpl.html",
 		"/home/dirk/github/bopster/sync-frontend/src/app/components/scheduler/scheduler.router.js",
 		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/genre/genre.api.js",
-		"/home/dirk/github/Pinterest-API-PHP/README.md",
 		"/home/dirk/github/janus/app/controllers/API/ExportController.php",
 		"/home/dirk/github/janus/app/assets/javascripts/controllers/07-surveycontroller.js",
-		"/home/dirk/github/janus/app/config/app.php",
-		"/home/dirk/github/janus/app/assets/javascripts/rest/98-frontcustom.js",
-		"/home/dirk/github/janus/app/assets/javascripts/controllers/04-formcontroller.js",
-		"/home/dirk/github/janus/app/assets/javascripts/rest/99-custom.js",
-		"/home/dirk/vagrant/github.local/puphpet/config.yaml",
-		"/home/dirk/github/janus/app/views/emails/invite.blade.php",
-		"/home/dirk/github/janus/bootstrap/start.php",
-		"/home/dirk/github/janus/app/database/seeds/DatabaseSeeder.php",
-		"/home/dirk/github/janus/app/config/queue.php",
-		"/home/dirk/github/janus/app/config/database.php",
-		"/home/dirk/github/janus/app/config/production/database.php",
-		"/home/dirk/github/janus/app/config/production/app.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=janus.bitlabsbeta.nl/public/app/assets/javascripts/controllers/03-tablecontroller.js",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=janus.bitlabsbeta.nl/public/bootstrap/autoload.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=janus.bitlabsbeta.nl/public/bootstrap/start.php",
-		"/run/user/1000/gvfs/sftp:host=domo,user=root/etc/pilight/config.json",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/player/player.service.js",
-		"/home/dirk/github/bopster/sync-frontend/gulp/styles.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/lists/tracklist/track/track.scss",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/lists/tracklist/tracklist.scss",
-		"/home/dirk/github/bopster/sync-frontend/src/app/models/song.model.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/player/player.scss",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/grids/albumgrid/album/tile.directive.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/lists/tracklist/tracklist.directive.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/index.module.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/player/queue/queue.tmpl.html",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/lists/tracklist/tracklist.tmpl.html",
-		"/home/dirk/github/bopster/sync-frontend/bower.json",
-		"/home/dirk/github/bopster/sync-frontend/bower_components/angular-viewport-watch/angular-viewport-watch.js",
-		"/home/dirk/github/angular-viewport-watch/README.md",
-		"/home/dirk/github/bopster/sync-frontend/src/app/index.run.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/player/player.controller.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/interceptors/index.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/player/audio/audio.object.js",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/boot.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/vendor/dirkgroenen/pinterest-api-php/src/Pinterest/Transport/Request.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/index.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/callback.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/vendor/dirkgroenen/pinterest-api-php/src/Pinterest/Utils/CurlBuilder.php"
+		"/home/dirk/github/janus/app/config/app.php"
 	],
 	"find":
 	{
@@ -718,6 +739,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"rch",
+			"->headers",
+			"getInfo",
+			"parseHeader",
+			"parseheaders",
+			"headers =",
+			"/VAR/WWW",
 			"playingtrack = ",
 			"focuss",
 			"performsearch()",
@@ -838,14 +866,7 @@
 			"vendor",
 			"devD",
 			"bower",
-			"'",
-			"directory",
-			"sass-c",
-			"css",
-			"build/css",
-			".css",
-			"server",
-			"uglify"
+			"'"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -913,8 +934,38 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/run/user/1000/gvfs/sftp:host=mail.bitlabs.nl,user=mail.bitlabsbeta.nl/var/www/mail.bitlabsbeta.nl/public/plugins/sieverules/config.inc.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7522,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								661,
+								661
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -953,6 +1004,10 @@
 	{
 		"height": 0.0
 	},
+	"output.markdown":
+	{
+		"height": 112.0
+	},
 	"pinned_build_system": "",
 	"project": "mopify.sublime-project",
 	"replace":
@@ -966,6 +1021,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"searchcontr",
+				"app/search/search.controller.js"
+			],
 			[
 				"searchtmpl",
 				"app/search/search.tmpl.html"
@@ -1045,10 +1104,6 @@
 			[
 				"searchmenu",
 				"app/search/menu.tmpl.html"
-			],
-			[
-				"searchcontr",
-				"app/search/search.controller.js"
 			],
 			[
 				"mopidyser",
