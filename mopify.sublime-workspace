@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"var",
+				"var_dump"
+			],
+			[
 				"local",
 				"localLists"
 			],
@@ -510,10 +514,6 @@
 			[
 				"nowpla",
 				"nowplaying"
-			],
-			[
-				"nowpl",
-				"nowplaying"
 			]
 		]
 	},
@@ -527,10 +527,22 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 33.0,
-		"last_filter": "",
+		"height": 54.0,
+		"last_filter": "build mark",
 		"selected_items":
 		[
+			[
+				"build mark",
+				"Build With: Markdown"
+			],
+			[
+				"markdown ",
+				"Build With: Markdown"
+			],
+			[
+				"packin",
+				"Package Control: Install Package"
+			],
 			[
 				"main tm",
 				"MarkdownEditing: Markdown Lint"
@@ -544,7 +556,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 449.0
+		"width": 575.0
 	},
 	"console":
 	{
@@ -567,30 +579,70 @@
 	[
 		"/home/dirk/github/mopidy-mopify/src",
 		"/home/dirk/github/mopidy-mopify/src/app",
-		"/home/dirk/github/mopidy-mopify/src/app/services",
-		"/home/dirk/github/mopidy-mopify/src/vendor/angular-spotify",
-		"/home/dirk/github/mopidy-mopify/src/vendor/angular-spotify/src"
+		"/home/dirk/github/mopidy-mopify/src/app/services"
 	],
 	"file_history":
 	[
+		"/run/user/1000/gvfs/sftp:host=domo,user=root/etc/pilight/config.json",
+		"/run/user/1000/gvfs/sftp:host=domo,user=root/etc/pilight/config.json.backup",
+		"/home/dirk/github/mopidy-mopify/src/app/services/queuemanager.service.js",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/queuemanager/core.py",
+		"/home/dirk/github/mopidy-mopify/src/app/services/mopidy.service.js",
+		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/queuemanager/frontend.py",
+		"/run/user/1000/gvfs/sftp:host=mail.bitlabs.nl,user=mail.bitlabsbeta.nl/var/www/mail.bitlabsbeta.nl/public/plugins/sieverules/config.inc.php",
+		"/run/user/1000/gvfs/sftp:host=mail.bitlabs.nl,user=mail.bitlabsbeta.nl/var/www/mail.bitlabsbeta.nl/public/config/config.inc.php",
+		"/run/user/1000/gvfs/sftp:host=mail.bitlabs.nl,user=dirk/var/www/mail.bitlabsbeta.nl/public/composer.json-dist",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Endpoints/Boards.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Transport/Request.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/Model.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/Board.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Auth/PinterestOAuth.php",
+		"/home/dirk/github/Pinterest-API-PHP/CHANGELOG.md",
+		"/home/dirk/github/Pinterest-API-PHP/README.md",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Pinterest.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Endpoints/Endpoint.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Endpoints/Following.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Endpoints/Pins.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Endpoints/Users.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Exceptions/InvalidEndpointException.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Exceptions/InvalidModelException.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Exceptions/PinterestException.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/Collection.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/Interest.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/Pin.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Models/User.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Transport/Response.php",
+		"/home/dirk/github/Pinterest-API-PHP/src/Pinterest/Utils/CurlBuilder.php",
+		"/home/dirk/github/Pinterest-API-PHP/.scrutinizer.yml",
+		"/home/dirk/github/Pinterest-API-PHP/.travis.yml",
+		"/home/dirk/github/Pinterest-API-PHP/tests/Pinterest/Utils/CurlBuilderMock.php",
+		"/home/dirk/github/Pinterest-API-PHP/tests/Pinterest/PinterestTest.php",
+		"/home/dirk/github/Pinterest-API-PHP/tests/Pinterest/Endpoints/AuthTest.php",
+		"/home/dirk/github/Pinterest-API-PHP/tests/Pinterest/bootstrap.php",
+		"/home/dirk/github/Pinterest-API-PHP/tests/Pinterest/responses/testGetMePinsWithExtraFields.json",
+		"/home/dirk/.config/sublime-text-3/Packages/User/Markdown.sublime-settings",
+		"/home/dirk/.config/sublime-text-3/Packages/MarkdownEditing/Markdown (Standard).sublime-settings",
+		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/callback.php",
+		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/index.php",
+		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/boot.php",
+		"/home/dirk/github/jack.spotify/index.php",
+		"/home/dirk/vagrant/github.local/puphpet/config.yaml",
+		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/jack/index.php",
+		"/home/dirk/Desktop/Track lengte voor Jack/index.html",
+		"/home/dirk/github/mopidy-mopify/src/app/search/search.controller.js",
 		"/home/dirk/github/mopidy-mopify/CHANGELOG.md",
 		"/home/dirk/github/mopidy-mopify/bower.json",
 		"/home/dirk/github/mopidy-mopify/package.json",
 		"/home/dirk/github/mopidy-mopify/src/app/search/search.tmpl.html",
-		"/home/dirk/github/mopidy-mopify/src/app/search/search.controller.js",
 		"/home/dirk/github/mopidy-mopify/src/app/services/playlistmanager.service.js",
 		"/home/dirk/github/mopidy-mopify/README.md",
 		"/home/dirk/github/mopidy-mopify/CHANGELOG.nd",
 		"/home/dirk/github/mopidy-mopify/src/app/app.js",
 		"/home/dirk/github/mopidy-mopify/src/app/player/player.controller.js",
 		"/home/dirk/github/mopidy-mopify/src/app/player/controls/controls.controller.js",
-		"/home/dirk/github/mopidy-mopify/src/app/services/mopidy.service.js",
 		"/home/dirk/github/mopidy-mopify/src/app/player/controls/controls.right.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/music/tracklist/tracklist.controller.js",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/track.directive.js",
-		"/home/dirk/github/mopidy-mopify/src/app/services/queuemanager.service.js",
-		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/queuemanager/core.py",
-		"/home/dirk/github/mopidy-mopify/mopidy_mopify/services/queuemanager/frontend.py",
 		"/home/dirk/github/mopidy-mopify/src/app/directives/track.directive.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/app/music/tracklist/tracklist.tmpl.html",
 		"/home/dirk/github/mopidy-mopify/src/css/50-style.css",
@@ -658,49 +710,7 @@
 		"/home/dirk/github/bopster/sync-frontend/src/app/models/artist.model.js",
 		"/home/dirk/github/bopster/sync-frontend/src/app/components/scheduler/scheduler.tmpl.html",
 		"/home/dirk/github/bopster/sync-frontend/src/app/components/scheduler/scheduler.router.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/genre/genre.api.js",
-		"/home/dirk/github/Pinterest-API-PHP/README.md",
-		"/home/dirk/github/janus/app/controllers/API/ExportController.php",
-		"/home/dirk/github/janus/app/assets/javascripts/controllers/07-surveycontroller.js",
-		"/home/dirk/github/janus/app/config/app.php",
-		"/home/dirk/github/janus/app/assets/javascripts/rest/98-frontcustom.js",
-		"/home/dirk/github/janus/app/assets/javascripts/controllers/04-formcontroller.js",
-		"/home/dirk/github/janus/app/assets/javascripts/rest/99-custom.js",
-		"/home/dirk/vagrant/github.local/puphpet/config.yaml",
-		"/home/dirk/github/janus/app/views/emails/invite.blade.php",
-		"/home/dirk/github/janus/bootstrap/start.php",
-		"/home/dirk/github/janus/app/database/seeds/DatabaseSeeder.php",
-		"/home/dirk/github/janus/app/config/queue.php",
-		"/home/dirk/github/janus/app/config/database.php",
-		"/home/dirk/github/janus/app/config/production/database.php",
-		"/home/dirk/github/janus/app/config/production/app.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=janus.bitlabsbeta.nl/public/app/assets/javascripts/controllers/03-tablecontroller.js",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=janus.bitlabsbeta.nl/public/bootstrap/autoload.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=janus.bitlabsbeta.nl/public/bootstrap/start.php",
-		"/run/user/1000/gvfs/sftp:host=domo,user=root/etc/pilight/config.json",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/player/player.service.js",
-		"/home/dirk/github/bopster/sync-frontend/gulp/styles.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/lists/tracklist/track/track.scss",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/lists/tracklist/tracklist.scss",
-		"/home/dirk/github/bopster/sync-frontend/src/app/models/song.model.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/player/player.scss",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/grids/albumgrid/album/tile.directive.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/lists/tracklist/tracklist.directive.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/index.module.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/player/queue/queue.tmpl.html",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/lists/tracklist/tracklist.tmpl.html",
-		"/home/dirk/github/bopster/sync-frontend/bower.json",
-		"/home/dirk/github/bopster/sync-frontend/bower_components/angular-viewport-watch/angular-viewport-watch.js",
-		"/home/dirk/github/angular-viewport-watch/README.md",
-		"/home/dirk/github/bopster/sync-frontend/src/app/index.run.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/player/player.controller.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/interceptors/index.js",
-		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/player/audio/audio.object.js",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/boot.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/vendor/dirkgroenen/pinterest-api-php/src/Pinterest/Transport/Request.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/index.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/callback.php",
-		"/run/user/1000/gvfs/sftp:host=bitlabs.nl,user=bitlabs.nl/public/pinterest/vendor/dirkgroenen/pinterest-api-php/src/Pinterest/Utils/CurlBuilder.php"
+		"/home/dirk/github/bopster/sync-frontend/src/app/components/music/genre/genre.api.js"
 	],
 	"find":
 	{
@@ -718,6 +728,18 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"tracklist.add",
+			"current",
+			"currenttl",
+			"queuemanager",
+			".insert",
+			"rch",
+			"->headers",
+			"getInfo",
+			"parseHeader",
+			"parseheaders",
+			"headers =",
+			"/VAR/WWW",
 			"playingtrack = ",
 			"focuss",
 			"performsearch()",
@@ -833,19 +855,7 @@
 			"\"",
 			"'",
 			";\n",
-			"sourcemaps",
-			"build-app-vendor",
-			"vendor",
-			"devD",
-			"bower",
-			"'",
-			"directory",
-			"sass-c",
-			"css",
-			"build/css",
-			".css",
-			"server",
-			"uglify"
+			"sourcemaps"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -953,6 +963,10 @@
 	{
 		"height": 0.0
 	},
+	"output.markdown":
+	{
+		"height": 112.0
+	},
 	"pinned_build_system": "",
 	"project": "mopify.sublime-project",
 	"replace":
@@ -966,6 +980,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"searchcontr",
+				"app/search/search.controller.js"
+			],
 			[
 				"searchtmpl",
 				"app/search/search.tmpl.html"
@@ -1045,10 +1063,6 @@
 			[
 				"searchmenu",
 				"app/search/menu.tmpl.html"
-			],
-			[
-				"searchcontr",
-				"app/search/search.controller.js"
 			],
 			[
 				"mopidyser",

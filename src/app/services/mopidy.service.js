@@ -310,33 +310,66 @@ angular.module('mopify.services.mopidy', [
         },
 
         addToTracklist: function(obj){
-            // Add the tracks at the end of the queue
-            obj.at_position = QueueManager.queue.length + 1;
+            var self = this;
+            var deferred = $q.defer();
 
-            return wrapMopidyFunc("mopidy.tracklist.add", this)(obj).then(function(tltracks){
-               // Sync with queuemanager
-                QueueManager.add(tltracks);
+            // Add the tracks at the end of the queue
+            this.getNextTrackPosition().then(function(nextPosition){
+                obj.at_position = QueueManager.queue.length + nextPosition;
+
+                self.mopidy.tracklist.add(obj).then(function(tltracks){
+                    // Sync with queuemanager
+                    QueueManager.add(tltracks);
+                    deferred.resolve();
+                });
             });
+
+            return deferred.promise;
         },
 
         getTracklist: function(){
             return wrapMopidyFunc("mopidy.tracklist.getTlTracks", this)();
         },
 
+        getNextTracklistId: function(){
+            return wrapMopidyFunc("mopidy.tracklist.getNextTlid");
+        },
+
         playNext: function(uris){
             var deferred = $q.defer();
+            var self = this;
 
             if(typeof uris === "string")
                 uris = [uris];
 
-            this.mopidy.tracklist.add({uris: uris, at_position: 1}).then(function(response){
-                // Add to QueueManager
-                QueueManager.next(response).then(function(){
-                    // Resolve
-                    deferred.resolve(response);
+            self.getNextTrackPosition().then(function(nextPosition){
+                self.mopidy.tracklist.add({uris: uris, at_position: nextPosition}).then(function(response){
+                    // Add to QueueManager
+                    QueueManager.next(response).then(function(){
+                        // Resolve
+                        deferred.resolve(response);
 
-                    // Broadcast change
-                    $rootScope.$broadcast("mopidy:event:tracklistChanged");
+                        // Broadcast change
+                        $rootScope.$broadcast("mopidy:event:tracklistChanged");
+                    });
+                });
+            });
+
+            return deferred.promise;
+        },
+
+        getNextTrackPosition: function(){
+            var deferred = $q.defer();
+            var self = this;
+
+            self.mopidy.tracklist.getNextTlid().then(function(nextTlId){
+                self.mopidy.tracklist.getTlTracks().then(function(currentTlTracks){
+
+                    var nextPosition = _.findIndex(currentTlTracks, function(i){
+                        return i.tlid == nextTlId;
+                    });
+
+                    deferred.resolve(nextPosition);
                 });
             });
 
