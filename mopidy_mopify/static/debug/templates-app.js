@@ -1493,7 +1493,7 @@ angular.module("music/tracklist/tracklist.tmpl.html", []).run(["$templateCache",
     "        <div class=\"col-md-3\" ng-show=\"type == 'tracklist'\">\n" +
     "            tracks <span class=\"sub\">Now playing</span>\n" +
     "        </div>\n" +
-    "        <div class=\"col-md-6 col-md-offset-3 alignright\">\n" +
+    "        <div class=\"col-md-9 alignright\">\n" +
     "            <div class=\"button white\" ng-click=\"toggleSaveAlbum()\" ng-show=\"type == 'Album'\">\n" +
     "                <span class=\"text\">{{ (albumAlreadySaved) ? 'Remove' : 'Save' }} album</span>\n" +
     "                <i class=\"ss-icon ss-check\" ng-show=\"!albumAlreadySaved\"></i> \n" +
