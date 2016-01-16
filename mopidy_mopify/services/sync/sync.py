@@ -13,8 +13,6 @@ class Sync(object):
     directory = ".config/mopidy-mopify"
     filename = "sync.ini"
 
-    syncfile = None
-
     # check if path exists, otherwise create it
     def __init__(self):
         if self.userhome is not None:
@@ -94,6 +92,8 @@ class RootRequestHandler(tornado.web.RequestHandler):
 class Spotify(Sync):
 
     def __init__(self):
+        Sync.__init__(self)
+
         self.syncini = ConfigObj(self.syncfile, encoding='UTF8', create_empty=True)
 
         # Check if the key exists
@@ -126,6 +126,8 @@ class Spotify(Sync):
 class TasteProfile(Sync):
 
     def __init__(self):
+        Sync.__init__(self)
+
         self.syncini = ConfigObj(self.syncfile, encoding='UTF8', create_empty=True)
 
         # Check if the key exists
@@ -157,6 +159,8 @@ class TasteProfile(Sync):
 class Clients(Sync):
 
     def __init__(self):
+        Sync.__init__(self)
+
         self.syncini = ConfigObj(self.syncfile, encoding='UTF8', create_empty=True)
 
         # Check if the key exists
@@ -193,6 +197,8 @@ class Clients(Sync):
 class Settings(Sync):
 
     def __init__(self):
+        Sync.__init__(self)
+
         self.syncini = ConfigObj(self.syncfile, encoding='UTF8', create_empty=True)
 
         # Check if the key exists
