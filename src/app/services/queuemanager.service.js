@@ -2,7 +2,7 @@ angular.module("mopify.services.queuemanager", [
     "mopify.services.settings"
 ])
 
-.factory("QueueManager", function($q, $http, $location, $rootScope, Settings){
+.factory("QueueManager", function($q, $http, $location, $rootScope, $timeout, Settings){
     "use strict";
 
     // Create request array and init the connection to false
@@ -16,7 +16,7 @@ angular.module("mopify.services.queuemanager", [
 
     // Setup websoclet
     var protocol = (typeof document !== "undefined" && document.location.protocol === "https:") ? "wss://" : "ws://";
-    var ws = new WebSocket(protocol + mopidyip + ":" + mopidyport + "/mopify/queuemanager/");
+    var ws;
 
     /**
      * Send a request to the server's queuemanager class
@@ -102,6 +102,25 @@ angular.module("mopify.services.queuemanager", [
     }
 
     /**
+     * Check the connection ready state
+     *
+     * @return {void}
+     */
+    QueueManager.prototype.checkConnectionReady = function(){
+        var self = this;
+
+        $timeout(function(){
+            if(ws.readyState === 1){
+                wsconnection = true;
+                handleWaitlist();
+            }
+            else{
+                self.checkConnectionReady();
+            }
+        }, 200);
+    };
+
+    /**
      * Setup all the data needed for the websocket communication
      *
      * @return {void}
@@ -109,16 +128,28 @@ angular.module("mopify.services.queuemanager", [
     QueueManager.prototype.setupWebsocket = function(){
         var that = this;
 
+        ws = new WebSocket(protocol + mopidyip + ":" + mopidyport + "/mopify/queuemanager/");
+
         // Wait for the websocket to be opened and set active connection
         ws.onopen = function(){
-            wsconnection = true;
-
-            handleWaitlist();
+            that.checkConnectionReady();
         };
 
         // Set connection to false on close
         ws.onclose = function(){
             wsconnection = false;
+
+            $timeout(function(){
+                that.setupWebsocket();
+            }, 2000);
+        };
+
+        ws.onerror = function(evt) {
+            wsconnection = false;
+
+            $timeout(function(){
+                that.setupWebsocket();
+            }, 2000);
         };
 
         // Handle incoming messages
