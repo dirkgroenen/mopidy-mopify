@@ -131,8 +131,6 @@ angular.module('mopify.search', [
         resultsloaded++;
         if (resultsloaded == 2)
           getTopMatchingResult($scope.query, $scope.results);
-        // Put focus on search
-        $rootScope.focussearch = true;
       });
     };
     // Run on load

@@ -3,8 +3,9 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
   '$http',
   '$location',
   '$rootScope',
+  '$timeout',
   'Settings',
-  function ($q, $http, $location, $rootScope, Settings) {
+  function ($q, $http, $location, $rootScope, $timeout, Settings) {
     'use strict';
     // Create request array and init the connection to false
     var requests = [];
@@ -15,7 +16,7 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
     var mopidyport = Settings.get('mopidyport', $location.port());
     // Setup websoclet
     var protocol = typeof document !== 'undefined' && document.location.protocol === 'https:' ? 'wss://' : 'ws://';
-    var ws = new WebSocket(protocol + mopidyip + ':' + mopidyport + '/mopify/queuemanager/');
+    var ws;
     /**
      * Send a request to the server's queuemanager class
      *
@@ -66,7 +67,9 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
       this.version = 0;
       this.shuffle = false;
       this.playlist = [];
-      this.queue = this.setupWebsocket();
+      this.queue = [];
+      // Setup websocket
+      this.setupWebsocket();
       // Load all data on init
       that.loadData();
       // Register listener which loads the new data on a trackplayback started
@@ -83,20 +86,45 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
       });
     }
     /**
+     * Check the connection ready state
+     *
+     * @return {void}
+     */
+    QueueManager.prototype.checkConnectionReady = function () {
+      var self = this;
+      $timeout(function () {
+        if (ws.readyState === 1) {
+          wsconnection = true;
+          handleWaitlist();
+        } else {
+          self.checkConnectionReady();
+        }
+      }, 200);
+    };
+    /**
      * Setup all the data needed for the websocket communication
      *
      * @return {void}
      */
     QueueManager.prototype.setupWebsocket = function () {
       var that = this;
+      ws = new WebSocket(protocol + mopidyip + ':' + mopidyport + '/mopify/queuemanager/');
       // Wait for the websocket to be opened and set active connection
       ws.onopen = function () {
-        wsconnection = true;
-        handleWaitlist();
+        that.checkConnectionReady();
       };
       // Set connection to false on close
       ws.onclose = function () {
         wsconnection = false;
+        $timeout(function () {
+          that.setupWebsocket();
+        }, 2000);
+      };
+      ws.onerror = function (evt) {
+        wsconnection = false;
+        $timeout(function () {
+          that.setupWebsocket();
+        }, 2000);
       };
       // Handle incoming messages
       ws.onmessage = function (evt) {
@@ -194,6 +222,25 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
         return tltrack.track.name.indexOf('[unplayable]') < 0;
       });
       request('add_to_queue', { tracks: tracks }).then(function (response) {
+        that.version = response.version;
+        deferred.resolve(response);
+      });
+      return deferred.promise;
+    };
+    /**
+     * Add the given tracks to the playlist
+     *
+     * @param  {Array} tracks
+     * @return {Promise}
+     */
+    QueueManager.prototype.addToPlaylist = function (tracks) {
+      var that = this;
+      var deferred = $q.defer();
+      // Remove unplayable tracks
+      tracks = _.filter(tracks, function (tltrack) {
+        return tltrack.track.name.indexOf('[unplayable]') < 0;
+      });
+      request('add_to_playlist', { tracks: tracks }).then(function (response) {
         that.version = response.version;
         deferred.resolve(response);
       });

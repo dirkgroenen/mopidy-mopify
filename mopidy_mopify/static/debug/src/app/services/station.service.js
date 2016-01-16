@@ -30,7 +30,7 @@ angular.module('mopify.services.station', [
     var echonestTracksQueue = [];
     /**
      * Process a number of tracks from the echonestTracksQue
-     * @return {$q.defer} a promise 
+     * @return {$q.defer} a promise
      */
     function processMopidyTracklist() {
       var deferred = $q.defer();
@@ -38,7 +38,7 @@ angular.module('mopify.services.station', [
       // This is done in batches to prevent mopidy from overloading
       if (echonestTracksQueue.length > 0) {
         generateMopidyTracks().then(function (uris) {
-          mopidyservice.addToTracklist({ uris: uris }).then(function (response) {
+          mopidyservice.addToPlaylist({ uris: uris }).then(function (response) {
             $timeout(processMopidyTracklist, 1000);
             deferred.resolve(response);
           });
@@ -48,7 +48,7 @@ angular.module('mopify.services.station', [
     }
     /**
      * Generate Mopidy tracks from the echonestTracksQueue in batches
-     * @return {$q.defer} a promise 
+     * @return {$q.defer} a promise
      */
     function generateMopidyTracks() {
       // Get tracks from array
@@ -64,7 +64,7 @@ angular.module('mopify.services.station', [
     /**
      * Prepare the parameters that have to be send to Echonest
      * @param  {station} station - object from the stations controller containing the information for the new radio
-     * @return {$q.defer} 
+     * @return {$q.defer}
      */
     function prepareParameters(station) {
       var parameters = {
@@ -112,7 +112,7 @@ angular.module('mopify.services.station', [
     }
     /**
      * Get 5 track ids from the given tracks (random)
-     * @param  {array} tracks 
+     * @param  {array} tracks
      * @return {array}        the spotify track ids
      */
     function createTrackIdsList(tracks) {

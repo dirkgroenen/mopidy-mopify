@@ -2,29 +2,30 @@
 <html ng-app="mopify" ng-controller="AppController">
     <head>
         <title ng-bind-template="&#9654; {{ pageTitle }}">Mopify</title>
-        
+
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
 
-        <meta name="version" content="1.5.12">
+        <meta name="version" content="1.5.13">
 
         <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="assets/webfonts/ss-standard.css">
 
         <link href="assets/images/favicon.ico" rel="icon" type="image/x-icon" />
 
-         
-        <link rel="stylesheet" type="text/css" href="src/vendor/html5-boilerplate/css/normalize.css" />  
-        <link rel="stylesheet" type="text/css" href="src/vendor/html5-boilerplate/css/main.css" />  
-        <link rel="stylesheet" type="text/css" href="src/vendor/angular-loading-bar/src/loading-bar.css" />  
-        <link rel="stylesheet" type="text/css" href="src/vendor/angular-notifier/dist/angular-notifier.css" />  
-        <link rel="stylesheet" type="text/css" href="src/vendor/angular-toggle-switch/angular-toggle-switch.css" />  
-        <link rel="stylesheet" type="text/css" href="src/vendor/angular-hotkeys/build/hotkeys.css" />  
-        <link rel="stylesheet" type="text/css" href="src/css/00-animations.css" />  
-        <link rel="stylesheet" type="text/css" href="src/css/01-bootstrap.css" />  
-        <link rel="stylesheet" type="text/css" href="src/css/50-style.css" />  
+        
+        <link rel="stylesheet" type="text/css" href="src/vendor/html5-boilerplate/css/normalize.css" /> 
+        <link rel="stylesheet" type="text/css" href="src/vendor/html5-boilerplate/css/main.css" /> 
+        <link rel="stylesheet" type="text/css" href="src/vendor/angular-loading-bar/src/loading-bar.css" /> 
+        <link rel="stylesheet" type="text/css" href="src/vendor/angular-notifier/dist/angular-notifier.css" /> 
+        <link rel="stylesheet" type="text/css" href="src/vendor/angular-toggle-switch/angular-toggle-switch.css" /> 
+        <link rel="stylesheet" type="text/css" href="src/vendor/angular-hotkeys/build/hotkeys.css" /> 
+        <link rel="stylesheet" type="text/css" href="src/css/00-animations.css" /> 
+        <link rel="stylesheet" type="text/css" href="src/css/01-bootstrap.css" /> 
+        <link rel="stylesheet" type="text/css" href="src/css/50-style.css" /> 
         <link rel="stylesheet" type="text/css" href="src/css/60-responsive.css" /> 
 
         <link rel="manifest" href="assets/manifest.json">
@@ -32,7 +33,7 @@
 
     <body>
 
-        <!-- Main application --> 
+        <!-- Main application -->
         <div id="application" class="fullheight">
             <div class="container-fluid fullheight">
                 <div class="row fullheight">
@@ -43,7 +44,7 @@
                             <ng-include src="'music/menu.tmpl.html'"></ng-include>
                             <ng-include src="'account/menu.tmpl.html'"></ng-include>
                         </div>
-                        
+
                         <ng-include src="'account/services/services.menu.tmpl.html'"></ng-include>
                     </div>
 
@@ -62,92 +63,92 @@
         </div>
 
         <!-- Grunt will handle this part -->
-         
-        <script type="text/javascript" src="src/vendor/mopidy/mopidy.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular/angular.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-route/angular-route.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-local-storage/dist/angular-local-storage.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-echonest/src/angular-echonest.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-loading-bar/src/loading-bar.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-sanitize/angular-sanitize.js"></script>  
-        <script type="text/javascript" src="src/vendor/ng-context-menu/dist/ng-context-menu.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-animate/angular-animate.min.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-notifier/dist/angular-notifier.min.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-spotify/src/angular-spotify.js"></script>  
-        <script type="text/javascript" src="src/vendor/underscore/underscore-min.js"></script>  
-        <script type="text/javascript" src="src/vendor/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-prompt/dist/angular-prompt.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-toggle-switch/angular-toggle-switch.min.js"></script>  
-        <script type="text/javascript" src="src/vendor/hammerjs/hammer.js"></script>  
-        <script type="text/javascript" src="src/vendor/ryanmullins-angular-hammer/angular.hammer.js"></script>  
-        <script type="text/javascript" src="src/vendor/angular-hotkeys/build/hotkeys.js"></script>  
-        <script type="text/javascript" src="src/vendor/clipboard/dist/clipboard.min.js"></script>  
-        <script type="text/javascript" src="src/app/account/services/facebook/facebook.controller.js"></script>  
-        <script type="text/javascript" src="src/app/account/services/facebook/facebook.test.js"></script>  
-        <script type="text/javascript" src="src/app/account/services/services.controller.js"></script>  
-        <script type="text/javascript" src="src/app/account/services/services.menu.controller.js"></script>  
-        <script type="text/javascript" src="src/app/account/services/spotify/spotify.controller.js"></script>  
-        <script type="text/javascript" src="src/app/account/services/spotify/spotify.test.js"></script>  
-        <script type="text/javascript" src="src/app/account/services/sync/sync.controller.js"></script>  
-        <script type="text/javascript" src="src/app/account/services/sync/sync.test.js"></script>  
-        <script type="text/javascript" src="src/app/account/services/tasteprofile/tasteprofile.controller.js"></script>  
-        <script type="text/javascript" src="src/app/account/settings/settings.controller.js"></script>  
-        <script type="text/javascript" src="src/app/account/settings/settings.test.js"></script>  
-        <script type="text/javascript" src="src/app/app.js"></script>  
-        <script type="text/javascript" src="src/app/dashboard/dashboard.controller.js"></script>  
-        <script type="text/javascript" src="src/app/dashboard/dashboard.test.js"></script>  
-        <script type="text/javascript" src="src/app/directives/album.directive.js"></script>  
-        <script type="text/javascript" src="src/app/directives/artist.directive.js"></script>  
-        <script type="text/javascript" src="src/app/directives/browse.directive.js"></script>  
-        <script type="text/javascript" src="src/app/directives/focusme.directive.js"></script>  
-        <script type="text/javascript" src="src/app/directives/module.js"></script>  
-        <script type="text/javascript" src="src/app/directives/playlist.directive.js"></script>  
-        <script type="text/javascript" src="src/app/directives/service.directive.js"></script>  
-        <script type="text/javascript" src="src/app/directives/station.directive.js"></script>  
-        <script type="text/javascript" src="src/app/directives/stoppropagation.directive.js"></script>  
-        <script type="text/javascript" src="src/app/directives/track.directive.js"></script>  
-        <script type="text/javascript" src="src/app/discover/browse/browse.controller.js"></script>  
-        <script type="text/javascript" src="src/app/discover/browse/browse.test.js"></script>  
-        <script type="text/javascript" src="src/app/discover/featured/featured.controller.js"></script>  
-        <script type="text/javascript" src="src/app/discover/featured/featured.test.js"></script>  
-        <script type="text/javascript" src="src/app/discover/newreleases/newreleases.controller.js"></script>  
-        <script type="text/javascript" src="src/app/discover/newreleases/newreleases.test.js"></script>  
-        <script type="text/javascript" src="src/app/modals/playlistselect.controller.js"></script>  
-        <script type="text/javascript" src="src/app/music/artist/artist.controller.js"></script>  
-        <script type="text/javascript" src="src/app/music/artist/artist.test.js"></script>  
-        <script type="text/javascript" src="src/app/music/library/albums/albums.controller.js"></script>  
-        <script type="text/javascript" src="src/app/music/library/artists/artists.controller.js"></script>  
-        <script type="text/javascript" src="src/app/music/library/playlists/playlists.controller.js"></script>  
-        <script type="text/javascript" src="src/app/music/library/playlists/playlists.test.js"></script>  
-        <script type="text/javascript" src="src/app/music/stations/stations.controller.js"></script>  
-        <script type="text/javascript" src="src/app/music/stations/stations.test.js"></script>  
-        <script type="text/javascript" src="src/app/music/tracklist/tracklist.controller.js"></script>  
-        <script type="text/javascript" src="src/app/music/tracklist/tracklist.test.js"></script>  
-        <script type="text/javascript" src="src/app/player/controls/controls.controller.js"></script>  
-        <script type="text/javascript" src="src/app/player/controls/controls.test.js"></script>  
-        <script type="text/javascript" src="src/app/player/player.controller.js"></script>  
-        <script type="text/javascript" src="src/app/player/player.test.js"></script>  
-        <script type="text/javascript" src="src/app/player/seekbar/seekbar.controller.js"></script>  
-        <script type="text/javascript" src="src/app/player/seekbar/seekbar.test.js"></script>  
-        <script type="text/javascript" src="src/app/search/search.controller.js"></script>  
-        <script type="text/javascript" src="src/app/search/search.test.js"></script>  
-        <script type="text/javascript" src="src/app/services/autoupdate.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/discover.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/error.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/facebook.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/history.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/mopidy.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/playlistmanager.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/queuemanager.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/servicemanager.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/settings.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/spotify.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/station.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/sync.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/tasteprofile.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/util.service.js"></script>  
-        <script type="text/javascript" src="src/app/services/versionmanager.service.js"></script>  
+        
+        <script type="text/javascript" src="src/vendor/mopidy/mopidy.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular/angular.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-route/angular-route.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-local-storage/dist/angular-local-storage.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-echonest/src/angular-echonest.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-loading-bar/src/loading-bar.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-sanitize/angular-sanitize.js"></script> 
+        <script type="text/javascript" src="src/vendor/ng-context-menu/dist/ng-context-menu.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-animate/angular-animate.min.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-notifier/dist/angular-notifier.min.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-spotify/src/angular-spotify.js"></script> 
+        <script type="text/javascript" src="src/vendor/underscore/underscore-min.js"></script> 
+        <script type="text/javascript" src="src/vendor/ngInfiniteScroll/build/ng-infinite-scroll.min.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-prompt/dist/angular-prompt.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-toggle-switch/angular-toggle-switch.min.js"></script> 
+        <script type="text/javascript" src="src/vendor/hammerjs/hammer.js"></script> 
+        <script type="text/javascript" src="src/vendor/ryanmullins-angular-hammer/angular.hammer.js"></script> 
+        <script type="text/javascript" src="src/vendor/angular-hotkeys/build/hotkeys.js"></script> 
+        <script type="text/javascript" src="src/vendor/clipboard/dist/clipboard.min.js"></script> 
+        <script type="text/javascript" src="src/app/account/services/facebook/facebook.controller.js"></script> 
+        <script type="text/javascript" src="src/app/account/services/facebook/facebook.test.js"></script> 
+        <script type="text/javascript" src="src/app/account/services/services.controller.js"></script> 
+        <script type="text/javascript" src="src/app/account/services/services.menu.controller.js"></script> 
+        <script type="text/javascript" src="src/app/account/services/spotify/spotify.controller.js"></script> 
+        <script type="text/javascript" src="src/app/account/services/spotify/spotify.test.js"></script> 
+        <script type="text/javascript" src="src/app/account/services/sync/sync.controller.js"></script> 
+        <script type="text/javascript" src="src/app/account/services/sync/sync.test.js"></script> 
+        <script type="text/javascript" src="src/app/account/services/tasteprofile/tasteprofile.controller.js"></script> 
+        <script type="text/javascript" src="src/app/account/settings/settings.controller.js"></script> 
+        <script type="text/javascript" src="src/app/account/settings/settings.test.js"></script> 
+        <script type="text/javascript" src="src/app/app.js"></script> 
+        <script type="text/javascript" src="src/app/dashboard/dashboard.controller.js"></script> 
+        <script type="text/javascript" src="src/app/dashboard/dashboard.test.js"></script> 
+        <script type="text/javascript" src="src/app/directives/album.directive.js"></script> 
+        <script type="text/javascript" src="src/app/directives/artist.directive.js"></script> 
+        <script type="text/javascript" src="src/app/directives/browse.directive.js"></script> 
+        <script type="text/javascript" src="src/app/directives/focusme.directive.js"></script> 
+        <script type="text/javascript" src="src/app/directives/module.js"></script> 
+        <script type="text/javascript" src="src/app/directives/playlist.directive.js"></script> 
+        <script type="text/javascript" src="src/app/directives/service.directive.js"></script> 
+        <script type="text/javascript" src="src/app/directives/station.directive.js"></script> 
+        <script type="text/javascript" src="src/app/directives/stoppropagation.directive.js"></script> 
+        <script type="text/javascript" src="src/app/directives/track.directive.js"></script> 
+        <script type="text/javascript" src="src/app/discover/browse/browse.controller.js"></script> 
+        <script type="text/javascript" src="src/app/discover/browse/browse.test.js"></script> 
+        <script type="text/javascript" src="src/app/discover/featured/featured.controller.js"></script> 
+        <script type="text/javascript" src="src/app/discover/featured/featured.test.js"></script> 
+        <script type="text/javascript" src="src/app/discover/newreleases/newreleases.controller.js"></script> 
+        <script type="text/javascript" src="src/app/discover/newreleases/newreleases.test.js"></script> 
+        <script type="text/javascript" src="src/app/modals/playlistselect.controller.js"></script> 
+        <script type="text/javascript" src="src/app/music/artist/artist.controller.js"></script> 
+        <script type="text/javascript" src="src/app/music/artist/artist.test.js"></script> 
+        <script type="text/javascript" src="src/app/music/library/albums/albums.controller.js"></script> 
+        <script type="text/javascript" src="src/app/music/library/artists/artists.controller.js"></script> 
+        <script type="text/javascript" src="src/app/music/library/playlists/playlists.controller.js"></script> 
+        <script type="text/javascript" src="src/app/music/library/playlists/playlists.test.js"></script> 
+        <script type="text/javascript" src="src/app/music/stations/stations.controller.js"></script> 
+        <script type="text/javascript" src="src/app/music/stations/stations.test.js"></script> 
+        <script type="text/javascript" src="src/app/music/tracklist/tracklist.controller.js"></script> 
+        <script type="text/javascript" src="src/app/music/tracklist/tracklist.test.js"></script> 
+        <script type="text/javascript" src="src/app/player/controls/controls.controller.js"></script> 
+        <script type="text/javascript" src="src/app/player/controls/controls.test.js"></script> 
+        <script type="text/javascript" src="src/app/player/player.controller.js"></script> 
+        <script type="text/javascript" src="src/app/player/player.test.js"></script> 
+        <script type="text/javascript" src="src/app/player/seekbar/seekbar.controller.js"></script> 
+        <script type="text/javascript" src="src/app/player/seekbar/seekbar.test.js"></script> 
+        <script type="text/javascript" src="src/app/search/search.controller.js"></script> 
+        <script type="text/javascript" src="src/app/search/search.test.js"></script> 
+        <script type="text/javascript" src="src/app/services/autoupdate.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/discover.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/error.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/facebook.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/history.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/mopidy.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/playlistmanager.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/queuemanager.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/servicemanager.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/settings.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/spotify.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/station.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/sync.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/tasteprofile.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/util.service.js"></script> 
+        <script type="text/javascript" src="src/app/services/versionmanager.service.js"></script> 
         <script type="text/javascript" src="templates-app.js"></script> 
 
         <script>
