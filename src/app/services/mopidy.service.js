@@ -309,6 +309,18 @@ angular.module('mopify.services.mopidy', [
             return deferred.promise;
         },
 
+        addToPlaylist: function(obj) {
+            var self = this;
+            var deferred = $q.defer();
+
+            this.mopidy.tracklist.add(obj).then(function(tltracks){
+                QueueManager.addToPlaylist(tltracks);
+                deferred.resolve();
+            });
+
+            return deferred.promise;
+        },
+
         addToTracklist: function(obj){
             var self = this;
             var deferred = $q.defer();

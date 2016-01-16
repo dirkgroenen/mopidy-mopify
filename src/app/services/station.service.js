@@ -18,10 +18,10 @@ angular.module('mopify.services.station', [
 
     var stationPlaying = false;
     var echonestTracksQueue = [];
-    
+
     /**
      * Process a number of tracks from the echonestTracksQue
-     * @return {$q.defer} a promise 
+     * @return {$q.defer} a promise
      */
     function processMopidyTracklist(){
         var deferred = $q.defer();
@@ -31,7 +31,7 @@ angular.module('mopify.services.station', [
         if(echonestTracksQueue.length > 0){
             generateMopidyTracks().then(function(uris){
 
-                mopidyservice.addToTracklist({ uris: uris }).then(function(response){
+                mopidyservice.addToPlaylist({ uris: uris }).then(function(response){
                     $timeout(processMopidyTracklist, 1000);
 
                     deferred.resolve(response);
@@ -44,7 +44,7 @@ angular.module('mopify.services.station', [
 
     /**
      * Generate Mopidy tracks from the echonestTracksQueue in batches
-     * @return {$q.defer} a promise 
+     * @return {$q.defer} a promise
      */
     function generateMopidyTracks(){
         // Get tracks from array
@@ -58,13 +58,13 @@ angular.module('mopify.services.station', [
 
         deferred.resolve(songuris);
 
-        return deferred.promise;        
+        return deferred.promise;
     }
 
     /**
      * Prepare the parameters that have to be send to Echonest
      * @param  {station} station - object from the stations controller containing the information for the new radio
-     * @return {$q.defer} 
+     * @return {$q.defer}
      */
     function prepareParameters(station){
         var parameters = {
@@ -81,7 +81,7 @@ angular.module('mopify.services.station', [
 
             deferred.resolve(parameters);
         }
-        
+
         if(station.type == "track"){
             parameters.song_id = station.spotify.uri;
             parameters.type = "song-radio";
@@ -124,12 +124,12 @@ angular.module('mopify.services.station', [
 
     /**
      * Get 5 track ids from the given tracks (random)
-     * @param  {array} tracks 
+     * @param  {array} tracks
      * @return {array}        the spotify track ids
      */
     function createTrackIdsList(tracks){
         // Get items and shuffle
-        var items = tracks.items || tracks; 
+        var items = tracks.items || tracks;
         items = util.shuffleArray(items);
 
         tracks = items.splice(0, 4);
@@ -161,8 +161,8 @@ angular.module('mopify.services.station', [
                         mopidyservice.playTrackAtIndex(0);
                     });
                 });
-                
-            }); 
+
+            });
         });
     }
 
@@ -202,7 +202,7 @@ angular.module('mopify.services.station', [
                             image = data.images[1].url;
                         else if(data.images[0] !== undefined)
                             image = data.images[0].url;
-                        
+
                         data.images = [image, image];
                         deferred.resolve(data);
                     });
@@ -218,7 +218,7 @@ angular.module('mopify.services.station', [
 
     return {
         init: function(){},
-        
+
         start: function(station){
             createStation(station);
         },
@@ -244,13 +244,13 @@ angular.module('mopify.services.station', [
                     coverImage: image,
                     started_at: Date.now()
                 };
-                
+
                 // Save the new station
                 var allstations = localStorageService.get("stations") || [];
                 allstations.push(station);
                 localStorageService.set("stations", allstations);
 
-                createStation(station);                
+                createStation(station);
 
                 deferred.resolve(station);
             });
@@ -274,7 +274,7 @@ angular.module('mopify.services.station', [
                 allstations.push(station);
                 localStorageService.set("stations", allstations);
 
-                createStation(station);                
+                createStation(station);
             }
             else{
                 notifier.notify({type: "custom", template: "Please enable the TasteProfile service first.", delay: 7500});
@@ -290,13 +290,13 @@ angular.module('mopify.services.station', [
                 coverImage: "./assets/images/tracklist-header.jpg",
                 started_at: Date.now()
             };
-            
+
             // Save the new station
             var allstations = localStorageService.get("stations") || [];
             allstations.push(station);
             localStorageService.set("stations", allstations);
 
-            createStation(station);                
+            createStation(station);
         }
     };
 });

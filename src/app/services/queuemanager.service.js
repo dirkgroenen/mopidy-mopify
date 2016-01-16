@@ -247,6 +247,33 @@ angular.module("mopify.services.queuemanager", [
     };
 
     /**
+     * Add the given tracks to the playlist
+     *
+     * @param  {Array} tracks
+     * @return {Promise}
+     */
+    QueueManager.prototype.addToPlaylist = function(tracks){
+        var that = this;
+        var deferred = $q.defer();
+
+        // Remove unplayable tracks
+        tracks = _.filter(tracks, function(tltrack){
+            return tltrack.track.name.indexOf("[unplayable]") < 0;
+        });
+
+        request("add_to_playlist", {
+            tracks: tracks
+        }).then(function(response){
+            that.version = response.version;
+
+            deferred.resolve(response);
+        });
+
+        return deferred.promise;
+    };
+
+
+    /**
      * Remove the given tlids from the queue and playlist
      *
      * @param  {Array} tlids

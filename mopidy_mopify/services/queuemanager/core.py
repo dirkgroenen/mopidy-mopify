@@ -84,6 +84,14 @@ class QueueManager(object):
             'version': self.version
         }
 
+    def add_to_playlist(self, tracks):
+        self.playlist.extend(tracks)
+        self.version += 1
+        return {
+            'playlist': self.playlist,
+            'version': self.version
+        }
+
     def shuffle_playlist(self, tracks):
         self.shufflememory = self.playlist
         self.playlist = tracks
