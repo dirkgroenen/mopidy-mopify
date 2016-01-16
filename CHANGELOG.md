@@ -6,6 +6,7 @@ v1.5.13 (16-01-2016)
 - Fix broken Sync service (#176)[https://github.com/dirkgroenen/mopidy-mopify/issues/176]
 - Merge PR (#170)[https://github.com/dirkgroenen/mopidy-mopify/pull/170]
 - Add stations to tracklist instead queue (#174)[https://github.com/dirkgroenen/mopidy-mopify/issues/174]
+- Automatically restore broken socket connection
 - 
 
 v1.5.12 (27-12-2015)

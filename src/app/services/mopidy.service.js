@@ -327,12 +327,14 @@ angular.module('mopify.services.mopidy', [
 
             // Add the tracks at the end of the queue
             this.getNextTrackPosition().then(function(nextPosition){
-                obj.at_position = QueueManager.queue.length + nextPosition;
+                QueueManager.all().then(function(response){
+                    obj.at_position = response.queue.length + nextPosition;
 
-                self.mopidy.tracklist.add(obj).then(function(tltracks){
-                    // Sync with queuemanager
-                    QueueManager.add(tltracks);
-                    deferred.resolve();
+                    self.mopidy.tracklist.add(obj).then(function(tltracks){
+                        // Sync with queuemanager
+                        QueueManager.add(tltracks);
+                        deferred.resolve();
+                    });
                 });
             });
 

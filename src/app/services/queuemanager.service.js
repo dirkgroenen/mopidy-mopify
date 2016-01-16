@@ -77,7 +77,7 @@ angular.module("mopify.services.queuemanager", [
         this.version = 0;
         this.shuffle = false;
         this.playlist = [];
-        this.queue =
+        this.queue = [];
 
         // Setup websocket
         this.setupWebsocket();
