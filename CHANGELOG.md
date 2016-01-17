@@ -1,5 +1,9 @@
 #Changelog
 
+v1.5.14 (17-01-2016)
+--------------------
+- Fix QueueManager broken connection fixer
+
 v1.5.13 (16-01-2016)
 --------------------
 - Fix broken queue [#177](https://github.com/dirkgroenen/mopidy-mopify/issues/177)

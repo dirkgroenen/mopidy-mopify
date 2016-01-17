@@ -17,6 +17,7 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
     // Setup websoclet
     var protocol = typeof document !== 'undefined' && document.location.protocol === 'https:' ? 'wss://' : 'ws://';
     var ws;
+    var recoveringDelay = 1000;
     /**
      * Send a request to the server's queuemanager class
      *
@@ -94,12 +95,41 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
       var self = this;
       $timeout(function () {
         if (ws.readyState === 1) {
+          console.info('Websocket: connection ready');
           wsconnection = true;
           handleWaitlist();
         } else {
           self.checkConnectionReady();
         }
       }, 200);
+    };
+    /**
+     * Start revovering the websocket
+     * @return {[type]} [description]
+     */
+    QueueManager.prototype.startRecovering = function () {
+      var that = this;
+      if (ws !== undefined) {
+        this.closeWebsocketConnection();
+      }
+      $timeout(function () {
+        that.setupWebsocket();
+      }, recoveringDelay);
+      recoveringDelay = recoveringDelay + 1000;
+    };
+    /**
+     * Formarly close the current websocket connection
+     * @return {[type]} [description]
+     */
+    QueueManager.prototype.closeWebsocketConnection = function () {
+      ws.onopen = function () {
+      };
+      ws.onclose = function () {
+      };
+      ws.onerror = function () {
+      };
+      ws.onmessage = function () {
+      };
     };
     /**
      * Setup all the data needed for the websocket communication
@@ -116,15 +146,8 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
       // Set connection to false on close
       ws.onclose = function () {
         wsconnection = false;
-        $timeout(function () {
-          that.setupWebsocket();
-        }, 2000);
-      };
-      ws.onerror = function (evt) {
-        wsconnection = false;
-        $timeout(function () {
-          that.setupWebsocket();
-        }, 2000);
+        ws.close();
+        that.startRecovering();
       };
       // Handle incoming messages
       ws.onmessage = function (evt) {
