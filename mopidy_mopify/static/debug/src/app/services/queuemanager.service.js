@@ -102,12 +102,29 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
       }, 200);
     };
     /**
+     * Formarly close the current websocket connection
+     * @return {[type]} [description]
+     */
+    QueueManager.prototype.closeWebsocketConnection = function () {
+      ws.onopen = function () {
+      };
+      ws.onclose = function () {
+      };
+      ws.onerror = function () {
+      };
+      ws.onmessage = function () {
+      };
+    };
+    /**
      * Setup all the data needed for the websocket communication
      *
      * @return {void}
      */
     QueueManager.prototype.setupWebsocket = function () {
       var that = this;
+      if (ws !== undefined) {
+        this.closeWebsocketConnection();
+      }
       ws = new WebSocket(protocol + mopidyip + ':' + mopidyport + '/mopify/queuemanager/');
       // Wait for the websocket to be opened and set active connection
       ws.onopen = function () {
@@ -116,9 +133,6 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
       // Set connection to false on close
       ws.onclose = function () {
         wsconnection = false;
-        $timeout(function () {
-          that.setupWebsocket();
-        }, 2000);
       };
       ws.onerror = function (evt) {
         wsconnection = false;

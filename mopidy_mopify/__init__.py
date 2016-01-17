@@ -15,7 +15,7 @@ from services.queuemanager import requesthandler as QueueManagerRequestHandler
 
 from mopidy import config, ext
 
-__version__ = '1.5.13'
+__version__ = '1.5.14'
 __ext_name__ = 'mopify'
 __verbosemode__ = False
 
