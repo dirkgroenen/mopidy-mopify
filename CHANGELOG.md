@@ -21,7 +21,7 @@ v1.5.12 (27-12-2015)
 v1.5.11 (27-12-2015)
 -------------------
 
-- Add local playlist search on search results [#145](https://github.com/dirkgroenen/mopidy-mopify/issues/145) 
+- Add local playlist search on search results [#145](https://github.com/dirkgroenen/mopidy-mopify/issues/145)
 - Change repeat behaviour to single repeat [#154](https://github.com/dirkgroenen/mopidy-mopify/issues/154)
 - Remove set consume [#146](https://github.com/dirkgroenen/mopidy-mopify/issues/146)
 - Do track URI existence check which brings back now playing [#161](https://github.com/dirkgroenen/mopidy-mopify/issues/161)
