@@ -138,7 +138,8 @@ angular.module('mopify.search', [
         });
 
         mopidyservice.search($scope.query).then(function(data){
-            if(data[0].tracks !== undefined){
+            // Check if tracks are available
+            if(data.length > 0 && data[0].tracks !== undefined){
                 $scope.results.tracks = data[0].tracks.splice(0,100);
             }
 
