@@ -1,6 +1,6 @@
 #Changelog
 
-v1.5.15 (UNRELEASED)
+v1.5.15 (14-02-2016)
 --------------------
 - Add check for empty search response [#181](https://github.com/dirkgroenen/mopidy-mopify/issues/181)
 - Add icon for Safari [#182](https://github.com/dirkgroenen/mopidy-mopify/issues/182)
