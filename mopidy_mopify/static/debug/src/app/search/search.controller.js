@@ -124,7 +124,8 @@ angular.module('mopify.search', [
           getTopMatchingResult($scope.query, $scope.results);
       });
       mopidyservice.search($scope.query).then(function (data) {
-        if (data[0].tracks !== undefined) {
+        // Check if tracks are available
+        if (data.length > 0 && data[0].tracks !== undefined) {
           $scope.results.tracks = data[0].tracks.splice(0, 100);
         }
         // Check if all data is loaded and if it is; calculate the topresult

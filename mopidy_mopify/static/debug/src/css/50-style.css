@@ -1568,7 +1568,7 @@ img[src=""] {
     text-align: center;
 }
 
-.search-overlay .inner .resultwrap.loading svg{
+.search-overlay .inner .loading svg{
     width: 70px;
     height: 70px;
     position: absolute;
