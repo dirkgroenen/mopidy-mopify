@@ -124,7 +124,7 @@ angular.module('mopify.services.mopidy', [
 		/*
 		 * Close the connection with mopidy
 		 */
-		stop: function() {
+		shutdown: function() {
 			$rootScope.$broadcast('mopify:stoppingmopidy');
 
 			this.mopidy.close();
@@ -138,7 +138,7 @@ angular.module('mopify.services.mopidy', [
 	 	 * Restart mopidy
 		 */
 		restart: function() {
-			this.stop();
+			this.shutdown();
 			this.start();
 		},
 
@@ -401,6 +401,10 @@ angular.module('mopify.services.mopidy', [
 
         pause: function() {
             return wrapMopidyFunc("mopidy.playback.pause", this)();
+        },
+
+        stop: function() {
+            return wrapMopidyFunc("mopidy.playback.stop", this)();
         },
 
         previous: function() {

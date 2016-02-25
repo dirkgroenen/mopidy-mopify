@@ -38,7 +38,7 @@ angular.module('mopify.player.controls', [
             else if(volume > 0)
                 $scope.volumeIcon = "ss-lowvolume";
             else
-                $scope.volumeIcon = "ss-volume";    
+                $scope.volumeIcon = "ss-volume";
         });
 
         // Get playback state
@@ -77,13 +77,13 @@ angular.module('mopify.player.controls', [
 
     $scope.next = function(){
         mopidyservice.next().then(function(data){
-            $rootScope.$broadcast("mopify:player:updatePlayerInformation");  
+            $rootScope.$broadcast("mopify:player:updatePlayerInformation");
         });
     };
 
     $scope.prev = function(){
         mopidyservice.previous().then(function(data){
-            $rootScope.$broadcast("mopify:player:updatePlayerInformation");  
+            $rootScope.$broadcast("mopify:player:updatePlayerInformation");
         });
     };
 
@@ -100,6 +100,11 @@ angular.module('mopify.player.controls', [
         });
     };
 
+    $scope.stop = function() {
+        mopidyservice.stop();
+        $scope.stateIcon = "ss-pause";
+    };
+
     $scope.volumebarMouseClick = function(event, mobile){
         var layerX = event.layerX;
 
@@ -107,7 +112,7 @@ angular.module('mopify.player.controls', [
         // are referring to the full volume bar, not just the inner div
         var target = event.currentTarget || event.srcElement;
         var volumebarWidth = target.clientWidth;
-        
+
         var volume = (layerX / volumebarWidth) * 100;
 
         // Set in scope and send to mopidy
@@ -165,7 +170,7 @@ angular.module('mopify.player.controls', [
 
     /**
      * Open the volume overlay when on a mobile device
-     * 
+     *
      * @return {void}
      */
     $scope.openVolumeOverlay = function(){
@@ -176,7 +181,7 @@ angular.module('mopify.player.controls', [
 
     /**
      * Close the volume overlay
-     * 
+     *
      * @return {void}
      */
     $scope.closeVolumeOverlay = function(){
@@ -208,6 +213,14 @@ angular.module('mopify.player.controls', [
         callback: function(event, hotkey) {
             event.preventDefault();
             $scope.playpause();
+        }
+    });
+    hotkeys.add({
+        combo: 'ctrl+s',
+        description: 'Stop playback',
+        callback: function(event, hotkey) {
+            event.preventDefault();
+            $scope.stop();
         }
     });
     hotkeys.add({

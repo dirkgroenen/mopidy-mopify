@@ -46,6 +46,7 @@ angular.module('mopify.widgets.directive.playlist', [
              */
             scope.play = function(){
                 if(scope.playlist.__model__ == "Playlist"){
+                    console.log(scope.playlist);
                     mopidyservice.playTrack(scope.playlist.tracks[0], scope.playlist.tracks);
                 }
                 else{
