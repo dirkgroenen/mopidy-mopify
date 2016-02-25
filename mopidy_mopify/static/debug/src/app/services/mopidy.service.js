@@ -122,7 +122,7 @@ angular.module('mopify.services.mopidy', [
         });
         $rootScope.$broadcast('mopify:mopidystarted');
       },
-      stop: function () {
+      shutdown: function () {
         $rootScope.$broadcast('mopify:stoppingmopidy');
         this.mopidy.close();
         this.mopidy.off();
@@ -130,7 +130,7 @@ angular.module('mopify.services.mopidy', [
         $rootScope.$broadcast('mopify:stoppedmopidy');
       },
       restart: function () {
-        this.stop();
+        this.shutdown();
         this.start();
       },
       getPlaylists: function () {
@@ -334,6 +334,9 @@ angular.module('mopify.services.mopidy', [
       },
       pause: function () {
         return wrapMopidyFunc('mopidy.playback.pause', this)();
+      },
+      stop: function () {
+        return wrapMopidyFunc('mopidy.playback.stop', this)();
       },
       previous: function () {
         return wrapMopidyFunc('mopidy.playback.previous', this)();

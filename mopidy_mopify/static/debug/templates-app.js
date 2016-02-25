@@ -431,7 +431,7 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "        <div class=\"col-md-3 col-md-offset-6 alignright\">\n" +
     "            <div class=\"button white\" ng-class=\"{ active: buttonactive }\">\n" +
     "                <span class=\"text\">Saved automatically</span>\n" +
-    "                <i class=\"ss-icon ss-sync\"></i> \n" +
+    "                <i class=\"ss-icon ss-sync\"></i>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -534,6 +534,25 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "\n" +
     "    <div class=\"pagetitle row\">\n" +
     "        <div class=\"col-md-3\">\n" +
+    "            Settings <span class=\"sub\">Title</span>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "    <div class=\"pagecontent row\">\n" +
+    "        <div class=\"settingwrap row\">\n" +
+    "            <div class=\"label col-md-2\">\n" +
+    "                <label>Show current track in page title</label>\n" +
+    "            </div>\n" +
+    "            <div class=\"input col-md-4\">\n" +
+    "                <toggle-switch ng-model=\"settings.pagetitle\"><toggle-switch>\n" +
+    "            </div>\n" +
+    "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
+    "                <p>Enable this function to show the currnet playing track in the page title. Some people don't like this bedause it will make your pinned tab 'glow' in Chrome.</p>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"pagetitle row\">\n" +
+    "        <div class=\"col-md-3\">\n" +
     "            About <span class=\"sub\">Mopify</span>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -573,11 +592,11 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <p ng-if=\"newversion\" style=\"font-weight: bold\">A new version of Mopify is available ({{ newversionnumber }}). Read the <a href=\"https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md\" target=\"_blank\">Github readme</a> on how to update mopify or use the button below.</p>\n" +
     "                <div class=\"button white fullwidth\" ng-click=\"update()\" ng-if=\"newversion == true && autoupdate == true\">\n" +
     "                    <span class=\"text\">Autoupdate Mopify to version: {{ newversionnumber }}</span>\n" +
-    "                    <i class=\"ss-icon ss-refresh\"></i> \n" +
+    "                    <i class=\"ss-icon ss-refresh\"></i>\n" +
     "                </div>\n" +
     "                <div class=\"button white fullwidth\" ng-if=\"newversion == true && autoupdate == false\">\n" +
     "                    <span class=\"text\">Autoupdate isn't possible. Is Mopidy running as root user?</span>\n" +
-    "                    <i class=\"ss-icon ss-refresh\"></i> \n" +
+    "                    <i class=\"ss-icon ss-refresh\"></i>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -640,8 +659,8 @@ angular.module("directives/album.directive.tmpl.html", []).run(["$templateCache"
     "    <div class=\"tileinfo clickable\" context-menu=\"onContextShow()\"\n" +
     "        data-target=\"menu-{{ album.uri }}\">\n" +
     "        <a href=\"#{{ tracklistUrl }}\">\n" +
-    "            <span class=\"name\">{{ album.name}}</span>\n" +
-    "            <span class=\"year ng-binding\">{{ artiststring }}</span>\n" +
+    "            <span class=\"name\">{{ ::album.name}}</span>\n" +
+    "            <span class=\"year\">{{ ::artiststring }}</span>\n" +
     "        </a>\n" +
     "    </div>\n" +
     "\n" +
@@ -767,8 +786,8 @@ angular.module("directives/playlist.directive.tmpl.html", []).run(["$templateCac
     "</div>\n" +
     "<div class=\"tileinfo clickable\">\n" +
     "    <a href=\"#{{ tracklistUrl }}\">\n" +
-    "        <span class=\"name\">{{ playlist.name}}</span>\n" +
-    "        <span class=\"year\">{{ playlist.tracks.length || playlist.tracks.total }} tracks</span>\n" +
+    "        <span class=\"name\">{{ ::playlist.name}}</span>\n" +
+    "        <span class=\"year\">{{ ::(playlist.tracks.length || playlist.tracks.total) }} tracks</span>\n" +
     "    </a>\n" +
     "</div>\n" +
     "\n" +
@@ -847,7 +866,7 @@ angular.module("directives/station.directive.tmpl.html", []).run(["$templateCach
 angular.module("directives/track.directive.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("directives/track.directive.tmpl.html",
     "<div class=\"track\" context-menu=\"onContextShow()\" context-menu-close=\"onContextClose()\"\n" +
-    "    data-target=\"{{ track.uri || track.tlid }}\"\n" +
+    "    data-target=\"{{ ::(track.uri || track.tlid) }}\"\n" +
     "    ng-class=\"{ 'highlight': highlight, 'expanded' : expanded, 'loading': track.loading, 'selected': selected }\"\n" +
     "    hm-doubletap=\"play()\"\n" +
     "    ng-click=\"selectTrack($event)\"\n" +
@@ -855,21 +874,21 @@ angular.module("directives/track.directive.tmpl.html", []).run(["$templateCache"
     "\n" +
     "    <div class=\"row\" ng-class=\"{'nowplaying': ($parent.currentPlayingTrack.uri == track.uri)}\">\n" +
     "        <div class=\"col-sm-4 col-xs-12 name\">\n" +
-    "            {{ track.name }}\n" +
+    "            {{ ::track.name }}\n" +
     "        </div>\n" +
     "        <div class=\"col-sm-3 col-xs-6 artists\">\n" +
-    "            <span ng-bind-html=\"artistsString()\"></span>\n" +
+    "            <span ng-bind-html=\"::artistsString()\"></span>\n" +
     "        </div>\n" +
     "        <div class=\"col-sm-4 col-xs-6 album\">\n" +
-    "            <a href=\"#/music/tracklist/{{ track.album.uri }}/{{ track.album.name }}\">{{ track.album.name }}</a>\n" +
+    "            <a href=\"#/music/tracklist/{{ ::track.album.uri }}/{{ ::track.album.name }}\">{{ ::track.album.name }}</a>\n" +
     "        </div>\n" +
     "        <div class=\"col-sm-1 visible-lg-block visible-md-block visible-sm-blocklength\">\n" +
-    "            {{ lengthHuman() }}\n" +
+    "            {{ ::lengthHuman() }}\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
-    "<div class=\"contextmenu position-fixed\" id=\"{{ track.uri || track.tlid }}\">\n" +
+    "<div class=\"contextmenu position-fixed\" id=\"{{ ::(track.uri || track.tlid) }}\">\n" +
     "    <ul class=\"dropdown-menu\" role=\"menu\">\n" +
     "        <li ng-click=\"play()\">\n" +
     "            Play track<span ng-show=\"multipleselected\">s</span>\n" +
@@ -900,10 +919,10 @@ angular.module("directives/track.directive.tmpl.html", []).run(["$templateCache"
     "            {{ (trackAlreadySaved) ? 'Remove track from library' : 'Save track in library' }}\n" +
     "        </li>\n" +
     "        <li class=\"divider\"></li>\n" +
-    "        <li class=\"clip-text\" data-clipboard-text=\"{{ track.uri }}\" ng-hide=\"multipleselected\" ng-if=\"track.uri\">\n" +
+    "        <li class=\"clip-text\" data-clipboard-text=\"{{ ::track.uri }}\" ng-hide=\"multipleselected\" ng-if=\"::track.uri\">\n" +
     "            Copy Spotify URI\n" +
     "        </li>\n" +
-    "        <li class=\"clip-text\" data-clipboard-text=\"{{ track.http_uri }}\" ng-hide=\"multipleselected\" ng-if=\"track.http_uri\">\n" +
+    "        <li class=\"clip-text\" data-clipboard-text=\"{{ ::track.http_uri }}\" ng-hide=\"multipleselected\" ng-if=\"::track.http_uri\">\n" +
     "            Copy HTTP Link\n" +
     "        </li>\n" +
     "    </ul>\n" +
@@ -1478,7 +1497,7 @@ angular.module("music/tracklist/tracklist.tmpl.html", []).run(["$templateCache",
     "            <img ng-src=\"{{ coverImage }}\" />\n" +
     "        </div>\n" +
     "        <div class=\"lefttext\">\n" +
-    "            <div class=\"inner\"> \n" +
+    "            <div class=\"inner\">\n" +
     "                <i class=\"ss-icon ss-list\"></i>  {{ name }}\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -1496,21 +1515,21 @@ angular.module("music/tracklist/tracklist.tmpl.html", []).run(["$templateCache",
     "        <div class=\"col-md-6 col-md-offset-3 alignright\">\n" +
     "            <div class=\"button white\" ng-click=\"toggleSaveAlbum()\" ng-show=\"type == 'Album'\">\n" +
     "                <span class=\"text\">{{ (albumAlreadySaved) ? 'Remove' : 'Save' }} album</span>\n" +
-    "                <i class=\"ss-icon ss-check\" ng-show=\"!albumAlreadySaved\"></i> \n" +
-    "                <i class=\"ss-icon ss-delete\" ng-show=\"albumAlreadySaved\"></i> \n" +
+    "                <i class=\"ss-icon ss-check\" ng-show=\"!albumAlreadySaved\"></i>\n" +
+    "                <i class=\"ss-icon ss-delete\" ng-show=\"albumAlreadySaved\"></i>\n" +
     "            </div>\n" +
     "            <div class=\"button white\" ng-click=\"toggleFollowPlaylist()\" ng-show=\"type == 'Playlist' &&!isowner\">\n" +
     "                <span class=\"text\">{{ (followingPlaylist) ? 'Unfollow' : 'Follow' }} playlist</span>\n" +
-    "                <i class=\"ss-icon ss-check\" ng-show=\"!followingPlaylist\"></i> \n" +
-    "                <i class=\"ss-icon ss-delete\" ng-show=\"followingPlaylist\"></i> \n" +
+    "                <i class=\"ss-icon ss-check\" ng-show=\"!followingPlaylist\"></i>\n" +
+    "                <i class=\"ss-icon ss-delete\" ng-show=\"followingPlaylist\"></i>\n" +
     "            </div>\n" +
     "            <div class=\"button white\" ng-click=\"startStation()\">\n" +
     "                <span class=\"text\">Start station</span>\n" +
-    "                <i class=\"ss-icon ss-wifi\"></i> \n" +
+    "                <i class=\"ss-icon ss-wifi\"></i>\n" +
     "            </div>\n" +
     "            <div class=\"button white\" ng-click=\"shuffle()\" ng-if=\"type != 'tracklist'\">\n" +
     "                <span class=\"text\">Shuffle {{ type }}</span>\n" +
-    "                <i class=\"ss-icon ss-shuffle\"></i> \n" +
+    "                <i class=\"ss-icon ss-shuffle\"></i>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -1533,7 +1552,7 @@ angular.module("music/tracklist/tracklist.tmpl.html", []).run(["$templateCache",
     "    </div>\n" +
     "\n" +
     "    <div class=\"pagecontent row\" style=\"padding-bottom: 30px;\" ng-if=\"type == 'tracklist'\">\n" +
-    "        <div id=\"tracklist\"> \n" +
+    "        <div id=\"tracklist\">\n" +
     "            <div class=\"row\">\n" +
     "                <mopify-track track=\"currentPlayingTrack\" currentplayingtrack=\"currentPlayingTrack\" type=\"type\"></mopify-track>\n" +
     "            </div>\n" +
@@ -1547,8 +1566,8 @@ angular.module("music/tracklist/tracklist.tmpl.html", []).run(["$templateCache",
     "    </div>\n" +
     "\n" +
     "    <div class=\"pagecontent row\" style=\"padding-bottom: 30px;\" ng-if=\"type == 'tracklist' && queue.length > 0\">\n" +
-    "        <div id=\"tracklist\"> \n" +
-    "            <div class=\"row\" ng-repeat=\"track in queue track by $index\" >\n" +
+    "        <div id=\"tracklist\">\n" +
+    "            <div class=\"row\" ng-repeat=\"track in queue track by $index\">\n" +
     "                <mopify-track track=\"track\" surrounding=\"queue\" type=\"type\"> </mopify-track>\n" +
     "            </div>\n" +
     "        </div>\n" +

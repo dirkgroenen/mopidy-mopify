@@ -27,6 +27,9 @@ angular.module('mopify.account.settings', [
   function SettingsController($scope, $rootScope, $timeout, $http, localStorageService, Settings, VersionManager, AutoUpdate, notifier) {
     // bind settings with the $scope
     Settings.bind($scope);
+    // Set default value
+    if ($scope.settings.pagetitle === undefined)
+      $scope.settings.pagetitle = true;
     $scope.buttonactive = false;
     $scope.autoupdate = false;
     /**

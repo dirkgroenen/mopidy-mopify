@@ -88,6 +88,10 @@ angular.module('mopify.player.controls', [
         }
       });
     };
+    $scope.stop = function () {
+      mopidyservice.stop();
+      $scope.stateIcon = 'ss-pause';
+    };
     $scope.volumebarMouseClick = function (event, mobile) {
       var layerX = event.layerX;
       // Use event.currentTarget rather than event.target to make sure we
@@ -138,7 +142,7 @@ angular.module('mopify.player.controls', [
     };
     /**
      * Open the volume overlay when on a mobile device
-     * 
+     *
      * @return {void}
      */
     $scope.openVolumeOverlay = function () {
@@ -148,7 +152,7 @@ angular.module('mopify.player.controls', [
     };
     /**
      * Close the volume overlay
-     * 
+     *
      * @return {void}
      */
     $scope.closeVolumeOverlay = function () {
@@ -179,6 +183,14 @@ angular.module('mopify.player.controls', [
       callback: function (event, hotkey) {
         event.preventDefault();
         $scope.playpause();
+      }
+    });
+    hotkeys.add({
+      combo: 'ctrl+s',
+      description: 'Stop playback',
+      callback: function (event, hotkey) {
+        event.preventDefault();
+        $scope.stop();
       }
     });
     hotkeys.add({
