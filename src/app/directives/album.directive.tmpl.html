@@ -19,8 +19,8 @@
     <div class="tileinfo clickable" context-menu="onContextShow()"
         data-target="menu-{{ album.uri }}">
         <a href="#{{ tracklistUrl }}">
-            <span class="name">{{ album.name}}</span>
-            <span class="year ng-binding">{{ artiststring }}</span>
+            <span class="name">{{ ::album.name}}</span>
+            <span class="year">{{ ::artiststring }}</span>
         </a>
     </div>
 

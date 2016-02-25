@@ -29,14 +29,27 @@ angular.module('mopify.widgets.directive.track', [
 
             var uri = $routeParams.uri;
 
-            // Set scope.$id in track object
-            scope.track.id = scope.$id;
+            scope.$evalAsync(function(){
+                // Set scope.$id in track object
+                scope.track.id = scope.$id;
 
-            // Set custom http link property
-            if(scope.track.uri)
-                scope.track.http_uri = "https://open.spotify.com/track/" + scope.track.uri.split(":")[2];
-            else
-                scope.track.http_uri = false;
+                // Set custom http link property
+                if(scope.track.uri)
+                    scope.track.http_uri = "https://open.spotify.com/track/" + scope.track.uri.split(":")[2];
+                else
+                    scope.track.http_uri = false;
+
+                scope.selected = false;
+                scope.multipleselected = true;
+
+                scope.visible = true;
+
+                scope.showSaveTrack = false;
+                scope.trackAlreadySaved = false;
+
+                if(scope.surrounding === undefined)
+                    scope.surrounding = scope.$parent.loadedTracks;
+            });
 
             /**
              * For some reason the scope.track.id get's replaced at some moment
@@ -51,17 +64,6 @@ angular.module('mopify.widgets.directive.track', [
                 if(current === undefined && previous !== undefined)
                     scope.track.id = previous;
             });
-
-            scope.selected = false;
-            scope.multipleselected = true;
-
-            scope.visible = true;
-
-            scope.showSaveTrack = false;
-            scope.trackAlreadySaved = false;
-
-            if(scope.surrounding === undefined)
-                scope.surrounding = scope.$parent.loadedTracks;
 
             scope.artistsString = function(){
                 return util.artistsToString(scope.track.artists, true);
