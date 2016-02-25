@@ -23,9 +23,13 @@ angular.module('mopify.account.settings', [
  * After defining the routes we create the controller for this module
  */
 .controller("SettingsController", function SettingsController($scope, $rootScope, $timeout, $http, localStorageService, Settings, VersionManager, AutoUpdate, notifier){
-    
+
     // bind settings with the $scope
     Settings.bind($scope);
+
+    // Set default value
+    if($scope.settings.pagetitle === undefined)
+        $scope.settings.pagetitle = true;
 
     $scope.buttonactive = false;
     $scope.autoupdate = false;
@@ -49,9 +53,9 @@ angular.module('mopify.account.settings', [
         VersionManager.checkVersion().then(function(version){
             $scope.newversion = VersionManager.newVersion;
             $scope.newversionnumber = VersionManager.lastversion;
-        });    
+        });
     }
-        
+
     // Run at init
     checkVersion();
 

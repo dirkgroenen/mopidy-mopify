@@ -23,8 +23,8 @@ angular.module("mopify.services.settings", [
 
     /**
      * Get a value from the storage, or return the defaltvalue if it doesn't exist.
-     * @param  {string} key          
-     * @param  {string} defaultvalue 
+     * @param  {string} key
+     * @param  {string} defaultvalue
      */
     Settings.prototype.get = function(key, defaultvalue){
         return (localStorageService.get(rootkey) !== null && localStorageService.get(rootkey)[key] !== undefined && localStorageService.get(rootkey)[key] !== "") ? localStorageService.get(rootkey)[key] : defaultvalue;
@@ -32,8 +32,8 @@ angular.module("mopify.services.settings", [
 
     /**
      * Save a (new) value
-     * @param  {string} key   
-     * @param  {string} value 
+     * @param  {string} key
+     * @param  {string} value
      * @param  {boolean} extend
      */
     Settings.prototype.set = function(key, value, extend){
@@ -41,7 +41,7 @@ angular.module("mopify.services.settings", [
 
         // Set settings and set new key and value
         var settings = localStorageService.get(rootkey);
-        
+
         // Extend value if exists
         if(settings[key] !== null && settings[key] !== undefined && extend === true){
             value = angular.extend(settings[key], value);

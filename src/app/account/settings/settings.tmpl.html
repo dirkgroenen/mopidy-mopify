@@ -13,7 +13,7 @@
         <div class="col-md-3 col-md-offset-6 alignright">
             <div class="button white" ng-class="{ active: buttonactive }">
                 <span class="text">Saved automatically</span>
-                <i class="ss-icon ss-sync"></i> 
+                <i class="ss-icon ss-sync"></i>
             </div>
         </div>
     </div>
@@ -116,6 +116,25 @@
 
     <div class="pagetitle row">
         <div class="col-md-3">
+            Settings <span class="sub">Title</span>
+        </div>
+    </div>
+    <div class="pagecontent row">
+        <div class="settingwrap row">
+            <div class="label col-md-2">
+                <label>Show current track in page title</label>
+            </div>
+            <div class="input col-md-4">
+                <toggle-switch ng-model="settings.pagetitle"><toggle-switch>
+            </div>
+            <div class="description col-md-4 col-md-offset-1">
+                <p>Enable this function to show the currnet playing track in the page title. Some people don't like this bedause it will make your pinned tab 'glow' in Chrome.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagetitle row">
+        <div class="col-md-3">
             About <span class="sub">Mopify</span>
         </div>
     </div>
@@ -155,11 +174,11 @@
                 <p ng-if="newversion" style="font-weight: bold">A new version of Mopify is available ({{ newversionnumber }}). Read the <a href="https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md" target="_blank">Github readme</a> on how to update mopify or use the button below.</p>
                 <div class="button white fullwidth" ng-click="update()" ng-if="newversion == true && autoupdate == true">
                     <span class="text">Autoupdate Mopify to version: {{ newversionnumber }}</span>
-                    <i class="ss-icon ss-refresh"></i> 
+                    <i class="ss-icon ss-refresh"></i>
                 </div>
                 <div class="button white fullwidth" ng-if="newversion == true && autoupdate == false">
                     <span class="text">Autoupdate isn't possible. Is Mopidy running as root user?</span>
-                    <i class="ss-icon ss-refresh"></i> 
+                    <i class="ss-icon ss-refresh"></i>
                 </div>
             </div>
         </div>

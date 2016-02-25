@@ -8,6 +8,7 @@ angular.module('mopify', [
     'mopify.services.mopidy',
     'mopify.services.versionmanager',
     'mopify.services.autoupdate',
+    "mopify.services.settings",
     'spotify',
     'mopify.dashboard',
     'mopify.search',
@@ -52,7 +53,7 @@ angular.module('mopify', [
     $httpProvider.interceptors.push('SpotifyAuthenticationIntercepter');
 })
 
-.controller("AppController", function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier, VersionManager, localStorageService, AutoUpdate, prompt){
+.controller("AppController", function AppController($scope, $rootScope, $http, $location, $window, mopidyservice, notifier, VersionManager, localStorageService, AutoUpdate, prompt, Settings){
     var connectionStates = {
         online: 'Online',
         offline: 'Offline'
@@ -120,6 +121,9 @@ angular.module('mopify', [
      * @param object track
      */
     function updateTitle(track){
+        if(!Settings.get("pagetitle", true))
+            return false;
+
         if(track !== null && track !== undefined){
             if(track.name.indexOf("[loading]") > -1){
                 mopidyservice.lookup(track.uri).then(function(result){
