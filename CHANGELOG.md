@@ -1,5 +1,11 @@
 #Changelog
 
+v1.5.16 (25-02-2016)
+--------------------
+- Add one time bindings 
+- Add stop playback shortcut [#117](https://github.com/dirkgroenen/mopidy-mopify/issues/117)
+- Make page title dynamic [#183](https://github.com/dirkgroenen/mopidy-mopify/issues/183)
+
 v1.5.15 (14-02-2016)
 --------------------
 - Add check for empty search response [#181](https://github.com/dirkgroenen/mopidy-mopify/issues/181)
