@@ -24,7 +24,7 @@ module.exports = {
         js: [ 'src/app/**/*.js' ],
 
         css: [ 'src/css/**/*.css' ],
-        
+
         atpl: [ 'src/app/**/*.tmpl.html' ],
 
         html: [ 'src/index.html' ]

@@ -1,5 +1,5 @@
 <div class="track" context-menu="onContextShow()" context-menu-close="onContextClose()"
-    data-target="{{ track.uri || track.tlid }}"
+    data-target="{{ ::(track.uri || track.tlid) }}"
     ng-class="{ 'highlight': highlight, 'expanded' : expanded, 'loading': track.loading, 'selected': selected }"
     hm-doubletap="play()"
     ng-click="selectTrack($event)"
@@ -10,7 +10,7 @@
             {{ ::track.name }}
         </div>
         <div class="col-sm-3 col-xs-6 artists">
-            <span ng-bind-html="artistsString()"></span>
+            <span ng-bind-html="::artistsString()"></span>
         </div>
         <div class="col-sm-4 col-xs-6 album">
             <a href="#/music/tracklist/{{ ::track.album.uri }}/{{ ::track.album.name }}">{{ ::track.album.name }}</a>
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="contextmenu position-fixed" id="{{ track.uri || track.tlid }}">
+<div class="contextmenu position-fixed" id="{{ ::(track.uri || track.tlid) }}">
     <ul class="dropdown-menu" role="menu">
         <li ng-click="play()">
             Play track<span ng-show="multipleselected">s</span>
@@ -52,10 +52,10 @@
             {{ (trackAlreadySaved) ? 'Remove track from library' : 'Save track in library' }}
         </li>
         <li class="divider"></li>
-        <li class="clip-text" data-clipboard-text="{{ track.uri }}" ng-hide="multipleselected" ng-if="track.uri">
+        <li class="clip-text" data-clipboard-text="{{ ::track.uri }}" ng-hide="multipleselected" ng-if="::track.uri">
             Copy Spotify URI
         </li>
-        <li class="clip-text" data-clipboard-text="{{ track.http_uri }}" ng-hide="multipleselected" ng-if="track.http_uri">
+        <li class="clip-text" data-clipboard-text="{{ ::track.http_uri }}" ng-hide="multipleselected" ng-if="::track.http_uri">
             Copy HTTP Link
         </li>
     </ul>

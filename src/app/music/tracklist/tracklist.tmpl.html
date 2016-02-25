@@ -5,7 +5,7 @@
             <img ng-src="{{ coverImage }}" />
         </div>
         <div class="lefttext">
-            <div class="inner"> 
+            <div class="inner">
                 <i class="ss-icon ss-list"></i>  {{ name }}
             </div>
         </div>
@@ -23,21 +23,21 @@
         <div class="col-md-6 col-md-offset-3 alignright">
             <div class="button white" ng-click="toggleSaveAlbum()" ng-show="type == 'Album'">
                 <span class="text">{{ (albumAlreadySaved) ? 'Remove' : 'Save' }} album</span>
-                <i class="ss-icon ss-check" ng-show="!albumAlreadySaved"></i> 
-                <i class="ss-icon ss-delete" ng-show="albumAlreadySaved"></i> 
+                <i class="ss-icon ss-check" ng-show="!albumAlreadySaved"></i>
+                <i class="ss-icon ss-delete" ng-show="albumAlreadySaved"></i>
             </div>
             <div class="button white" ng-click="toggleFollowPlaylist()" ng-show="type == 'Playlist' &&!isowner">
                 <span class="text">{{ (followingPlaylist) ? 'Unfollow' : 'Follow' }} playlist</span>
-                <i class="ss-icon ss-check" ng-show="!followingPlaylist"></i> 
-                <i class="ss-icon ss-delete" ng-show="followingPlaylist"></i> 
+                <i class="ss-icon ss-check" ng-show="!followingPlaylist"></i>
+                <i class="ss-icon ss-delete" ng-show="followingPlaylist"></i>
             </div>
             <div class="button white" ng-click="startStation()">
                 <span class="text">Start station</span>
-                <i class="ss-icon ss-wifi"></i> 
+                <i class="ss-icon ss-wifi"></i>
             </div>
             <div class="button white" ng-click="shuffle()" ng-if="type != 'tracklist'">
                 <span class="text">Shuffle {{ type }}</span>
-                <i class="ss-icon ss-shuffle"></i> 
+                <i class="ss-icon ss-shuffle"></i>
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
     </div>
 
     <div class="pagecontent row" style="padding-bottom: 30px;" ng-if="type == 'tracklist'">
-        <div id="tracklist"> 
+        <div id="tracklist">
             <div class="row">
                 <mopify-track track="currentPlayingTrack" currentplayingtrack="currentPlayingTrack" type="type"></mopify-track>
             </div>
@@ -74,8 +74,8 @@
     </div>
 
     <div class="pagecontent row" style="padding-bottom: 30px;" ng-if="type == 'tracklist' && queue.length > 0">
-        <div id="tracklist"> 
-            <div class="row" ng-repeat="track in queue track by $index" >
+        <div id="tracklist">
+            <div class="row" ng-repeat="track in queue track by $index">
                 <mopify-track track="track" surrounding="queue" type="type"> </mopify-track>
             </div>
         </div>
