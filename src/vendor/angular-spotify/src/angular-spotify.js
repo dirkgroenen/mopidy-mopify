@@ -312,6 +312,18 @@
         /**
           ====================== User Library =====================
          */
+        NgSpotify.prototype.getSavedUserArtists = function (options) {
+          return this.api('/me/following', 'GET', options, null, {
+            'Authorization': 'Bearer ' + this.authToken
+          });
+        };
+
+        NgSpotify.prototype.getSavedUserAlbums = function (options) {
+          return this.api('/me/albums', 'GET', options, null, {
+            'Authorization': 'Bearer ' + this.authToken
+          });
+        };
+
         NgSpotify.prototype.getSavedUserTracks = function (options) {
           return this.api('/me/tracks', 'GET', options, null, {
             'Authorization': 'Bearer ' + this.authToken
