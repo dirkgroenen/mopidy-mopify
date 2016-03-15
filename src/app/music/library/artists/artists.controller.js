@@ -25,6 +25,7 @@ angular.module('mopify.music.library.artists', [
  */
 .controller("ArtistsLibraryController", function ArtistsLibraryController($scope, $rootScope, $q, $routeParams, ServiceManager, PlaylistManager, mopidyservice, notifier, Spotify, SpotifyLogin){
 
+    var partialArtists = [];
     $scope.artists = [];
 
     if(ServiceManager.isEnabled("spotify")){
@@ -57,13 +58,27 @@ angular.module('mopify.music.library.artists', [
                 type: 'artist'
             }).then(function(response){
 
-                var artists = response.artists.items;
-
                 // Concat with previous artists
-                $scope.artists = $scope.artists.concat(artists);
+                partialArtists = partialArtists.concat(response.artists.items);
 
-                if(response.artists.next !== null)
-                    loadSpotifyLibraryArtists(offset + 50);
+                if (response.artists.next !== null) {
+                    loadSpotifyLibraryArtists(response.artists.cursors.after);
+                } else {
+
+                    partialArtists.sort(function(a, b){
+                        return a.name == b.name ? 0 : +(a.name > b.name) || -1;
+                    });
+
+                    for (var i=1; i < partialArtists.length; ) {
+                        if (partialArtists[i-1].id == partialArtists[i].id) {
+                            partialArtists.splice(i, 1);
+                        } else {
+                            i++;
+                        }
+                    }
+
+                    $scope.artists = partialArtists;
+                }
             });
         }
     }
