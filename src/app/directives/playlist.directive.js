@@ -45,16 +45,7 @@ angular.module('mopify.widgets.directive.playlist', [
              * @return {void}
              */
             scope.play = function(){
-                if(scope.playlist.__model__ == "Playlist"){
-                    console.log(scope.playlist);
-                    mopidyservice.playTrack(scope.playlist.tracks[0], scope.playlist.tracks);
-                }
-                else{
-                    mopidyservice.lookup(scope.playlist.uri).then(function(data){
-                        var tracks = data[scope.playlist.uri];
-                        mopidyservice.playTrack(tracks[0], tracks);
-                    });
-                }
+                mopidyservice.playTrack(scope.playlist);
             };
 
             var encodedname = encodeURIComponent( scope.playlist.name.replace(/\//g, "-") );
