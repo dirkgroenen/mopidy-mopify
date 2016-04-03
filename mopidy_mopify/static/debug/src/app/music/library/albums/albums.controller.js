@@ -31,10 +31,10 @@ angular.module('mopify.music.library.albums', [
     if (ServiceManager.isEnabled('spotify')) {
       // Load when spotify is connected
       $rootScope.$on('mopify:spotify:connected', function () {
-        loadSpotifyLibraryTracks();
+        loadSpotifyLibraryAlbums();
       });
       if (SpotifyLogin.connected) {
-        loadSpotifyLibraryTracks();
+        loadSpotifyLibraryAlbums();
       }
     } else {
       notifier.notify({
@@ -47,22 +47,18 @@ angular.module('mopify.music.library.albums', [
      * Load the user's Spotify Library tracks
      * @param {int} offset the offset to load the track, will be zero if not defined
      */
-    function loadSpotifyLibraryTracks(offset) {
+    function loadSpotifyLibraryAlbums(offset) {
       if (ServiceManager.isEnabled('spotify') && SpotifyLogin.connected) {
         if (offset === undefined)
           offset = 0;
-        Spotify.getSavedUserTracks({
+        Spotify.getSavedUserAlbums({
           limit: 50,
           offset: offset
         }).then(function (response) {
           // Map all track from the response's items array
           var albums = _.map(response.items, function (item) {
-              return item.track.album;
+              return item.album;
             });
-          // Unique the array with albums
-          albums = _.uniq(albums, function (album) {
-            return album.id;
-          });
           // Check if the scope's last album doesn't equal the first album we wan't to add
           if ($scope.albums.length > 0) {
             if ($scope.albums[$scope.albums.length - 1].id == albums[0].id) {
@@ -70,23 +66,10 @@ angular.module('mopify.music.library.albums', [
               albums.shift();
             }
           }
-          // Add artists to each album based on the tracks
-          _.each(albums, function (album) {
-            var tracks = _.filter(response.items, function (item) {
-                return item.track.album.id === album.id;
-              });
-            var artists = _.flatten(_.map(tracks, function (item) {
-                return item.track.artists;
-              }));
-            artists = _.uniq(artists, function (item) {
-              return item.id;
-            });
-            album.artists = artists;
-          });
           // Concat with previous tracks
           $scope.albums = $scope.albums.concat(albums);
           if (response.next !== null)
-            loadSpotifyLibraryTracks(offset + 50);
+            loadSpotifyLibraryAlbums(offset + 50);
         });
       }
     }

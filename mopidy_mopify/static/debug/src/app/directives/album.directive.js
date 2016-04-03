@@ -47,9 +47,7 @@ angular.module('mopify.widgets.directive.album', [
              * Play the album
              */
         scope.play = function () {
-          mopidyservice.getAlbum(scope.album.uri).then(function (tracks) {
-            mopidyservice.playTrack(tracks[0], tracks);
-          });
+          mopidyservice.playTrack(scope.album);
         };
         /**
              * Start a new station from the album's URI

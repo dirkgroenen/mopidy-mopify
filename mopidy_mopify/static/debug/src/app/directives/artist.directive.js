@@ -27,9 +27,7 @@ angular.module('mopify.widgets.directive.artist', [
              * Play the first 50 tracks of the given artist
              */
         scope.play = function () {
-          mopidyservice.getArtist(scope.artist.uri).then(function (tracks) {
-            mopidyservice.playTrack(tracks[0], tracks.splice(0, 50));
-          });
+          mopidyservice.playTrack(scope.artist);
         };
         /**
              * Start a station from the given artist

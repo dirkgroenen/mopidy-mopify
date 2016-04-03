@@ -1,5 +1,10 @@
 #Changelog
 
+v1.5.17 (03-04-2016)
+
+- Use new Spotify API endpoints [#188](https://github.com/dirkgroenen/mopidy-mopify/pull/188)
+- Improve playback speed
+
 v1.5.16 (25-02-2016)
 --------------------
 - Add one time bindings 
