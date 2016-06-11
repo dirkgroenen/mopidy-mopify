@@ -1,5 +1,9 @@
 #Changelog
 
+v1.6.0 (UNRELEASED)
+
+- Remove deprecated TasteProfile and replace for Spotify API [#200](https://github.com/dirkgroenen/mopidy-mopify/issues/200)
+
 v1.5.17 (03-04-2016)
 
 - Use new Spotify API endpoints [#188](https://github.com/dirkgroenen/mopidy-mopify/pull/188)

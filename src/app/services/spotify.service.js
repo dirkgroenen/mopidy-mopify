@@ -30,7 +30,7 @@ angular.module("mopify.services.spotifylogin", [
     // Create communication frame for Spotify
     createFrame("spotify");
 
-    var tokenStorageKey = "spotifytokens";
+    var tokenStorageKey = "spotify-auth";
 
     /**
      * Override the Spotify login method so we can return a CODE response
@@ -95,6 +95,7 @@ angular.module("mopify.services.spotifylogin", [
      */
     SpotifyLogin.prototype.checkTokens = function(){
         var that = this;
+
         // Check if expires equals null or expired
         if((this.expires === null || this.expires === undefined || Date.now() >= this.expires) && ServiceManager.isEnabled("spotify")){
             if(this.refresh_token !== null){
@@ -212,7 +213,7 @@ angular.module("mopify.services.spotifylogin", [
      * permisions for these scopes
      */
     SpotifyLogin.prototype.checkOldToken = function(){
-        var minversion = '1.5.10';
+        var minversion = '1.6.0';
         var compare = util.versionCompare(minversion, this.mopifyversion);
 
         // If the minversion is greater than the token's version
@@ -364,7 +365,6 @@ angular.module("mopify.services.spotifylogin", [
         }
 
         var response = e.data;
-
         if(response.service == "spotify"){
             if(response.key !== null){
                 // Parse json

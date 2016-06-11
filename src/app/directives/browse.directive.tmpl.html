@@ -7,7 +7,7 @@
             <div class="iconwrap row">
                 <div class="icon small col-xs-4" title="Show tracks">
                     <a href="#/music/artist/{{ spotifyuri }}" ng-if="item.type == 'artist'"><i class="ss-icon ss-list"></i></a>
-                    <a href="#/music/tracklist/{{ spotifyuri }}" ng-if="item.type == 'echonest'"><i class="ss-icon ss-list"></i></a>
+                    <a href="#/music/tracklist/{{ spotifyuri }}" ng-if="item.type == 'spotify'"><i class="ss-icon ss-list"></i></a>
                 </div>
                 <div class="icon col-xs-4" title="Play">
                     <i class="ss-icon ss-play" ng-click="play()"></i>
@@ -19,7 +19,7 @@
         </div>
 
         <img ng-src="{{ image }}"/>
-    </div>  
+    </div>
     <div class="text">
         <span class="title">{{ suggestion.name }}</span><br>
         <span class="artist" ng-if="suggestion.artist">{{ suggestion.artist }}</span>

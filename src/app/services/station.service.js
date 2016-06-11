@@ -67,15 +67,11 @@ angular.module('mopify.services.station', [
             parameters.seed_tracks = [station.spotify.id];
         }
 
-        if(station.type == "album"){
-            parameters.seed_albums = [station.spotify.id];
-        }
-
         if(station.type == "tracks"){
             parameters.seed_tracks = createTrackIdsList(station.tracks);
         }
 
-        if(station.type == "user"){
+        if(station.type == "album" || station.type == "user"){
             parameters.seed_tracks = createTrackIdsList(station.spotify.tracks);
         }
 
@@ -108,6 +104,11 @@ angular.module('mopify.services.station', [
      * @param  {station} station - object from the stations controller containing the information for the new radio
      */
     function createStation(station){
+        if(!ServiceManager.isEnabled("spotify")){
+            notifier.notify({type: "custom", template: "Please enable the Spotify service first.", delay: 7500});
+            return;
+        }
+
         // Get the songs from Echonest
         var params = prepareParameters(station);
 
@@ -212,13 +213,13 @@ angular.module('mopify.services.station', [
             return deferred.promise;
         },
 
-        startFromTaste: function(){
-            /*if(ServiceManager.isEnabled("tasteprofile")){
+        startFromSpotify: function(){
+            return Spotify.getUserTopTracks({limit: 5}).then(function(response){
                 var station = {
-                    type: "taste",
+                    type: "tracks",
                     spotify: null,
-                    tracks: null,
-                    name: "Tasteprofile",
+                    tracks: response.items,
+                    name: "Personal",
                     coverImage: "./assets/images/tracklist-header.jpg",
                     started_at: Date.now()
                 };
@@ -229,11 +230,7 @@ angular.module('mopify.services.station', [
                 localStorageService.set("stations", allstations);
 
                 createStation(station);
-            }
-            else{
-                notifier.notify({type: "custom", template: "Please enable the TasteProfile service first.", delay: 7500});
-            }*/
-            notifier.notify({type: "custom", template: "TasteProfile support is deprecated.", delay: 7500});
+            });
         },
 
         startFromTracks: function(tracks){

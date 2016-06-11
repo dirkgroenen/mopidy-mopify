@@ -17,10 +17,10 @@ angular.module('mopify.widgets.directive.browse', [
         templateUrl: 'directives/browse.directive.tmpl.html',
         link: function(scope, element, attrs) {
             scope.spotifyuri = null;
-           
-            if(scope.item.type == "echonest"){
+
+            if(scope.item.type == "spotify"){
                 scope.titleslogan = (Math.floor(Math.random() * 2) == 1) ? "Here's something you might like:" : "Recommended for you:";
-                scope.spotifyuri = scope.item.echonest.tracks[0].foreign_id;
+                scope.spotifyuri = scope.item.spotify.uri;
 
                 Spotify.getTrack(scope.spotifyuri).then(function(response){
                     scope.image = response.album.images[0].url;
@@ -28,8 +28,8 @@ angular.module('mopify.widgets.directive.browse', [
                 });
 
                 scope.suggestion = {
-                    name: scope.item.echonest.title,
-                    artist: scope.item.echonest.artist_name
+                    name: scope.item.spotify.name,
+                    artist: util.artistsToString(scope.item.spotify.artists)
                 };
             }
 
@@ -65,7 +65,7 @@ angular.module('mopify.widgets.directive.browse', [
                     }
 
                     mopidyservice.playTrack(tracktoplay, playtracks);
-                }); 
+                });
             };
 
             // Start a station

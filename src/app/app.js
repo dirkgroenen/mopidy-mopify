@@ -41,7 +41,7 @@ angular.module('mopify', [
 
     SpotifyProvider.setClientId('b6b699a5595b406d9bfba11bee303aa4');
     SpotifyProvider.setRedirectUri('https://bitlabs.nl/mopify/auth/spotify/callback/');
-    SpotifyProvider.setScope('playlist-read-collaborative playlist-read-private playlist-modify-private playlist-modify-public user-library-read user-library-modify user-follow-modify user-follow-read');
+    SpotifyProvider.setScope('playlist-read-collaborative playlist-read-private playlist-modify-private playlist-modify-public user-library-read user-library-modify user-follow-modify user-follow-read user-top-read');
 
     $routeProvider.otherwise({
         redirectTo: "/"

@@ -4,7 +4,7 @@ angular.module("mopify.services.discover", [
     'mopify.services.history'
 ])
 
-.factory("Discover", function($q, History){
+.factory("Discover", function($q, History, Spotify){
 
     function Discover(){
         this.data = {
@@ -34,32 +34,22 @@ angular.module("mopify.services.discover", [
      * @return {$q.defer().promise}
      */
     Discover.prototype.generateBrowseContent = function(){
-        /*
-        var that = this;
-        var deferred = $q.defer();
         var history = History.getTracks().reverse().splice(0, 50);
-        var echonest = [];
-        var builtblocks = [];
 
-        // Get a catalog radio based on the tasteprofile id
-        var parameters = {
-            results: 50,
-            type: 'catalog-radio',
-            seed_catalog: TasteProfile.id,
-            bucket: [
-                'id:spotify',
-                'tracks'
-            ],
-            limit: true
-        };
+        return Spotify.getUserTopTracks({limit: 5}).then(function(response){
+            return _.map(response.items, function(t){
+                return t.id;
+            });
+        }).then(function(ids){
+            return Spotify.getRecommendations({limit: 100, seed_tracks: ids});
+        }).then(function(response){
+            var songs = response.tracks;
+            var builtblocks = [];
 
-        Echonest.playlist.static(parameters).then(function(songs){
-            echonest = songs;
-
-            _.forEach(echonest, function(item){
+            _.forEach(songs, function(item){
                 builtblocks.push({
-                    type: "echonest",
-                    echonest: item
+                    type: "spotify",
+                    spotify: item
                 });
             });
 
@@ -71,11 +61,8 @@ angular.module("mopify.services.discover", [
             });
 
             // Shuffle the array
-            deferred.resolve(_.shuffle(builtblocks));
+            return _.shuffle(builtblocks);
         });
-
-        return deferred.promise;
-        */
     };
 
     return new Discover();

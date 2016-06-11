@@ -33,13 +33,13 @@ angular.module("mopify.discover.browse", [
             builtblocks = blocks;
             $scope.buildblocks();
         });
-
-        $scope.buildblocks = function(){
-            $scope.blocks = $scope.blocks.concat(builtblocks.slice(sliceloops * 12, (sliceloops * 12) + 12));
-            sliceloops++;
-        };
     }
     else{
         notifier.notify({type: "custom", template: "Enable the Spotify service if you want to use this feature.", delay: 7500});
     }
+
+    $scope.buildblocks = function(){
+        $scope.blocks = $scope.blocks.concat(builtblocks.slice(sliceloops * 12, (sliceloops * 12) + 12));
+        sliceloops++;
+    };
 });
