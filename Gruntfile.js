@@ -304,7 +304,7 @@ module.exports = function ( grunt ) {
             options: {
                 livereload: true
             },
-            
+
             /**
             * When our JavaScript source files change, we want to run lint them and
             * run our unit tests.
@@ -375,7 +375,7 @@ module.exports = function ( grunt ) {
         },
 
         /**
-          * With connect we start a webserver on port 8000 which will have the build 
+          * With connect we start a webserver on port 8000 which will have the build
           * directory as it's root
           */
         connect: {
@@ -395,7 +395,7 @@ module.exports = function ( grunt ) {
             }
         },
 
-        /**
+      /**
 		  * `jshint` defines the rules of our linter as well as which files we
 		  * should check. This file, all javascript sources, and all our unit tests
 		  * are linted based on the policies listed in `options`. But we can also
@@ -407,13 +407,10 @@ module.exports = function ( grunt ) {
 			src: [
 				'<%= app_files.js %>'
 			],
-			gruntfile: [
-				'Gruntfile.js'
-			],
 			options: {
-				jshintrc: '.jshintrc'
-			},
-			globals: {}
+				jshintrc: '.jshintrc',
+        browser: true
+			}
 		},
 
         /**
@@ -522,7 +519,7 @@ module.exports = function ( grunt ) {
         grunt.file.copy('ext.conf', grunt.config( 'mopidy_package_dir' ) + '/ext.conf');
     });
 
-    
+
     /**
       * A utility function to get all app JavaScript sources.
       */
@@ -537,7 +534,7 @@ module.exports = function ( grunt ) {
       */
     function filterForCSS ( files ) {
         return files.filter( function ( file ) {
-            return file.match( /\.css$/ ); 
+            return file.match( /\.css$/ );
         });
     }
 };

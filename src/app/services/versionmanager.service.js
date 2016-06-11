@@ -1,15 +1,16 @@
+"use strict";
+
 angular.module("mopify.services.versionmanager", [
     "LocalStorageModule",
     "mopify.services.util"
 ])
 
 .factory("VersionManager", function($window, $q, $rootScope, $http, util, localStorageService){
-    "use strict";
 
     function VersionManager(){
         var that = this;
-    
-        // Get current software version        
+
+        // Get current software version
         var currentversion = getMetaTag("version");
         this.version = currentversion;
         this.newVersion = false;
@@ -35,7 +36,7 @@ angular.module("mopify.services.versionmanager", [
 
     /**
      * Get the last version from Github or the cache
-     * @return {$q.defer()} 
+     * @return {$q.defer()}
      */
     VersionManager.prototype.checkVersion = function() {
         var deferred = $q.defer();
@@ -49,7 +50,7 @@ angular.module("mopify.services.versionmanager", [
                 if(data[0] !== undefined){
                     var lastversion = data[0].tag_name;
                     var changelog = data[0].body;
-                    
+
                     // Update version data
                     versiondata.lastversion = lastversion;
                     versiondata.lastcheck = Date.now();
@@ -57,7 +58,7 @@ angular.module("mopify.services.versionmanager", [
 
                     localStorageService.set("versionmanager", versiondata);
 
-                    // Check if the returned version is different 
+                    // Check if the returned version is different
                     if(util.versionCompare(lastversion, that.version) > 0){
                         that.newVersion = true;
                     }
@@ -80,17 +81,17 @@ angular.module("mopify.services.versionmanager", [
      * @param  {string} tagname The meta tag's key
      * @return {string}         The meta tag's content
      */
-    function getMetaTag(tagname) { 
-        var metas = $window.document.getElementsByTagName('meta'); 
+    function getMetaTag(tagname) {
+        var metas = $window.document.getElementsByTagName('meta');
 
-        for (var i = 0; i < metas.length; i++) { 
-            if (metas[i].getAttribute("name") == tagname) { 
-                return metas[i].getAttribute("content"); 
-            } 
-        } 
+        for (var i = 0; i < metas.length; i++) {
+            if (metas[i].getAttribute("name") == tagname) {
+                return metas[i].getAttribute("content");
+            }
+        }
 
         return "";
-    } 
+    }
 
     /**
      * Get the last version's changelog

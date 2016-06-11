@@ -1,4 +1,4 @@
-<div class="tileart" context-menu data-target="menu-{{ playlist.uri }}" ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
+<div class="tileart" context-menu data-target="menu-{{ ::playlist.uri }}" ng-class="{ 'highlight': highlight, 'expanded' : expanded }">
     <div class="hoverwrap" ng-click="openPlaylistTracklist()">
         <div class="iconwrap row">
             <div class="icon small col-xs-4" title="Show playlist's tracks">
@@ -7,7 +7,7 @@
             <div class="icon col-xs-4" title="Play playlist">
                 <i class="ss-icon ss-play" ng-click="play()" stop-propagation></i>
             </div>
-            <div class="icon small col-xs-4" title="Start new station for: {{ playlist.name }}">
+            <div class="icon small col-xs-4" title="Start new station for: {{ ::playlist.name }}">
                 <i class="ss-icon ss-wifi" ng-click="startStation()" stop-propagation></i>
             </div>
         </div>
@@ -22,7 +22,7 @@
     </a>
 </div>
 
-<div class="contextmenu position-fixed" id="menu-{{ playlist.uri }}">
+<div class="contextmenu position-fixed" id="menu-{{ ::playlist.uri }}">
     <ul class="dropdown-menu" role="menu">
         <li ng-click="play()">
             Play

@@ -5,7 +5,6 @@ angular.module('mopify.music.playlists', [
     'mopify.services.servicemanager',
     'mopify.services.mopidy',
     'mopify.services.playlistmanager',
-    'angular-echonest',
     'mopify.widgets.directive.playlist',
     'cgPrompt',
     'llNotifier'
@@ -24,7 +23,7 @@ angular.module('mopify.music.playlists', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("PlaylistsController", function PlaylistsController($scope, $routeParams, ServiceManager, PlaylistManager, mopidyservice, Echonest, prompt, notifier){
+.controller("PlaylistsController", function PlaylistsController($scope, $routeParams, ServiceManager, PlaylistManager, mopidyservice, prompt, notifier){
     var groupedLists = {}, splitList = [];
 
     $scope.playlists = [];
@@ -37,7 +36,7 @@ angular.module('mopify.music.playlists', [
     else{
         if(mopidyservice.isConnected)
             loadPlaylists();
-        
+
         $scope.$on("mopidy:event:playlistsLoaded", loadPlaylists);
         $scope.$on("mopidy:state:online", loadPlaylists);
 
@@ -61,7 +60,7 @@ angular.module('mopify.music.playlists', [
             }, function(){
                 notifier.notify({type: "custom", template: "Can't create playlist. Are you connected with Spotify?", delay: 5000});
             });
-        }); 
+        });
     };
 
     /**

@@ -1,17 +1,18 @@
+"use strict";
+
 angular.module("mopify.services.facebook", [])
 
 .factory("Facebook", function($q, $timeout, $document){
-    "use strict";
 
     // Get body
     var body = $document.find('body').eq(0);
 
     // Create communication frame for Facebook
     function createFrame(service){
-        var frame = document.createElement("iframe"); 
-        frame.setAttribute("src", "https://bitlabs.nl/mopify/auth/" + service + "/frame/#" + window.location.host); 
-        frame.style.width = 1 + "px"; 
-        frame.style.height = 1 + "px"; 
+        var frame = document.createElement("iframe");
+        frame.setAttribute("src", "https://bitlabs.nl/mopify/auth/" + service + "/frame/#" + window.location.host);
+        frame.style.width = 1 + "px";
+        frame.style.height = 1 + "px";
 
         // Add to body and register in frames object
         body.append(frame);
@@ -33,7 +34,7 @@ angular.module("mopify.services.facebook", [])
 
             this.tryToProcess();
         }
-        else{        
+        else{
             // Add timestamp and unique number to data
             data.id = Date.now() + Math.floor(Date.now() * Math.random());
             data.finished = false;
@@ -43,7 +44,7 @@ angular.module("mopify.services.facebook", [])
 
             // Convert data to string
             var dataString = JSON.stringify(data);
-            
+
             // Post the message to the correct frame
             this.frame.contentWindow.postMessage(dataString, "*");
         }
@@ -58,11 +59,11 @@ angular.module("mopify.services.facebook", [])
 
         if(this.callbackqueue[data.id] !== undefined){
             if(this.callbackqueue[data.id].callback !== undefined){
-                this.callbackqueue[data.id].callback(data.callbackdata);    
+                this.callbackqueue[data.id].callback(data.callbackdata);
                 this.callbackqueue[data.id].finished = false;
             }
         }
-        
+
     };
 
     Facebook.prototype.tryToProcess = function() {
@@ -110,7 +111,7 @@ angular.module("mopify.services.facebook", [])
     };
 
     Facebook.prototype.api = function(path, data) {
-        var deferred = $q.defer(); 
+        var deferred = $q.defer();
 
         // Make request
         this.request({

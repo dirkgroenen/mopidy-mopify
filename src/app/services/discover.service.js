@@ -1,11 +1,10 @@
+"use strict";
+
 angular.module("mopify.services.discover", [
-    'mopify.services.history',
-    'mopify.services.tasteprofile',
-    'angular-echonest',
+    'mopify.services.history'
 ])
 
-.factory("Discover", function($q, History, TasteProfile, Echonest){
-    "use strict";
+.factory("Discover", function($q, History){
 
     function Discover(){
         this.data = {
@@ -35,13 +34,14 @@ angular.module("mopify.services.discover", [
      * @return {$q.defer().promise}
      */
     Discover.prototype.generateBrowseContent = function(){
+        /*
         var that = this;
         var deferred = $q.defer();
         var history = History.getTracks().reverse().splice(0, 50);
         var echonest = [];
         var builtblocks = [];
 
-        // Get a catalog radio based on the tasteprofile id 
+        // Get a catalog radio based on the tasteprofile id
         var parameters = {
             results: 50,
             type: 'catalog-radio',
@@ -75,6 +75,7 @@ angular.module("mopify.services.discover", [
         });
 
         return deferred.promise;
+        */
     };
 
     return new Discover();

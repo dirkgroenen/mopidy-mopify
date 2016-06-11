@@ -3,7 +3,6 @@
 
     <ng-include ng-if="connectedServices.spotify" src="'account/services/spotify/menu.tmpl.html'"></ng-include>
     <ng-include ng-if="connectedServices.facebook" src="'account/services/facebook/menu.tmpl.html'"></ng-include>
-    <ng-include ng-if="connectedServices.tasteprofile" src="'account/services/tasteprofile/menu.tmpl.html'"></ng-include>
     <ng-include ng-if="connectedServices.sync" src="'account/services/sync/menu.tmpl.html'"></ng-include>
 
     <div ng-if="!hasServicesConnected">

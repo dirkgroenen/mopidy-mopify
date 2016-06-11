@@ -1,6 +1,7 @@
 {
   "globalstrict": true,
   "globals": {
+    "WebSocket": false,
     "angular": false,
     "describe": false,
     "it": false,

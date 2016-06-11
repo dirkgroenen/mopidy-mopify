@@ -3,7 +3,6 @@
 // Declare app level module which depends on views, and components
 angular.module('mopify', [
     'LocalStorageModule',
-    'angular-echonest',
     'angular-loading-bar',
     'mopify.services.mopidy',
     'mopify.services.versionmanager',
@@ -22,7 +21,6 @@ angular.module('mopify', [
     'mopify.player.seekbar',
     'mopify.account.settings',
     'mopify.account.services',
-    'mopify.account.services.tasteprofile',
     'mopify.account.services.menu',
     'mopify.account.services.spotify',
     'mopify.account.services.facebook',
@@ -38,9 +36,8 @@ angular.module('mopify', [
     'cgPrompt'
 ])
 
-.config(function($routeProvider, $httpProvider, localStorageServiceProvider, EchonestProvider, SpotifyProvider, $injector){
+.config(function($routeProvider, $httpProvider, localStorageServiceProvider, SpotifyProvider, $injector){
     localStorageServiceProvider.setPrefix("mopify");
-    EchonestProvider.setApiKey("UVUDDM7M0S5MWNQFV");
 
     SpotifyProvider.setClientId('b6b699a5595b406d9bfba11bee303aa4');
     SpotifyProvider.setRedirectUri('https://bitlabs.nl/mopify/auth/spotify/callback/');

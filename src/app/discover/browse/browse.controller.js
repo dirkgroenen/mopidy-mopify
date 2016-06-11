@@ -19,16 +19,16 @@ angular.module("mopify.discover.browse", [
 
 
 .controller("DiscoverBrowseController", function DiscoverBrowseController($scope, Discover, stationservice, ServiceManager, notifier){
-    
+
     $scope.blocks = [];
     var builtblocks = [];
     var sliceloops = 0;
 
     $scope.startStation = function(){
-        stationservice.startFromTaste();
+        stationservice.startFromSpotify();
     };
 
-    if(ServiceManager.isEnabled("tasteprofile")){
+    if(ServiceManager.isEnabled("spotify")){
         Discover.getBrowseBlocks().then(function(blocks){
             builtblocks = blocks;
             $scope.buildblocks();
@@ -40,6 +40,6 @@ angular.module("mopify.discover.browse", [
         };
     }
     else{
-        notifier.notify({type: "custom", template: "Enable the Taste Profile service if you want to use this feature.", delay: 7500});
+        notifier.notify({type: "custom", template: "Enable the Spotify service if you want to use this feature.", delay: 7500});
     }
 });

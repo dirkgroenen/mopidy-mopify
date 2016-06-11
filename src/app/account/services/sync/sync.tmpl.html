@@ -58,13 +58,13 @@
                     <div class="col-sm-6">
                         <div class="button white fullwidth" ng-click="sendCurrentSpotifyTokens()" ng-show="settings.sync.spotify">
                             <span class="text">Push</span>
-                            <i class="ss-icon ss-upload"></i> 
+                            <i class="ss-icon ss-upload"></i>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="button white fullwidth" ng-click="getSyncSpotifyTokens()" ng-show="settings.sync.spotify">
                             <span class="text">Get</span>
-                            <i class="ss-icon ss-download"></i> 
+                            <i class="ss-icon ss-download"></i>
                         </div>
                     </div>
                 </div>
@@ -76,36 +76,7 @@
                 <p ng-show="settings.sync.spotify">Currently using credentials from device: <i>{{ spotifyclient.name }} <span ng-show="spotifyclient.id == client.id">(That's you)</span></i></p>
             </div>
         </div>
-        <div class="settingwrap row">
-            <div class="label col-md-2">
-                <label>TasteProfile ID</label>
-            </div>
-            <div class="input col-md-1">
-                <toggle-switch ng-model="settings.sync.tasteprofile" ng-click="tasteProfileToggle()"></toggle-switch>
-            </div>
-            <div class="col-md-3">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="button white fullwidth" ng-click="sendCurrentTasteProfileID()" ng-show="settings.sync.tasteprofile">
-                            <span class="text">Push</span>
-                            <i class="ss-icon ss-upload"></i> 
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="button white fullwidth" ng-click="getSyncTasteProfileID()" ng-show="settings.sync.tasteprofile">
-                            <span class="text">Get</span>
-                            <i class="ss-icon ss-download"></i> 
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="description col-md-4 col-md-offset-1">
-                <p>When enabled every client that has Sync enabled will use the same TasteProfile.</p>
-                <p><b>GET:</b> Retrieve the credentials from the Sync server<br/><b>PUSH:</b> Push your current credentials to the sync server</p>
-                <p ng-show="settings.sync.tasteprofile">Currently using credentials from device: <i>{{ tasteprofileclient.name }} <span ng-show="tasteprofileclient.id == client.id">(That's you)</span></i></p>
-            </div>
-        </div>
     </div>
 
     <div class="pagetitle row">

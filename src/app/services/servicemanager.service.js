@@ -1,10 +1,11 @@
+"use strict";
+
 angular.module("mopify.services.servicemanager", [
     "LocalStorageModule",
     "mopify.services.settings"
 ])
 
 .factory("ServiceManager", function($rootScope, $window, localStorageService, Settings){
-    "use strict";
 
     var rootkey = "settings";
 
@@ -20,23 +21,11 @@ angular.module("mopify.services.servicemanager", [
                 }
             },
             {
-                name: "Taste Profile",
-                description: "Stores tracks anonymously in a so called TasteProfile which is used to feed the 'Browse' page with recommendations.",
-                image: "./assets/images/echonest-logo.jpg",
-                hasSettings: true
-            },
-            {
                 name: "Sync",
                 description: "Sync the settings and authorization tokens with every Mopify client within your network.",
                 image: "./assets/images/sync-icon.png",
                 hasSettings: true
             }
-            /*{
-                name: "Facebook",
-                description: "Get more music based on your Facebook likes.",
-                image: "http://www.ednfoundation.org/wp-content/uploads/facebook-logo-square.png",
-                connected: ($scope.connectedServices !== null) ? $scope.connectedServices.facebook : false
-            }*/
         ];
 
        this.initializeSavedObject();
@@ -83,7 +72,7 @@ angular.module("mopify.services.servicemanager", [
 
         // Broadcast this change
         $rootScope.$broadcast("mopify:services:enabled", service);
-        
+
         // Set default settings if defined
         if(service.defaultSettings !== undefined){
             Settings.set(servicename, service.defaultSettings);
@@ -101,13 +90,13 @@ angular.module("mopify.services.servicemanager", [
 
         // Save to the localstorage
         localStorageService.set("services", services);
-        
+
         // Broadcast this change
         $rootScope.$broadcast("mopify:services:disabled", service);
 
         // Send to GA
         $window.ga('send', 'event', 'service', 'disabled', servicename);
-    };    
+    };
 
     ServiceManager.prototype.isEnabled = function(service) {
         var servicename = (typeof service === "string") ? service.replace(" ", "").toLowerCase() : service.name.replace(" ", "").toLowerCase();

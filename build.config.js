@@ -54,7 +54,6 @@ module.exports = {
             'src/vendor/angular/angular.js',
             'src/vendor/angular-route/angular-route.js',
             'src/vendor/angular-local-storage/dist/angular-local-storage.js',
-            'src/vendor/angular-echonest/src/angular-echonest.js',
             'src/vendor/angular-loading-bar/src/loading-bar.js',
             'src/vendor/angular-sanitize/angular-sanitize.js',
             'src/vendor/ng-context-menu/dist/ng-context-menu.js',

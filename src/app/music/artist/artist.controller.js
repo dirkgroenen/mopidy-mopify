@@ -6,7 +6,6 @@ angular.module('mopify.music.artist', [
     'mopify.services.servicemanager',
     'llNotifier',
     'spotify',
-    'angular-echonest',
     'mopify.services.mopidy',
     'mopify.services.station',
     'mopify.widgets.directive.artist'
@@ -25,7 +24,7 @@ angular.module('mopify.music.artist', [
 /**
  * After defining the routes we create the controller for this module
  */
-.controller("ArtistController", function ArtistController($scope, $routeParams, mopidyservice, Echonest, stationservice, notifier, Spotify, SpotifyLogin, ServiceManager){
+.controller("ArtistController", function ArtistController($scope, $routeParams, mopidyservice, stationservice, notifier, Spotify, SpotifyLogin, ServiceManager){
 
     $scope.artistId = $routeParams.artistId;
 
@@ -67,12 +66,12 @@ angular.module('mopify.music.artist', [
             $scope.followingArtist = response[0];
         });
     }
-    
+
     // Load artist data
     $scope.artist = {};
 
     // Get data from echonest
-    Echonest.artists.get({
+    /*Echonest.artists.get({
         id: $routeParams.artistId
     }).then(function(artist){
         $scope.artist = artist;
@@ -94,14 +93,14 @@ angular.module('mopify.music.artist', [
                 }
             }
         });
-    });
+    });*/
 
     // Get related artists from spotify
     Spotify.getRelatedArtists($scope.artistId).then(function(data){
         $scope.related = data.artists.splice(0, 18);
     });
 
-    
+
     // Init an empty toptracks object
     $scope.toptracks = [];
 
@@ -141,22 +140,22 @@ angular.module('mopify.music.artist', [
                     notifier.notify({type: "custom", template: "Artist succesfully unfollowed.", delay: 5000});
                     $scope.followingArtist = false;
                 }, function(data){
-                    notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
+                    notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
                 });
             }
             else{
                 // follow
                 Spotify.follow('artist', $scope.artistId.replace('spotify:artist:', '')).then(function (data) {
                     notifier.notify({type: "custom", template: "Artist succesfully followed.", delay: 5000});
-                    $scope.followingArtist = true;   
+                    $scope.followingArtist = true;
                 }, function(data){
-                    notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});   
-                });   
+                    notifier.notify({type: "custom", template: "Something wen't wrong, please try again.", delay: 5000});
+                });
             }
 
         }
         else{
-            notifier.notify({type: "custom", template: "Can't follow/unfollow artist. Are you connected with Spotify?", delay: 5000});   
+            notifier.notify({type: "custom", template: "Can't follow/unfollow artist. Are you connected with Spotify?", delay: 5000});
         }
     };
 

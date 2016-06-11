@@ -1,10 +1,10 @@
+"use strict";
+
 angular.module("mopify.services.history", [
-    'LocalStorageModule',
-    'mopify.services.tasteprofile'
+    'LocalStorageModule'
 ])
 
-.factory("History", function(localStorageService, TasteProfile){
-    "use strict";
+.factory("History", function(localStorageService){
 
     var storagekey = "history";
 
@@ -49,8 +49,6 @@ angular.module("mopify.services.history", [
                 }
             }
         ];
-
-        TasteProfile.update(itemblock);
     };
 
     History.prototype.getTracks = function(){

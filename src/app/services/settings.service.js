@@ -1,9 +1,10 @@
+"use strict";
+
 angular.module("mopify.services.settings", [
     "LocalStorageModule"
 ])
 
 .factory("Settings", function(localStorageService){
-    "use strict";
 
     var rootkey = "settings";
 

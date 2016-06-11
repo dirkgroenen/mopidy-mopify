@@ -1,20 +1,19 @@
+'use strict';
+
 /**
  * The station service will keep track of the current station (if started)
  * This means that it will enable/disable functions in the player and check when a new song has to be loaded
  */
 
 angular.module('mopify.services.station', [
-    'angular-echonest',
     "llNotifier",
     'mopify.services.mopidy',
     'mopify.services.util',
     'mopify.services.spotifylogin',
-    'mopify.services.tasteprofile',
     'mopify.services.servicemanager',
     "spotify"
 ])
-.factory("stationservice", function($rootScope, $q, $timeout, Echonest, mopidyservice, Spotify, localStorageService, util, SpotifyLogin, notifier, TasteProfile, ServiceManager){
-    'use strict';
+.factory("stationservice", function($rootScope, $q, $timeout, mopidyservice, Spotify, localStorageService, util, SpotifyLogin, notifier, ServiceManager){
 
     var stationPlaying = false;
     var echonestTracksQueue = [];
@@ -23,40 +22,29 @@ angular.module('mopify.services.station', [
      * Process a number of tracks from the echonestTracksQue
      * @return {$q.defer} a promise
      */
-    function processMopidyTracklist(){
+    function processMopidyTracklist(tracks, offset){
         var deferred = $q.defer();
+        var size = 25;
+
+        if(!offset) offset = 0;
+
+        var tracksToProcess = tracks.slice(offset, size);
 
         // The reponse from echonest only contains the artist name and track title. We need to look up the tracks in mopidy and add them
         // This is done in batches to prevent mopidy from overloading
-        if(echonestTracksQueue.length > 0){
-            generateMopidyTracks().then(function(uris){
+        if(tracksToProcess.length > 0){
+            var uris = _.map(tracksToProcess, function(t){
+                return t.uri;
+            });
 
-                mopidyservice.addToPlaylist({ uris: uris }).then(function(response){
-                    $timeout(processMopidyTracklist, 1000);
+            mopidyservice.addToPlaylist({ uris: uris }).then(function(response){
+                $timeout(function(){
+                    processMopidyTracklist(tracks, offset + size);
+                }, 2000);
 
-                    deferred.resolve(response);
-                });
+                deferred.resolve(response);
             });
         }
-
-        return deferred.promise;
-    }
-
-    /**
-     * Generate Mopidy tracks from the echonestTracksQueue in batches
-     * @return {$q.defer} a promise
-     */
-    function generateMopidyTracks(){
-        // Get tracks from array
-        var batch = echonestTracksQueue.splice(0, 10);
-        var deferred = $q.defer();
-
-        // Map the uri from the echonest results
-        var songuris = _.map(batch, function(song){
-            return song.tracks[0].foreign_id;
-        });
-
-        deferred.resolve(songuris);
 
         return deferred.promise;
     }
@@ -68,58 +56,30 @@ angular.module('mopify.services.station', [
      */
     function prepareParameters(station){
         var parameters = {
-            results: 50,
-            bucket: ['id:spotify', 'tracks'],
-            limit: true
+            limit: 100
         };
 
-        var deferred = $q.defer();
-
         if(station.type == "artist"){
-            parameters.artist = station.name;
-            parameters.type = "artist-radio";
-
-            deferred.resolve(parameters);
+            parameters.seed_artists = [station.spotify.id];
         }
 
         if(station.type == "track"){
-            parameters.song_id = station.spotify.uri;
-            parameters.type = "song-radio";
-
-            deferred.resolve(parameters);
+            parameters.seed_tracks = [station.spotify.id];
         }
 
-        if(station.type == "album" || station.type == "user"){
-            parameters.type = "song-radio";
-
-            if(station.spotify.tracks === undefined){
-                Spotify.getAlbum(station.spotify.id).then(function (data) {
-                    parameters.song_id = createTrackIdsList(data.tracks);
-
-                    deferred.resolve(parameters);
-                });
-            }
-            else{
-                parameters.song_id = createTrackIdsList(station.spotify.tracks);
-                deferred.resolve(parameters);
-            }
+        if(station.type == "album"){
+            parameters.seed_albums = [station.spotify.id];
         }
 
         if(station.type == "tracks"){
-            parameters.type = "song-radio";
-
-            parameters.song_id = createTrackIdsList(station.tracks);
-            deferred.resolve(parameters);
+            parameters.seed_tracks = createTrackIdsList(station.tracks);
         }
 
-        if(station.type == "taste"){
-            parameters.type = 'catalog-radio';
-            parameters.seed_catalog = TasteProfile.id;
-
-            deferred.resolve(parameters);
+        if(station.type == "user"){
+            parameters.seed_tracks = createTrackIdsList(station.spotify.tracks);
         }
 
-        return deferred.promise;
+        return parameters;
     }
 
     /**
@@ -135,11 +95,9 @@ angular.module('mopify.services.station', [
         tracks = items.splice(0, 4);
         var trackids = [];
 
-        for(var x = 0; x < tracks.length;x++){
-            if(tracks[x].uri === undefined)
-                trackids.push(tracks[x].track.uri);
-            else
-                trackids.push(tracks[x].uri);
+        for(var x = 0; x < tracks.length; x++){
+            var uri = tracks[x].uri || tracks[x].track.uri;
+            trackids.push(uri.replace("spotify:track:", ""));
         }
 
         return trackids;
@@ -151,17 +109,13 @@ angular.module('mopify.services.station', [
      */
     function createStation(station){
         // Get the songs from Echonest
-        prepareParameters(station).then(function(parameters){
+        var params = prepareParameters(station);
 
-            Echonest.playlist.static(parameters).then(function(songs){
-                echonestTracksQueue = songs;
-
-                mopidyservice.clearTracklist().then(function(){
-                    processMopidyTracklist().then(function(){
-                        mopidyservice.playTrackAtIndex(0);
-                    });
+        Spotify.getRecommendations(params).then(function(resp){
+            mopidyservice.clearTracklist().then(function(){
+                processMopidyTracklist(resp.tracks).then(function(){
+                    mopidyservice.playTrackAtIndex(0);
                 });
-
             });
         });
     }
@@ -259,7 +213,7 @@ angular.module('mopify.services.station', [
         },
 
         startFromTaste: function(){
-            if(ServiceManager.isEnabled("tasteprofile")){
+            /*if(ServiceManager.isEnabled("tasteprofile")){
                 var station = {
                     type: "taste",
                     spotify: null,
@@ -278,7 +232,8 @@ angular.module('mopify.services.station', [
             }
             else{
                 notifier.notify({type: "custom", template: "Please enable the TasteProfile service first.", delay: 7500});
-            }
+            }*/
+            notifier.notify({type: "custom", template: "TasteProfile support is deprecated.", delay: 7500});
         },
 
         startFromTracks: function(tracks){

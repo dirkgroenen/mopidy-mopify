@@ -1,9 +1,10 @@
-    angular.module("mopify.services.autoupdate", [
+"use strict";
+
+angular.module("mopify.services.autoupdate", [
     "mopify.services.settings"
 ])
 
 .factory("AutoUpdate", function($q, $http, $location, $rootScope, Settings){
-    "use strict";
 
     var canupdate = false;
 

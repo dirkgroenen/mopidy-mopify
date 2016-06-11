@@ -1,9 +1,10 @@
+"use strict";
+
 angular.module("mopify.services.queuemanager", [
     "mopify.services.settings"
 ])
 
 .factory("QueueManager", function($q, $http, $location, $rootScope, $timeout, Settings){
-    "use strict";
 
     // Create request array and init the connection to false
     var requests = [];
