@@ -3,6 +3,8 @@
 v1.6.0 (UNRELEASED)
 
 - Remove deprecated TasteProfile and replace for Spotify API [#200](https://github.com/dirkgroenen/mopidy-mopify/issues/200)
+- Upgrade Angular to 1.5.0
+- Add official Spotify library and override method 
 
 v1.5.17 (03-04-2016)
 
