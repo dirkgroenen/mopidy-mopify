@@ -5,7 +5,6 @@ angular.module('mopify.music.artist', [
   'mopify.services.servicemanager',
   'llNotifier',
   'spotify',
-  'angular-echonest',
   'mopify.services.mopidy',
   'mopify.services.station',
   'mopify.widgets.directive.artist'
@@ -21,13 +20,12 @@ angular.module('mopify.music.artist', [
   '$scope',
   '$routeParams',
   'mopidyservice',
-  'Echonest',
   'stationservice',
   'notifier',
   'Spotify',
   'SpotifyLogin',
   'ServiceManager',
-  function ArtistController($scope, $routeParams, mopidyservice, Echonest, stationservice, notifier, Spotify, SpotifyLogin, ServiceManager) {
+  function ArtistController($scope, $routeParams, mopidyservice, stationservice, notifier, Spotify, SpotifyLogin, ServiceManager) {
     $scope.artistId = $routeParams.artistId;
     // Determine the currentview
     $scope.currentview = {
@@ -67,24 +65,29 @@ angular.module('mopify.music.artist', [
     // Load artist data
     $scope.artist = {};
     // Get data from echonest
-    Echonest.artists.get({ id: $routeParams.artistId }).then(function (artist) {
-      $scope.artist = artist;
-      artist.getBiographies();
-      // Get images from artist
-      artist.getImages().then(function (data) {
-        var random = Math.floor(Math.random() * data.images.length);
-        $scope.artist.coverimage = data.images[random].url;
-      });
-      artist.getBiographies().then(function (data) {
-        var bios = data.biographies;
-        for (var x = 0; x < bios.length; x++) {
-          if (bios[x].truncated === false || bios[x].truncated === undefined) {
-            $scope.artist.bio = bios[x];
-            break;
-          }
-        }
-      });
-    });
+    /*Echonest.artists.get({
+        id: $routeParams.artistId
+    }).then(function(artist){
+        $scope.artist = artist;
+
+        artist.getBiographies();
+
+        // Get images from artist
+        artist.getImages().then(function(data){
+            var random = Math.floor(Math.random() * data.images.length);
+            $scope.artist.coverimage = data.images[random].url;
+        });
+
+        artist.getBiographies().then(function(data){
+            var bios = data.biographies;
+            for(var x = 0; x < bios.length; x++){
+                if(bios[x].truncated === false || bios[x].truncated === undefined){
+                    $scope.artist.bio = bios[x];
+                    break;
+                }
+            }
+        });
+    });*/
     // Get related artists from spotify
     Spotify.getRelatedArtists($scope.artistId).then(function (data) {
       $scope.related = data.artists.splice(0, 18);

@@ -1,7 +1,7 @@
+'use strict';
 angular.module('mopify.services.settings', ['LocalStorageModule']).factory('Settings', [
   'localStorageService',
   function (localStorageService) {
-    'use strict';
     var rootkey = 'settings';
     function Settings() {
       // Check if settings object exists in localstorage

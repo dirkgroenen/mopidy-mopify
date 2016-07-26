@@ -1,11 +1,7 @@
-angular.module('mopify.services.history', [
-  'LocalStorageModule',
-  'mopify.services.tasteprofile'
-]).factory('History', [
+'use strict';
+angular.module('mopify.services.history', ['LocalStorageModule']).factory('History', [
   'localStorageService',
-  'TasteProfile',
-  function (localStorageService, TasteProfile) {
-    'use strict';
+  function (localStorageService) {
     var storagekey = 'history';
     function History() {
       this.historystorage = localStorageService.get(storagekey);
@@ -33,7 +29,6 @@ angular.module('mopify.services.history', [
       localStorageService.set(storagekey, this.historystorage);
       // Add the track to the tasteprofile
       var itemblock = [{ 'item': { 'track_id': track.uri } }];
-      TasteProfile.update(itemblock);
     };
     History.prototype.getTracks = function () {
       return localStorageService.get(storagekey).tracks;

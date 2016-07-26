@@ -12,8 +12,7 @@ angular.module('mopify.services.sync', [
   'Settings',
   'ServiceManager',
   'SpotifyLogin',
-  'TasteProfile',
-  function SyncFactory($http, $q, $location, localStorageService, Settings, ServiceManager, SpotifyLogin, TasteProfile) {
+  function SyncFactory($http, $q, $location, localStorageService, Settings, ServiceManager, SpotifyLogin) {
     var mopidyip = Settings.get('mopidyip', $location.host());
     var mopidyport = Settings.get('mopidyport', $location.port());
     var apiUrl = $location.protocol() + '://' + mopidyip + ':' + mopidyport + '/mopify/sync/';
@@ -70,18 +69,6 @@ angular.module('mopify.services.sync', [
           Settings.set('sync', { spotify: true });
           // Enable service
           ServiceManager.enableService('Spotify');
-        }
-      });
-      // Get TasteProfile
-      get('tasteprofile').then(function (response) {
-        // Server will only return an object when data is available
-        if (typeof response == 'object') {
-          // Set data
-          TasteProfile.id = response.id;
-          // Set sync setting force to true
-          Settings.set('sync', { tasteprofile: true });
-          // Enable service
-          ServiceManager.enableService('Taste Profile');
         }
       });
     }
@@ -161,20 +148,6 @@ angular.module('mopify.services.sync', [
     Sync.prototype.setSpotify = function (data) {
       data.client_id = this.client.id;
       return post('spotify', data);
-    };
-    /**
-     * Get the TasteProfile ID
-     */
-    Sync.prototype.getTasteProfile = function () {
-      return get('tasteprofile');
-    };
-    /**
-     * Set the TasteProfile ID
-     * @param {object} data data to save
-     */
-    Sync.prototype.setTasteProfile = function (data) {
-      data.client_id = this.client.id;
-      return post('tasteprofile', data);
     };
     /**
      * Get settings

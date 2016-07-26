@@ -4,7 +4,6 @@ angular.module('mopify.music.playlists', [
   'mopify.services.servicemanager',
   'mopify.services.mopidy',
   'mopify.services.playlistmanager',
-  'angular-echonest',
   'mopify.widgets.directive.playlist',
   'cgPrompt',
   'llNotifier'
@@ -22,10 +21,9 @@ angular.module('mopify.music.playlists', [
   'ServiceManager',
   'PlaylistManager',
   'mopidyservice',
-  'Echonest',
   'prompt',
   'notifier',
-  function PlaylistsController($scope, $routeParams, ServiceManager, PlaylistManager, mopidyservice, Echonest, prompt, notifier) {
+  function PlaylistsController($scope, $routeParams, ServiceManager, PlaylistManager, mopidyservice, prompt, notifier) {
     var groupedLists = {}, splitList = [];
     $scope.playlists = [];
     $scope.foldername = $routeParams.folder;

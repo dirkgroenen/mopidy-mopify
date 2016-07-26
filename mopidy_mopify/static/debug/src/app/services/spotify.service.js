@@ -1,3 +1,4 @@
+'use strict';
 angular.module('mopify.services.spotifylogin', [
   'spotify',
   'mopify.services.servicemanager',
@@ -17,7 +18,6 @@ angular.module('mopify.services.spotifylogin', [
   'VersionManager',
   'util',
   function ($q, $rootScope, $timeout, $document, $http, Spotify, $interval, ServiceManager, localStorageService, VersionManager, util) {
-    'use strict';
     // Get body
     var body = $document.find('body').eq(0);
     // Create empty frames object
@@ -33,7 +33,21 @@ angular.module('mopify.services.spotifylogin', [
     }
     // Create communication frame for Spotify
     createFrame('spotify');
-    var tokenStorageKey = 'spotifytokens';
+    var tokenStorageKey = 'spotify-auth';
+    /**
+     * Override the Spotify login method so we can return a CODE response
+     * instead of token
+     */
+    Spotify.login = function () {
+      var w = 400, h = 500, left = window.innerWidth / 2 - w / 2, top = window.innerHeight / 2 - h / 2;
+      var params = {
+          client_id: this.clientId,
+          redirect_uri: this.redirectUri,
+          scope: this.scope || '',
+          response_type: 'code'
+        };
+      window.open('https://accounts.spotify.com/authorize?' + this.toQueryString(params), 'Spotify', 'menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,width=' + w + ',height=' + h + ',top=' + top + ',left=' + left);
+    };
     function SpotifyLogin() {
       this.frame = frame;
       this.connected = false;
@@ -160,7 +174,7 @@ angular.module('mopify.services.spotifylogin', [
      * permisions for these scopes
      */
     SpotifyLogin.prototype.checkOldToken = function () {
-      var minversion = '1.5.10';
+      var minversion = '1.6.0';
       var compare = util.versionCompare(minversion, this.mopifyversion);
       // If the minversion is greater than the token's version
       // we refresh the token
@@ -300,7 +314,6 @@ angular.module('mopify.services.spotifylogin', [
   '$rootScope',
   '$injector',
   function SpotifyAuthenticationIntercepter($q, $rootScope, $injector) {
-    'use strict';
     var spotifyErrors = 0;
     var retrystarted = false;
     var responseInterceptor = {

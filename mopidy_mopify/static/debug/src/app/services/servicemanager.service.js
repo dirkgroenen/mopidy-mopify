@@ -1,3 +1,4 @@
+'use strict';
 angular.module('mopify.services.servicemanager', [
   'LocalStorageModule',
   'mopify.services.settings'
@@ -7,7 +8,6 @@ angular.module('mopify.services.servicemanager', [
   'localStorageService',
   'Settings',
   function ($rootScope, $window, localStorageService, Settings) {
-    'use strict';
     var rootkey = 'settings';
     function ServiceManager() {
       this.availableServices = [
@@ -17,12 +17,6 @@ angular.module('mopify.services.servicemanager', [
           image: './assets/images/spotify-icon.png',
           hasSettings: true,
           defaultSettings: { loadspotifyplaylists: true }
-        },
-        {
-          name: 'Taste Profile',
-          description: 'Stores tracks anonymously in a so called TasteProfile which is used to feed the \'Browse\' page with recommendations.',
-          image: './assets/images/echonest-logo.jpg',
-          hasSettings: true
         },
         {
           name: 'Sync',

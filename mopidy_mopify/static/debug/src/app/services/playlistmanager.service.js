@@ -1,3 +1,4 @@
+'use strict';
 angular.module('mopify.services.playlistmanager', [
   'mopify.services.mopidy',
   'mopify.services.servicemanager',
@@ -12,7 +13,6 @@ angular.module('mopify.services.playlistmanager', [
   'mopidyservice',
   'Settings',
   function ($rootScope, $q, $interval, ServiceManager, Spotify, mopidyservice, Settings) {
-    'use strict';
     function PlaylistManager() {
       var that = this;
       this.source = '';

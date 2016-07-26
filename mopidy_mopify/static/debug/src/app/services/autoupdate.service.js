@@ -1,3 +1,4 @@
+'use strict';
 angular.module('mopify.services.autoupdate', ['mopify.services.settings']).factory('AutoUpdate', [
   '$q',
   '$http',
@@ -5,7 +6,6 @@ angular.module('mopify.services.autoupdate', ['mopify.services.settings']).facto
   '$rootScope',
   'Settings',
   function ($q, $http, $location, $rootScope, Settings) {
-    'use strict';
     var canupdate = false;
     var mopidyip = Settings.get('mopidyip', $location.host());
     var mopidyport = Settings.get('mopidyport', $location.port());

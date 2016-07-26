@@ -1,4 +1,4 @@
-angular.module('templates-app', ['account/menu.tmpl.html', 'account/services/facebook/menu.tmpl.html', 'account/services/services.menu.tmpl.html', 'account/services/services.tmpl.html', 'account/services/spotify/menu.tmpl.html', 'account/services/spotify/spotify.tmpl.html', 'account/services/sync/menu.tmpl.html', 'account/services/sync/sync.tmpl.html', 'account/services/tasteprofile/menu.tmpl.html', 'account/services/tasteprofile/tasteprofile.tmpl.html', 'account/settings/settings.tmpl.html', 'dashboard/dashboard.tmpl.html', 'directives/album.directive.tmpl.html', 'directives/artist.directive.tmpl.html', 'directives/browse.directive.tmpl.html', 'directives/playlist.directive.tmpl.html', 'directives/service.directive.tmpl.html', 'directives/station.directive.tmpl.html', 'directives/track.directive.tmpl.html', 'discover/browse/browse.tmpl.html', 'discover/featured/featured.tmpl.html', 'discover/menu.tmpl.html', 'discover/newreleases/newreleases.tmpl.html', 'modals/playlistselect.tmpl.html', 'music/artist/artist.tmpl.html', 'music/library/albums/albums.tmpl.html', 'music/library/artists/artists.tmpl.html', 'music/library/playlists/playlists.tmpl.html', 'music/menu.tmpl.html', 'music/stations/stations.tmpl.html', 'music/tracklist/tracklist.tmpl.html', 'player/controls/controls.left.tmpl.html', 'player/controls/controls.right.tmpl.html', 'player/player.tmpl.html', 'player/seekbar/seekbar.tmpl.html', 'search/menu.tmpl.html', 'search/search.tmpl.html']);
+angular.module('templates-app', ['account/menu.tmpl.html', 'account/services/facebook/menu.tmpl.html', 'account/services/services.menu.tmpl.html', 'account/services/services.tmpl.html', 'account/services/spotify/menu.tmpl.html', 'account/services/spotify/spotify.tmpl.html', 'account/services/sync/menu.tmpl.html', 'account/services/sync/sync.tmpl.html', 'account/settings/settings.tmpl.html', 'dashboard/dashboard.tmpl.html', 'directives/album.directive.tmpl.html', 'directives/artist.directive.tmpl.html', 'directives/browse.directive.tmpl.html', 'directives/playlist.directive.tmpl.html', 'directives/service.directive.tmpl.html', 'directives/station.directive.tmpl.html', 'directives/track.directive.tmpl.html', 'discover/browse/browse.tmpl.html', 'discover/featured/featured.tmpl.html', 'discover/menu.tmpl.html', 'discover/newreleases/newreleases.tmpl.html', 'modals/playlistselect.tmpl.html', 'music/artist/artist.tmpl.html', 'music/library/albums/albums.tmpl.html', 'music/library/artists/artists.tmpl.html', 'music/library/playlists/playlists.tmpl.html', 'music/menu.tmpl.html', 'music/stations/stations.tmpl.html', 'music/tracklist/tracklist.tmpl.html', 'player/controls/controls.left.tmpl.html', 'player/controls/controls.right.tmpl.html', 'player/player.tmpl.html', 'player/seekbar/seekbar.tmpl.html', 'search/menu.tmpl.html', 'search/search.tmpl.html']);
 
 angular.module("account/menu.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("account/menu.tmpl.html",
@@ -40,7 +40,6 @@ angular.module("account/services/services.menu.tmpl.html", []).run(["$templateCa
     "\n" +
     "    <ng-include ng-if=\"connectedServices.spotify\" src=\"'account/services/spotify/menu.tmpl.html'\"></ng-include>\n" +
     "    <ng-include ng-if=\"connectedServices.facebook\" src=\"'account/services/facebook/menu.tmpl.html'\"></ng-include>\n" +
-    "    <ng-include ng-if=\"connectedServices.tasteprofile\" src=\"'account/services/tasteprofile/menu.tmpl.html'\"></ng-include>\n" +
     "    <ng-include ng-if=\"connectedServices.sync\" src=\"'account/services/sync/menu.tmpl.html'\"></ng-include>\n" +
     "\n" +
     "    <div ng-if=\"!hasServicesConnected\">\n" +
@@ -264,13 +263,13 @@ angular.module("account/services/sync/sync.tmpl.html", []).run(["$templateCache"
     "                    <div class=\"col-sm-6\">\n" +
     "                        <div class=\"button white fullwidth\" ng-click=\"sendCurrentSpotifyTokens()\" ng-show=\"settings.sync.spotify\">\n" +
     "                            <span class=\"text\">Push</span>\n" +
-    "                            <i class=\"ss-icon ss-upload\"></i> \n" +
+    "                            <i class=\"ss-icon ss-upload\"></i>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                    <div class=\"col-sm-6\">\n" +
     "                        <div class=\"button white fullwidth\" ng-click=\"getSyncSpotifyTokens()\" ng-show=\"settings.sync.spotify\">\n" +
     "                            <span class=\"text\">Get</span>\n" +
-    "                            <i class=\"ss-icon ss-download\"></i> \n" +
+    "                            <i class=\"ss-icon ss-download\"></i>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
     "                </div>\n" +
@@ -282,36 +281,7 @@ angular.module("account/services/sync/sync.tmpl.html", []).run(["$templateCache"
     "                <p ng-show=\"settings.sync.spotify\">Currently using credentials from device: <i>{{ spotifyclient.name }} <span ng-show=\"spotifyclient.id == client.id\">(That's you)</span></i></p>\n" +
     "            </div>\n" +
     "        </div>\n" +
-    "        <div class=\"settingwrap row\">\n" +
-    "            <div class=\"label col-md-2\">\n" +
-    "                <label>TasteProfile ID</label>\n" +
-    "            </div>\n" +
-    "            <div class=\"input col-md-1\">\n" +
-    "                <toggle-switch ng-model=\"settings.sync.tasteprofile\" ng-click=\"tasteProfileToggle()\"></toggle-switch>\n" +
-    "            </div>\n" +
-    "            <div class=\"col-md-3\">\n" +
-    "                <div class=\"row\">\n" +
-    "                    <div class=\"col-sm-6\">\n" +
-    "                        <div class=\"button white fullwidth\" ng-click=\"sendCurrentTasteProfileID()\" ng-show=\"settings.sync.tasteprofile\">\n" +
-    "                            <span class=\"text\">Push</span>\n" +
-    "                            <i class=\"ss-icon ss-upload\"></i> \n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"col-sm-6\">\n" +
-    "                        <div class=\"button white fullwidth\" ng-click=\"getSyncTasteProfileID()\" ng-show=\"settings.sync.tasteprofile\">\n" +
-    "                            <span class=\"text\">Get</span>\n" +
-    "                            <i class=\"ss-icon ss-download\"></i> \n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
     "\n" +
-    "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
-    "                <p>When enabled every client that has Sync enabled will use the same TasteProfile.</p>\n" +
-    "                <p><b>GET:</b> Retrieve the credentials from the Sync server<br/><b>PUSH:</b> Push your current credentials to the sync server</p>\n" +
-    "                <p ng-show=\"settings.sync.tasteprofile\">Currently using credentials from device: <i>{{ tasteprofileclient.name }} <span ng-show=\"tasteprofileclient.id == client.id\">(That's you)</span></i></p>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
     "    </div>\n" +
     "\n" +
     "    <div class=\"pagetitle row\">\n" +
@@ -333,84 +303,6 @@ angular.module("account/services/sync/sync.tmpl.html", []).run(["$templateCache"
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "</div>");
-}]);
-
-angular.module("account/services/tasteprofile/menu.tmpl.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("account/services/tasteprofile/menu.tmpl.html",
-    "<section id=\"tasteprofile\" class=\"account\" ng-controller=\"TasteProfileMenuController\">\n" +
-    "    <div class=\"profileimage\">\n" +
-    "        <img src=\"./assets/images/echonest-menu-logo.jpg\" />\n" +
-    "    </div>\n" +
-    "    <div class=\"content\">\n" +
-    "        <span class=\"username\" ng-hide=\"authorized\">\n" +
-    "            {{ tasteprofile.id }}\n" +
-    "        </span>\n" +
-    "        <span class=\"status\">\n" +
-    "            <div class=\"connection connected\"></div>Connected - Taste Profile\n" +
-    "        </span>\n" +
-    "    </div>\n" +
-    "</section>");
-}]);
-
-angular.module("account/services/tasteprofile/tasteprofile.tmpl.html", []).run(["$templateCache", function($templateCache) {
-  $templateCache.put("account/services/tasteprofile/tasteprofile.tmpl.html",
-    "<div id=\"header\" class=\"small row\" style=\"background-image: url('./assets/images/echonest-header.jpg');\">\n" +
-    "    <div class=\"col-md-10 lefttext\">\n" +
-    "        <div class=\"inner\"><i class=\"ss-icon ss-settings\"></i>  Settings</div>\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "\n" +
-    "<div id=\"overview\" class=\"row\">\n" +
-    "    <div class=\"pagetitle row\">\n" +
-    "        <div class=\"col-md-3\">\n" +
-    "            Service <span class=\"sub\">Taste Profile</span>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"pagecontent row\">\n" +
-    "        <div class=\"settingwrap row\">\n" +
-    "            <div class=\"label col-md-2\">\n" +
-    "                <label>Description</label>\n" +
-    "            </div>\n" +
-    "            <div class=\"description col-md-8\">\n" +
-    "                <p>Taste Profile is an <a href=\"http://the.echonest.com/\" target=\"_blank\">Echonest service</a>. This services keeps track of the songs you listen. This list is called a Taste Profile and can be used to create personal music recommendations. Those recommendations can be viewed at the 'Browse' page. This Taste Profile is completely anonymous and can always be deleted.</p>\n" +
-    "                <p><i>Songs can only be saved to your Taste Profile when Mopify is opened.</i></p>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "        <div class=\"settingwrap row\">\n" +
-    "            <div class=\"label col-md-2\">\n" +
-    "                <label>Profile ID</label>\n" +
-    "            </div>\n" +
-    "            <div class=\"input col-md-4\">\n" +
-    "                <input name=\"trackingid\" ng-model=\"tasteprofile.id\" class=\"field\" readonly=\"readonly\" />\n" +
-    "            </div>\n" +
-    "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
-    "                <p>This profile ID was generated for you when you enabled the service. This ID is used to keep track of your personal Taste Profile.</p>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "\n" +
-    "    <div class=\"pagetitle row\">\n" +
-    "        <div class=\"col-md-3\">\n" +
-    "            Danger zone <span class=\"sub\">Taste Profile</span>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"pagecontent row\">\n" +
-    "        <div class=\"settingwrap row\">\n" +
-    "            <div class=\"label col-md-2\">\n" +
-    "                <label>Delete</label>\n" +
-    "            </div>\n" +
-    "            <div class=\"input col-md-4\">\n" +
-    "                <div class=\"button white dangerous fullwidth\" ng-click=\"deleteProfile()\">\n" +
-    "                    <span class=\"text\">Delete profile</span>\n" +
-    "                    <i class=\"ss-icon ss-trash\"></i> \n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
-    "                <p>You can delete your Taste Profile and all its contents by clicking on this button. Note that this action can't be undone.</p>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
     "</div>");
 }]);
 
@@ -478,7 +370,7 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "            </div>\n" +
     "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
     "                <p>The desired language, consisting of a lowercase <a href=\"http://en.wikipedia.org/wiki/ISO_639\" target=\"_blank\">ISO 639</a> language code and an uppercase <a href=\"http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\" target=\"_blank\">ISO 3166-1 alpha-2</a> country code, joined by an underscore. </p>\n" +
-    "                <p>This language code is used for services like Spotify or Echonest to provide better content.</p>\n" +
+    "                <p>This language code is used for services like Spotify to provide better content.</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "        <div class=\"settingwrap row\">\n" +
@@ -745,7 +637,7 @@ angular.module("directives/browse.directive.tmpl.html", []).run(["$templateCache
     "            <div class=\"iconwrap row\">\n" +
     "                <div class=\"icon small col-xs-4\" title=\"Show tracks\">\n" +
     "                    <a href=\"#/music/artist/{{ spotifyuri }}\" ng-if=\"item.type == 'artist'\"><i class=\"ss-icon ss-list\"></i></a>\n" +
-    "                    <a href=\"#/music/tracklist/{{ spotifyuri }}\" ng-if=\"item.type == 'echonest'\"><i class=\"ss-icon ss-list\"></i></a>\n" +
+    "                    <a href=\"#/music/tracklist/{{ spotifyuri }}\" ng-if=\"item.type == 'spotify'\"><i class=\"ss-icon ss-list\"></i></a>\n" +
     "                </div>\n" +
     "                <div class=\"icon col-xs-4\" title=\"Play\">\n" +
     "                    <i class=\"ss-icon ss-play\" ng-click=\"play()\"></i>\n" +
@@ -757,7 +649,7 @@ angular.module("directives/browse.directive.tmpl.html", []).run(["$templateCache
     "        </div>\n" +
     "\n" +
     "        <img ng-src=\"{{ image }}\"/>\n" +
-    "    </div>  \n" +
+    "    </div>\n" +
     "    <div class=\"text\">\n" +
     "        <span class=\"title\">{{ suggestion.name }}</span><br>\n" +
     "        <span class=\"artist\" ng-if=\"suggestion.artist\">{{ suggestion.artist }}</span>\n" +
@@ -767,7 +659,7 @@ angular.module("directives/browse.directive.tmpl.html", []).run(["$templateCache
 
 angular.module("directives/playlist.directive.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("directives/playlist.directive.tmpl.html",
-    "<div class=\"tileart\" context-menu data-target=\"menu-{{ playlist.uri }}\" ng-class=\"{ 'highlight': highlight, 'expanded' : expanded }\">\n" +
+    "<div class=\"tileart\" context-menu data-target=\"menu-{{ ::playlist.uri }}\" ng-class=\"{ 'highlight': highlight, 'expanded' : expanded }\">\n" +
     "    <div class=\"hoverwrap\" ng-click=\"openPlaylistTracklist()\">\n" +
     "        <div class=\"iconwrap row\">\n" +
     "            <div class=\"icon small col-xs-4\" title=\"Show playlist's tracks\">\n" +
@@ -776,7 +668,7 @@ angular.module("directives/playlist.directive.tmpl.html", []).run(["$templateCac
     "            <div class=\"icon col-xs-4\" title=\"Play playlist\">\n" +
     "                <i class=\"ss-icon ss-play\" ng-click=\"play()\" stop-propagation></i>\n" +
     "            </div>\n" +
-    "            <div class=\"icon small col-xs-4\" title=\"Start new station for: {{ playlist.name }}\">\n" +
+    "            <div class=\"icon small col-xs-4\" title=\"Start new station for: {{ ::playlist.name }}\">\n" +
     "                <i class=\"ss-icon ss-wifi\" ng-click=\"startStation()\" stop-propagation></i>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -791,7 +683,7 @@ angular.module("directives/playlist.directive.tmpl.html", []).run(["$templateCac
     "    </a>\n" +
     "</div>\n" +
     "\n" +
-    "<div class=\"contextmenu position-fixed\" id=\"menu-{{ playlist.uri }}\">\n" +
+    "<div class=\"contextmenu position-fixed\" id=\"menu-{{ ::playlist.uri }}\">\n" +
     "    <ul class=\"dropdown-menu\" role=\"menu\">\n" +
     "        <li ng-click=\"play()\">\n" +
     "            Play\n" +
@@ -1336,7 +1228,7 @@ angular.module("music/library/playlists/playlists.tmpl.html", []).run(["$templat
     "            <img src=\"./assets/images/playlists-header.jpg\" />\n" +
     "        </div>\n" +
     "        <div class=\"lefttext\">\n" +
-    "            <div class=\"inner\"> \n" +
+    "            <div class=\"inner\">\n" +
     "                <i class=\"ss-icon ss-list\"></i> Your music: Playlists\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -1351,7 +1243,7 @@ angular.module("music/library/playlists/playlists.tmpl.html", []).run(["$templat
     "        <div class=\"col-md-6 col-md-offset-3 alignright\">\n" +
     "            <div class=\"button white\" ng-click=\"createPlaylist()\" ng-show=\"spotifyplaylists\">\n" +
     "                <span class=\"text\">Create new playlist</span>\n" +
-    "                <i class=\"ss-icon ss-plus\"></i> \n" +
+    "                <i class=\"ss-icon ss-plus\"></i>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -1359,8 +1251,8 @@ angular.module("music/library/playlists/playlists.tmpl.html", []).run(["$templat
     "    <div class=\"pagecontent row\">\n" +
     "        <div id=\"tileview\">\n" +
     "            <div class=\"row\">\n" +
-    "                <div ng-repeat=\"playlist in playlists\"> \n" +
-    "                    <mopify-playlist playlist=\"playlist\" class=\"col-lg-2 col-md-3 col-sm-4 col-xs-6 single-tile\"></mopify-playlist>\n" +
+    "                <div ng-repeat=\"playlist in playlists\">\n" +
+    "                    <mopify-playlist playlist=\"::playlist\" class=\"col-lg-2 col-md-3 col-sm-4 col-xs-6 single-tile\"></mopify-playlist>\n" +
     "                    <div ng-if=\"($index + 1) % 6 == 0\" class=\"clearfix visible-lg-block\"></div>\n" +
     "                    <div ng-if=\"($index + 1) % 4 == 0\" class=\"clearfix visible-md-block\"></div>\n" +
     "                    <div ng-if=\"($index + 1) % 3 == 0\" class=\"clearfix visible-sm-block\"></div>\n" +

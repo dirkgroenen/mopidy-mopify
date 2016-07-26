@@ -1,9 +1,9 @@
+'use strict';
 angular.module('mopify.services.facebook', []).factory('Facebook', [
   '$q',
   '$timeout',
   '$document',
   function ($q, $timeout, $document) {
-    'use strict';
     // Get body
     var body = $document.find('body').eq(0);
     // Create communication frame for Facebook

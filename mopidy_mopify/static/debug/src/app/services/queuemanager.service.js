@@ -1,3 +1,4 @@
+'use strict';
 angular.module('mopify.services.queuemanager', ['mopify.services.settings']).factory('QueueManager', [
   '$q',
   '$http',
@@ -6,7 +7,6 @@ angular.module('mopify.services.queuemanager', ['mopify.services.settings']).fac
   '$timeout',
   'Settings',
   function ($q, $http, $location, $rootScope, $timeout, Settings) {
-    'use strict';
     // Create request array and init the connection to false
     var requests = [];
     var wsconnection = false;
