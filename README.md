@@ -45,6 +45,8 @@ Installing Mopify is easy. Make sure you have installed Mopidy 1.0 and
 Mopidy-Spotify 1.3 (or higher) and enabled the [HTTP
 Extension](https://docs.mopidy.com/en/latest/ext/http/).
 
+> For people interested in installing it without sudo on OS X: take a look at this thread https://github.com/dirkgroenen/mopidy-mopify/issues/211#issuecomment-274239172
+
 Install using PIP:
 
 ```bash
@@ -64,8 +66,6 @@ your Mopidy config file (optional):
 enabled = true
 debug = false
 ```
-
-> For people wanting to install it without sudo on OS X: take a look at this thread https://github.com/dirkgroenen/mopidy-mopify/issues/211#issuecomment-274239172
 
 ### Updating
 
