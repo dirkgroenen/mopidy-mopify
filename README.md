@@ -65,6 +65,8 @@ enabled = true
 debug = false
 ```
 
+> For people wanting to install it without sudo on OS X: take a look at this thread https://github.com/dirkgroenen/mopidy-mopify/issues/211#issuecomment-274239172
+
 ### Updating
 
 Mopify will notify you when a new version is available. To update Mopify to its
