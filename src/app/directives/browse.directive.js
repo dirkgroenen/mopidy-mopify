@@ -34,7 +34,7 @@ angular.module('mopify.widgets.directive.browse', [
             }
 
             if(scope.item.type == "artist"){
-                scope.titleslogan = "You listened to " + scope.item.artist.name + ". You might like this artist to:";
+                scope.titleslogan = "You listened to " + scope.item.artist.name + ". You might like this artist too:";
                 scope.spotifyuri = scope.item.artist.uri;
 
                 Spotify.getRelatedArtists(scope.spotifyuri).then(function(response){
