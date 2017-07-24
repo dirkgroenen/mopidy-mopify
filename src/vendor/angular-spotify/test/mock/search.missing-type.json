@@ -1,6 +1,0 @@
-{
-  "error": {
-    "status": 400,
-    "message": "Missing parameter type"
-  }
-}
