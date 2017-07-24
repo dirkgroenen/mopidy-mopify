@@ -65,7 +65,8 @@ angular.module('mopify.music.tracklist', [
         if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
             // First get the album's tracks
             Spotify.getAlbumTracks(uri, {limit: 50}).then(function(response){
-                albumtracks = _.map(response.items, function(track){
+                var data = response.data;
+                albumtracks = _.map(data.items, function(track){
                     return track.id;
                 });
 
@@ -97,7 +98,7 @@ angular.module('mopify.music.tracklist', [
     }
 
     // Check if a name has been defined
-    if($routeParams.name !== undefined)
+    if($routeParams.name != null)
         $scope.name = $routeParams.name;
     else if(uri.indexOf("mopidy:") > -1)
         $scope.name = "Current tracklist";
@@ -168,7 +169,7 @@ angular.module('mopify.music.tracklist', [
 
         // Lookup the tracks for the given album or playlist
         if(uri.indexOf("spotify:") > -1){
-            mopidyservice.lookup(uri).then(function(response){
+            mopidyservice.lookup(uri).then(function(response) {
                 var tracks = response[uri];
 
                 // Check if the $scope.tracks contains loading tracks
@@ -211,7 +212,8 @@ angular.module('mopify.music.tracklist', [
             $scope.isowner = (ownerid == SpotifyLogin.user.id);
 
             // Get the official playlist name
-            Spotify.getPlaylist(ownerid, playlistid).then(function(data){
+            Spotify.getPlaylist(ownerid, playlistid).then(function(response){
+                var data = response.data;
                 $scope.coverImage = data.images[0].url;
                 $scope.name = data.name + " from " + data.owner.id;
             });
@@ -220,7 +222,7 @@ angular.module('mopify.music.tracklist', [
             $scope.followingPlaylist = false;
 
             Spotify.playlistFollowingContains(ownerid, playlistid, SpotifyLogin.user.id).then(function(response){
-                $scope.followingPlaylist = response[0];
+                $scope.followingPlaylist = response.data[0];
             });
         }
         else{
@@ -243,11 +245,11 @@ angular.module('mopify.music.tracklist', [
 
         // Update information on a new track
         $scope.$on('mopidy:event:trackPlaybackEnded', function(event, data) {
-            if(data.tl_track !== undefined)
+            if(data.tl_track != null)
                 $scope.currentPlayingTrack = data.tl_track.track;
         });
         $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
-            if(data.tl_track !== undefined)
+            if(data.tl_track != null)
                 $scope.currentPlayingTrack = data.tl_track.track;
         });
     }
@@ -267,17 +269,18 @@ angular.module('mopify.music.tracklist', [
             Spotify.getSavedUserTracks({
                 limit: 50,
                 offset: offset
-            }).then(function(response){
+            }).then(function(response) {
+                var data = response.data;
 
                 // Map all track from the response's items array
-                var tracks = _.map(response.items, function(item){
+                var tracks = _.map(data.items, function(item){
                     return item.track;
                 });
 
                 // Concat with previous tracks
                 $scope.loadedTracks = $scope.loadedTracks.concat(tracks);
 
-                if(response.next !== null)
+                if(data.next != null)
                     loadSpotifyLibraryTracks(offset + 50);
                 else
                     $scope.getMoreTracks();
@@ -293,8 +296,8 @@ angular.module('mopify.music.tracklist', [
      * @param  {track} track
      */
     function getCoverImage(track){
-        Spotify.getTrack(track.uri).then(function(data) {
-            $scope.coverImage = data.album.images[0].url;
+        Spotify.getTrack(track.uri).then(function(response) {
+            $scope.coverImage = response.data.album.images[0].url;
         });
     }
 

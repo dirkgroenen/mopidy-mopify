@@ -31,7 +31,7 @@ angular.module("mopify.services.queuemanager", [
         var deferred;
         var requestid = (id === undefined) ? requests.length : id;
 
-        if(requests[requestid] !== undefined)
+        if(requests[requestid] != null)
             deferred = requests[requestid];
         else
             deferred = $q.defer();
@@ -130,7 +130,7 @@ angular.module("mopify.services.queuemanager", [
     QueueManager.prototype.startRecovering = function(){
         var that = this;
 
-        if(ws !== undefined){
+        if(ws != null){
             this.closeWebsocketConnection();
         }
 
@@ -178,12 +178,12 @@ angular.module("mopify.services.queuemanager", [
         ws.onmessage = function (evt) {
             var response = angular.fromJson(evt.data);
 
-            if(response.id !== undefined){
+            if(response.id != null){
                 // Resolve
                 requests[response.id].resolve(response.call);
 
                 // Set version if included with response
-                if(response.call.version !== undefined){
+                if(response.call.version != null){
                     that.version = response.call.version;
                 }
             }

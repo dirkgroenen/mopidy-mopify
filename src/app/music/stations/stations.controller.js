@@ -77,8 +77,8 @@ angular.module('mopify.music.stations', [
                 Spotify.search($scope.searchQuery, searchableItems, {
                     market: country,
                     limit: "3"
-                }).then(function(data){
-                    $scope.searchResults = data;
+                }).then(function(response) {
+                    $scope.searchResults = response.data;
                 });
 
             }, 300);

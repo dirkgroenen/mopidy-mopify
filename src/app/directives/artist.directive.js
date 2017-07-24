@@ -41,8 +41,8 @@ angular.module('mopify.widgets.directive.artist', [
              * Check if the artist scope contains images, otherwise; ask the artist object from Spotify
              */
             if(scope.artist.images === undefined){
-                Spotify.getArtist(scope.artist.uri).then(function(data){
-                    angular.extend(scope.artist, data);
+                Spotify.getArtist(scope.artist.uri).then(function(response) {
+                    angular.extend(scope.artist, response.data);
                 });
             }
 

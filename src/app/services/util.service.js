@@ -18,7 +18,7 @@ angular.module(['mopify.services.util'], [])
         },
 
         artistsToString: function(artists, link){
-            if(artists !== undefined){
+            if(artists != null){
                 var artistNames = artists.map(function(artist){
                     return (link) ? "<a href='#/music/artist/" + artist.uri + "'>" + artist.name + "</a>" : artist.name;
                 });
@@ -82,7 +82,7 @@ angular.module(['mopify.services.util'], [])
 
 angular.module('mopify').filter('reverse', function() {
   return function(items) {
-    if(items !== null)
+    if(items != null)
         return items.slice().reverse();
   };
 });

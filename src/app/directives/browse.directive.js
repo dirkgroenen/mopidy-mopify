@@ -36,11 +36,12 @@ angular.module('mopify.widgets.directive.browse', [
             if(scope.item.type == "artist"){
                 scope.titleslogan = "You listened to " + scope.item.artist.name + ". You might like this artist to:";
                 scope.spotifyuri = scope.item.artist.uri;
-
-                Spotify.getRelatedArtists(scope.spotifyuri).then(function(response){
-                    var artist = response.artists[Math.floor(Math.random() * response.artists.length)];
-                    scope.image = artist.images[1].url;
-
+                Spotify.getRelatedArtists(scope.spotifyuri).then(function(response) {
+                    var data = response.data;
+                    var artist = data.artists[Math.floor(Math.random() * data.artists.length)];
+                    if(artist.images[1]) {
+                        scope.image = artist.images[1].url;
+                    }
                     scope.spotifyuri = artist.uri;
 
                     scope.suggestion = {

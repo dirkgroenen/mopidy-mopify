@@ -21,7 +21,7 @@ angular.module("mopify.services.sync", [
      */
     var post = function(url, data) {
         var deferred = $q.defer();
-        var postdata = (data !== undefined) ? data : {};
+        var postdata = (data != null) ? data : {};
 
         $http({
             method: 'POST',
@@ -41,7 +41,7 @@ angular.module("mopify.services.sync", [
      */
     var get = function(url, data){
         var deferred = $q.defer();
-        var postdata = (data !== undefined) ? data : {};
+        var postdata = (data != null) ? data : {};
 
         $http({
             method: 'GET',

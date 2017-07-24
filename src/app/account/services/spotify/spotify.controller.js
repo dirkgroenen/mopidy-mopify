@@ -26,8 +26,8 @@ angular.module("mopify.account.services.spotify", [
     Settings.bind($scope);
 
     // Get current user
-    Spotify.getCurrentUser().then(function(data){
-        $scope.profile = data;
+    Spotify.getCurrentUser().then(function(response) {
+        $scope.profile = response.data;
     });
 
     /**
@@ -61,9 +61,9 @@ angular.module("mopify.account.services.spotify", [
     // Get the user porfile from Spotify
     function collectdata(){
         // Make the call
-        Spotify.getCurrentUser().then(function(data){
+        Spotify.getCurrentUser().then(function(response) {
             $scope.authorized = true;
-            $scope.userProfile = data;
+            $scope.userProfile = response.data;
         });
     }
 
