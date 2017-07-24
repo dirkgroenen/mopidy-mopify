@@ -21,12 +21,8 @@ angular.module('mopify.widgets.directive.browse', [
             if(scope.item.type == "spotify"){
                 scope.titleslogan = (Math.floor(Math.random() * 2) == 1) ? "Here's something you might like:" : "Recommended for you:";
                 scope.spotifyuri = scope.item.spotify.uri;
-
-                Spotify.getTrack(scope.spotifyuri).then(function(response){
-                    scope.image = response.album.images[0].url;
-                    scope.spotifyuri = response.album.uri;
-                });
-
+                scope.image = scope.item.spotify.album.images[0].url;
+                scope.spotifyuri = scope.item.spotify.album.uri;
                 scope.suggestion = {
                     name: scope.item.spotify.name,
                     artist: util.artistsToString(scope.item.spotify.artists)
