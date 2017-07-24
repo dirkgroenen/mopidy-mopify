@@ -69,6 +69,9 @@ angular.module('mopify.music.artist', [
 
     // Load artist data
     $scope.artist = {};
+    Spotify.getArtist($scope.artistId).then(function(response) {
+        $scope.artist = response.data;
+    });
 
     // Get data from echonest
     /*Echonest.artists.get({
