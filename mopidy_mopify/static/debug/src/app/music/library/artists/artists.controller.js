@@ -48,19 +48,17 @@ angular.module('mopify.music.library.artists', [
      * Load the user's Spotify Library tracks
      * @param {int} offset the offset to load the track, will be zero if not defined
      */
-    function loadSpotifyLibraryArtists(offset) {
+    function loadSpotifyLibraryArtists(after) {
       if (ServiceManager.isEnabled('spotify') && SpotifyLogin.connected) {
-        if (offset === undefined)
-          offset = 0;
-        Spotify.getSavedUserArtists({
+        Spotify.following('artist', {
           limit: 50,
-          after: offset,
-          type: 'artist'
+          after: after
         }).then(function (response) {
+          var data = response.data;
           // Concat with previous artists
-          partialArtists = partialArtists.concat(response.artists.items);
-          if (response.artists.next !== null) {
-            loadSpotifyLibraryArtists(response.artists.cursors.after);
+          partialArtists = partialArtists.concat(data.artists.items);
+          if (data.artists.next != null) {
+            loadSpotifyLibraryArtists(data.artists.cursors.after);
           } else {
             partialArtists.sort(function (a, b) {
               return a.name == b.name ? 0 : +(a.name > b.name) || -1;

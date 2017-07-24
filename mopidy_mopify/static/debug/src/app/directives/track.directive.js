@@ -62,7 +62,7 @@ angular.module('mopify.widgets.directive.track', [
         scope.$watch(function () {
           return scope.track.id;
         }, function (current, previous) {
-          if (current === undefined && previous !== undefined)
+          if (current === undefined && previous != null)
             scope.track.id = previous;
         });
         scope.artistsString = function () {
@@ -109,7 +109,7 @@ angular.module('mopify.widgets.directive.track', [
           return $rootScope.selectedtracks;
         }, function () {
           var found = _.findWhere($rootScope.selectedtracks, { id: scope.track.id });
-          if (found !== undefined)
+          if (found != null)
             scope.selected = true;
           else
             scope.selected = false;

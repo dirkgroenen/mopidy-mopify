@@ -843,7 +843,7 @@ angular.module("discover/browse/browse.tmpl.html", []).run(["$templateCache", fu
     "    </div>\n" +
     "\n" +
     "    <div class=\"pagecontent row\">\n" +
-    "        <div id=\"browsewrap\" infinite-scroll=\"buildblocks()\" infinite-scroll-distance=\"1\">\n" +
+    "        <div id=\"browsewrap\">\n" +
     "            <div class=\"row\">\n" +
     "                <div class=\"col-lg-3 col-md-4 col-sm-6 col-xs-12\">\n" +
     "                     <div ng-repeat=\"item in blocks\" ng-if=\"$index % 4 == 0\">\n" +
@@ -882,7 +882,7 @@ angular.module("discover/featured/featured.tmpl.html", []).run(["$templateCache"
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
-    "        <div class=\"row\" ng-show=\"headerplaylist.tracks !== undefined\">\n" +
+    "        <div class=\"row\" ng-show=\"headerplaylist.tracks != null\">\n" +
     "            <div class=\"playlist col-lg-4 col-md-8 col-sm-10 col-lg-offset-4 col-md-offset-2 col-sm-offset-1\">\n" +
     "                <div class=\"cover\">\n" +
     "                    <img ng-src=\"{{ headerplaylist.images[0].url }}\" />\n" +
@@ -967,7 +967,7 @@ angular.module("discover/newreleases/newreleases.tmpl.html", []).run(["$template
     "                </div>\n" +
     "            </div>\n" +
     "        </div>\n" +
-    "        <div class=\"row\" ng-show=\"headeralbum.tracks !== undefined\">\n" +
+    "        <div class=\"row\" ng-show=\"headeralbum.tracks != null\">\n" +
     "            <div class=\"playlist col-lg-4 col-md-8 col-sm-10 col-lg-offset-4 col-md-offset-2 col-sm-offset-1\">\n" +
     "                <div class=\"cover\">\n" +
     "                    <img ng-src=\"{{ headeralbum.images[0].url }}\" />\n" +
@@ -1058,10 +1058,10 @@ angular.module("modals/playlistselect.tmpl.html", []).run(["$templateCache", fun
 angular.module("music/artist/artist.tmpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("music/artist/artist.tmpl.html",
     "<div id=\"header\" class=\"small row\">\n" +
-    "    <div class=\"backgroundimage\" style=\"background-image: url('{{ artist.coverimage }}');\"></div>\n" +
+    "    <div class=\"backgroundimage\" style=\"background-image: url('{{ artist.images[1].url }}');\"></div>\n" +
     "    <div class=\"col-md-6 col-lg-4\">\n" +
     "        <div class=\"albumart hidden-xs hidden-sm hidden-md\">\n" +
-    "            <img ng-src=\"{{ artist.coverimage }}\" />\n" +
+    "            <img ng-src=\"{{ artist.images[0].url }}\" />\n" +
     "        </div>\n" +
     "        <div class=\"lefttext\">\n" +
     "            <div class=\"inner\"> \n" +

@@ -76,7 +76,7 @@ angular.module('mopify', [
     $rootScope.mopifyversion = VersionManager.version;
     // Watch for track changes so we can update the title
     $scope.$on('mopidy:event:trackPlaybackStarted', function (event, data) {
-      if (data.tl_track !== undefined)
+      if (data.tl_track != null)
         updateTitle(data.tl_track.track);
     });
     // Page title and connection state to $scope
@@ -115,7 +115,7 @@ angular.module('mopify', [
     function updateTitle(track) {
       if (!Settings.get('pagetitle', true))
         return false;
-      if (track !== null && track !== undefined) {
+      if (track != null) {
         if (track.name.indexOf('[loading]') > -1) {
           mopidyservice.lookup(track.uri).then(function (result) {
             $scope.pageTitle = result[0].name + ' - ' + result[0].artists[0].name + ' | ' + defaultPageTitle;

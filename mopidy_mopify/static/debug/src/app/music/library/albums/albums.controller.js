@@ -55,8 +55,9 @@ angular.module('mopify.music.library.albums', [
           limit: 50,
           offset: offset
         }).then(function (response) {
+          var data = response.data;
           // Map all track from the response's items array
-          var albums = _.map(response.items, function (item) {
+          var albums = _.map(data.items, function (item) {
               return item.album;
             });
           // Check if the scope's last album doesn't equal the first album we wan't to add
@@ -68,7 +69,7 @@ angular.module('mopify.music.library.albums', [
           }
           // Concat with previous tracks
           $scope.albums = $scope.albums.concat(albums);
-          if (response.next !== null)
+          if (data.next != null)
             loadSpotifyLibraryAlbums(offset + 50);
         });
       }

@@ -100,7 +100,7 @@ angular.module('mopify.player.seekbar', [
     function getCurrentTrack() {
       var deferred = $q.defer();
       mopidyservice.getCurrentTrack().then(function (track) {
-        if (track !== null) {
+        if (track != null) {
           if (track.name.indexOf('[loading]') > -1) {
             mopidyservice.lookup(track.uri).then(function (resp) {
               return deferred.resolve(resp[0]);

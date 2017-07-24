@@ -20,10 +20,8 @@ angular.module('mopify.widgets.directive.browse', [
         if (scope.item.type == 'spotify') {
           scope.titleslogan = Math.floor(Math.random() * 2) == 1 ? 'Here\'s something you might like:' : 'Recommended for you:';
           scope.spotifyuri = scope.item.spotify.uri;
-          Spotify.getTrack(scope.spotifyuri).then(function (response) {
-            scope.image = response.album.images[0].url;
-            scope.spotifyuri = response.album.uri;
-          });
+          scope.image = scope.item.spotify.album.images[0].url;
+          scope.spotifyuri = scope.item.spotify.album.uri;
           scope.suggestion = {
             name: scope.item.spotify.name,
             artist: util.artistsToString(scope.item.spotify.artists)
@@ -33,8 +31,11 @@ angular.module('mopify.widgets.directive.browse', [
           scope.titleslogan = 'You listened to ' + scope.item.artist.name + '. You might like this artist to:';
           scope.spotifyuri = scope.item.artist.uri;
           Spotify.getRelatedArtists(scope.spotifyuri).then(function (response) {
-            var artist = response.artists[Math.floor(Math.random() * response.artists.length)];
-            scope.image = artist.images[1].url;
+            var data = response.data;
+            var artist = data.artists[Math.floor(Math.random() * data.artists.length)];
+            if (artist.images[1]) {
+              scope.image = artist.images[1].url;
+            }
             scope.spotifyuri = artist.uri;
             scope.suggestion = { name: artist.name };
           });
