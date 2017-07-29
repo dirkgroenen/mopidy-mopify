@@ -67,7 +67,7 @@ angular.module('mopify.search', [
      */
     $scope.typing = function(event){
         // Close the search overlay on ESC press
-        if(event !== undefined && event.keyCode === 27)
+        if(event != null && event.keyCode === 27)
             $scope.closeSearch();
 
         if($scope.query.trim().length === 0 || $scope.query === previousQuery)
@@ -110,7 +110,9 @@ angular.module('mopify.search', [
         Spotify.search($scope.query, searchableItems, {
             market: Settings.get("country", "US"),
             limit: "50"
-        }).then(function(data){
+        }).then(function(response) {
+            var data = response.data;
+
             // Perform local search and put at beginning of playlist array
             var localLists = PlaylistManager.search($scope.query);
 
@@ -126,10 +128,10 @@ angular.module('mopify.search', [
 
             // The search request only returns limited information about an album
             // so lets get some more information
-            Spotify.getAlbums(_.map(data.albums.items.slice(0,20), function(album){
+            Spotify.getAlbums(_.map(data.albums.items.slice(0,20), function(album) {
                 return album.id;
             })).then(function(response){
-                angular.extend($scope.results.albums.items, response.albums);
+                angular.extend($scope.results.albums.items, response.data.albums);
             });
 
             resultsloaded++;
@@ -139,7 +141,7 @@ angular.module('mopify.search', [
 
         mopidyservice.search($scope.query).then(function(data){
             // Check if tracks are available
-            if(data.length > 0 && data[0].tracks !== undefined){
+            if(data.length > 0 && data[0].tracks != null){
                 $scope.results.tracks = data[0].tracks.splice(0,100);
             }
 
@@ -209,7 +211,7 @@ angular.module('mopify.search', [
 
         // Loop through all results and create an array with all items
         _.each(results, function(result, key){
-            if(result !== undefined){
+            if(result != null){
                 // Get correct items array
                 if(result.items){
                     items.push({
@@ -241,7 +243,7 @@ angular.module('mopify.search', [
             });
         });
 
-        if(resultitem.item !== undefined){
+        if(resultitem.item != null){
             // Genereate the link
             if(resultitem.type === "artists")
                 resultitem.link = "#/music/artist/" + resultitem.item.uri;

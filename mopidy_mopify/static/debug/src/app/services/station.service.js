@@ -102,9 +102,9 @@ angular.module('mopify.services.station', [
       }
       // Get the songs from Echonest
       var params = prepareParameters(station);
-      Spotify.getRecommendations(params).then(function (resp) {
+      Spotify.getRecommendations(params).then(function (response) {
         mopidyservice.clearTracklist().then(function () {
-          processMopidyTracklist(resp.tracks).then(function () {
+          processMopidyTracklist(response.data.tracks).then(function () {
             mopidyservice.playTrackAtIndex(0);
           });
         });
@@ -120,29 +120,30 @@ angular.module('mopify.services.station', [
       var deferred = $q.defer();
       switch (urisplitted[1]) {
       case 'artist':
-        Spotify.getArtist(urisplitted[2]).then(function (data) {
-          deferred.resolve(data);
+        Spotify.getArtist(urisplitted[2]).then(function (response) {
+          deferred.resolve(response.data);
         });
         break;
       case 'track':
-        Spotify.getTrack(urisplitted[2]).then(function (data) {
-          deferred.resolve(data);
+        Spotify.getTrack(urisplitted[2]).then(function (response) {
+          deferred.resolve(response.data);
         });
         break;
       case 'album':
-        Spotify.getAlbum(urisplitted[2]).then(function (data) {
-          deferred.resolve(data);
+        Spotify.getAlbum(urisplitted[2]).then(function (response) {
+          deferred.resolve(response.data);
         });
         break;
       case 'user':
         if (ServiceManager.isEnabled('spotify')) {
-          Spotify.getPlaylist(urisplitted[2], urisplitted[4]).then(function (data) {
+          Spotify.getPlaylist(urisplitted[2], urisplitted[4]).then(function (response) {
+            var data = response.data;
             var image = '';
             if (data.images === undefined)
               image = data.album.images[1].url;
-            else if (data.images[1] !== undefined)
+            else if (data.images[1] != null)
               image = data.images[1].url;
-            else if (data.images[0] !== undefined)
+            else if (data.images[0] != null)
               image = data.images[0].url;
             data.images = [
               image,
@@ -174,9 +175,9 @@ angular.module('mopify.services.station', [
           var image = '';
           if (data.images === undefined)
             image = data.album.images[1].url;
-          else if (data.images[1] !== undefined)
+          else if (data.images[1] != null)
             image = data.images[1].url;
-          else if (data.images[0] !== undefined)
+          else if (data.images[0] != null)
             image = data.images[0].url;
           var station = {
               type: urisplitted[1],
@@ -199,7 +200,7 @@ angular.module('mopify.services.station', [
           var station = {
               type: 'tracks',
               spotify: null,
-              tracks: response.items,
+              tracks: response.data.items,
               name: 'Personal',
               coverImage: './assets/images/tracklist-header.jpg',
               started_at: Date.now()

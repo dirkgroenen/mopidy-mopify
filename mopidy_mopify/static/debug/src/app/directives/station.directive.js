@@ -26,7 +26,7 @@ angular.module('mopify.widgets.directive.station', [
              */
         scope.delete = function () {
           var stations = localStorageService.get('stations');
-          if (stations !== null) {
+          if (stations != null) {
             // Remove from storage
             stations.splice(stations.length - 1 - scope.index, 1);
             localStorageService.set('stations', stations);

@@ -1,6 +1,6 @@
 {
   "name": "angular-spotify",
-  "version": "0.12.0",
+  "version": "1.5.1",
   "authors": [
     "Ed Moore <eddie.moore@gmail.com>"
   ],
@@ -21,10 +21,10 @@
   ],
   "main": "./dist/angular-spotify.min.js",
   "dependencies": {
-    "angular": "latest"
+    "angular": "~1.6"
   },
   "devDependencies": {
-    "angular-mocks": "1.2.24",
-    "angular-scenario": "1.2.24"
+    "angular-mocks": "~1.6",
+    "angular-scenario": "~1.6"
   }
 }

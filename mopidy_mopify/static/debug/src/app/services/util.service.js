@@ -17,7 +17,7 @@ angular.module(['mopify.services.util'], []).factory('util', [
         return (h > 0 ? h + ':' : '') + (m > 0 ? (h > 0 && m < 10 ? '0' : '') + m + ':' : '0:') + (s < 10 ? '0' : '') + s;
       },
       artistsToString: function (artists, link) {
-        if (artists !== undefined) {
+        if (artists != null) {
           var artistNames = artists.map(function (artist) {
               return link ? '<a href=\'#/music/artist/' + artist.uri + '\'>' + artist.name + '</a>' : artist.name;
             });
@@ -51,7 +51,7 @@ angular.module(['mopify.services.util'], []).factory('util', [
 ]);
 angular.module('mopify').filter('reverse', function () {
   return function (items) {
-    if (items !== null)
+    if (items != null)
       return items.slice().reverse();
   };
 });

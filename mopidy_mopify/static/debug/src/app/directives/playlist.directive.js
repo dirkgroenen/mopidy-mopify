@@ -13,18 +13,19 @@ angular.module('mopify.widgets.directive.playlist', ['mopify.widgets.directive.s
       link: function (scope, element, attrs) {
         scope.coverImage = defaultAlbumImageUrl;
         // Get image for the playlist
-        if (scope.playlist.images !== undefined && scope.playlist.images.length > 0) {
+        if (scope.playlist.images != null && scope.playlist.images.length > 0) {
           scope.coverImage = scope.playlist.images[0].url;
         } else if (scope.playlist.__model__ == 'Playlist') {
-          Spotify.getTrack(scope.playlist.tracks[0].uri).then(function (data) {
-            scope.coverImage = data.album.images[1].url;
+          Spotify.getTrack(scope.playlist.tracks[0].uri).then(function (response) {
+            scope.coverImage = response.data.album.images[1].url;
           });
         } else if (scope.playlist.__model__ === undefined) {
-          Spotify.getPlaylist(scope.playlist.owner.id, scope.playlist.id).then(function (data) {
-            if (data.images[0] !== undefined)
+          Spotify.getPlaylist(scope.playlist.owner.id, scope.playlist.id).then(function (response) {
+            var data = response.data;
+            if (data.images[0] != null)
               scope.coverImage = data.images[0].url;
             if (data.tracks.items.length > 0) {
-              if (data.tracks.items[0].track.album.images[0] !== undefined)
+              if (data.tracks.items[0].track.album.images[0] != null)
                 scope.coverImage = data.tracks.items[0].track.album.images[0].url;
             }
           });

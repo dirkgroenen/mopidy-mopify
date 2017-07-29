@@ -43,7 +43,7 @@ angular.module('mopify.services.versionmanager', [
       if (Date.now() - versiondata.lastcheck > 3600000) {
         // Get releases from github
         $http.get('https://api.github.com/repos/dirkgroenen/mopidy-mopify/releases').success(function (data) {
-          if (data[0] !== undefined) {
+          if (data[0] != null) {
             var lastversion = data[0].tag_name;
             var changelog = data[0].body;
             // Update version data

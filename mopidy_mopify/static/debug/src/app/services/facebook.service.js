@@ -45,8 +45,8 @@ angular.module('mopify.services.facebook', []).factory('Facebook', [
         this.ready = true;
       if (data.method == 'connected')
         this.connected = true;
-      if (this.callbackqueue[data.id] !== undefined) {
-        if (this.callbackqueue[data.id].callback !== undefined) {
+      if (this.callbackqueue[data.id] != null) {
+        if (this.callbackqueue[data.id].callback != null) {
           this.callbackqueue[data.id].callback(data.callbackdata);
           this.callbackqueue[data.id].finished = false;
         }

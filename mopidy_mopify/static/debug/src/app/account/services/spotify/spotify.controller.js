@@ -28,8 +28,8 @@ angular.module('mopify.account.services.spotify', [
     // Bind settings to the scope
     Settings.bind($scope);
     // Get current user
-    Spotify.getCurrentUser().then(function (data) {
-      $scope.profile = data;
+    Spotify.getCurrentUser().then(function (response) {
+      $scope.profile = response.data;
     });
     /**
      * Disconnect and connect with Spotify
@@ -62,9 +62,9 @@ angular.module('mopify.account.services.spotify', [
     // Get the user porfile from Spotify
     function collectdata() {
       // Make the call
-      Spotify.getCurrentUser().then(function (data) {
+      Spotify.getCurrentUser().then(function (response) {
         $scope.authorized = true;
-        $scope.userProfile = data;
+        $scope.userProfile = response.data;
       });
     }
     $scope.$on('mopify:services:disconnected', function (e, service) {

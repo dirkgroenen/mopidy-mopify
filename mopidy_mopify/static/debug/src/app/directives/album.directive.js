@@ -35,7 +35,7 @@ angular.module('mopify.widgets.directive.album', [
         scope.albumAlreadySaved = false;
         scope.visible = true;
         // Check if album has 'Various Artists'
-        if (scope.album.artists !== undefined) {
+        if (scope.album.artists != null) {
           if (scope.album.artists.length < 4) {
             scope.artiststring = util.artistsToString(scope.album.artists);
           } else {
@@ -76,7 +76,7 @@ angular.module('mopify.widgets.directive.album', [
             // Get playlist id from uri
             var playlistid = selectedplaylist.split(':')[4];
             // add track
-            PlaylistManager.addAlbum(playlistid, scope.album.uri).then(function (response) {
+            PlaylistManager.addAlbum(playlistid, scope.album.uri).then(function () {
               notifier.notify({
                 type: 'custom',
                 template: 'Album succesfully added to playlist.',
@@ -143,12 +143,13 @@ angular.module('mopify.widgets.directive.album', [
           if (ServiceManager.isEnabled('spotify') && SpotifyLogin.connected) {
             // First get the album's tracks
             Spotify.getAlbumTracks(scope.album.uri, { limit: 50 }).then(function (response) {
-              albumtracks = _.map(response.items, function (track) {
+              var data = response.data;
+              albumtracks = _.map(data.items, function (track) {
                 return track.id;
               });
               // Check if the user is already following the tracks
-              Spotify.userTracksContains(albumtracks).then(function (following) {
-                scope.albumAlreadySaved = following[0];
+              Spotify.userTracksContains(albumtracks).then(function (response) {
+                scope.albumAlreadySaved = response.data[0];
               });
             });
             scope.showSaveAlbum = true;

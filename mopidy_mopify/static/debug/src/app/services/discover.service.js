@@ -27,7 +27,7 @@ angular.module('mopify.services.discover', ['mopify.services.history']).factory(
     Discover.prototype.generateBrowseContent = function () {
       var history = History.getTracks().reverse().splice(0, 50);
       return Spotify.getUserTopTracks({ limit: 5 }).then(function (response) {
-        return _.map(response.items, function (t) {
+        return _.map(response.data.items, function (t) {
           return t.id;
         });
       }).then(function (ids) {
@@ -36,7 +36,7 @@ angular.module('mopify.services.discover', ['mopify.services.history']).factory(
           seed_tracks: ids
         });
       }).then(function (response) {
-        var songs = response.tracks;
+        var songs = response.data.tracks;
         var builtblocks = [];
         _.forEach(songs, function (item) {
           builtblocks.push({

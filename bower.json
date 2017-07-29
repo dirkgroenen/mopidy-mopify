@@ -21,9 +21,9 @@
     "ryanmullins-angular-hammer": "~2.1.10",
     "angular-hotkeys": "chieffancypants/angular-hotkeys#~1.4.5",
     "clipboard": "~1.5.3",
-    "angular-spotify": "~1.4.2"
+    "angular-spotify": "~1.5.1"
   },
   "resolutions": {
-    "angular": ">= 1.2.7"
+    "angular": ">= 1.5.6"
   }
 }
