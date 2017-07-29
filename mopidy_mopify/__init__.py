@@ -7,7 +7,7 @@ import tornado.web
 import mem
 
 from services.sync import sync
-from services.autoupdate import update 
+from services.autoupdate import update
 
 from services.queuemanager import core as QueueManagerCore
 from services.queuemanager import frontend
@@ -15,7 +15,7 @@ from services.queuemanager import requesthandler as QueueManagerRequestHandler
 
 from mopidy import config, ext
 
-__version__ = '1.6.0'
+__version__ = '1.6.1'
 __ext_name__ = 'mopify'
 __verbosemode__ = False
 
@@ -38,7 +38,7 @@ class MopifyExtension(ext.Extension):
 
     def setup(self, registry):
         sync.Sync();
-        
+
         # Create instances
         mem.queuemanager = QueueManagerCore.QueueManager()
 

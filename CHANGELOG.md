@@ -1,5 +1,16 @@
 #Changelog
 
+v1.6.1 (29-06-2017)
+
+Thanks to https://github.com/tobiasstrebitzer for the changes below:
+- **Update angular** from 1.2.7 to 1.5.6.
+- **Update angular-spotify** from 1.4.2 to 1.5.1 to resolve various bugs related to recent changes in the Spotify-API.
+- **Updated Spotify API response resolutions** in various locations, necessary to work with the upgraded angular-spotify version.
+- **Resolves null/undefined** type handling / conditionals in various locations, which have caused unwanted side-effects and bugs.
+- **Refactored the Discover/Browse section** to consistently deliver browse results and omit inefficient and redundant queries to the Spotify API.
+- **Refactored Artist detail page** to load basic metadata (artist image, cover image) via the Spotify API.
+- **Refactored Artist list page and controller**, by changing the API collection from "User Artists" to "Followed Artists" (it seems the "User Artists" API is no longer provided by Spotify).
+
 v1.6.0 (26-07-2016)
 
 - Remove deprecated TasteProfile and replace for Spotify API [#200](https://github.com/dirkgroenen/mopidy-mopify/issues/200)
