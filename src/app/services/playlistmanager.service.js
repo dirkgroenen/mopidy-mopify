@@ -112,7 +112,7 @@ angular.module("mopify.services.playlistmanager", [
 
         // Search through local playlists
         var filtered = _.filter(playlists, function(list){
-            return (list.name.toLowerCase().indexOf(query.toLowerCase()) > -1);
+            return (list && list.name.toLowerCase().indexOf(query.toLowerCase()) > -1);
         });
 
         return filtered;

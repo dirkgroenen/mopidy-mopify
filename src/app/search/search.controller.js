@@ -112,6 +112,7 @@ angular.module('mopify.search', [
             limit: "50"
         }).then(function(response) {
             var data = response.data;
+
             // Perform local search and put at beginning of playlist array
             var localLists = PlaylistManager.search($scope.query);
 
