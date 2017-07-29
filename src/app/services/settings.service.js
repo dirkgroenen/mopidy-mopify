@@ -28,7 +28,7 @@ angular.module("mopify.services.settings", [
      * @param  {string} defaultvalue
      */
     Settings.prototype.get = function(key, defaultvalue){
-        return (localStorageService.get(rootkey) !== null && localStorageService.get(rootkey)[key] !== undefined && localStorageService.get(rootkey)[key] !== "") ? localStorageService.get(rootkey)[key] : defaultvalue;
+        return (localStorageService.get(rootkey) != null && localStorageService.get(rootkey)[key] != null && localStorageService.get(rootkey)[key] !== "") ? localStorageService.get(rootkey)[key] : defaultvalue;
     };
 
     /**
@@ -44,7 +44,7 @@ angular.module("mopify.services.settings", [
         var settings = localStorageService.get(rootkey);
 
         // Extend value if exists
-        if(settings[key] !== null && settings[key] !== undefined && extend === true){
+        if(settings[key] != null && extend === true){
             value = angular.extend(settings[key], value);
         }
 

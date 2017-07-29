@@ -37,13 +37,13 @@ angular.module("mopify.services.discover", [
         var history = History.getTracks().reverse().splice(0, 50);
 
         return Spotify.getUserTopTracks({limit: 5}).then(function(response){
-            return _.map(response.items, function(t){
+            return _.map(response.data.items, function(t){
                 return t.id;
             });
         }).then(function(ids){
             return Spotify.getRecommendations({limit: 100, seed_tracks: ids});
         }).then(function(response){
-            var songs = response.tracks;
+            var songs = response.data.tracks;
             var builtblocks = [];
 
             _.forEach(songs, function(item){
@@ -59,7 +59,6 @@ angular.module("mopify.services.discover", [
                     artist: item.track.artists[0]
                 });
             });
-
             // Shuffle the array
             return _.shuffle(builtblocks);
         });

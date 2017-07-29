@@ -63,12 +63,15 @@ angular.module('mopify.music.artist', [
     if(ServiceManager.isEnabled("spotify") && SpotifyLogin.connected){
         // First get the album's tracks
         Spotify.userFollowingContains('artist', $scope.artistId.replace('spotify:artist:', '')).then(function(response){
-            $scope.followingArtist = response[0];
+            $scope.followingArtist = response.data[0];
         });
     }
 
     // Load artist data
     $scope.artist = {};
+    Spotify.getArtist($scope.artistId).then(function(response) {
+        $scope.artist = response.data;
+    });
 
     // Get data from echonest
     /*Echonest.artists.get({
@@ -96,8 +99,8 @@ angular.module('mopify.music.artist', [
     });*/
 
     // Get related artists from spotify
-    Spotify.getRelatedArtists($scope.artistId).then(function(data){
-        $scope.related = data.artists.splice(0, 18);
+    Spotify.getRelatedArtists($scope.artistId).then(function(response){
+        $scope.related = response.data.artists.splice(0, 18);
     });
 
 
@@ -105,8 +108,8 @@ angular.module('mopify.music.artist', [
     $scope.toptracks = [];
 
     // Get the artist's top tracks
-    Spotify.getArtistTopTracks($scope.artistId, 'NL').then(function (data) {
-        $scope.toptracks = data.tracks;
+    Spotify.getArtistTopTracks($scope.artistId, 'NL').then(function (response) {
+        $scope.toptracks = response.data.tracks;
     });
 
     // Get info from mopidy
@@ -116,8 +119,8 @@ angular.module('mopify.music.artist', [
         limit: 50
     };
 
-    Spotify.getArtistAlbums($scope.artistId, options).then(function(data){
-        $scope.albums = data.items;
+    Spotify.getArtistAlbums($scope.artistId, options).then(function(response) {
+        $scope.albums = response.data.items;
     });
 
     /**

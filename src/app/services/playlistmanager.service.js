@@ -21,14 +21,14 @@ angular.module("mopify.services.playlistmanager", [
         // Load playlists via Spotify or Mopidy depending on the settings
         var loadspotifyplaylists = false;
 
-        if(Settings.get("spotify") !== undefined)
+        if(Settings.get("spotify") != null)
             loadspotifyplaylists = Settings.get("spotify").loadspotifyplaylists;
 
         if(ServiceManager.isEnabled("spotify") && loadspotifyplaylists === true){
             // Load when mopidy is online
             $rootScope.$on("mopify:spotify:connected", function(){
-                Spotify.getCurrentUser().then(function(user){
-                    that.spotifyuserid = user.id;
+                Spotify.getCurrentUser().then(function(response){
+                    that.spotifyuserid = response.data.id;
                     that.loadPlaylists();
                 });
             });
@@ -66,7 +66,7 @@ angular.module("mopify.services.playlistmanager", [
         // Get the spotify loadplaylists setting
         var loadspotifyplaylists = false;
 
-        if(Settings.get("spotify") !== undefined)
+        if(Settings.get("spotify") != null)
             loadspotifyplaylists = Settings.get("spotify").loadspotifyplaylists;
 
         // Load the playlists from Spotify is the user is connected, otherwise load them from Mopidy
@@ -75,11 +75,12 @@ angular.module("mopify.services.playlistmanager", [
             this.source = "spotify";
 
             // Get user's playlists
-            Spotify.getUserPlaylists(that.spotifyuserid, { limit: 50 }).then(function(data){
+            Spotify.getUserPlaylists(that.spotifyuserid, { limit: 50 }).then(function(response){
+                var data = response.data;
                 that.playlists = data.items;
 
                 // Starts loading more playlists if needed
-                if(data.next !== null){
+                if(data.next != null){
                     that.loadMorePlaylists(data.next);
                 }
                 else{
@@ -111,7 +112,7 @@ angular.module("mopify.services.playlistmanager", [
 
         // Search through local playlists
         var filtered = _.filter(playlists, function(list){
-            return (list.name.toLowerCase().indexOf(query.toLowerCase()) > -1);
+            return (list && list.name.toLowerCase().indexOf(query.toLowerCase()) > -1);
         });
 
         return filtered;
@@ -182,7 +183,7 @@ angular.module("mopify.services.playlistmanager", [
             that.playlists = sortPlaylists(that.playlists.concat(data.items));
 
             // Starts loading more playlists if needed
-            if(data.next !== null){
+            if(data.next != null){
                 that.loadMorePlaylists(data.next);
             }
             else{
@@ -246,12 +247,13 @@ angular.module("mopify.services.playlistmanager", [
         if(ServiceManager.isEnabled("spotify")){
             Spotify.getAlbumTracks(albumuri, {
                 limit: 50
-            }).then(function(data){
+            }).then(function(response) {
+                var data = response.data;
                 var trackuris = _.map(data.items, function(item){
                     return item.uri;
                 });
 
-                Spotify.addPlaylistTracks(that.spotifyuserid, playlistid, trackuris).then(function(response){
+                Spotify.addPlaylistTracks(that.spotifyuserid, playlistid, trackuris).then(function(response) {
                     deferred.resolve(response);
                 });
             });

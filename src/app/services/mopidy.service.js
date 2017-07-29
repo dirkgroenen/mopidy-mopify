@@ -391,7 +391,7 @@ angular.module('mopify.services.mopidy', [
         },
 
         play: function(tltrack) {
-            if(tltrack !== undefined){
+            if(tltrack != null){
                 return wrapMopidyFunc("mopidy.playback.play", this)({ tl_track: tltrack });
             }
             else{

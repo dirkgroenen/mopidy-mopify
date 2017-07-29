@@ -21,25 +21,17 @@ angular.module("mopify.discover.browse", [
 .controller("DiscoverBrowseController", function DiscoverBrowseController($scope, Discover, stationservice, ServiceManager, notifier){
 
     $scope.blocks = [];
-    var builtblocks = [];
-    var sliceloops = 0;
 
     $scope.startStation = function(){
         stationservice.startFromSpotify();
     };
 
     if(ServiceManager.isEnabled("spotify")){
-        Discover.getBrowseBlocks().then(function(blocks){
-            builtblocks = blocks;
-            $scope.buildblocks();
+        Discover.getBrowseBlocks().then(function(blocks) {
+            $scope.blocks = blocks;
         });
     }
     else{
         notifier.notify({type: "custom", template: "Enable the Spotify service if you want to use this feature.", delay: 7500});
     }
-
-    $scope.buildblocks = function(){
-        $scope.blocks = $scope.blocks.concat(builtblocks.slice(sliceloops * 12, (sliceloops * 12) + 12));
-        sliceloops++;
-    };
 });

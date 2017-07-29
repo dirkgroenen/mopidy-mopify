@@ -43,7 +43,8 @@ angular.module("mopify.discover.newreleases", [
             Spotify.getNewReleases({
                 country: country,
                 limit: 18
-            }).then(function(data){
+            }).then(function(response) {
+                var data = response.data;
                 // Set the message and items
                 $scope.newreleases = data.albums.items;
                 $scope.headeralbum = data.albums.items[Math.floor(Math.random() * (data.albums.items.length - 1))];
@@ -61,7 +62,8 @@ angular.module("mopify.discover.newreleases", [
 
     function loadHeaderAlbumTracks(){
         // Get the tracks for the headerplaylist
-        mopidyservice.lookup($scope.headeralbum.uri).then(function(tracks){
+        mopidyservice.lookup($scope.headeralbum.uri).then(function(collection){
+            var tracks = collection[$scope.headeralbum.uri];
             var frontendtracks = angular.copy(tracks.splice(0,7));
             var tracksloaded = true;
 

@@ -68,7 +68,7 @@ angular.module('mopify.music.playlists', [
      */
     function loadPlaylists(){
         PlaylistManager.getPlaylists({ ordered: true }).then(function(playlists){
-            if($routeParams.folder !== undefined){
+            if($routeParams.folder != null){
                 $scope.playlists = playlists[$routeParams.folder];
             }
             else{

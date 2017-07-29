@@ -26,7 +26,7 @@ angular.module('mopify.player', [
     $scope.$on('mopidy:state:online', function(){
         // Get the current track
         mopidyservice.getCurrentTrack().then(function(track){
-            if(track !== null && track !== undefined){
+            if(track != null){
                 if(track.name.indexOf("[loading]") > -1){
                     mopidyservice.lookup(track.uri).then(function(result){
                         updatePlayerInformation(result[0]);
@@ -68,7 +68,7 @@ angular.module('mopify.player', [
 
     // Update information on a new track
     $scope.$on('mopidy:event:trackPlaybackStarted', function(event, data) {
-        if(data.tl_track !== undefined && data.tl_track !== null){
+        if(data.tl_track != null){
             if(data.tl_track.track.name.indexOf("[loading]") > -1){
                 mopidyservice.lookup(data.tl_track.track.uri).then(function(result){
                     updatePlayerInformation(result[0]);
@@ -84,7 +84,7 @@ angular.module('mopify.player', [
     // from mopidy
     $scope.$on('mopify:player:updatePlayerInformation', function() {
         mopidyservice.getCurrentTrack().then(function(track){
-            if(track !== null && track !== undefined){
+            if(track != null){
                 if(track.name.indexOf("[loading]") > -1){
                     mopidyservice.lookup(track.uri).then(function(result){
                         updatePlayerInformation(result[0]);
@@ -114,7 +114,7 @@ angular.module('mopify.player', [
      * @param object track
      */
     function updatePlayerInformation(track){
-        if(track !== undefined && track !== null){
+        if(track != null){
             if(track.uri !== previousTrackUri){
                 $scope.trackArtist = util.artistsToString(track.artists, false);
                 $scope.trackTitle = track.name;
@@ -122,7 +122,8 @@ angular.module('mopify.player', [
                 $scope.albumName = track.album.name;
 
                 // Get the background image from Spotify
-                Spotify.getTrack(track.uri).then(function (data) {
+                Spotify.getTrack(track.uri).then(function (response) {
+                    var data = response.data;
                     $scope.playerBackground = data.album.images[0].url;
 
                     // Clear previous timeout and start new timer
@@ -146,7 +147,7 @@ angular.module('mopify.player', [
      * @param {array} images
      */
     function addToHistory(track, images){
-        if(track !== undefined && track !== null){
+        if(track != null){
             History.addTrack(track, {
                 images: images
             });

@@ -34,9 +34,9 @@ angular.module('mopify.account.services.sync', [
     $scope.client = Sync.client;
     $scope.spotifyclient = null;
     // Get client from remote
-    if ($scope.settings.sync !== undefined && $scope.settings.sync.spotify === true) {
+    if ($scope.settings.sync != null && $scope.settings.sync.spotify === true) {
       Sync.getSpotify().then(function (data) {
-        if (data !== undefined)
+        if (data != null)
           $scope.spotifyclient = data.client;
       });
     }

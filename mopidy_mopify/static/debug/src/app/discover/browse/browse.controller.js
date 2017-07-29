@@ -23,15 +23,12 @@ angular.module('mopify.discover.browse', [
   'notifier',
   function DiscoverBrowseController($scope, Discover, stationservice, ServiceManager, notifier) {
     $scope.blocks = [];
-    var builtblocks = [];
-    var sliceloops = 0;
     $scope.startStation = function () {
       stationservice.startFromSpotify();
     };
     if (ServiceManager.isEnabled('spotify')) {
       Discover.getBrowseBlocks().then(function (blocks) {
-        builtblocks = blocks;
-        $scope.buildblocks();
+        $scope.blocks = blocks;
       });
     } else {
       notifier.notify({
@@ -40,9 +37,5 @@ angular.module('mopify.discover.browse', [
         delay: 7500
       });
     }
-    $scope.buildblocks = function () {
-      $scope.blocks = $scope.blocks.concat(builtblocks.slice(sliceloops * 12, sliceloops * 12 + 12));
-      sliceloops++;
-    };
   }
 ]);

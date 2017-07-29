@@ -61,7 +61,8 @@ angular.module('mopify.discover.featured', [
         country: country,
         limit: 12,
         timestamp: timestamp
-      }).then(function (data) {
+      }).then(function (response) {
+        var data = response.data;
         // Set the message and items
         $scope.titletext = data.message;
         $scope.featuredplaylists = data.playlists.items;
