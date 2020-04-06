@@ -15,7 +15,7 @@ v1.6.0 (26-07-2016)
 
 - Remove deprecated TasteProfile and replace for Spotify API [#200](https://github.com/dirkgroenen/mopidy-mopify/issues/200)
 - Upgrade Angular to 1.5.0
-- Add official Spotify library and override method 
+- Add official Spotify library and override method
 
 v1.5.17 (03-04-2016)
 
@@ -24,7 +24,7 @@ v1.5.17 (03-04-2016)
 
 v1.5.16 (25-02-2016)
 --------------------
-- Add one time bindings 
+- Add one time bindings
 - Add stop playback shortcut [#117](https://github.com/dirkgroenen/mopidy-mopify/issues/117)
 - Make page title dynamic [#183](https://github.com/dirkgroenen/mopidy-mopify/issues/183)
 

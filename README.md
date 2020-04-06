@@ -5,6 +5,8 @@ Mopify - Web client
 [![Support me with some coffee](https://img.shields.io/badge/donate-paypal-orange.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QUDAJBCJVP2G6)
 [![Support me with some coffee](https://img.shields.io/badge/donate-pledgie-orange.svg)](https://pledgie.com/campaigns/28130)
 
+> Note [06-04-2020]: I'm no longer actively maintaining this project, but please do let me know when you're encountering critical issues preventing you from using this extension.
+
 Mopify is a web client for [Mopidy](https://github.com/mopidy/mopidy). Instead
 of most other Mopidy web clients, Mopify aims to provide a complete music
 experience.
@@ -139,4 +141,4 @@ This will create a new `Mopidy-Mopify` web extension package.
 
 ## Changelog
 
-See the [./CHANGELOG.md](./CHANGELOG.md) for a list of all changes during version upgrades. 
+See the [./CHANGELOG.md](./CHANGELOG.md) for a list of all changes during version upgrades.
