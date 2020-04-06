@@ -3,6 +3,7 @@
 v1.7.0 (06-04-2020)
 --------------------
 - Remove Google Analytics [#236](https://github.com/dirkgroenen/mopidy-mopify/issues/236)
+- Change imports to be absolute, fixing Python 3 errors [#242](https://github.com/dirkgroenen/mopidy-mopify/pull/242)
 
 v1.6.1 (29-06-2017)
 --------------------
