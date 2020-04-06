@@ -310,7 +310,7 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
   $templateCache.put("account/settings/settings.tmpl.html",
     "<div id=\"header\" class=\"small row\" style=\"background-image: url('./assets/images/settings-header.jpg');\">\n" +
     "    <div class=\"col-md-10 lefttext\">\n" +
-    "        <div class=\"inner\"><i class=\"ss-icon ss-settings\"></i>  Settings</div>\n" +
+    "        <div class=\"inner\"><i class=\"ss-icon ss-settings\"></i> Settings</div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
@@ -334,10 +334,12 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label for=\"mopidyip\">Mopidy IP address</label>\n" +
     "            </div>\n" +
     "            <div class=\"input col-md-4\">\n" +
-    "                <input name=\"mopidyip\" placeholder=\"For example: 192.168.1.1 or localhost\" ng-model=\"settings.mopidyip\" ng-blur=\"highlightSaveButton()\" class=\"field\"/>\n" +
+    "                <input name=\"mopidyip\" placeholder=\"For example: 192.168.1.1 or localhost\" ng-model=\"settings.mopidyip\"\n" +
+    "                    ng-blur=\"highlightSaveButton()\" class=\"field\" />\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
-    "                <p>Change this IP address if Mopidy is running on a different computer than Mopify. Normally you don't have to change this IP address</p>\n" +
+    "                <p>Change this IP address if Mopidy is running on a different computer than Mopify. Normally you don't\n" +
+    "                    have to change this IP address</p>\n" +
     "                <p><i>New Mopidy connection settings will be applied after a page refresh.</i></p>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -346,11 +348,13 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label for=\"mopidyport\">Mopidy port</label>\n" +
     "            </div>\n" +
     "            <div class=\"input col-md-4\">\n" +
-    "                <input name=\"mopidyport\" placeholder=\"For example: 6680\" ng-model=\"settings.mopidyport\" ng-blur=\"highlightSaveButton()\" class=\"field\"/>\n" +
+    "                <input name=\"mopidyport\" placeholder=\"For example: 6680\" ng-model=\"settings.mopidyport\"\n" +
+    "                    ng-blur=\"highlightSaveButton()\" class=\"field\" />\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
-    "                <p>Change this port if Mopidy is running on a port other than 6680. Normally you don't have to change this port.</p>\n" +
-    "                 <p><i>New Mopidy connection settings will be applied after a page refresh.</i></p>\n" +
+    "                <p>Change this port if Mopidy is running on a port other than 6680. Normally you don't have to change\n" +
+    "                    this port.</p>\n" +
+    "                <p><i>New Mopidy connection settings will be applied after a page refresh.</i></p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -366,10 +370,14 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label for=\"mopidyip\">Language code</label>\n" +
     "            </div>\n" +
     "            <div class=\"input col-md-4\">\n" +
-    "                <input name=\"locale\" placeholder=\"For example: nl_NL\" ng-model=\"settings.locale\" ng-blur=\"highlightSaveButton()\" class=\"field\"/>\n" +
+    "                <input name=\"locale\" placeholder=\"For example: nl_NL\" ng-model=\"settings.locale\"\n" +
+    "                    ng-blur=\"highlightSaveButton()\" class=\"field\" />\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
-    "                <p>The desired language, consisting of a lowercase <a href=\"http://en.wikipedia.org/wiki/ISO_639\" target=\"_blank\">ISO 639</a> language code and an uppercase <a href=\"http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\" target=\"_blank\">ISO 3166-1 alpha-2</a> country code, joined by an underscore. </p>\n" +
+    "                <p>The desired language, consisting of a lowercase <a href=\"http://en.wikipedia.org/wiki/ISO_639\"\n" +
+    "                        target=\"_blank\">ISO 639</a> language code and an uppercase <a\n" +
+    "                        href=\"http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\" target=\"_blank\">ISO 3166-1 alpha-2</a>\n" +
+    "                    country code, joined by an underscore. </p>\n" +
     "                <p>This language code is used for services like Spotify to provide better content.</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -378,10 +386,12 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label for=\"mopidyip\">Country code</label>\n" +
     "            </div>\n" +
     "            <div class=\"input col-md-4\">\n" +
-    "                <input name=\"locale\" placeholder=\"For example: NL\" ng-model=\"settings.country\" ng-blur=\"highlightSaveButton()\" class=\"field\"/>\n" +
+    "                <input name=\"locale\" placeholder=\"For example: NL\" ng-model=\"settings.country\"\n" +
+    "                    ng-blur=\"highlightSaveButton()\" class=\"field\" />\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
-    "                <p>An <a href=\"http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\" target=\"_blank\">ISO 3166-1 alpha-2</a> country code which is used to localize services like Spotify.</p>\n" +
+    "                <p>An <a href=\"http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2\" target=\"_blank\">ISO 3166-1 alpha-2</a>\n" +
+    "                    country code which is used to localize services like Spotify.</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -397,10 +407,12 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label for=\"startpage\">Startpage</label>\n" +
     "            </div>\n" +
     "            <div class=\"input col-md-4\">\n" +
-    "                <input name=\"Start page\" placeholder=\"For example: /music/playlists\" ng-model=\"settings.startpage\" ng-blur=\"highlightSaveButton()\" class=\"field\"/>\n" +
+    "                <input name=\"Start page\" placeholder=\"For example: /music/playlists\" ng-model=\"settings.startpage\"\n" +
+    "                    ng-blur=\"highlightSaveButton()\" class=\"field\" />\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
-    "                <p>Enter the URL of the page you want to see when starting Mopify.<br/><b>Warning:</b> entering an URL that doesn't exist will result in a redirect loop.</p>\n" +
+    "                <p>Enter the URL of the page you want to see when starting Mopify.<br /><b>Warning:</b> entering an URL\n" +
+    "                    that doesn't exist will result in a redirect loop.</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -415,10 +427,12 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label>Automatically update to new versions</label>\n" +
     "            </div>\n" +
     "            <div class=\"input col-md-4\">\n" +
-    "                <toggle-switch ng-model=\"settings.autoupdate\" ng-disabled=\"!autoupdate\"><toggle-switch>\n" +
+    "                <toggle-switch ng-model=\"settings.autoupdate\" ng-disabled=\"!autoupdate\">\n" +
+    "                    <toggle-switch>\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
-    "                <p>Automatically update to a new version when available. This feature can only be used when Mopidy is running as root.</p>\n" +
+    "                <p>Automatically update to a new version when available. This feature can only be used when Mopidy is\n" +
+    "                    running as root.</p>\n" +
     "                <p ng-if=\"!autoupdate\"><b>Run Mopidy as root to enable automatic updating</b></p>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -435,10 +449,12 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label>Show current track in page title</label>\n" +
     "            </div>\n" +
     "            <div class=\"input col-md-4\">\n" +
-    "                <toggle-switch ng-model=\"settings.pagetitle\"><toggle-switch>\n" +
+    "                <toggle-switch ng-model=\"settings.pagetitle\">\n" +
+    "                    <toggle-switch>\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-4 col-md-offset-1\">\n" +
-    "                <p>Enable this function to show the currnet playing track in the page title. Some people don't like this bedause it will make your pinned tab 'glow' in Chrome.</p>\n" +
+    "                <p>Enable this function to show the currnet playing track in the page title. Some people don't like this\n" +
+    "                    bedause it will make your pinned tab 'glow' in Chrome.</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -454,8 +470,14 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label>Support</label>\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-6\">\n" +
-    "                <p>Mopify is just like many other Open Source projects maintained in my free time. If you like it and want to support this project you can make a <a href=\"https://pledgie.com/campaigns/28130\" target=\"_blank\">donation via Pledgie</a>, or directly via <a href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QUDAJBCJVP2G6\" target=\"_blank\">PayPal</a>.</p>\n" +
-    "                <p>Don't want to donate? No hard feelings! You can also help me a lot by giving me your feedback. You can do this via the <a href=\"https://github.com/dirkgroenen/mopidy-mopify/issues\" target=\"_blank\">Github Issues</a> page, or just send me an e-mail. </p>\n" +
+    "                <p>Mopify is just like many other Open Source projects maintained in my free time. If you like it and\n" +
+    "                    want to support this project you can make a <a href=\"https://pledgie.com/campaigns/28130\"\n" +
+    "                        target=\"_blank\">donation via Pledgie</a>, or directly via <a\n" +
+    "                        href=\"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QUDAJBCJVP2G6\"\n" +
+    "                        target=\"_blank\">PayPal</a>.</p>\n" +
+    "                <p>Don't want to donate? No hard feelings! You can also help me a lot by giving me your feedback. You\n" +
+    "                    can do this via the <a href=\"https://github.com/dirkgroenen/mopidy-mopify/issues\"\n" +
+    "                        target=\"_blank\">Github Issues</a> page, or just send me an e-mail. </p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "        <div class=\"settingwrap row\">\n" +
@@ -463,7 +485,8 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label>Author</label>\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-6\">\n" +
-    "                <p><a href=\"https://github.com/dirkgroenen/mopidy-mopify\" target=\"_blank\">Mopify</a> is a project developed by <a href=\"http://github.com/dirkgroenen\" target=\"_blank\">Dirk Groenen</a>.</p>\n" +
+    "                <p><a href=\"https://github.com/dirkgroenen/mopidy-mopify\" target=\"_blank\">Mopify</a> is a project\n" +
+    "                    developed by <a href=\"http://github.com/dirkgroenen\" target=\"_blank\">Dirk Groenen</a>.</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "        <div class=\"settingwrap row\">\n" +
@@ -471,7 +494,8 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label>License</label>\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-6\">\n" +
-    "                <p>Licensed under the <a href=\"https://github.com/dirkgroenen/mopidy-mopify/blob/master/LICENSE.md\" target=\"_blank\">Apache 2 license</a>.</p>\n" +
+    "                <p>Licensed under the <a href=\"https://github.com/dirkgroenen/mopidy-mopify/blob/master/LICENSE.md\"\n" +
+    "                        target=\"_blank\">Apache 2 license</a>.</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "\n" +
@@ -481,8 +505,12 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "            </div>\n" +
     "            <div class=\"description col-md-6\">\n" +
     "                <p>Current version: {{ mopifyversion }}</p>\n" +
-    "                <p ng-if=\"newversion\" style=\"font-weight: bold\">A new version of Mopify is available ({{ newversionnumber }}). Read the <a href=\"https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md\" target=\"_blank\">Github readme</a> on how to update mopify or use the button below.</p>\n" +
-    "                <div class=\"button white fullwidth\" ng-click=\"update()\" ng-if=\"newversion == true && autoupdate == true\">\n" +
+    "                <p ng-if=\"newversion\" style=\"font-weight: bold\">A new version of Mopify is available\n" +
+    "                    ({{ newversionnumber }}). Read the <a\n" +
+    "                        href=\"https://github.com/dirkgroenen/mopidy-mopify/blob/master/README.md\" target=\"_blank\">Github\n" +
+    "                        readme</a> on how to update mopify or use the button below.</p>\n" +
+    "                <div class=\"button white fullwidth\" ng-click=\"update()\"\n" +
+    "                    ng-if=\"newversion == true && autoupdate == true\">\n" +
     "                    <span class=\"text\">Autoupdate Mopify to version: {{ newversionnumber }}</span>\n" +
     "                    <i class=\"ss-icon ss-refresh\"></i>\n" +
     "                </div>\n" +
@@ -498,29 +526,13 @@ angular.module("account/settings/settings.tmpl.html", []).run(["$templateCache",
     "                <label>Contact</label>\n" +
     "            </div>\n" +
     "            <div class=\"description col-md-6\">\n" +
-    "                <p>Encounter problems or having questions while using Mopify? Please post them on <a href=\"https://github.com/dirkgroenen/mopidy-mopify/issues\" target=\"_blank\">Mopify's Github page</a>.</p>\n" +
+    "                <p>Encounter problems or having questions while using Mopify? Please post them on <a\n" +
+    "                        href=\"https://github.com/dirkgroenen/mopidy-mopify/issues\" target=\"_blank\">Mopify's Github\n" +
+    "                        page</a>.</p>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
-    "\n" +
-    "    <div class=\"pagetitle row\">\n" +
-    "        <div class=\"col-md-3\">\n" +
-    "            Tracking <span class=\"sub\">Mopify</span>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "    <div class=\"pagecontent row\">\n" +
-    "        <div class=\"settingwrap row\">\n" +
-    "            <div class=\"label col-md-2\">\n" +
-    "                <label>Data collecting</label>\n" +
-    "            </div>\n" +
-    "            <div class=\"description col-md-6\">\n" +
-    "                <p>Mopify uses Google Analytics to collect usage information and errors. This data is all collected anonymously and isn't connected to your connected services.</p>\n" +
-    "                <p>This data is used to improve Mopify and make it an even better web client.</p>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "");
+    "</div>");
 }]);
 
 angular.module("dashboard/dashboard.tmpl.html", []).run(["$templateCache", function($templateCache) {

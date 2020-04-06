@@ -97,21 +97,12 @@ angular.module('mopify', [
       $scope.pageTitle = 'No connection';
       $scope.$apply();
     });
-    $scope.$on('$viewContentLoaded', function (event) {
-      // Send pageview
-      $window.ga('send', 'pageview', { page: $location.path() });
-    });
-    // Set current app version
-    $window.ga('set', {
-      'appName': 'mopidy-mopify',
-      'appVersion': VersionManager.version
-    });
     // Start the mopidy service
     mopidyservice.start();
     /**
-     * Update the page title with the current playing track
-     * @param object track
-     */
+         * Update the page title with the current playing track
+         * @param object track
+         */
     function updateTitle(track) {
       if (!Settings.get('pagetitle', true))
         return false;
