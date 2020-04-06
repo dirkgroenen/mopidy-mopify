@@ -61,8 +61,6 @@ angular.module('mopify.services.servicemanager', [
       if (service.defaultSettings != null) {
         Settings.set(servicename, service.defaultSettings);
       }
-      // Send to GA
-      $window.ga('send', 'event', 'service', 'enabled', servicename);
     };
     ServiceManager.prototype.disableService = function (service) {
       var servicename = service.name.replace(' ', '').toLowerCase();
@@ -72,8 +70,6 @@ angular.module('mopify.services.servicemanager', [
       localStorageService.set('services', services);
       // Broadcast this change
       $rootScope.$broadcast('mopify:services:disabled', service);
-      // Send to GA
-      $window.ga('send', 'event', 'service', 'disabled', servicename);
     };
     ServiceManager.prototype.isEnabled = function (service) {
       var servicename = typeof service === 'string' ? service.replace(' ', '').toLowerCase() : service.name.replace(' ', '').toLowerCase();
