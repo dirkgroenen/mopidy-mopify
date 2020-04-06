@@ -1,7 +1,11 @@
 #Changelog
 
-v1.6.1 (29-06-2017)
+v1.7.0 (06-04-2020)
+--------------------
+- Remove Google Analytics [#236](https://github.com/dirkgroenen/mopidy-mopify/issues/236)
 
+v1.6.1 (29-06-2017)
+--------------------
 Thanks to https://github.com/tobiasstrebitzer for the changes below:
 - **Update angular** from 1.2.7 to 1.5.6.
 - **Update angular-spotify** from 1.4.2 to 1.5.1 to resolve various bugs related to recent changes in the Spotify-API.
@@ -12,19 +16,19 @@ Thanks to https://github.com/tobiasstrebitzer for the changes below:
 - **Refactored Artist list page and controller**, by changing the API collection from "User Artists" to "Followed Artists" (it seems the "User Artists" API is no longer provided by Spotify).
 
 v1.6.0 (26-07-2016)
-
+--------------------
 - Remove deprecated TasteProfile and replace for Spotify API [#200](https://github.com/dirkgroenen/mopidy-mopify/issues/200)
 - Upgrade Angular to 1.5.0
-- Add official Spotify library and override method 
+- Add official Spotify library and override method
 
 v1.5.17 (03-04-2016)
-
+--------------------
 - Use new Spotify API endpoints [#188](https://github.com/dirkgroenen/mopidy-mopify/pull/188)
 - Improve playback speed
 
 v1.5.16 (25-02-2016)
 --------------------
-- Add one time bindings 
+- Add one time bindings
 - Add stop playback shortcut [#117](https://github.com/dirkgroenen/mopidy-mopify/issues/117)
 - Make page title dynamic [#183](https://github.com/dirkgroenen/mopidy-mopify/issues/183)
 
