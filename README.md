@@ -22,12 +22,6 @@ Some of the features that are included in Mopify:
 - Automatic updating
 - Improved [Queue manager](https://github.com/dirkgroenen/mopidy-mopify/wiki/Queuemanager) which works like Spotify's one
 
-~~At the moment, Mopify only works with
-[mopidy-spotify](https://github.com/mopidy/mopidy-spotify). This may change in
-the future depending on how popular Mopify becomes!~~
-
-I'm working on the new version with some major changes. One of them: support for multiple music sources. Keep an eye on the [v2.0 branch](https://github.com/dirkgroenen/mopidy-mopify/tree/v2.0), my [Twitter account](https://twitter.com/dirkgroenen) or [my blog](http://dirkgroenen.nl) and stay updated.
-
 ![http://i.imgur.com/EKPXw5b.jpg](http://i.imgur.com/EKPXw5b.jpg)
 
 ---------
@@ -43,8 +37,8 @@ I'm working on the new version with some major changes. One of them: support for
 
 ## Installation
 
-Installing Mopify is easy. Make sure you have installed Mopidy 1.0 and
-Mopidy-Spotify 1.3 (or higher) and enabled the [HTTP
+Installing Mopify is easy. Make sure you have installed Python 3, Mopidy 3 and
+Mopidy-Spotify 4 (or higher) and enabled the [HTTP
 Extension](https://docs.mopidy.com/en/latest/ext/http/).
 
 > For people interested in installing it without sudo on OS X: take a look at this thread https://github.com/dirkgroenen/mopidy-mopify/issues/211#issuecomment-274239172
@@ -52,7 +46,7 @@ Extension](https://docs.mopidy.com/en/latest/ext/http/).
 Install using PIP:
 
 ```bash
-sudo pip install Mopidy-Mopify
+python3 -m pip install mopidy-mopify
 ```
 
 Install on Arch Linux ([AUR](https://aur4.archlinux.org/packages/mopidy-mopify/)):
@@ -75,7 +69,7 @@ Mopify will notify you when a new version is available. To update Mopify to its
 new version you can use the following command:
 
 ```bash
-sudo pip install --upgrade Mopidy-Mopify
+python3 -m pip install --upgrade Mopidy-Mopify
 ```
 
 Or use the automatic updating feature which is available since version 1.4.1.

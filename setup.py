@@ -22,11 +22,13 @@ setup(
     packages=find_packages(),
     zip_safe=False,
     include_package_data=True,
+    long_description_content_type="text/markdown",
     install_requires=[
         'setuptools',
-        'Mopidy >= 0.19',
+        'Mopidy >= 3',
         'ConfigObj'
     ],
+    python_requires='>=3',
     entry_points={
         'mopidy.ext': [
             'mopify = mopidy_mopify:MopifyExtension',
@@ -37,7 +39,7 @@ setup(
         'Intended Audience :: End Users/Desktop',
         'License :: OSI Approved :: Apache Software License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
         'Topic :: Multimedia :: Sound/Audio :: Players',
     ],
 )
