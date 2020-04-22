@@ -1,5 +1,18 @@
 #Changelog
 
+v1.7.3 (22-04-2020)
+-------------------
+- Change dependencies to Mopidy/Python >=3
+- Fix distribution bundle
+
+v1.7.2 (22-04-2020)
+------------------
+_Skipped: broken release._
+
+v1.7.1 (22-04-2020)
+------------------
+_Skipped: broken release._
+
 v1.7.0 (06-04-2020)
 --------------------
 - Remove Google Analytics [#236](https://github.com/dirkgroenen/mopidy-mopify/issues/236)
