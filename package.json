@@ -26,7 +26,7 @@
     "karma": "~0.10",
     "karma-junit-reporter": "^0.2.2",
     "protractor": "^1.1.1",
-    "shelljs": "^0.2.6"
+    "shelljs": "^0.8.5"
   },
   "scripts": {
     "watch": "grunt watch",
