@@ -367,10 +367,9 @@ angular.module("mopify.services.spotifylogin", [
         }
 
         var response = e.data;
-        if(response.service == "spotify"){
-            if(response.key != null){
-                // Parse json
-                var tokens = JSON.parse(response.key);
+        if(response.service == 'spotify'){
+            if(typeof response.key === 'string' && response.key.length > 0){
+                const tokens = JSON.parse(response.key);
 
                 // Set tokens
                 spotifyLogin.refresh_token = tokens.refresh_token;

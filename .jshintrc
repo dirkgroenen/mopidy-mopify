@@ -1,5 +1,6 @@
 {
   "globalstrict": true,
+  "esversion": 7,
   "globals": {
     "WebSocket": false,
     "angular": false,

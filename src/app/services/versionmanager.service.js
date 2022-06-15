@@ -39,17 +39,17 @@ angular.module("mopify.services.versionmanager", [
      * @return {$q.defer()}
      */
     VersionManager.prototype.checkVersion = function() {
-        var deferred = $q.defer();
-        var that = this;
-        var versiondata = localStorageService.get("versionmanager");
+        const deferred = $q.defer();
+	const that = this;
+        const versiondata = localStorageService.get("versionmanager");
 
         if(Date.now() - versiondata.lastcheck > 3600000){
 
             // Get releases from github
-            $http.get('https://api.github.com/repos/dirkgroenen/mopidy-mopify/releases').success(function(data){
+            $http.get('https://api.github.com/repos/dirkgroenen/mopidy-mopify/releases').then(function(data) {
                 if(data[0] != null){
-                    var lastversion = data[0].tag_name;
-                    var changelog = data[0].body;
+                    const lastversion = data[0].tag_name;
+                    const changelog = data[0].body;
 
                     // Update version data
                     versiondata.lastversion = lastversion;
