@@ -1,6 +1,6 @@
 angular.module('cgPrompt',['ui.bootstrap']);
 
-angular.module('cgPrompt').factory('prompt',['$modal','$q',function($modal,$q){
+angular.module('cgPrompt').factory('prompt',['$uibModal','$q',function($uibModal,$q){
 
     var prompt = function(options){
 
@@ -29,12 +29,12 @@ angular.module('cgPrompt').factory('prompt',['$modal','$q',function($modal,$q){
 
         var defer = $q.defer();
 
-        $modal.open({
+        $uibModal.open({
             templateUrl:'angular-prompt.html',
             controller: 'cgPromptCtrl',
             resolve: {
-                options:function(){ 
-                    return options; 
+                options:function(){
+                    return options;
                 }
             }
         }).result.then(function(result){
@@ -60,12 +60,14 @@ angular.module('cgPrompt').controller('cgPromptCtrl',['$scope','options','$timeo
 
     $scope.options = options;
 
+    $scope.form = {};
+
     $scope.buttonClicked = function(button){
         if (button.cancel){
             $scope.$dismiss();
             return;
         }
-        if (options.input && angular.element(document.querySelector('#cgPromptForm')).scope().cgPromptForm.$invalid){
+        if (options.input && $scope.form.cgPromptForm.$invalid){
             $scope.changed = true;
             return;
         }
@@ -95,7 +97,7 @@ angular.module('cgPrompt').controller('cgPromptCtrl',['$scope','options','$timeo
             }
         }
     },100);
-    
+
 
 }]);
 
@@ -115,7 +117,7 @@ angular.module('cgPrompt').run(['$templateCache', function($templateCache) {
     "            {{options.message}}\n" +
     "        </p>\n" +
     "\n" +
-    "        <form id=\"cgPromptForm\" name=\"cgPromptForm\" ng-if=\"options.input\" ng-submit=\"submit()\">\n" +
+    "        <form id=\"cgPromptForm\" name=\"form.cgPromptForm\" ng-if=\"options.input\" ng-submit=\"submit()\">\n" +
     "            <div class=\"form-group\" ng-class=\"{'has-error':cgPromptForm.$invalid && changed}\">\n" +
     "                <label for=\"cgPromptInput\">{{options.label}}</label>\n" +
     "                <input id=\"cgPromptInput\" type=\"text\" class=\"form-control\"  placeholder=\"{{options.label}}\" ng-model=\"input.name\" required ng-change=\"changed=true\" ng-if=\"!options.values || options.values.length === 0\"/ autofocus=\"autofocus\">\n" +
